@@ -76,45 +76,136 @@ new SwingBuilder().edt {
                         tableLayout {
                             tr {
                                 td {
-                                    label(text: 'Streitwert:')
+                                    checkBox(text: 'Geschäftsgebühr VV2300:', selected: true)
                                 }
                                 td {
-                                    //textField(id: 'nStreitwert', columns: 10)
+                                    spinner(
+                                        model:spinnerNumberModel(minimum:0.0, 
+                                            maximum: 10.0, 
+                                            value:1.3,
+                                            stepSize:0.1))
+                                }
+                                td (align: 'right') {
+                                    label(text: '149,50 EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Verfahrenssgebühr VV3100:', selected: true)
+                                }
+                                td {
+                                    spinner(
+                                        model:spinnerNumberModel(minimum:0.0, 
+                                            maximum: 10.0, 
+                                            value:1.3,
+                                            stepSize:0.1))
+                                }
+                                td (align: 'right') {
+                                    label(text: '149,50 EUR')
                                 }
                             }
                 
-                            tr {
+                           tr {
                                 td {
-                        
+                                    checkBox(text: 'abzüglich anrechenbarer Teil:', selected: true)
                                 }
                                 td {
-                        
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    label(text: '74,75 EUR', foreground: java.awt.Color.RED)
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Erhöhungsgebühr VV1008:', selected: true)
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                             }
                             tr {
                                 td {
-                                    label(text: 'Anzahl der Mandanten: ')
-                        
+                                    checkBox(text: 'Terminsgebühr VV3104:', selected: true)
                                 }
                                 td {
                                     spinner(
-                                        model:spinnerNumberModel(minimum:1, 
-                                            maximum: 200, 
-                                            value:1,
-                                            stepSize:1))
+                                        model:spinnerNumberModel(minimum:0.0, 
+                                            maximum: 10.0, 
+                                            value:1.2,
+                                            stepSize:0.1))
+                                }
+                                td (align: 'right') {
+                                    label(text: '138,00 EUR')
                                 }
                             }
-                tr {
+                            tr {
                                 td {
-                                    label(text: 'Anzahl der Gegner: ')
-                        
+                                    checkBox(text: 'Einigungsgebühr VV1000ff.:', selected: false)
                                 }
                                 td {
-                                    spinner(
-                                        model:spinnerNumberModel(minimum:1, 
-                                            maximum: 200, 
-                                            value:1,
-                                            stepSize:1))
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Auslagen VV7002ff.:', selected: false)
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    label(text: '20,00 EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Weitere Kosten VV7000ff.:', selected: false)
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Gegnerische Kosten:', selected: false)
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Mehrwertsteuer VV7008:', selected: true)
+                                }
+                                td {
+                                    label(text: '19%')
+                                }
+                                td (align: 'right') {
+                                    label(text: '72,63 EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    checkBox(text: 'Gerichtsgebühr GKG Ziff. 1210ff.:', selected: false)
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                             }
         
