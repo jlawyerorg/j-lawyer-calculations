@@ -8,4 +8,5 @@ and open the template in the editor.
 
 <calculations>
     <calculation name="rvg" version="1.0.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/rvg/1.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
+    <calculation name="rvgtables" version="1.0.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/rvgtables/1.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy"/>
 </calculations>

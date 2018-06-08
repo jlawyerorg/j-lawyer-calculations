@@ -2,8 +2,17 @@
 
 import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
+import groovy.beans.Bindable
+import java.text.DecimalFormat
+
+@Bindable
+class Address { 
+    String street, number, city
+    String toString() { "address[street=$street,number=$number,city=$city]" }
+}
 
 count = 0
+df = new DecimalFormat("0.00 EUR")
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
@@ -86,7 +95,7 @@ new SwingBuilder().edt {
                                             stepSize:0.1))
                                 }
                                 td (align: 'right') {
-                                    label(text: '149,50 EUR')
+                                    label(id: 'nGeschaeftsGebuehr', text: '149,50 EUR')
                                 }
                             }
                             tr {
@@ -208,13 +217,26 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                             }
+                            tr {
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                            }
         
         
         
         
         
         
-                        }   
+                        }  
+                        
+                        
         
                         /*textlabel = label(text: 'Click the button!', constraints: BL.NORTH)
                         button(text:'Click Me',
@@ -222,10 +244,31 @@ new SwingBuilder().edt {
                     }     
                 }
             }
-    
+            tr {
+                td (align: 'right') {
+                    button(text: 'Berechnen', actionPerformed: {
+                                        nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text.toFloat()))
+                                        
+                                    })
+                }
+            }
+            
+            /*
+            bean address,
+            street: bind { streetField.text },
+            number: bind { numberField.text },
+            city: bind { cityField.text }
+            */
             
         }
+        
   
     }
 
+}
+
+def float calculate(float streitWert) { 
+   println( streitWert * 1.5d)
+   //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
+   return 14f
 }
