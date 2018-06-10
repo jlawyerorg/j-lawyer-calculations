@@ -4,6 +4,7 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
+import rvgtables_ui
 
 @Bindable
 class Address { 
@@ -270,5 +271,11 @@ new SwingBuilder().edt {
 def float calculate(float streitWert) { 
    println( streitWert * 1.5d)
    //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
+   
+    
+    
+    rvgtab= new rvgtables_ui()
+   float gebuehr=rvgtab.berechneWertGebuehr(streitWert);
+   println( "gebuehr: " + gebuehr)
    return 14f
 }

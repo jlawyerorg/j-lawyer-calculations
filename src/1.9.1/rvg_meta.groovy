@@ -12,7 +12,7 @@
 //   println "Hello, world!"
 //}
 
-name = "RVG-Rechner"
+name = "RVG-Rechner (experimentell)"
 description = "j-lawyer.org RVG-Rechner (experimentell)"
 version = "1.0.0";
 author = "Jens Kutschke, j-lawyer.org"

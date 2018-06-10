@@ -12,8 +12,8 @@
 //   println "Hello, world!"
 //}
 
-name = "RVG-Gebuehrentabelle"
-description = "j-lawyer.org RVG-Gebuhrentabelle (experimentell)"
+name = "RVG-Tabellen"
+description = "j-lawyer.org RVG-Tabellen (experimentell)"
 version = "1.0.0";
 author = "Jens Kutschke, j-lawyer.org"
 updated = "07.06.2018"

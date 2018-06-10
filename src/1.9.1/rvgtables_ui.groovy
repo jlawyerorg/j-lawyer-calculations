@@ -4,6 +4,7 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
+import java.util.List
 
 class Range { 
     float low
@@ -18,6 +19,8 @@ class Range {
     
     boolean contains(float number){(number > low && number <= high)}
 }
+
+
 
 def ranges = []
 ranges.add(new Range(0,500,45))
@@ -63,27 +66,66 @@ ranges.add(new Range(410000,440000,2973))
 ranges.add(new Range(440000,470000,3093))
 ranges.add(new Range(470000,500000,3213))
 
+//getRanges = { -> 
+//    return ranges
+//}
+
 def float berechneWertGebuehr(float streitWert) { 
-   println( streitWert * 1.5d)
+   //println( streitWert * 1.5d)
    //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
-   return 14f
+   //println(getRanges())
+//   for(Object ro: getRanges) {
+//       Range r=(Range)ro
+//       if(r.contains(streitWert))
+//            return r.mappedValue
+//   }
+
+    RvgTablesRangeList rl = new RvgTablesRangeList()
+    return rl.getMappedValue(streitWert)
+    
+
+   //return -1f
 }
+
+//berechneWertGebuehr = { ->
+//    println( streitWert * 1.5d)
+//   //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
+//   return 14f
+//}
 
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
-        label (text: getRvgTableAsHtml(ranges))
+        label (text: getRvgTableAsHtml())
     }
 
 }
 
-def String getRvgTableAsHtml(List<Range> ranges) {
+//def String getRvgTableAsHtml(List<Range> ranges) {
+//    StringBuffer sb=new StringBuffer()
+//    df = new DecimalFormat("0.00")
+//    sb.append('<html><body>')
+//    sb.append('<table border=1>')
+//    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
+//    for(Range r: ranges) {
+//        
+//        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
+//    }
+//    sb.append('</table>')
+//    sb.append('</body></html>')
+////    java.io.File f=new java.io.File('.')
+////    println(f.getAbsolutePath())
+//    return sb.toString();
+//    
+//}
+
+def String getRvgTableAsHtml() {
     StringBuffer sb=new StringBuffer()
     df = new DecimalFormat("0.00")
     sb.append('<html><body>')
     sb.append('<table border=1>')
     sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(Range r: ranges) {
+    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
         
         sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
     }
@@ -91,6 +133,5 @@ def String getRvgTableAsHtml(List<Range> ranges) {
     sb.append('</body></html>')
 //    java.io.File f=new java.io.File('.')
 //    println(f.getAbsolutePath())
-    return sb.toString();
-    
+    return sb.toString();    
 }
