@@ -4,6 +4,7 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
+import javax.swing.SwingConstants
 import rvgtables_ui
 
 @Bindable
@@ -18,21 +19,40 @@ new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
         tableLayout {
+            tr  {
+                td (align: 'right') {
+                    panel {
+                        button(text: 'Berechnen', actionPerformed: {
+                                nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
+                                        
+                            })
+                                
+                        cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboard(copyToClipboard())
+                                        
+                            })
+                    
+                    }
+                }
+
+                
+            }
             tr {
-                td {
+                td (colfill:true) {
                     panel(border: titledBorder(title: 'Basisdaten')) {
                         tableLayout {
                             tr {
-                                td {
+                                td (colfill:true) {
                                     label(text: 'Streitwert:')
                                 }
                                 td {
-                                    textField(id: 'nStreitwert', columns: 10)
+                                    txtStreitWert=textField(id: 'nStreitwert', columns: 10)
                                 }
                             }
                 
                             tr {
-                                td {
+                                td (colfill:true) {
                         
                                 }
                                 td {
@@ -40,7 +60,7 @@ new SwingBuilder().edt {
                                 }
                             }
                             tr {
-                                td {
+                                td (colfill:true) {
                                     label(text: 'Anzahl der Mandanten: ')
                         
                                 }
@@ -52,8 +72,8 @@ new SwingBuilder().edt {
                                             stepSize:1))
                                 }
                             }
-                tr {
-                                td {
+                            tr {
+                                td (colfill:true) {
                                     label(text: 'Anzahl der Gegner: ')
                         
                                 }
@@ -83,7 +103,7 @@ new SwingBuilder().edt {
             tr {
                 td {
                     panel(border: titledBorder(title: 'RVG-Berechnung')) {
-                        tableLayout {
+                        tableLayout (cellpadding: 5) {
                             tr {
                                 td {
                                     checkBox(text: 'Geschäftsgebühr VV2300:', selected: true)
@@ -115,7 +135,7 @@ new SwingBuilder().edt {
                                 }
                             }
                 
-                           tr {
+                            tr {
                                 td {
                                     checkBox(text: 'abzüglich anrechenbarer Teil:', selected: true)
                                 }
@@ -245,21 +265,14 @@ new SwingBuilder().edt {
                     }     
                 }
             }
-            tr {
-                td (align: 'right') {
-                    button(text: 'Berechnen', actionPerformed: {
-                                        nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text.toFloat()))
-                                        
-                                    })
-                }
-            }
+            
             
             /*
             bean address,
             street: bind { streetField.text },
             number: bind { numberField.text },
             city: bind { cityField.text }
-            */
+             */
             
         }
         
@@ -268,14 +281,39 @@ new SwingBuilder().edt {
 
 }
 
-def float calculate(float streitWert) { 
-   println( streitWert * 1.5d)
-   //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
+def float calculate(String streitWert) {
+    
+    if(streitWert.trim().length()==0) {
+        txtStreitWert.foreground=java.awt.Color.RED
+        txtStreitWert.text='???'
+        return -1f;
+    } else {
+        txtStreitWert.foreground=java.awt.Color.BLACK
+    }
+    
+    println( streitWert.toFloat() * 1.5d)
+    //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
    
     
     
+    
     rvgtab= new rvgtables_ui()
-   float gebuehr=rvgtab.berechneWertGebuehr(streitWert);
-   println( "gebuehr: " + gebuehr)
-   return 14f
+    float gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat());
+    println( "gebuehr: " + gebuehr)
+    cmdCopy.enabled=true
+    return 14f
+}
+
+def String copyToClipboard() {
+    sbf=new StringBuffer()
+    for (int i=0;i<10;i++) {
+        for (int j=0;j<3;j++) {
+            sbf.append(i + " " + j);
+            if (j<3-1) sbf.append("\t");
+        }
+        sbf.append("\n");
+    }
+         
+    //return sbf.toString()
+    return "<html><table><tr><td>11</td><td>22</td></tr></table></html>"
 }

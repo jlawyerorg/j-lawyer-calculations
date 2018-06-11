@@ -96,6 +96,15 @@ def float berechneWertGebuehr(float streitWert) {
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
+//        println "timestamp: " + binding.timestamp
+//        binding.variables.each{ 
+//            println it.key
+//            println it.value 
+//        }
+        
+        if(binding.callback != null)
+            binding.callback.processResult("schnuffel")
+        
         label (text: getRvgTableAsHtml())
     }
 
@@ -124,7 +133,7 @@ def String getRvgTableAsHtml() {
     df = new DecimalFormat("0.00")
     sb.append('<html><body>')
     sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
+    sb.append('<tr><td><b>Streitwert22 bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
     for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
         
         sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
