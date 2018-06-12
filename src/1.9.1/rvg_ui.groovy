@@ -5,6 +5,8 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import javax.swing.SwingConstants
+import java.util.ArrayList
+import com.jdimension.jlawyer.client.plugins.calculation.CalculationTable
 import rvgtables_ui
 
 @Bindable
@@ -14,7 +16,7 @@ class Address {
 }
 
 count = 0
-df = new DecimalFormat("0.00 EUR")
+df = new DecimalFormat("0.00")
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
@@ -30,6 +32,12 @@ new SwingBuilder().edt {
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
                                 binding.callback.processResultToClipboard(copyToClipboard())
+                                        
+                            })
+                        
+                        cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToDocument(copyToDocument())
                                         
                             })
                     
@@ -116,7 +124,10 @@ new SwingBuilder().edt {
                                             stepSize:0.1))
                                 }
                                 td (align: 'right') {
-                                    label(id: 'nGeschaeftsGebuehr', text: '149,50 EUR')
+                                    label(id: 'nGeschaeftsGebuehr', text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                             tr {
@@ -131,7 +142,10 @@ new SwingBuilder().edt {
                                             stepSize:0.1))
                                 }
                                 td (align: 'right') {
-                                    label(text: '149,50 EUR')
+                                    label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                 
@@ -143,7 +157,10 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                    label(text: '74,75 EUR', foreground: java.awt.Color.RED)
+                                    label(text: '0,00', foreground: java.awt.Color.RED)
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                             tr {
@@ -154,6 +171,9 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
                                     label(text: ' ')
                                 }
                             }
@@ -169,7 +189,10 @@ new SwingBuilder().edt {
                                             stepSize:0.1))
                                 }
                                 td (align: 'right') {
-                                    label(text: '138,00 EUR')
+                                    label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                             tr {
@@ -182,6 +205,9 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: ' ')
                                 }
+                                td (align: 'right') {
+                                    label(text: ' ')
+                                }
                             }
                             tr {
                                 td {
@@ -191,7 +217,10 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                    label(text: '20,00 EUR')
+                                    label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                             tr {
@@ -202,6 +231,9 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
                                     label(text: ' ')
                                 }
                             }
@@ -215,6 +247,9 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: ' ')
                                 }
+                                td (align: 'right') {
+                                    label(text: ' ')
+                                }
                             }
                             tr {
                                 td {
@@ -224,7 +259,10 @@ new SwingBuilder().edt {
                                     label(text: '19%')
                                 }
                                 td (align: 'right') {
-                                    label(text: '72,63 EUR')
+                                    label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
                                 }
                             }
                             tr {
@@ -235,6 +273,9 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
                                     label(text: ' ')
                                 }
                             }
@@ -301,6 +342,7 @@ def float calculate(String streitWert) {
     float gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat());
     println( "gebuehr: " + gebuehr)
     cmdCopy.enabled=true
+    cmdDocument.enabled=true
     return 14f
 }
 
@@ -316,4 +358,21 @@ def String copyToClipboard() {
          
     //return sbf.toString()
     return "<html><table><tr><td>11</td><td>22</td></tr></table></html>"
+}
+
+def CalculationTable copyToDocument() {
+    CalculationTable ct=new CalculationTable();
+    ArrayList<String> colLabels=new ArrayList<String>();
+    colLabels.add("col1");
+    colLabels.add("col2");
+    
+    ArrayList<String> row=new ArrayList<String>();
+    row.add("cell1");
+    row.add("cell2");
+    ct.addRow(row);
+    
+    ct.setColumnLabels(colLabels);
+    
+    return ct;
+    
 }
