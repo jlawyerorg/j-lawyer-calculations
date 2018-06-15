@@ -70,7 +70,7 @@ ranges.add(new Range(470000,500000,3213))
 //    return ranges
 //}
 
-def float berechneWertGebuehr(float streitWert) { 
+def float berechneWertGebuehr(float streitWert, float factor) { 
    //println( streitWert * 1.5d)
    //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
    //println(getRanges())
@@ -81,7 +81,7 @@ def float berechneWertGebuehr(float streitWert) {
 //   }
 
     RvgTablesRangeList rl = new RvgTablesRangeList()
-    return rl.getMappedValue(streitWert)
+    return rl.getMappedValue(streitWert) * factor
     
 
    //return -1f
@@ -102,8 +102,8 @@ new SwingBuilder().edt {
 //            println it.value 
 //        }
         
-        if(binding.callback != null)
-            binding.callback.processResult("schnuffel")
+//        if(binding.callback != null)
+//            binding.callback.processResult("schnuffel")
         
         label (text: getRvgTableAsHtml())
     }
@@ -133,7 +133,7 @@ def String getRvgTableAsHtml() {
     df = new DecimalFormat("0.00")
     sb.append('<html><body>')
     sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert22 bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
+    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
     for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
         
         sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')

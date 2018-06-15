@@ -25,8 +25,8 @@ new SwingBuilder().edt {
                 td (align: 'right') {
                     panel {
                         button(text: 'Berechnen', actionPerformed: {
-                                nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
-                                        
+                                //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
+                                calculate()
                             })
                                 
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
@@ -114,17 +114,21 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
-                                    checkBox(text: 'Geschäftsgebühr VV2300:', selected: true)
+                                    chkVV2300 = checkBox(id: 'bVV2300', text: 'Geschäftsgebühr VV2300:', selected: true, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
-                                    spinner(
-                                        model:spinnerNumberModel(minimum:0.0, 
-                                            maximum: 10.0, 
-                                            value:1.3,
-                                            stepSize:0.1))
+                                    spnVV2300 = spinner(id: 'nVV2300faktor', 
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:1.3f,
+                                            stepSize:0.1f), stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
-                                    label(id: 'nGeschaeftsGebuehr', text: '0,00')
+                                    lblVV2300 = label(id: 'nGeschaeftsGebuehr', text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -132,17 +136,21 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    checkBox(text: 'Verfahrenssgebühr VV3100:', selected: true)
+                                    chkVV3100 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrenssgebühr VV3100:', selected: true, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
-                                    spinner(
-                                        model:spinnerNumberModel(minimum:0.0, 
-                                            maximum: 10.0, 
-                                            value:1.3,
-                                            stepSize:0.1))
+                                    spnVV3100 = spinner(
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:1.3f,
+                                            stepSize:0.1f), stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
-                                    label(text: '0,00')
+                                    lblVV3100 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -151,13 +159,15 @@ new SwingBuilder().edt {
                 
                             tr {
                                 td {
-                                    checkBox(text: 'abzüglich anrechenbarer Teil:', selected: true)
+                                    chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: true, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                    label(text: '0,00', foreground: java.awt.Color.RED)
+                                    lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -322,12 +332,12 @@ new SwingBuilder().edt {
 
 }
 
-def float calculate(String streitWert) {
-    
+def float calculate() {
+    streitWert=txtStreitWert.text
     if(streitWert.trim().length()==0) {
         txtStreitWert.foreground=java.awt.Color.RED
         txtStreitWert.text='???'
-        return -1f;
+        return 0f;
     } else {
         txtStreitWert.foreground=java.awt.Color.BLACK
     }
@@ -339,11 +349,30 @@ def float calculate(String streitWert) {
     
     
     rvgtab= new rvgtables_ui()
-    float gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat());
-    println( "gebuehr: " + gebuehr)
+    float gebuehr=0f
+    if(chkVV2300.isSelected()) {
+        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV2300.value.toFloat());
+        lblVV2300.text = df.format(gebuehr)
+    } else {
+        lblVV2300.text = df.format(0f)
+    }
+    
+    if(chkVV3100.isSelected()) {
+        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV3100.value.toFloat());
+        lblVV3100.text = df.format(gebuehr)
+    } else {
+        lblVV3100.text = df.format(0f)
+    }
+    
+    if(chkAnrechenbarerAnteil.isSelected()) {
+        lblAnrechenbarerAnteil.text = df.format(df.parse(lblVV2300.text) / 2f)
+    } else {
+        lblAnrechenbarerAnteil.text = df.format(0f)
+    }
+    
     cmdCopy.enabled=true
     cmdDocument.enabled=true
-    return 14f
+    return gebuehr
 }
 
 def String copyToClipboard() {

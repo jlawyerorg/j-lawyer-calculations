@@ -13,7 +13,7 @@
 //}
 
 name = "RVG-Tabellen"
-description = "j-lawyer.org RVG-Tabellen (experimentell)"
+description = "j-lawyer.org RVG-Tabellen"
 version = "1.0.0";
 author = "Jens Kutschke, j-lawyer.org"
 updated = "07.06.2018"
