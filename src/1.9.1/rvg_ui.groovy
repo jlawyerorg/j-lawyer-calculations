@@ -6,7 +6,7 @@ import groovy.beans.Bindable
 import java.text.DecimalFormat
 import javax.swing.SwingConstants
 import java.util.ArrayList
-import com.jdimension.jlawyer.client.plugins.calculation.CalculationTable
+import org.jlawyer.plugins.calculation.CalculationTable
 import rvgtables_ui
 
 @Bindable
