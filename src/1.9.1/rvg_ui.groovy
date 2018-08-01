@@ -392,16 +392,23 @@ def String copyToClipboard() {
 def CalculationTable copyToDocument() {
     CalculationTable ct=new CalculationTable();
     ArrayList<String> colLabels=new ArrayList<String>();
-    colLabels.add("col1");
-    colLabels.add("col2");
+    colLabels.add("Position");
+    colLabels.add("Betrag");
     
     ArrayList<String> row=new ArrayList<String>();
-    row.add("cell1");
-    row.add("cell2");
+    row.add("Irgendetwas Teures");
+    row.add("578,00 EUR");
+    ct.addRow(row);
+    
+    row=new ArrayList<String>();
+    row.add("Nochwas Teures");
+    row.add("308,00 EUR");
     ct.addRow(row);
     
     ct.setColumnLabels(colLabels);
+    ct.setAlignment(1, CalculationTable.ALIGNMENT_RIGHT);
     
     return ct;
+    
     
 }
