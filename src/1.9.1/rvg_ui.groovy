@@ -32,12 +32,15 @@ new SwingBuilder().edt {
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
                                 binding.callback.processResultToClipboard(copyToClipboard())
+                                java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                container.setVisible(false)
+                                ((javax.swing.JDialog)container).dispose()
                                         
                             })
                         
                         cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
                                 if(binding.callback != null)
-                                binding.callback.processResultToDocument(copyToDocument())
+                                binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
                                         
                             })
                     
@@ -409,6 +412,5 @@ def CalculationTable copyToDocument() {
     ct.setAlignment(1, CalculationTable.ALIGNMENT_RIGHT);
     
     return ct;
-    
     
 }
