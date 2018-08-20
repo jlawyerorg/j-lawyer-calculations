@@ -58,7 +58,7 @@ new SwingBuilder().edt {
                                     label(text: 'Streitwert:')
                                 }
                                 td {
-                                    txtStreitWert=textField(id: 'nStreitwert', columns: 10)
+                                    txtStreitWert=textField(id: 'nStreitwert', text: binding.claimvalue, columns: 10)
                                 }
                             }
                 
