@@ -12,11 +12,11 @@
 //   println "Hello, world!"
 //}
 
-name = "RVG-Rechner (im Test)"
-description = "j-lawyer.org RVG-Rechner (im Test)"
-version = "1.4.0";
-author = "Anatol Anuschewski und Jens Kutschke, j-lawyer.org"
+name = "PKH-Tabellen (in Entwicklung)"
+description = "j-lawyer.org PKH-Tabellen (in Entwicklung)"
+version = "1.0.0";
+author = "Jens Kutschke, j-lawyer.org"
 updated = "11.12.2018"
-supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
+supportedPlaceHolders = "{{PKH_TABELLE}}, {{PKH}}"
 
 
