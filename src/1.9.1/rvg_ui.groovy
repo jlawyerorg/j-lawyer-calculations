@@ -4,8 +4,10 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
+import java.text.NumberFormat
 import javax.swing.SwingConstants
 import java.util.ArrayList
+import java.util.Locale
 import org.jlawyer.plugins.calculation.CalculationTable
 import rvgtables_ui
 
@@ -16,7 +18,16 @@ class Address {
 }
 
 count = 0
-df = new DecimalFormat("0.00")
+//df = new DecimalFormat("0.00")
+df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
+df.setMaximumFractionDigits(2);
+df.setMinimumFractionDigits(2);
+
+// betragFormat = NumberFormat.getInstance(Locale.GERMANY).getCurrency();
+betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
+betragFormat.setMaximumFractionDigits(2);
+betragFormat.setMinimumFractionDigits(2);
+faktorFormat = new DecimalFormat("0.00")
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
@@ -58,7 +69,7 @@ new SwingBuilder().edt {
                                     label(text: 'Streitwert:')
                                 }
                                 td {
-                                    txtStreitWert=textField(id: 'nStreitwert', text: binding.claimvalue, columns: 10)
+                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: binding.claimvalue, columns: 10)
                                 }
                             }
                 
@@ -387,7 +398,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtFahrtkosten=textField(id: 'nFahrtkosten', text: '0.00', columns: 4)
+                                    txtFahrtkosten=formattedTextField(id: 'nFahrtkosten', format: betragFormat, text: '0,00', columns: 4)
                                 }
                              td (align: 'right') {
                                     lblVV7003 = label(text: '0,00')
@@ -441,7 +452,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtAuslagenmM=textField(id: 'nAuslagenmM', text: '0.00', columns: 4)
+                                    txtAuslagenmM=formattedTextField(id: 'nAuslagenmM', format: betragFormat, text: '0,00', columns: 4)
                                 }
                              td (align: 'right') {
                                     lblAuslagenmM = label(text: '0,00')
@@ -475,7 +486,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtAuslagenoM=textField(id: 'nAuslagenoM', text: '0.00', columns: 4)
+                                    txtAuslagenoM=formattedTextField(id: 'nAuslagenoM', format: betragFormat, text: '0,00', columns: 4)
                                 }
                              td (align: 'right') {
                                     lblAuslagenoM = label(text: '0,00')
@@ -506,7 +517,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtquote=textField(id: 'nquote', text: 1, columns: 4)
+                                    txtquote=formattedTextField(id: 'nquote', format: faktorFormat, text: 1, columns: 4)
                                 }
                                 td (align: 'right') {
                                    lblquote = label(text: '0,00')
@@ -550,7 +561,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtZahlungen=textField(id: 'nZahlungen', text: '0.00', columns: 4)
+                                    txtZahlungen=formattedTextField(id: 'nZahlungen', format: betragFormat, text: '0,00', columns: 4)
                                 }
                              td (align: 'right') {
                                     lblZahlungen = label(text: '0,00')
@@ -580,7 +591,7 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: ' ')
                                 }
-                                td (align: 'right') {
+                                td (align: 'right') {0.00
                                    lblsum2 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
@@ -641,7 +652,8 @@ def float calculate() {
         txtStreitWert.foreground=java.awt.Color.BLACK
     }
     
-    println( streitWert.toFloat() * 1.5d)
+    //println( streitWert.toFloat() * 1.5d)
+    println( betragFormat.parse(streitWert).floatValue() * 1.5d)
     //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
    
     
@@ -666,13 +678,13 @@ def float calculate() {
             case {factor >= spnVV2300.value.toFloat()}: factor = 2f * spnVV2300.value.toFloat()
             break
        }
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), factor);  
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
         lblVV2300.text = df.format(gebuehr)
     } else {
         lblVV2300.text = df.format(0f)
     }
     if(chkVV1001.isSelected()) {
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV1001.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1001.value.toFloat());
         lblVV1001.text = df.format(gebuehr)
     } else {
         lblVV1001.text = df.format(0f)
@@ -704,7 +716,7 @@ def float calculate() {
             case {factor >= spnVV3100.value.toFloat()}: factor = 2f * spnVV3100.value.toFloat()
             break
        }
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), factor);
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
         lblVV3100.text = df.format(gebuehr)
     } else {
         lblVV3100.text = df.format(0f)
@@ -716,14 +728,14 @@ def float calculate() {
         lblAnrechenbarerAnteil.text = df.format(0f)
     }
     if(chkVV3104.isSelected()) {
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV3104.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
         lblVV3104.text = df.format(gebuehr)
     } else {
         lblVV3104.text = df.format(0f)
     }
 
     if(chkVV1003.isSelected()) {
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV1003.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
         lblVV1003.text = df.format(gebuehr)
     } else {
         lblVV1003.text = df.format(0f)
@@ -761,21 +773,21 @@ if(chkVV3200.isSelected()) {
             case {factor >= spnVV3200.value.toFloat()}: factor = 2f * spnVV3200.value.toFloat()
             break
        }
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), factor);
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
         lblVV3200.text = df.format(gebuehr)
     } else {
         lblVV3200.text = df.format(0f)
     }
     
     if(chkVV3202.isSelected()) {
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV3202.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
         lblVV3202.text = df.format(gebuehr)
     } else {
         lblVV3202.text = df.format(0f)
     }
 
     if(chkVV1003Berufung.isSelected()) {
-        gebuehr=rvgtab.berechneWertGebuehr(streitWert.toFloat(), spnVV1003Berufung.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
         lblVV1003Berufung.text = df.format(0f)
@@ -1119,7 +1131,7 @@ def CalculationTable copyToDocument() {
     if(chkVV3200.selected) {
         row=new ArrayList<String>();
         row.add("Verfahrensgebühr Nr. 3w00, 1008 VV RVG");
-        row.add(lblVV3w00.text);
+        row.add(lblVV3200.text);
         ct.addRow(row);
     }
     if(chkVV3202.selected) {
