@@ -12,11 +12,11 @@
 //   println "Hello, world!"
 //}
 
-name = "PKH-Tabelle"
-description = "j-lawyer.org PKH-Tabelle"
-version = "1.1.0";
-author = "Jens Kutschke, Anatol Anuschewski"
+name = "Rechner Sozialrecht (in Entwicklung)"
+description = "j-lawyer.org Rechner Sozialrecht (in Entwicklung)"
+version = "0.9.0";
+author = "Anatol Anuschewski"
 updated = "20.12.2018"
-supportedPlaceHolders = "{{PKH_TABELLE}}, {{PKH}}"
+supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

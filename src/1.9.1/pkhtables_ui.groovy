@@ -6,7 +6,7 @@ import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
 
-class Range { 
+/*class Range { 
     float low
     float high
     float mappedValue
@@ -23,7 +23,7 @@ class Range {
 
 
 def ranges = []
-ranges.add(new Range(0,500,45))
+ranges.add(new Range(0,500,65))
 ranges.add(new Range(500,1000,80))
 ranges.add(new Range(1000,1500,115))
 ranges.add(new Range(1500,2000,150))
@@ -65,7 +65,7 @@ ranges.add(new Range(380000,410000,2853))
 ranges.add(new Range(410000,440000,2973))
 ranges.add(new Range(440000,470000,3093))
 ranges.add(new Range(470000,500000,3213))
-
+*/
 //getRanges = { -> 
 //    return ranges
 //}
@@ -102,3 +102,5 @@ def String getPkhTableAsHtml() {
 //    println(f.getAbsolutePath())
     return sb.toString();    
 }
+
+

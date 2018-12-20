@@ -12,11 +12,11 @@
 //   println "Hello, world!"
 //}
 
-name = "RVG-Tabellen"
-description = "j-lawyer.org RVG-Tabellen"
-version = "1.0.0";
-author = "Jens Kutschke, j-lawyer.org"
-updated = "07.06.2018"
+name = "RVG-Tabelle"
+description = "j-lawyer.org RVG-Tabelle"
+version = "1.1.0";
+author = "Jens Kutschke"
+updated = "20.12.2018"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 
