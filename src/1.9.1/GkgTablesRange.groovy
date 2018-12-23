@@ -1,9 +1,9 @@
-class pkhtables_range { 
+class GkgTablesRange { 
     float low
     float high
     float mappedValue
     
-    pkhtables_range(low, high, mappedValue) {
+    GkgTablesRange(low, high, mappedValue) {
         this.low=low
         this.high=high
         this.mappedValue=mappedValue
