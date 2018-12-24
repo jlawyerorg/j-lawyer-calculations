@@ -8,6 +8,7 @@ import java.text.NumberFormat
 import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
+import javax.swing.JTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import rvgtables_ui
 import pkhtables_ui
@@ -28,7 +29,13 @@ df.setMinimumFractionDigits(2);
 betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
-faktorFormat = new DecimalFormat("0.00")
+faktorFormat = new DecimalFormat("0.00");
+
+customEntries = ['Beispieleintrag 1',
+                    'Beispieleintrag 2',
+                    'Beispieleintrag 3',
+                    'Beispieleintrag 4']
+
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
@@ -42,19 +49,19 @@ new SwingBuilder().edt {
                             })
                                 
                         /*cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard())
-                                java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
-                                container.setVisible(false)
-                                ((javax.swing.JDialog)container).dispose()
+                        if(binding.callback != null)
+                        binding.callback.processResultToClipboard(copyToClipboard())
+                        java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                        container.setVisible(false)
+                        ((javax.swing.JDialog)container).dispose()
                                         
-                            })
+                        })
                         
                         cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
+                        if(binding.callback != null)
+                        binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
                                         
-                            })*/
+                        })*/
                     
                     }
                 }
@@ -62,7 +69,7 @@ new SwingBuilder().edt {
                 
             }
             tr {
-                td (colfill:true) {
+                td (colfill:true, align: 'left') {
                     panel(border: titledBorder(title: 'Basisdaten')) {
                         tableLayout {
                             tr {
@@ -71,6 +78,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: binding.claimvalue, columns: 10)
+                                }
+                                td {
+                                    label(text: 'EUR')
                                 }
                             }
                 
@@ -93,18 +103,18 @@ new SwingBuilder().edt {
                                             maximum: 8, 
                                             value:1,
                                             stepSize:1),stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                             }
                             tr {
-                            td (colfill:true) {
+                                td (colfill:true) {
                                     label(text: 'Prozesskostenhilfe')
                                 }
-                            td {
+                                td {
                                     chkPKH = checkBox(id: 'bpkh', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                             }
                                                   
@@ -123,14 +133,14 @@ new SwingBuilder().edt {
             }
             
             tr {
-                td {
+                td (colfill:true) {
                     panel(border: titledBorder(title: 'RVG-Berechnung Vorverfahren')) {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
                                     chkVV2300 = checkBox(id: 'bVV2300', text: 'Geschäftsgebühr VV2300:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV2300 = spinner(id: 'nVV2300faktor', 
@@ -138,8 +148,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.3f,
                                             stepSize:0.1f), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV2300 = label(id: 'nGeschaeftsGebuehr', text: '0,00')
@@ -150,11 +160,11 @@ new SwingBuilder().edt {
                             }
                                    
                 
-                                tr {
+                            tr {
                                 td {
                                     chkVV1000 = checkBox(id: 'bVV1000',text: 'Einigungsgebühr VV1000ff.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV1000 = spinner(
@@ -162,8 +172,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.5f,
                                             stepSize:0.1), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV1000 = label(text: '0,00')
@@ -174,9 +184,9 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
-                                                calculate()
-                                   })
+                                    chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
@@ -187,7 +197,7 @@ new SwingBuilder().edt {
                                 td (align: 'right') {
                                     label(text: 'EUR')
                                 }
-                                   }
+                            }
 
                         }  
                         
@@ -196,15 +206,15 @@ new SwingBuilder().edt {
                 }
             }
             
-              tr {
-                td {
+            tr {
+                td (colfill:true) {
                     panel(border: titledBorder(title: 'RVG-Berechnung 1. Instanz')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
                                     chkVV3100 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3100:', selected: true, stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV3100 = spinner(
@@ -212,8 +222,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.3f,
                                             stepSize:0.1f), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV3100 = label(text: '0,00')
@@ -226,8 +236,8 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
@@ -242,8 +252,8 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkVV3104 = checkBox(id: 'bVV3104',text: 'Terminsgebühr VV3104:', selected: true, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV3104 = spinner(
@@ -251,8 +261,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.2f,
                                             stepSize:0.1), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV3104 = label(text: '0,00')
@@ -264,8 +274,8 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkVV1003 = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003f.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV1003 = spinner(
@@ -273,8 +283,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.0f,
                                             stepSize:0.1), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV1003 = label(text: '0,00')
@@ -285,9 +295,9 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: true,stateChanged: {
-                                                calculate()
-                                            })
+                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: true,stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
@@ -302,17 +312,17 @@ new SwingBuilder().edt {
                         }
                     }
                 }
-              }
+            }
            
-           tr {
-                td {
+            tr {
+                td (colfill:true) {
                     panel(border: titledBorder(title: 'RVG-Berechnung 2. Instanz')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
                                     chkVV3200 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3200:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV3200 = spinner(
@@ -320,8 +330,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.6f,
                                             stepSize:0.1f), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV3200 = label(text: '0,00')
@@ -334,8 +344,8 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkVV3202 = checkBox(id: 'bVV3102',text: 'Terminsgebühr VV3202:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV3202 = spinner(
@@ -343,8 +353,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.2f,
                                             stepSize:0.1), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV3202 = label(text: '0,00')
@@ -356,8 +366,8 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkVV1003Berufung = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003f.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     spnVV1003Berufung = spinner(
@@ -365,8 +375,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:1.0f,
                                             stepSize:0.1), stateChanged: {
-                                                calculate()
-                                            })
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     lblVV1003Berufung = label(text: '0,00')
@@ -377,9 +387,9 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
+                                    chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
@@ -398,67 +408,67 @@ new SwingBuilder().edt {
            
            
             tr {
-                td {
+                td (colfill:true) {
                     panel(border: titledBorder(title: 'Sonstiges')) {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
-                                   chkVV7000 =  checkBox(id:'bVV7000', text: 'Kopien VV7000:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkVV7000 =  checkBox(id:'bVV7000', text: 'Kopien VV7000:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtVV7000=formattedTextField(id: 'nVV7000', format: betragFormat, text: '0,00', columns: 4)
                                 }
-                             td (align: 'right') {
+                                td (align: 'right') {
                                     lblVV7000 = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
                             tr {
                                 td {
-                                   chkVV7003 =  checkBox(id:'bVV7003', text: 'Fahrtkosten VV7003/7004 (netto):', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkVV7003 =  checkBox(id:'bVV7003', text: 'Fahrtkosten VV7003/7004 (netto):', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtFahrtkosten=formattedTextField(id: 'nFahrtkosten', format: betragFormat, text: '0,00', columns: 4)
                                 }
-                             td (align: 'right') {
+                                td (align: 'right') {
                                     lblVV7003 = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
-                             tr {
+                            tr {
                                 td {
                                     label(text: 'Tagegeld VV7005.:')
                                 }
                                 td {
                                     chkTagegeld4h = checkBox(id: 'bTagegeld4h',text: 'bis 4h', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
-                                 td (align: 'right'){
+                                td (align: 'right'){
                                     lblVV7005 = label(text: '0,00')
                                 }
                                 td  (align: 'right'){
                                     label(text: 'EUR')
                                 }
-                             }
-                             tr{
-                                 td {
+                            }
+                            tr{
+                                td {
                                     label(text: ' ')
                                 }
                                 td {
                                     chkTagegeld6h = checkBox(id: 'bVVTagegeld6h',text: '4 bis 8h', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
-                             }
+                            }
                             tr{
                                 td {
                                     label(text: ' ')
@@ -466,23 +476,23 @@ new SwingBuilder().edt {
                                  
                                 td {
                                     chkTagegeld8h = checkBox(id: 'bTagegeld8h',text: 'ab 8h', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                             }
                             tr {
                                 td {
-                                   chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto):', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto):', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtAuslagenmM=formattedTextField(id: 'nAuslagenmM', format: betragFormat, text: '0,00', columns: 4)
                                 }
-                             td (align: 'right') {
+                                td (align: 'right') {
                                     lblAuslagenmM = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
@@ -490,15 +500,15 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkmwst = checkBox(text: 'Mehrwertsteuer VV7008:', selected: true, stateChanged: {
-                                        calculate()
-                                    }
+                                            calculate()
+                                        }
                                     )
                                 }
                                 td {
                                     label(text: '19%')
                                 }
                                 td (align: 'right') {
-                                   lblmwst = label(text: '0,00')
+                                    lblmwst = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -506,17 +516,17 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkAuslagenoM =  checkBox(id:'bAuslagenoM', text: 'steuerfreie Auslagen:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkAuslagenoM =  checkBox(id:'bAuslagenoM', text: 'steuerfreie Auslagen:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtAuslagenoM=formattedTextField(id: 'nAuslagenoM', format: betragFormat, text: '0,00', columns: 4)
                                 }
-                             td (align: 'right') {
+                                td (align: 'right') {
                                     lblAuslagenoM = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
@@ -528,7 +538,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                   lblsum1 = label(text: '0,00')
+                                    lblsum1 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -538,14 +548,14 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkquote = checkBox(text: 'Quote (Bsp: 0,5):', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtquote=formattedTextField(id: 'nquote', format: faktorFormat, text: 1, columns: 4)
                                 }
                                 td (align: 'right') {
-                                   lblquote = label(text: '0,00')
+                                    lblquote = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -553,17 +563,17 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkZahlungen =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen (Brutto)', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkZahlungen =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen (Brutto)', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     txtZahlungen=formattedTextField(id: 'nZahlungen', format: betragFormat, text: '0,00', columns: 4)
                                 }
-                             td (align: 'right') {
+                                td (align: 'right') {
                                     lblZahlungen = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
@@ -575,7 +585,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                   lblmwstZahlung = label(text: '0,00')
+                                    lblmwstZahlung = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -589,7 +599,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {0.00
-                                   lblsum2 = label(text: '0,00')
+                                    lblsum2 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -598,14 +608,14 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     chkdiffPKH = checkBox(id: 'bdiffPKH',text: 'Differenz PKH', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                   lbldiffPKH = label(text: '0,00')
+                                    lbldiffPKH = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -615,7 +625,61 @@ new SwingBuilder().edt {
                     }     
                 }
             }
-             tr  {
+            
+            tr {
+                td (colfill:true) {
+                    panel(border: titledBorder(title: 'Benutzerdefiniert')) {
+                        tableLayout (cellpadding: 5) {
+                            tr {
+                                td (align: 'right') {
+                                    panel {
+                                        
+                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel {
+                                        cmbCustomEntryName = comboBox(items: customEntries, editable: true)
+                                        txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
+                                        label (text: 'EUR')
+                                        button(text:'Hinzufügen', actionPerformed: { add() })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel{
+                                        scrollPane(preferredSize:[600, 250]){
+                                            customTable = table(){
+                                                tableModel(){
+                                                    closureColumn(header:'Position', read:{it.name})
+                                                    closureColumn(header:'Betrag', read:{it.number})
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            tr {
+                                td (align: 'right') {
+                                    panel {
+                                        label(text: 'Summe:')
+                                        lblsum3 = label(text: '0,00')
+                                        label(text: 'EUR')
+                                    }
+                                }
+                                
+                            }
+                            
+                        }  
+                    }     
+                }
+            }
+            
+            tr  {
                 td (align: 'right') {
                     panel {
                         button(text: 'Berechnen', actionPerformed: {
@@ -652,6 +716,20 @@ new SwingBuilder().edt {
 }
 
 
+def void reset() {
+    customTable.model.getRows().clear() 
+    //customTable.model.rowsModel.value = model
+    customTable.model.fireTableDataChanged()
+    calculate()
+}
+ 
+def void add() {
+    def newEntry = ['name': cmbCustomEntryName.selectedItem, 'number': txtCustomEntryValue.text]
+    customTable.model.rowsModel.value.add(newEntry)
+    customTable.model.fireTableDataChanged()
+    calculate()
+}
+
 def float calculate() {
     streitWert=txtStreitWert.text
     if(streitWert.trim().length()==0) {
@@ -675,20 +753,20 @@ def float calculate() {
     float factor=0.0f
     float diffPKH=0.0f
     
-       if(chkVV2300.isSelected()) {
-       switch (spnMandanten){
-            case {spnMandanten.value.toFloat()==1f}: factor = spnVV2300.value.toFloat()
+    if(chkVV2300.isSelected()) {
+        switch (spnMandanten){
+        case {spnMandanten.value.toFloat()==1f}: factor = spnVV2300.value.toFloat()
             break
-            case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV2300.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV2300.value.toFloat()
             break
-            default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV2300.value.toFloat()
+        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV2300.value.toFloat()
             break
-       }
+        }
         if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
         }
         lblVV2300.text = df.format(gebuehr)
     } else {
@@ -696,10 +774,10 @@ def float calculate() {
     }
     if(chkVV1000.isSelected()) {
         if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat()))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
         }
         lblVV1000.text = df.format(gebuehr)
     } else {
@@ -708,9 +786,9 @@ def float calculate() {
     if(chkvorVV7002.isSelected()) {
         gebuehr=(df.parse(lblVV2300.text)+df.parse(lblVV1000.text)) * 0.2f;
         switch(gebuehr) {
-            case {it < 20f}: gebuehr = gebuehr
+        case {it < 20f}: gebuehr = gebuehr
             break
-            case {it >= 20f}: gebuehr = 20f  
+        case {it >= 20f}: gebuehr = 20f  
             break
         }
         lblvorVV7002.text = df.format(gebuehr)
@@ -718,19 +796,19 @@ def float calculate() {
         lblvorVV7002.text = df.format(0f)
     }
     if(chkVV3100.isSelected()) {
-            switch (spnMandanten){
-            case {spnMandanten.value.toFloat()==1f}: factor = spnVV3100.value.toFloat()
+        switch (spnMandanten){
+        case {spnMandanten.value.toFloat()==1f}: factor = spnVV3100.value.toFloat()
             break
-            case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV3100.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV3100.value.toFloat()
             break
-            default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3100.value.toFloat()
+        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3100.value.toFloat()
             break
-       }
-       if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+        }
+        if(chkPKH.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
         }     
         lblVV3100.text = df.format(gebuehr)
     } else {
@@ -744,11 +822,11 @@ def float calculate() {
     }
 
     if(chkVV3104.isSelected()) {
-       if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat()))
+        if(chkPKH.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat()))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
         } 
         lblVV3104.text = df.format(gebuehr)
     } else {
@@ -757,10 +835,10 @@ def float calculate() {
 
     if(chkVV1003.isSelected()) {
         if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat()))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
         }
         lblVV1003.text = df.format(gebuehr)
     } else {
@@ -773,11 +851,11 @@ def float calculate() {
             +df.parse(lblAnrechenbarerAnteil.text)
             +df.parse(lblVV3104.text)
             +df.parse(lblVV1003.text)
-            ) * 0.2f;
+        ) * 0.2f;
         switch(gebuehr) {
-            case {it < 20f}: gebuehr = gebuehr
+        case {it < 20f}: gebuehr = gebuehr
             break
-            case {it >= 20f}: gebuehr = 20f  
+        case {it >= 20f}: gebuehr = 20f  
             break
         }
         lblVV7002.text = df.format(gebuehr)
@@ -785,20 +863,20 @@ def float calculate() {
         lblVV7002.text = df.format(0f)
     }
    
-if(chkVV3200.isSelected()) {
-            switch (spnMandanten){
-            case {spnMandanten.value.toFloat()==1f}: factor = spnVV3200.value.toFloat()
+    if(chkVV3200.isSelected()) {
+        switch (spnMandanten){
+        case {spnMandanten.value.toFloat()==1f}: factor = spnVV3200.value.toFloat()
             break
-            case {spnMandanten.value.toFloat()==8f}: factor = 2f +  + spnVV3200.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: factor = 2f +  + spnVV3200.value.toFloat()
             break
-            default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3200.value.toFloat()
+        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3200.value.toFloat()
             break
-       }
-       if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+        }
+        if(chkPKH.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
         }
         lblVV3200.text = df.format(gebuehr)
     } else {
@@ -807,10 +885,10 @@ if(chkVV3200.isSelected()) {
     
     if(chkVV3202.isSelected()) {
         if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat()))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
         }
         lblVV3202.text = df.format(gebuehr)
     } else {
@@ -819,10 +897,10 @@ if(chkVV3200.isSelected()) {
 
     if(chkVV1003Berufung.isSelected()) {
         if(chkPKH.isSelected()) {
-        gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
-        diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat()))
         } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
         }
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
@@ -834,11 +912,11 @@ if(chkVV3200.isSelected()) {
             df.parse(lblVV3200.text)
             +df.parse(lblVV3202.text)
             +df.parse(lblVV1003Berufung.text)
-         ) * 0.2f;
+        ) * 0.2f;
         switch(gebuehr) {
-            case {it < 20f}: gebuehr = gebuehr
+        case {it < 20f}: gebuehr = gebuehr
             break
-            case {it >= 20f}: gebuehr = 20f  
+        case {it >= 20f}: gebuehr = 20f  
             break
         }
         lblVV7002Berufung.text = df.format(gebuehr)
@@ -874,7 +952,7 @@ if(chkVV3200.isSelected()) {
         lbldiffPKH.text = df.format(0f)
     }
 
-   if(chkAuslagenmM.isSelected()) {
+    if(chkAuslagenmM.isSelected()) {
         lblAuslagenmM.text = txtAuslagenmM.text
     } else {
         lblAuslagenmM.text = df.format(0f)
@@ -882,22 +960,22 @@ if(chkVV3200.isSelected()) {
 
     if(chkmwst.isSelected()) {
         gebuehr=((
-            df.parse(lblVV2300.text)
-            +df.parse(lblvorVV7002.text)
-            +df.parse(lblVV1000.text)
-            +df.parse(lblVV3100.text)
-            +df.parse(lblAnrechenbarerAnteil.text)
-            +df.parse(lblVV3104.text)
-            +df.parse(lblVV1003.text)
-            +df.parse(lblVV7002.text)
-            +df.parse(lblVV3200.text)
-            +df.parse(lblVV3202.text)
-            +df.parse(lblVV1003Berufung.text)
-            +df.parse(lblVV7002Berufung.text)
-            +df.parse(lblVV7000.text)
-            +df.parse(lblVV7003.text)
-            +df.parse(lblAuslagenmM.text)
-            +df.parse(lblVV7005.text)
+                df.parse(lblVV2300.text)
+                +df.parse(lblvorVV7002.text)
+                +df.parse(lblVV1000.text)
+                +df.parse(lblVV3100.text)
+                +df.parse(lblAnrechenbarerAnteil.text)
+                +df.parse(lblVV3104.text)
+                +df.parse(lblVV1003.text)
+                +df.parse(lblVV7002.text)
+                +df.parse(lblVV3200.text)
+                +df.parse(lblVV3202.text)
+                +df.parse(lblVV1003Berufung.text)
+                +df.parse(lblVV7002Berufung.text)
+                +df.parse(lblVV7000.text)
+                +df.parse(lblVV7003.text)
+                +df.parse(lblAuslagenmM.text)
+                +df.parse(lblVV7005.text)
             )*0.19f)
         lblmwst.text = df.format(gebuehr)
     } else {
@@ -911,29 +989,29 @@ if(chkVV3200.isSelected()) {
     }
     
     gebuehr=(
-             df.parse(lblVV2300.text)
-            +df.parse(lblvorVV7002.text)
-            +df.parse(lblVV1000.text)
-            +df.parse(lblVV3100.text)
-            +df.parse(lblAnrechenbarerAnteil.text)
-            +df.parse(lblVV3104.text)
-            +df.parse(lblVV1003.text)
-            +df.parse(lblVV7002.text)
-            +df.parse(lblVV3200.text)
-            +df.parse(lblVV3202.text)
-            +df.parse(lblVV1003Berufung.text)
-            +df.parse(lblVV7002Berufung.text)
-            +df.parse(lblVV7000.text)
-            +df.parse(lblVV7003.text)
-            +df.parse(lblVV7005.text)
-            +df.parse(lblmwst.text)
-            +df.parse(lblAuslagenoM.text)
+        df.parse(lblVV2300.text)
+        +df.parse(lblvorVV7002.text)
+        +df.parse(lblVV1000.text)
+        +df.parse(lblVV3100.text)
+        +df.parse(lblAnrechenbarerAnteil.text)
+        +df.parse(lblVV3104.text)
+        +df.parse(lblVV1003.text)
+        +df.parse(lblVV7002.text)
+        +df.parse(lblVV3200.text)
+        +df.parse(lblVV3202.text)
+        +df.parse(lblVV1003Berufung.text)
+        +df.parse(lblVV7002Berufung.text)
+        +df.parse(lblVV7000.text)
+        +df.parse(lblVV7003.text)
+        +df.parse(lblVV7005.text)
+        +df.parse(lblmwst.text)
+        +df.parse(lblAuslagenoM.text)
     )
     lblsum1.text=df.format(gebuehr)
     
     if(chkquote.isSelected()){
-    gebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)
-    lblquote.text=df.format(gebuehr)
+        gebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)
+        lblquote.text=df.format(gebuehr)
     } else{
         lblquote.text=lblsum1.text
     }
@@ -942,19 +1020,31 @@ if(chkVV3200.isSelected()) {
         lblZahlungen.text = txtZahlungen.text
     } else {
         lblZahlungen.text = df.format(0f)
-        }
+    }
 
     if(chkmwst.isSelected()) {
         gebuehr=(df.parse(lblZahlungen.text)*0.19f)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblmwstZahlung.text = df.format(0f)
-        }
+    }
     
     gebuehr=df.parse(lblquote.text)-df.parse(lblZahlungen.text)
     lblsum2.text=df.format(gebuehr)
     
 
+    // custom entries
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
+    float customSum=0f;
+    for(int i=0;i<customRows;i++) {
+        rowCustomEntryName=customTable.getValueAt(i, 0);
+        rowCustomEntryValue=customTable.getValueAt(i, 1);
+        customSum=customSum+df.parse(rowCustomEntryValue);
+    }
+    lblsum3.text=df.format(df.parse(lblsum2.text) + customSum);
+    
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
@@ -965,10 +1055,10 @@ def String copyToClipboard() {
     sbf=new StringBuffer()
     sbf.append("<html><table width=\"85%\">");
     sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Position</b></td>");
-        sbf.append("<td align=\"right\"><b>Betrag</b></td>");
-        sbf.append("</tr>");
-        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
+    sbf.append("<td align=\"left\"><b>Position</b></td>");
+    sbf.append("<td align=\"right\"><b>Betrag</b></td>");
+    sbf.append("</tr>");
+    sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
         
     if(chkVV2300.selected) {
         sbf.append("<tr>")
@@ -1017,7 +1107,7 @@ def String copyToClipboard() {
         sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7002.text).append(" €</td>");
         sbf.append("</tr>");
-     }
+    }
     if(chkVV3200.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
@@ -1041,49 +1131,49 @@ def String copyToClipboard() {
         sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7002Berufung.text).append(" €</td>");
         sbf.append("</tr>");
-     }
+    }
     if(chkVV7000.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Kopien Nr. 7000 VV RVG:</td>");
         sbf.append("<td align=\"right\">").append(lblVV7000.text).append(" €</td>");
         sbf.append("</tr>");
-     }
+    }
     if(chkVV7003.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Fahrtkosten Nr. 7003/7004 VV RVG:</td>");
         sbf.append("<td align=\"right\">").append(lblVV7003.text).append(" €</td>");
         sbf.append("</tr>");
-     }
-     if((chkTagegeld4h.selected) || (chkTagegeld6h.selected) || (chkTagegeld8h.selected)) {
+    }
+    if((chkTagegeld4h.selected) || (chkTagegeld6h.selected) || (chkTagegeld8h.selected)) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Tagegeld Nr. 7005 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7005.text).append(" €</td>");
         sbf.append("</tr>");
-     }
-     if(chkAuslagenmM.selected) {
+    }
+    if(chkAuslagenmM.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">sonstige steuerpflichtige Auslagen (netto):</td>");
         sbf.append("<td align=\"right\">").append(lblAuslagenmM.text).append(" €</td>");
         sbf.append("</tr>");
-     }     
+    }     
     if(chkmwst.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Mehrwertsteuer 19% Nr. 7008 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
         sbf.append("</tr>");
-     }
+    }
     if(chkAuslagenoM.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">sonstige steuerfreie Auslagen</td>");
         sbf.append("<td align=\"right\">").append(lblAuslagenoM.text).append(" €</td>");
         sbf.append("</tr>");
-     } 
+    }
      
-        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Summe</b></td>");
-        sbf.append("<td align=\"right\"><b>").append(lblsum1.text).append(" €</td></b>");
-        sbf.append("</tr>");
+    sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
+    sbf.append("<tr>")
+    sbf.append("<td align=\"left\"><b>Summe</b></td>");
+    sbf.append("<td align=\"right\"><b>").append(lblsum1.text).append(" €</td></b>");
+    sbf.append("</tr>");
 
     if(chkquote.selected) {
         sbf.append("<tr>")
@@ -1096,20 +1186,40 @@ def String copyToClipboard() {
         sbf.append("<td align=\"left\">bisherige Zahlungen</td>");
         sbf.append("<td align=\"right\">").append(lblZahlungen.text).append(" €</td>");
         sbf.append("</tr>");
-     } 
+    } 
     if((chkmwst.selected)&&(chkZahlungen.selected)) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">darin enthaltenen MwSt. (19%)</td>");
         sbf.append("<td align=\"right\">").append(lblmwstZahlung.text).append(" €</td>");
         sbf.append("</tr>");
-     }
+    }
     if(chkZahlungen.selected) {
         
         sbf.append("<tr>")
         sbf.append("<td align=\"left\"><b>Summe</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblsum2.text).append(" €</td></b>");
         sbf.append("</tr>");
-     }
+    }
+    
+    
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryName=customTable.getValueAt(i, 0);
+            rowCustomEntryValue=customTable.getValueAt(i, 1);
+            sbf.append("<tr>")
+            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
+            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
+            sbf.append("</tr>");
+        }
+        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
+        sbf.append("<tr>")
+        sbf.append("<td align=\"left\"><b>Summe</b></td>");
+        sbf.append("<td align=\"right\"><b>").append(lblsum3.text).append(" €</td></b>");
+        sbf.append("</tr>");
+        
+    }
 
     sbf.append("</table></html>");
     
@@ -1125,9 +1235,9 @@ def CalculationTable copyToDocument() {
     
     ArrayList<String> row=new ArrayList<String>();
     /*row.add(" ");
-        row.add(" ");
-        ct.addRow(row);
-    */
+    row.add(" ");
+    ct.addRow(row);
+     */
     if(chkVV2300.selected) {
         row=new ArrayList<String>();
         row.add("Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + txtStreitWert.text + " €");
@@ -1237,9 +1347,9 @@ def CalculationTable copyToDocument() {
         ct.addRow(row);
     }
     row=new ArrayList<String>();
-        row.add("Summe");
-        row.add(lblsum1.text);
-        ct.addRow(row);
+    row.add("Summe");
+    row.add(lblsum1.text);
+    ct.addRow(row);
     
     if(chkquote.selected) {
         row=new ArrayList<String>();
@@ -1264,6 +1374,24 @@ def CalculationTable copyToDocument() {
         row.add("Summe");
         row.add(lblsum2.text);
         ct.addRow(row);
+    }
+    
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryName=customTable.getValueAt(i, 0);
+            rowCustomEntryValue=customTable.getValueAt(i, 1);
+            row=new ArrayList<String>();
+            row.add(rowCustomEntryName);
+            row.add(rowCustomEntryValue);
+            ct.addRow(row);
+        }
+        row=new ArrayList<String>();
+        row.add("Summe");
+        row.add(lblsum3.text);
+        ct.addRow(row);
+        
     }
     
     ct.setColumnLabels(colLabels);
