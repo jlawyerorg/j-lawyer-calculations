@@ -12,6 +12,9 @@ jdk:
   - oraclejdk8
 # install: ant default
 before_install:
+  - mkdir /home/travis/.ant/lib
+  - cd /home/travis/.ant/lib
+  - sudo apt-get install wget
+  - wget https://search.maven.org/remotecontent?filepath=com/jcraft/jsch/0.1.55/jsch-0.1.55.jar
   - cd /home/travis/build/jlawyerorg/j-lawyer-calculations
-  
 script: ant upload
