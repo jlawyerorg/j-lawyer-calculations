@@ -74,6 +74,6 @@
     <target name="upload">
         <property environment="env"/>
         <echo message="test ${env.UPLOADUSER}" />
-        <scp file="src/j-lawyer-calculations.xml" todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADMETAXML}"/>
+        <scp file="src/j-lawyer-calculations.xml" todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADMETAXML}" trust="true"/>
     </target>
 </project>
