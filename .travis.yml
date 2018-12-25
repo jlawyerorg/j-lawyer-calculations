@@ -1,0 +1,17 @@
+services: 
+#addons:
+#  apt:
+#    sources:
+#      - mysql-5.7-trusty
+#    packages:
+#      - mysql-server
+#      - mysql-client
+sudo: true
+language: java
+jdk:
+  - oraclejdk8
+# install: ant default
+before_install:
+  - cd /home/travis/build/jlawyerorg/j-lawyer-calculations
+  
+script: 
