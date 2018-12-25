@@ -15,3 +15,4 @@ before_install:
   - cd /home/travis/build/jlawyerorg/j-lawyer-calculations
   
 script: 
+  - echo "hello j-lawyer-calculations"
