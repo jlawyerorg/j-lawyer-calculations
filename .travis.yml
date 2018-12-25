@@ -12,6 +12,7 @@ jdk:
   - oraclejdk8
 # install: ant default
 before_install:
+  - mkdir /home/travis/.ant
   - mkdir /home/travis/.ant/lib
   - cd /home/travis/.ant/lib
   - sudo apt-get install wget
