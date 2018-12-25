@@ -1,3 +1,7 @@
+notifications:
+  email:
+    on_success: always # default: change
+    on_failure: always # default: always
 services: 
 #addons:
 #  apt:
