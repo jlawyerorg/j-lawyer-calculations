@@ -14,9 +14,9 @@
 
 name = "RVG-Rechner"
 description = "j-lawyer.org RVG-Rechner"
-version = "1.6.0";
+version = "1.7";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "24.12.2018"
+updated = "04.01.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

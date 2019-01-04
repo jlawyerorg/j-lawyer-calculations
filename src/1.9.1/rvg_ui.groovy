@@ -212,7 +212,7 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
-                                    chkVV3100 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3100:', selected: true, stateChanged: {
+                                    chkVV3100 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3100:', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -251,7 +251,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV3104 = checkBox(id: 'bVV3104',text: 'Terminsgebühr VV3104:', selected: true, stateChanged: {
+                                    chkVV3104 = checkBox(id: 'bVV3104',text: 'Terminsgebühr VV3104:', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -295,7 +295,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: true,stateChanged: {
+                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: false,stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -690,9 +690,10 @@ new SwingBuilder().edt {
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
                                 binding.callback.processResultToClipboard(copyToClipboard())
-                                java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
-                                container.setVisible(false)
-                                ((javax.swing.JDialog)container).dispose()
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
                                         
                             })
                         

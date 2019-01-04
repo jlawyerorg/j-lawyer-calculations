@@ -14,9 +14,9 @@
 
 name = "Rechner Sozialrecht (in Entwicklung)"
 description = "j-lawyer.org Rechner Sozialrecht (in Entwicklung)"
-version = "0.9.0";
+version = "0.9.1";
 author = "Anatol Anuschewski"
-updated = "20.12.2018"
+updated = "04.01.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

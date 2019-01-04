@@ -615,9 +615,10 @@ new SwingBuilder().edt {
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
                                 binding.callback.processResultToClipboard(copyToClipboard())
-                                java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
-                                container.setVisible(false)
-                                ((javax.swing.JDialog)container).dispose()
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
                                         
                             })
                         
