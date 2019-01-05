@@ -134,7 +134,7 @@ new SwingBuilder().edt {
             
             tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'RVG-Berechnung Vorverfahren')) {
+                    panel(border: titledBorder(title: 'Vorverfahren')) {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
@@ -184,7 +184,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                    chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002:', selected: false,stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -208,7 +208,7 @@ new SwingBuilder().edt {
             
             tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'RVG-Berechnung 1. Instanz')) {
+                    panel(border: titledBorder(title: '1. Instanz')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
@@ -295,7 +295,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002:', selected: false,stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -316,7 +316,7 @@ new SwingBuilder().edt {
            
             tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'RVG-Berechnung 2. Instanz')) {
+                    panel(border: titledBorder(title: '2. Instanz')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
@@ -387,7 +387,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
+                                    chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002:', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -445,10 +445,12 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Tagegeld VV7005.:')
+                                    chkTagegeld = checkBox(id: 'bVVTagegeld',text: 'Tagegeld VV7005.:', selected: false, stateChanged: {
+                                        calculate()
+                                    })
                                 }
                                 td {
-                                    chkTagegeld4h = checkBox(id: 'bTagegeld4h',text: 'bis 4h', selected: false, stateChanged: {
+                                    cbTagegeld=comboBox(id:'cb', items:['bis 4h', '4 bis 8h', 'ab 8h'], selectedItem:'bis 4h', itemStateChanged: {
                                             calculate()
                                         })
                                 }
@@ -459,27 +461,7 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                             }
-                            tr{
-                                td {
-                                    label(text: ' ')
-                                }
-                                td {
-                                    chkTagegeld6h = checkBox(id: 'bVVTagegeld6h',text: '4 bis 8h', selected: false, stateChanged: {
-                                            calculate()
-                                        })
-                                }
-                            }
-                            tr{
-                                td {
-                                    label(text: ' ')
-                                }
-                                 
-                                td {
-                                    chkTagegeld8h = checkBox(id: 'bTagegeld8h',text: 'ab 8h', selected: false, stateChanged: {
-                                            calculate()
-                                        })
-                                }
-                            }
+
                             tr {
                                 td {
                                     chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto):', selected: false, stateChanged: {
@@ -496,7 +478,20 @@ new SwingBuilder().edt {
                                     label(text: 'EUR' )
                                 }
                             }
-                            
+                            tr {
+                                td {
+                                    label(text: 'zwischen Summe:')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                   lblzwsum = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
                             tr {
                                 td {
                                     chkmwst = checkBox(text: 'Mehrwertsteuer VV7008:', selected: true, stateChanged: {
@@ -937,14 +932,18 @@ def float calculate() {
         lblVV7003.text = df.format(0f)
     }
 
-    if(chkTagegeld8h.isSelected()){
-        lblVV7005.text=df.format(70f)
-    }else if(chkTagegeld6h.isSelected()){
-        lblVV7005.text=df.format(40f)
-    }else if(chkTagegeld4h.isSelected()){
-        lblVV7005.text=df.format(25f)
-    }else{
-        lblVV7005.text=df.format(0f)
+    if(chkTagegeld.isSelected()) {
+        switch (cbTagegeld){
+        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='bis 4h'}:lblVV7005.text=df.format(25f)
+        break
+        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='4 bis 8h'}:lblVV7005.text=df.format(40f)
+        break
+        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='ab 8h'}:lblVV7005.text=df.format(70f)
+        break
+        default: lblVV7005.text=df.format(0)
+        }
+    } else {
+        lblVV7005.text = df.format(0f)
     }
 
     if(chkdiffPKH.isSelected()) {
@@ -959,8 +958,7 @@ def float calculate() {
         lblAuslagenmM.text = df.format(0f)
     }
 
-    if(chkmwst.isSelected()) {
-        gebuehr=((
+        gebuehr=(
                 df.parse(lblVV2300.text)
                 +df.parse(lblvorVV7002.text)
                 +df.parse(lblVV1000.text)
@@ -977,8 +975,12 @@ def float calculate() {
                 +df.parse(lblVV7003.text)
                 +df.parse(lblAuslagenmM.text)
                 +df.parse(lblVV7005.text)
-            )*0.19f)
-        lblmwst.text = df.format(gebuehr)
+            )
+        lblzwsum.text=df.format(gebuehr)
+        
+        if(chkmwst.isSelected()) {
+            gebuehr=df.parse(lblzwsum.text)*0.19f
+            lblmwst.text = df.format(gebuehr)
     } else {
         lblmwst.text = df.format(0f)
     }
@@ -990,21 +992,7 @@ def float calculate() {
     }
     
     gebuehr=(
-        df.parse(lblVV2300.text)
-        +df.parse(lblvorVV7002.text)
-        +df.parse(lblVV1000.text)
-        +df.parse(lblVV3100.text)
-        +df.parse(lblAnrechenbarerAnteil.text)
-        +df.parse(lblVV3104.text)
-        +df.parse(lblVV1003.text)
-        +df.parse(lblVV7002.text)
-        +df.parse(lblVV3200.text)
-        +df.parse(lblVV3202.text)
-        +df.parse(lblVV1003Berufung.text)
-        +df.parse(lblVV7002Berufung.text)
-        +df.parse(lblVV7000.text)
-        +df.parse(lblVV7003.text)
-        +df.parse(lblVV7005.text)
+        df.parse(lblzwsum.text)
         +df.parse(lblmwst.text)
         +df.parse(lblAuslagenoM.text)
     )
@@ -1013,7 +1001,7 @@ def float calculate() {
     if(chkquote.isSelected()){
         gebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)
         lblquote.text=df.format(gebuehr)
-    } else{
+    } else {
         lblquote.text=lblsum1.text
     }
 
@@ -1145,7 +1133,7 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\">").append(lblVV7003.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if((chkTagegeld4h.selected) || (chkTagegeld6h.selected) || (chkTagegeld8h.selected)) {
+    if(chkTagegeld.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Tagegeld Nr. 7005 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7005.text).append(" €</td>");
@@ -1158,7 +1146,12 @@ def String copyToClipboard() {
         sbf.append("</tr>");
     }     
     if(chkmwst.selected) {
-        sbf.append("<tr>")
+        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>")
+        sbf.append("<tr>");
+        sbf.append("<td align=\"left\"><b>zwischen Summe</b></td>");
+        sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
+        sbf.append("</tr>");
+        sbf.append("<tr>");
         sbf.append("<td align=\"left\">Mehrwertsteuer 19% Nr. 7008 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
         sbf.append("</tr>");
@@ -1323,7 +1316,7 @@ def CalculationTable copyToDocument() {
         row.add(lblVV7003.text);
         ct.addRow(row);
     }
-    if((chkTagegeld4h.selected) || (chkTagegeld6h.selected) || (chkTagegeld8h.selected)) {
+    if(chkTagegeld.selected) {
         row=new ArrayList<String>();
         row.add("Tagegeld Nr. 7005 VV RVG");
         row.add(lblVV7005.text);
@@ -1336,6 +1329,10 @@ def CalculationTable copyToDocument() {
         ct.addRow(row);
     }
     if(chkmwst.selected) {
+        row=new ArrayList<String>();
+        row.add("zwischen Summe");
+        row.add(lblzwsum.text);
+        ct.addRow(row);  
         row=new ArrayList<String>();
         row.add("Mehrwertsteuer 19% Nr. 7008 VV RVG");
         row.add(lblmwst.text);

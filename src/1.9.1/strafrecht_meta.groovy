@@ -8,14 +8,12 @@
  *
  * @author jens
  */
-//def hello_world() {
-//   println "Hello, world!"
-//}
 
-name = "RVG-Rechner"
-description = "j-lawyer.org RVG-Rechner"
-version = "1.7.1";
-author = "Anatol Anuschewski, Jens Kutschke"
+
+name = "Rechner Strafrecht (in Entwicklung)"
+description = "j-lawyer.org Rechner Strafrecht (in Entwicklung)"
+version = "0.9.0";
+author = "Anatol Anuschewski"
 updated = "05.01.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 

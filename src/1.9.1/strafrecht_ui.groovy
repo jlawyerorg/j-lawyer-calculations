@@ -71,20 +71,15 @@ new SwingBuilder().edt {
                         
                                 }
                             }
-                            tr {
+                           tr {
                                 td (colfill:true) {
-                                    label(text: 'Anzahl der Mandanten: ')
-                        
+                                    label(text: 'Gericht der 1. Instanz:')
                                 }
                                 td {
-                                    spnMandanten = spinner(id: 'spin1', 
-                                        model:spinnerNumberModel(minimum:1, 
-                                            maximum: 8, 
-                                            value:1,
-                                            stepSize:1),stateChanged: {
+                                        cbGericht=comboBox(id:'cbGericht', items:['Amtsgericht', 'Strafkammer', 'Schwurgericht / OLG'], selectedItem:'Amtsgericht', itemStateChanged: {
                                                 calculate()
                                             })
-                                }
+                                    }
                             }
                             tr {
                                 td (colfill:true) {
@@ -96,6 +91,16 @@ new SwingBuilder().edt {
                                             })
                                     }
                             }
+                            tr {
+                                td (colfill:true) {
+                                    label(text: 'Mandant in Haft:')
+                                }
+                                td {
+                                    chkHaft = checkBox(id: 'bHaft', text: '', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                            }
                         }   
                     }     
                 }
@@ -103,22 +108,22 @@ new SwingBuilder().edt {
             
             tr {
                 td (colfill:true) { 
-                    panel(border: titledBorder(title: 'RVG-Berechnung Vorverfahren')) {
+                    panel(border: titledBorder(title: 'allgemeine Gebühren')) {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
-                                    chkVV2302 = checkBox(id: 'bVV2302', text: 'Geschäftsgebühr VV2302:', selected: false, stateChanged: {
+                                    chkVV4100 = checkBox(id: 'bVV4100', text: '', selected: true, stateChanged: {
                                                 calculate()
                                             })
                                 }
                                 td {
-                                    lblVV2302uR = label(id: 'nVV2302uR', text: '0,00')
+                                    lblVV4100 = label(id: 'nVV4100', text: 'Grundgebühr Nr. 4100:')
                                 }
                                 td {
-                                    lblVV2302oR = label(id: 'nVV2302oR', text: '0,00')
+                                    rhVV4100 = label(id: 'nVV4100', text: '0,00 - 0,00')
                                 }
                                 td {
-                                    txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4100=formattedTextField(id: 'nVV4100', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -128,18 +133,46 @@ new SwingBuilder().edt {
                 
                             tr {
                                 td {
-                                    chkVV1005 = checkBox(id: 'bVV1005',text: 'Einigungsgebühr VV1005.:', selected: false, stateChanged: {
+                                    chkVV4102 = checkBox(id: 'bVV4102',text: '', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
                                 td {
-                                    lblVV1005uR = label(id: 'nVV1005uR', text: '0,00')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
                                 }
                                 td {
-                                    lblVV1005oR = label(id: 'nVV1005oR', text: '0,00')
+                                    rhVV4102 = label(id: 'nVV4102', text: '0,00 - 0,00')
                                 }
                                 td (align: 'right') {
-                                    txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4102=formattedTextField(id: 'nVV4102', format: betragFormat, text: '0,00', columns: 4)
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                        }
+                    }     
+                }
+            }
+
+            tr {
+                td (colfill:true) { 
+                    panel(border: titledBorder(title: 'vorbereitendes Verfahren')) {
+                        tableLayout (cellpadding: 5) {
+                            tr {
+                                td {
+                                    chkVV4104 = checkBox(id: 'bVV4104', text: '', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
+                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr 4104:')
+                                }
+                                td {
+                                    rhVV4104 = label(id: 'nVV4104', text: '0,00 - 0,00')
+                                }
+                                td {
+                                    txtVV4104=formattedTextField(id: 'nVV4104', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -147,12 +180,12 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                   chkvorVV7002 =  checkBox(text: '', selected: false,stateChanged: {
                                                 calculate()
                                    })
                                 }
                                 td {
-                                    label(text: ' ')
+                                    label(text: 'Auslagen VV7002.:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -171,22 +204,22 @@ new SwingBuilder().edt {
             
               tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'RVG-Berechnung 1. Instanz')) {
+                    panel(border: titledBorder(title: '1. Instanz')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
-                                    chkVV3102 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3102:', selected: false, stateChanged: {
+                                    chkVV4106 = checkBox(id: 'nGeschaeftsGebuehr', text: '', selected: false, stateChanged: {
                                                 calculate()
                                             })
                                 }
                                 td {
-                                    lblVV3102uR = label(id: 'nVV3102uR', text: '0,00') 
+                                    lblVV4106 = label(id: 'nVV4106', text: 'Verfahrensgebühr Nr. 4106') 
                                 }
                                 td {
-                                    lblVV3102oR = label(id: 'nVV3102oR', text: '0,00') 
+                                    rhVV4106 = label(id: 'nVV4106', text: '0,00 - 0,00') 
                                 }
                                 td {
-                                    txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4106=formattedTextField(id: 'nVV4106', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -194,37 +227,18 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
-                                }
-                                td {
-                                    label(text: ' ')
-                                }
-                                td {
-                                    label(text: ' ')
-                                }
-                                td (align: 'right') {
-                                    lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR')
-                                }
-                            }
-                            tr {
-                                td {
-                                    chkVV3106 = checkBox(id: 'bVV3106',text: 'Terminsgebühr VV3106:', selected: false, stateChanged: {
+                                    chkVV4108 = checkBox(id: 'bVV4108',text: '', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
                                 td {
-                                    lblVV3106uR = label(id: 'nVV3106uR', text: '0,00') 
+                                    lblVV4108 = label(id: 'nVV4108', text: 'Terminsgebühr Nr 4108:') 
                                 }
                                 td {
-                                    lblVV3106oR = label(id: 'nVV3106oR', text: '0,00') 
+                                    rhVV4108 = label(id: 'nVV4108', text: '0,00 - 0,00') 
                                 }
                                 td {
-                                    txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4108=formattedTextField(id: 'nVV4108', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -232,18 +246,22 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV1006 = checkBox(id: 'bVV1006',text: 'Einigungsgebühr VV1006.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    label(text: ' ')
                                 }
                                 td {
-                                    lblVV1006uR = label(id: 'nVV1006uR', text: '0,00')
+                                    label(text: 'Anzahl Verhandlungstage')
                                 }
                                 td {
-                                    lblVV1006oR = label(id: 'nVV1006oR', text: '0,00')
+                                    spnVerTage1 = spinner(id: 'VerTage1', 
+                                        model:spinnerNumberModel(minimum:1, 
+                                            maximum: 99, 
+                                            value:1,
+                                            stepSize:1),stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
-                                    txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
+                                    lblVerTage1 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -251,12 +269,12 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                   chkVV7002 =  checkBox(text: '', selected: false,stateChanged: {
                                                 calculate()
                                             })
                                 }
                                 td {
-                                    label(text: ' ')
+                                    label(text: 'Auslagen VV7002.:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -275,22 +293,22 @@ new SwingBuilder().edt {
            
            tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'RVG-Berechnung 2. Instanz')) {
+                    panel(border: titledBorder(title: 'Berufung')) {
                         tableLayout (cellpadding: 5) {                           
                             tr {
                                 td {
-                                    chkVV3204 = checkBox(id: 'nVV3204', text: 'Verfahrensgebühr VV3204:', selected: false, stateChanged: {
+                                    chkVV4124 = checkBox(id: 'nVV4124', text: '', selected: false, stateChanged: {
                                                 calculate()
                                             })
                                 }
                                 td {
-                                    lblVV3204uR = label(id: 'nVV3204uR', text: '0,00') 
+                                    lblVV4124 = label(id: 'nVV4124', text: 'Verfahrensgebühr Nr. 4124:') 
                                 }
                                 td {
-                                    lblVV3204oR = label(id: 'nVV3204oR', text: '0,00') 
+                                    rhVV4124 = label(id: 'nVV4124', text: '0,00 - 0,00') 
                                 }
                                 td {
-                                    txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4124=formattedTextField(id: 'nVV4124', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -299,52 +317,56 @@ new SwingBuilder().edt {
                 
                             tr {
                                 td {
-                                    chkVV3205 = checkBox(id: 'bVV3205',text: 'Terminsgebühr VV3205:', selected: false, stateChanged: {
+                                    chkVV4126 = checkBox(id: 'bVV4126',text: '', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
                                 td {
-                                    lblVV3205uR = label(id: 'nVV3205uR', text: '0,00') 
+                                    lblVV4126 = label(id: 'nVV4126', text: 'Terminsgebühr Nr. 4126:') 
                                 }
                                 td {
-                                    lblVV3205oR = label(id: 'nVV3205oR', text: '0,00') 
+                                    rhVV4126 = label(id: 'nVV4126', text: '0,00 - 0,00') 
                                 }
                                 td {
-                                    txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV4126=formattedTextField(id: 'nVV4126', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
                                 }
                             }
                             tr {
-                                td {
-                                    chkVV1006Berufung = checkBox(id: 'bVV1006Berufung',text: 'Einigungsgebühr VV1006.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
-                                }
-                                td {
-                                    lblVV1006BerufunguR = label(id: 'nVV1006BerufunguR', text: '0,00')
-                                }
-                                td {
-                                    lblVV1006BerufungoR = label(id: 'nVV1006BerufungoR', text: '0,00')
-                                }
-                                td (align: 'right') {
-                                    txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR')
-                                }
-                            }
-                            tr {
-                                td {
-                                   chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
-                                                calculate()
-                                            })
-                                }
                                 td {
                                     label(text: ' ')
                                 }
                                 td {
+                                    label(text: 'Anzahl Verhandlungstage')
+                                }
+                                td {
+                                    spnVerTage2 = spinner(id: 'VerTage2', 
+                                        model:spinnerNumberModel(minimum:1, 
+                                            maximum: 99, 
+                                            value:1,
+                                            stepSize:1),stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td (align: 'right') {
+                                    lblVerTage2 = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                   chkVV7002Berufung =  checkBox(text: '', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
+                                    label(text: 'Auslagen VV7002.:')
+                                }
+                                 td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
@@ -589,11 +611,12 @@ new SwingBuilder().edt {
 def float calculate() {
 
     float gebuehr=0f
-    float factor=0.0f
     float change=1.0f
     float urahmen=0.0f
     float orahmen=0.0f
-    
+    String VVVerhandG='4106, 4107'
+
+
     switch (cbchange){
         case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 20%'}:change = 1.2f
         break
@@ -605,58 +628,116 @@ def float calculate() {
         break
         default: change = 1.0f
     }
-    switch (spnMandanten){
-        case {spnMandanten.value.toFloat()==1f}: factor = 0f
-        break
-        case {spnMandanten.value.toFloat()==8f}: factor = 2f
-        break
-        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f
-        break
+    
+    if (chkHaft.isSelected()) {
+        lblVV4100.text = 'Grundgebühr Nr. 4101'
+        lblVV4102.text = 'Terminsgebühr Nr. 4103'
+        lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
+        switch (cbGericht){
+            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
+                lblVV4106.text='Verfahrensgebühr Nr. 4113';
+                lblVV4108.text='Terminsgebühr Nr. 4115';
+            break
+            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
+                lblVV4106.text='Verfahrensgebühr Nr. 4119';
+                lblVV4108.text='Terminsgebühr Nr. 4121';
+            break
+            default:
+                lblVV4106.text='Verfahrensgebühr Nr. 4107';
+                lblVV4108.text='Terminsgebühr Nr. 4109';
+        }
+        lblVV4124.text = 'Verfahrensgebühr Nr. 4125' 
+        lblVV4126.text = 'Terminsgebühr Nr. 4127';
+    } else {
+        lblVV4100.text = 'Grundgebühr Nr. 4100'
+        lblVV4102.text = 'Terminsgebühr Nr. 4102'
+        lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
+        switch (cbGericht){
+            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
+                lblVV4106.text='Verfahrensgebühr Nr. 4112';
+                lblVV4108.text='Terminsgebühr Nr. 4114';
+            break
+            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
+                lblVV4106.text='Verfahrensgebühr Nr. 4118';
+                lblVV4108.text='Terminsgebühr Nr. 4120';
+            break
+            default:
+                lblVV4106.text='Verfahrensgebühr Nr. 4106';
+                lblVV4108.text='Terminsgebühr Nr. 4108';
+        }
+        lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
+        lblVV4126.text = 'Terminsgebühr Nr. 4126';
     }
   
-  
-    if(chkVV2302.isSelected()) {
-        urahmen = 50f + (50f * factor);
-        orahmen = 640f +(640f * factor);
-        lblVV2302uR.text = df.format(urahmen);
-        lblVV2302oR.text = df.format(orahmen);
+    if(chkVV4100.isSelected()) {
+        urahmen = 40f;
+        if(chkHaft.isSelected()) {
+            orahmen = 450f
+        } else {
+            orahmen = 360f
+        }
+        rhVV4100.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
         if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV2302.text) == 0f) {
-                txtVV2302.text = df.format(300f + (300f*factor))  
+            if (df.parse(txtVV4100.text) == 0f) {
+                txtVV4100.text = df.format((urahmen+orahmen)/2*change)  
             } else {
-                txtVV2302.text = txtVV2302.text
+                txtVV4100.text = txtVV4100.text
             }
         } else {
-            txtVV2302.text = df.format(300f + (300f*factor))
+            txtVV4100.text = df.format((urahmen+orahmen)/2*change)  
+
         }
     } else {
-        lblVV2302uR.text = df.format(0f);
-        lblVV2302oR.text = df.format(0f)
-        txtVV2302.text = df.format(0f)
+        rhVV4100.text = '0,00 - 0,00';
+        txtVV4100.text = df.format(0f)
     }
         
-    if(chkVV1005.isSelected()) {
-        urahmen = 50f;
-        orahmen = 640f;
-        lblVV1005uR.text = df.format(urahmen);
-        lblVV1005oR.text = df.format(orahmen);
+    if(chkVV4102.isSelected()) {
+        urahmen = 40f;
+        if(chkHaft.isSelected()) {
+            orahmen = 375f
+        } else {
+            orahmen = 300f
+        }
+        rhVV4102.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
         if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1005.text) == 0f) {
-                txtVV1005.text = df.format(300f)
+            if (df.parse(txtVV4102.text) == 0f) {
+                txtVV4102.text = df.format((urahmen+orahmen)/2*change)
             } else {
-                txtVV1005.text = txtVV1005.text
+                txtVV4102.text = txtVV4102.text
             }
         } else {
-            txtVV1005.text = df.format(300f)
-        }
+            txtVV4102.text = df.format((urahmen+orahmen)/2*change)
+        } 
     } else {
-        lblVV1005uR.text = df.format(0f);
-        lblVV1005oR.text = df.format(0f)
-        txtVV1005.text = df.format(0f)
+        rhVV4102.text = '0,00 - 0,00';
+        txtVV4102.text = df.format(0f)
+    }
+
+    if(chkVV4104.isSelected()) {
+        urahmen = 40f;
+        if(chkHaft.isSelected()) {
+            orahmen = 362.50f
+        } else {
+            orahmen = 290f
+        }
+        rhVV4104.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
+            if (df.parse(txtVV4104.text) == 0f) {
+                txtVV4104.text = df.format((urahmen+orahmen)/2*change)
+            } else {
+                txtVV4104.text = txtVV4104.text
+            }
+        } else {
+            txtVV4104.text = df.format((urahmen+orahmen)/2*change)
+        } 
+    } else {
+        rhVV4104.text = '0,00 - 0,00'
+        txtVV4104.text = df.format(0f)
     }
 
     if(chkvorVV7002.isSelected()) {
-        gebuehr=(df.parse(txtVV2302.text)+df.parse(txtVV1005.text)) * 0.2f;
+        gebuehr=(df.parse(txtVV4104.text)) * 0.2f;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -668,83 +749,90 @@ def float calculate() {
         lblvorVV7002.text = df.format(0f)
     }
 
-    if(chkVV3102.isSelected()) {
-        urahmen = 50f + (50f * factor);
-        orahmen = 550f +(550f * factor);
-        lblVV3102uR.text = df.format(urahmen);
-        lblVV3102oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3102.text) == 0f) {
-                txtVV3102.text = df.format((urahmen+orahmen)/2*change)
+    if(chkVV4106.isSelected()) {
+        if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+            urahmen = 50f;
+            if(chkHaft.isSelected()) {
+            orahmen = 400f
             } else {
-                txtVV3102.text = txtVV3102.text
+            orahmen = 320f
+            }
+        } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+            urahmen = 100f;
+            if(chkHaft.isSelected()) {
+            orahmen = 862.50f
+            } else {
+            orahmen = 690f
             }
         } else {
-            txtVV3102.text = df.format((urahmen+orahmen)/2*change)
-        }
-    } else {
-        lblVV3102uR.text = df.format(0f);
-        lblVV3102oR.text = df.format(0f)
-        txtVV3102.text = df.format(0f)
-        }
-    
-    if(chkAnrechenbarerAnteil.isSelected()) {
-        gebuehr = df.parse(txtVV2302.text) / 2f * -1f
-        if (gebuehr > -175f) {
-            lblAnrechenbarerAnteil.text = df.format(gebuehr)
-        } else {
-         lblAnrechenbarerAnteil.text = df.format(-175f)   
-        }
-    } else {
-        lblAnrechenbarerAnteil.text = df.format(0f)
-    }
-
-    if(chkVV3106.isSelected()) {
-        urahmen = 50f;
-        orahmen = 510f;
-        lblVV3106uR.text = df.format(urahmen);
-        lblVV3106oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3106.text) == 0f) {
-                txtVV3106.text = df.format((urahmen+orahmen)/2*change)
+            urahmen = 40f;
+            if(chkHaft.isSelected()) {
+            orahmen = 362.50f
             } else {
-                txtVV3106.text = txtVV3106.text
+            orahmen = 290f
+            }
+        }
+        rhVV4106.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
+            if (df.parse(txtVV4106.text) == 0f) {
+                txtVV4106.text = df.format((urahmen+orahmen)/2*change)
+            } else {
+                txtVV4106.text = txtVV4106.text
             }
         } else {
-            txtVV3106.text = df.format((urahmen+orahmen)/2*change)
-        }
+            txtVV4106.text = df.format((urahmen+orahmen)/2*change)
+        }     
     } else {
-        lblVV3106uR.text = df.format(0f);
-        lblVV3106oR.text = df.format(0f)
-        txtVV3106.text = df.format(0f)
+        rhVV4106.text = "0,00 - 0,00"
+        txtVV4106.text = df.format(0f)
         }
 
-    if(chkVV1006.isSelected()) {
-        urahmen = 50f;
-        orahmen = 550f;
-        lblVV1006uR.text = df.format(urahmen);
-        lblVV1006oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1006.text) == 0f) {
-                txtVV1006.text = df.format((urahmen+orahmen)/2*change)
+    if(chkVV4108.isSelected()) {
+        if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+            urahmen = 80f;
+            if(chkHaft.isSelected()) {
+            orahmen = 700f
             } else {
-                txtVV1006.text = txtVV1006.text
+            orahmen = 560f
+            }
+        } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+            urahmen = 130f;
+            if(chkHaft.isSelected()) {
+            orahmen = 1162.50f
+            } else {
+            orahmen = 930f
             }
         } else {
-            txtVV1006.text = df.format((urahmen+orahmen)/2*change)
+            urahmen = 70f;
+            if(chkHaft.isSelected()) {
+                orahmen = 600f
+            } else {
+                orahmen = 480f
+            }
         }
+        rhVV4108.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
+            if (df.parse(txtVV4108.text) == 0f) {
+                txtVV4108.text = df.format((urahmen+orahmen)/2*change)
+            } else {
+                txtVV4108.text = txtVV4108.text
+            }
+        } else {
+            txtVV4108.text = df.format((urahmen+orahmen)/2*change)
+        }
+        gebuehr = df.parse(txtVV4108.text) * spnVerTage1.value.toFloat();
+        lblVerTage1.text = df.format(gebuehr)
     } else {
-        lblVV1006uR.text = df.format(0f);
-        lblVV1006oR.text = df.format(0f)
-        txtVV1006.text = df.format(0f)
-    }
+        rhVV4108.text = "0,00 - 0,00"
+        txtVV4108.text = df.format(0f);
+        lblVerTage1.text = df.format(0f)
+        }
+
     
     if(chkVV7002.isSelected()) {
         gebuehr=(
-        df.parse(txtVV3102.text)
-        +df.parse(lblAnrechenbarerAnteil.text)
-        +df.parse(txtVV3106.text)
-        +df.parse(txtVV1006.text)
+        df.parse(txtVV4106.text)
+        +df.parse(lblVerTage1.text)
         ) * 0.2f;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
@@ -757,71 +845,57 @@ def float calculate() {
         lblVV7002.text = df.format(0f)
     }
     
-    if(chkVV3204.isSelected()) {
-        urahmen = 60f + (60f * factor);
-        orahmen = 680f +(680f * factor);
-        lblVV3204uR.text = df.format(urahmen);
-        lblVV3204oR.text = df.format(orahmen);
+    if(chkVV4124.isSelected()) {
+        urahmen = 80f;
+        if(chkHaft.isSelected()) {
+            orahmen = 700f
+        } else {
+            orahmen = 560f
+        }        
+        rhVV4124.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
         if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3204.text) == 0f) {
-                txtVV3204.text = df.format((urahmen+orahmen)/2*change)
+            if (df.parse(txtVV4124.text) == 0f) {
+                txtVV4124.text = df.format((urahmen+orahmen)/2*change)
             } else {
-                txtVV3204.text = txtVV3204.text
+                txtVV4124.text = txtVV4124.text
             }
         } else {
-            txtVV3204.text = df.format((urahmen+orahmen)/2*change)
+            txtVV4124.text = df.format((urahmen+orahmen)/2*change)
         }
     } else {
-        lblVV3204uR.text = df.format(0f);
-        lblVV3204oR.text = df.format(0f)
-        txtVV3204.text = df.format(0f)
+        rhVV4124.text = "0,00 - 0,00";
+        txtVV4124.text = df.format(0f)
     }
     
-    if(chkVV3205.isSelected()) {
-        urahmen = 50f;
-        orahmen = 510f;
-        lblVV3205uR.text = df.format(urahmen);
-        lblVV3205oR.text = df.format(orahmen);
+    if(chkVV4126.isSelected()) {
+        urahmen = 80f;
+        if(chkHaft.isSelected()) {
+            orahmen = 700f
+        } else {
+            orahmen = 560f
+        }
+        rhVV4126.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
         if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3205.text) == 0f) {
-                txtVV3205.text = df.format((urahmen+orahmen)/2*change)
+            if (df.parse(txtVV4126.text) == 0f) {
+                txtVV4126.text = df.format((urahmen+orahmen)/2*change)
             } else {
-                txtVV3205.text = txtVV3205.text
+                txtVV4126.text = txtVV4126.text
             }
         } else {
-            txtVV3205.text = df.format((urahmen+orahmen)/2*change)
-        }     
+            txtVV4126.text = df.format((urahmen+orahmen)/2*change)
+        }
+        gebuehr = df.parse(txtVV4126.text) * spnVerTage2.value.toFloat();
+        lblVerTage2.text = df.format(gebuehr)   
     } else {
-        lblVV3205uR.text = df.format(0f);
-        lblVV3205oR.text = df.format(0f)
-        txtVV3205.text = df.format(0f)
-    }
-
-    if(chkVV1006Berufung.isSelected()) {
-        urahmen = 60f;
-        orahmen = 680f;
-        lblVV1006BerufunguR.text = df.format(urahmen);
-        lblVV1006BerufungoR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1006Berufung.text) == 0f) {
-                txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV1006Berufung.text = txtVV1006Berufung.text
-            }
-        } else {
-            txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*change)
-        } 
-    } else {
-        lblVV1006BerufunguR.text = df.format(0f);
-        lblVV1006BerufungoR.text = df.format(0f)
-        txtVV1006Berufung.text = df.format(0f)
+        rhVV4126.text = '0,00 - 0,00';
+        lblVerTage2.text = df.format(0f);
+        txtVV4126.text = df.format(0f)
     }
 
     if(chkVV7002Berufung.isSelected()) {
         gebuehr=(
-        df.parse(txtVV3204.text)
-        +df.parse(txtVV3205.text)
-        +df.parse(txtVV1006Berufung.text)
+        df.parse(txtVV4124.text)
+        +df.parse(lblVerTage2.text)
         ) * 0.2f;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
@@ -867,17 +941,15 @@ def float calculate() {
     }
 
     gebuehr=(
-        df.parse(txtVV2302.text)
-        +df.parse(lblvorVV7002.text)
-        +df.parse(txtVV1005.text)
-        +df.parse(txtVV3102.text)
-        +df.parse(lblAnrechenbarerAnteil.text)
-        +df.parse(txtVV3106.text)
-        +df.parse(txtVV1006.text)
+        df.parse(txtVV4100.text)
+        +df.parse(txtVV4102.text)
+        +df.parse(txtVV4104.text)
+        +df.parse(lblvorVV7002.text)        
+        +df.parse(txtVV4106.text)
+        +df.parse(lblVerTage1.text)
         +df.parse(lblVV7002.text)
-        +df.parse(txtVV3204.text)
-        +df.parse(txtVV3205.text)
-        +df.parse(txtVV1006Berufung.text)
+        +df.parse(txtVV4124.text)
+        +df.parse(lblVerTage2.text)
         +df.parse(lblVV7002Berufung.text)
         +df.parse(lblVV7000.text)
         +df.parse(lblVV7003.text)
@@ -945,20 +1017,27 @@ def String copyToClipboard() {
         sbf.append("</tr>");
         sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
         
-    if(chkVV2302.selected) {
+    if(chkVV4100.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Geschäftsgebühr Nr. 2302, 1008 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV2302.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4100.text).append(" VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4100.text).append(" €</td>");
         sbf.append("</tr>");
     }
 
-    if(chkVV1005.selected) {
+    if(chkVV4102.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr.1005 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV1005.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4102.text).append(" VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4102.text).append(" €</td>");
         sbf.append("</tr>");
     } 
-  
+
+    if(chkVV4104.selected) {
+        sbf.append("<tr>")
+        sbf.append("<td align=\"left\">").append(lblVV4104.text).append(" VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4104.text).append(" €</td>");
+        sbf.append("</tr>");
+    } 
+
      if(chkvorVV7002.selected) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">Auslagen im Vorverfahren Nr. 7002 VV RVG</td>");
@@ -966,28 +1045,16 @@ def String copyToClipboard() {
         sbf.append("</tr>");
     } 
 
-    if(chkVV3102.selected) {
+    if(chkVV4106.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3102, 1008 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV3102.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4106.text).append(" VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4106.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkAnrechenbarerAnteil.selected) {
+    if(chkVV4108.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">abz&uuml;glich anrechenbarer Teil</td>");
-        sbf.append("<td align=\"right\">").append(lblAnrechenbarerAnteil.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV3106.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3106 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV3106.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV1006.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1006 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV1006.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4108.text).append(" VV RVG für ").append(spnVerTage1.value.toString()).append(" Verhandlungstage</td>");
+        sbf.append("<td align=\"right\">").append(lblVerTage1.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV7002.selected) {
@@ -996,22 +1063,16 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\">").append(lblVV7002.text).append(" €</td>");
         sbf.append("</tr>");
      }
-    if(chkVV3204.selected) {
+    if(chkVV4124.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3204, 1008 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV3204.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4124.text).append(" VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4124.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkVV3205.selected) {
+    if(chkVV4126.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3205 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV3205.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV1006Berufung.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1006 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(txtVV1006Berufung.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(lblVV4126.text).append(" VV RVG für ").append(spnVerTage2.value.toString()).append(" Verhandlungstage</td>");
+        sbf.append("<td align=\"right\">").append(lblVerTage2.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV7002Berufung.selected) {
@@ -1107,16 +1168,22 @@ def CalculationTable copyToDocument() {
         row.add(" ");
         ct.addRow(row);
     */
-    if(chkVV2302.selected) {
+    if(chkVV4100.selected) {
         row=new ArrayList<String>();
-        row.add("Geschäftsgebühr Nr. 2302, 1008 VV RVG");
-        row.add(txtVV2302.text);
+        row.add(lblVV4100.text + " VV RVG");
+        row.add(txtVV4100.text);
         ct.addRow(row);
     }
-     if(chkVV1005.selected) {
+    if(chkVV4102.selected) {
         row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr.1005 VV RVG");
-        row.add(txtVV1005.text);
+        row.add(lblVV4102.text + " VV RVG");
+        row.add(txtVV4102.text);
+        ct.addRow(row);
+    }
+    if(chkVV4104.selected) {
+        row=new ArrayList<String>();
+        row.add(lblVV4104.text + " VV RVG");
+        row.add(txtVV4104.text);
         ct.addRow(row);
     }
     if(chkvorVV7002.selected) {
@@ -1125,52 +1192,34 @@ def CalculationTable copyToDocument() {
         row.add(lblvorVV7002.text);
         ct.addRow(row);
     }
-    if(chkVV3102.selected) {
+    if(chkVV4106.selected) {
         row=new ArrayList<String>();
-        row.add("Verfahrensgebühr Nr. 3102, 1008 VV RVG");
-        row.add(txtVV3102.text);
+        row.add(lblVV4106.text + " VV RVG");
+        row.add(txtVV4106.text);
         ct.addRow(row);
     }
-    if(chkAnrechenbarerAnteil.selected) {
+    if(chkVV4108.selected) {
         row=new ArrayList<String>();
-        row.add("abzüglich anrechenbarer Teil");
-        row.add(lblAnrechenbarerAnteil.text);
+        row.add(lblVV4108.text + " VV RVG");
+        row.add(lblVerTage1.text);
         ct.addRow(row);
     }
-    if(chkVV3106.selected) {
-        row=new ArrayList<String>();
-        row.add("Terminsgebühr Nr. 3106 VV RVG");
-        row.add(txtVV3106.text);
-        ct.addRow(row);
-    }
-    if(chkVV1006.selected) {
-        row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr. 1006 VV RVG");
-        row.add(txtVV1006.text);
-        ct.addRow(row);
-    } 
     if(chkVV7002.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen Nr. 7002 VV RVG");
         row.add(lblVV7002.text);
         ct.addRow(row);
     }
-    if(chkVV3204.selected) {
+    if(chkVV4124.selected) {
         row=new ArrayList<String>();
-        row.add("Verfahrensgebühr Nr. 3204, 1008 VV RVG");
-        row.add(txtVV3204.text);
+        row.add(lblVV4124.text + " VV RVG");
+        row.add(txtVV4124.text);
         ct.addRow(row);
     }
-    if(chkVV3205.selected) {
+    if(chkVV4126.selected) {
         row=new ArrayList<String>();
-        row.add("Terminsgebühr Nr. 3205 VV RVG");
-        row.add(txtVV3205.text);
-        ct.addRow(row);
-    }
-    if(chkVV1006Berufung.selected) {
-        row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr. 1006 VV RVG");
-        row.add(txtVV1006Berufung.text);
+        row.add(lblVV4126.text + " VV RVG");
+        row.add(lblVerTage2.text);
         ct.addRow(row);
     } 
     if(chkVV7002Berufung.selected) {

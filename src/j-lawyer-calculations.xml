@@ -7,16 +7,19 @@ and open the template in the editor.
 
 
 <calculations>
-    <calculation name="rvg" version="1.7.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvg_meta.groovy,rvg_ui.groovy"/>
+    <calculation name="rvg" version="1.7.1" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvg_meta.groovy,rvg_ui.groovy"/>
     <calculation name="rvgtables" version="1.1.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy"/>
     <calculation name="pkhtables" version="1.1.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy"/>
-    <calculation name="sozialrecht" version="0.9.1" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
+    <calculation name="sozialrecht" version="0.9.2" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.0.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy"/>
+    <calculation name="strafrecht" version="0.9.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,strafrecht_ui.groovy"/>
 
-    <calculation name="rvg" version="1.7.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvg_meta.groovy,rvg_ui.groovy"/>
+
+    <calculation name="rvg" version="1.7.1" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvg_meta.groovy,rvg_ui.groovy"/>
     <calculation name="rvgtables" version="1.1.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy"/>
     <calculation name="pkhtables" version="1.1.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy"/>
-    <calculation name="sozialrecht" version="0.9.1" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
+    <calculation name="sozialrecht" version="0.9.2" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.0.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy"/>
+    <calculation name="strafrecht" version="0.9.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="sozialrecht_meta.groovy,strafrecht_ui.groovy"/>
     
 </calculations>
