@@ -1142,7 +1142,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'zwischen Summe:')
+                                    label(text: 'Zwischensumme:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1810,7 +1810,7 @@ def String copyToClipboard() {
     if(chkmwst.selected) {
         sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>")
         sbf.append("<tr>");
-        sbf.append("<td align=\"left\"><b>zwischen Summe</b></td>");
+        sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
         sbf.append("</tr>");
         sbf.append("<tr>");
@@ -1992,7 +1992,7 @@ def CalculationTable copyToDocument() {
     }
     if(chkmwst.selected) {
         row=new ArrayList<String>();
-        row.add("zwischen Summe");
+        row.add("Zwischensumme");
         row.add(lblzwsum.text);
         ct.addRow(row);  
         row=new ArrayList<String>();
