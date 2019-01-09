@@ -1108,7 +1108,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkmwst = checkBox(text: 'Mehrwertsteuer VV7008:', selected: true, stateChanged: {
+                                    chkmwst = checkBox(text: 'Umsatzsteuer VV7008:', selected: true, stateChanged: {
                                         calculate()
                                     })
                                 }
@@ -1187,7 +1187,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'darin enthaltene Mehrwertsteuer:')
+                                    label(text: 'darin enthaltene Umsatzsteuer:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1713,7 +1713,7 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
         sbf.append("</tr>");
         sbf.append("<tr>");
-        sbf.append("<td align=\"left\">Mehrwertsteuer 19% Nr. 7008 VV RVG</td>");
+        sbf.append("<td align=\"left\">Umsatzsteuer 19% Nr. 7008 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
         sbf.append("</tr>");
     }
@@ -1871,7 +1871,7 @@ def CalculationTable copyToDocument() {
         row.add(lblzwsum.text);
         ct.addRow(row);  
         row=new ArrayList<String>();
-        row.add("Mehrwertsteuer 19% Nr. 7008 VV RVG");
+        row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
         row.add(lblmwst.text);
         ct.addRow(row);
     }
