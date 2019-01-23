@@ -735,7 +735,7 @@ ranges.add(new Range(470000,500000,3213))
 def float berechneWertGebuehr(float streitWert, float factor) { 
 
     PkhTablesRangeList rl = new PkhTablesRangeList()
-    return rl.getMappedValue(streitWert) * factor
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
     
 
 }

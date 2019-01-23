@@ -671,7 +671,7 @@ import java.util.List
 def float berechneWertGebuehr(float streitWert, float factor) { 
 
     RvgTablesRangeList rl = new RvgTablesRangeList()
-    return rl.getMappedValue(streitWert) * factor
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
     
 }
 
