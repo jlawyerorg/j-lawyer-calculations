@@ -1201,7 +1201,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Summe:')
+                                    label(text: 'Zahlbetrag:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1748,7 +1748,7 @@ def String copyToClipboard() {
     }
     if(chkZahlungen.selected) {    
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Summe</b></td>");
+        sbf.append("<td align=\"left\"><b>Zahlbetrag</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblsum2.text).append(" €</td></b>");
         sbf.append("</tr>");
     }
@@ -1772,141 +1772,141 @@ def CalculationTable copyToDocument() {
     if(chkVV2302.selected) {
         row=new ArrayList<String>();
         row.add("Geschäftsgebühr Nr. 2302, 1008 VV RVG");
-        row.add(txtVV2302.text);
+        row.add(txtVV2302.text + " €");
         ct.addRow(row);
     }
      if(chkVV1005.selected) {
         row=new ArrayList<String>();
         row.add("Einigungsgebühr Nr.1005 VV RVG");
-        row.add(txtVV1005.text);
+        row.add(txtVV1005.text + " €");
         ct.addRow(row);
     }
     if(chkvorVV7002.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen im Vorverfahren Nr. 7002 VV RVG");
-        row.add(lblvorVV7002.text);
+        row.add(lblvorVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV3102.selected) {
         row=new ArrayList<String>();
         row.add("Verfahrensgebühr Nr. 3102, 1008 VV RVG");
-        row.add(txtVV3102.text);
+        row.add(txtVV3102.text + " €");
         ct.addRow(row);
     }
     if(chkAnrechenbarerAnteil.selected) {
         row=new ArrayList<String>();
         row.add("abzüglich anrechenbarer Teil");
-        row.add(lblAnrechenbarerAnteil.text);
+        row.add(lblAnrechenbarerAnteil.text + " €");
         ct.addRow(row);
     }
     if(chkVV3106.selected) {
         row=new ArrayList<String>();
         row.add("Terminsgebühr Nr. 3106 VV RVG");
-        row.add(txtVV3106.text);
+        row.add(txtVV3106.text + " €");
         ct.addRow(row);
     }
     if(chkVV1006.selected) {
         row=new ArrayList<String>();
         row.add("Einigungsgebühr Nr. 1006 VV RVG");
-        row.add(txtVV1006.text);
+        row.add(txtVV1006.text + " €");
         ct.addRow(row);
     } 
     if(chkVV7002.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002.text);
+        row.add(lblVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV3204.selected) {
         row=new ArrayList<String>();
         row.add("Verfahrensgebühr Nr. 3204, 1008 VV RVG");
-        row.add(txtVV3204.text);
+        row.add(txtVV3204.text + " €");
         ct.addRow(row);
     }
     if(chkVV3205.selected) {
         row=new ArrayList<String>();
         row.add("Terminsgebühr Nr. 3205 VV RVG");
-        row.add(txtVV3205.text);
+        row.add(txtVV3205.text + " €");
         ct.addRow(row);
     }
     if(chkVV1006Berufung.selected) {
         row=new ArrayList<String>();
         row.add("Einigungsgebühr Nr. 1006 VV RVG");
-        row.add(txtVV1006Berufung.text);
+        row.add(txtVV1006Berufung.text + " €");
         ct.addRow(row);
     } 
     if(chkVV7002Berufung.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002Berufung.text);
+        row.add(lblVV7002Berufung.text + " €");
         ct.addRow(row);
     }
     if(chkVV7000.selected) {
         row=new ArrayList<String>();
         row.add("Kopien Nr. 7000 VV RVG");
-        row.add(lblVV7000.text);
+        row.add(lblVV7000.text + " €");
         ct.addRow(row);
     }
     if(chkVV7003.selected) {
         row=new ArrayList<String>();
         row.add("Fahrtkosten Nr. 7003/7004 VV RVG");
-        row.add(lblVV7003.text);
+        row.add(lblVV7003.text + " €");
         ct.addRow(row);
     }
     if(chkTagegeld.selected){
         row=new ArrayList<String>();
         row.add("Tagegeld Nr. 7005 VV RVG");
-        row.add(lblVV7005.text);
+        row.add(lblVV7005.text + " €");
         ct.addRow(row);
     }
     if(chkAuslagenmM.selected) {
         row=new ArrayList<String>();
         row.add("sonstige steuerpflichtige Auslagen (netto)");
-        row.add(lblAuslagenmM.text);
+        row.add(lblAuslagenmM.text + " €");
         ct.addRow(row);
     }
     if(chkmwst.selected) {
         row=new ArrayList<String>();
         row.add("Zwischensumme");
-        row.add(lblzwsum.text);
+        row.add(lblzwsum.text + " €");
         ct.addRow(row);  
         row=new ArrayList<String>();
         row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
-        row.add(lblmwst.text);
+        row.add(lblmwst.text + " €");
         ct.addRow(row);
     }
     if(chkAuslagenoM.selected) {
         row=new ArrayList<String>();
         row.add("sonstige steuerfreie Auslagen");
-        row.add(lblAuslagenoM.text);
+        row.add(lblAuslagenoM.text + " €");
         ct.addRow(row);
     }
     row=new ArrayList<String>();
     row.add("Summe");
-    row.add(lblsum1.text);
+    row.add(lblsum1.text + " €");
     ct.addRow(row);    
     if(chkquote.selected) {
         row=new ArrayList<String>();
         row.add("Quote " + txtquote.text + "");
-        row.add(lblquote.text);
+        row.add(lblquote.text + " €");
         ct.addRow(row);
     }
     if(chkZahlungen.selected) {
         row=new ArrayList<String>();
         row.add("bisherige Zahlungen");
-        row.add(lblZahlungen.text);
+        row.add(lblZahlungen.text + " €");
         ct.addRow(row);
     }
     if((chkmwst.selected)&&(chkZahlungen.selected)) {
         row=new ArrayList<String>();
         row.add("darin enthaltene MwSt. (19%)");
-        row.add(lblmwstZahlung.text);
+        row.add(lblmwstZahlung.text + " €");
         ct.addRow(row);
     }
     if(chkZahlungen.selected) {
         row=new ArrayList<String>();
-        row.add("Summe");
-        row.add(lblsum2.text);
+        row.add("Zahlbetrag");
+        row.add(lblsum2.text + " €");
         ct.addRow(row);
     }
     ct.setColumnLabels(colLabels);

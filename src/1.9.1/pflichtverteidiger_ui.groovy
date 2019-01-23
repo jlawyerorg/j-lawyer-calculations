@@ -1264,7 +1264,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Summe')
+                                    label(text: 'Zahlbetrag')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1828,7 +1828,7 @@ def String copyToClipboard() {
     }
     if(chkZahlungen.selected) {    
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Summe</b></td>");
+        sbf.append("<td align=\"left\"><b>Zahlbetrag</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblsum2.text).append(" €</td></b>");
         sbf.append("</tr>");
     }
@@ -1852,153 +1852,153 @@ def CalculationTable copyToDocument() {
     if(chkVV4100.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4100.text + " VV RVG");
-        row.add(txtVV4100.text);
+        row.add(txtVV4100.text + " €");
         ct.addRow(row);
     }
     if(chkVV4102.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4102.text + " VV RVG");
-        row.add(txtVV4102.text);
+        row.add(txtVV4102.text + " €");
         ct.addRow(row);
     }
     if(chkVV4104.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4104.text + " VV RVG");
-        row.add(txtVV4104.text);
+        row.add(txtVV4104.text + " €");
         ct.addRow(row);
     }
     if(chkvorVV7002.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen im Vorverfahren Nr. 7002 VV RVG");
-        row.add(lblvorVV7002.text);
+        row.add(lblvorVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV4106.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4106.text + " VV RVG");
-        row.add(txtVV4106.text);
+        row.add(txtVV4106.text + " €");
         ct.addRow(row);
     }
     if(chkVV4108.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4108.text + " VV RVG");
-        row.add(txtVV4108.text);
+        row.add(txtVV4108.text + " €");
         ct.addRow(row);
     }
     if(chkVV4110.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4110.text + " VV RVG");
-        row.add(txtVV4110.text);
+        row.add(txtVV4110.text + " €");
         ct.addRow(row);
     }
     if(chkVV4111.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4111.text + " VV RVG");
-        row.add(txtVV4111.text);
+        row.add(txtVV4111.text + " €");
         ct.addRow(row);
     }
     if(chkVV7002.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002.text);
+        row.add(lblVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV4124.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4124.text + " VV RVG");
-        row.add(txtVV4124.text);
+        row.add(txtVV4124.text + " €");
         ct.addRow(row);
     }
     if(chkVV4126.selected) {
         row=new ArrayList<String>();
         row.add(lblVV4126.text + " VV RVG");
-        row.add(txtVV4126.text);
+        row.add(txtVV4126.text + " €");
         ct.addRow(row);
     }
     if(chkVV4128.selected) {
         row=new ArrayList<String>();
         row.add("Zuschlag (5-8h) Nr. 4128 VV RVG");
-        row.add(txtVV4128.text);
+        row.add(txtVV4128.text + " €");
         ct.addRow(row);
     }
     if(chkVV4129.selected) {
         row=new ArrayList<String>();
         row.add("Zuschlag (ab 8h) Nr. 4128 VV RVG");
-        row.add(txtVV4129.text);
+        row.add(txtVV4129.text + " €");
         ct.addRow(row);
     }
     if(chkVV7002Berufung.selected) {
         row=new ArrayList<String>();
         row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002Berufung.text);
+        row.add(lblVV7002Berufung.text + " €");
         ct.addRow(row);
     }
     if(chkVV7000.selected) {
         row=new ArrayList<String>();
         row.add("Kopien Nr. 7000 VV RVG");
-        row.add(lblVV7000.text);
+        row.add(lblVV7000.text + " €");
         ct.addRow(row);
     }
     if(chkVV7003.selected) {
         row=new ArrayList<String>();
         row.add("Fahrtkosten Nr. 7003/7004 VV RVG");
-        row.add(lblVV7003.text);
+        row.add(lblVV7003.text + " €");
         ct.addRow(row);
     }
     if(chkTagegeld.selected){
         row=new ArrayList<String>();
         row.add("Tagegeld Nr. 7005 VV RVG");
-        row.add(lblVV7005.text);
+        row.add(lblVV7005.text + " €");
         ct.addRow(row);
     }
     if(chkAuslagenmM.selected) {
         row=new ArrayList<String>();
         row.add("sonstige steuerpflichtige Auslagen (netto)");
-        row.add(lblAuslagenmM.text);
+        row.add(lblAuslagenmM.text + " €");
         ct.addRow(row);
     }
     if(chkmwst.selected) {
         row=new ArrayList<String>();
         row.add("Zwischensumme");
-        row.add(lblzwsum.text);
+        row.add(lblzwsum.text + " €");
         ct.addRow(row);  
         row=new ArrayList<String>();
         row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
-        row.add(lblmwst.text);
+        row.add(lblmwst.text + " €");
         ct.addRow(row);
     }
     if(chkAuslagenoM.selected) {
         row=new ArrayList<String>();
         row.add("sonstige steuerfreie Auslagen");
-        row.add(lblAuslagenoM.text);
+        row.add(lblAuslagenoM.text + " €");
         ct.addRow(row);
     }
     row=new ArrayList<String>();
     row.add("Summe");
-    row.add(lblsum1.text);
+    row.add(lblsum1.text + " €");
     ct.addRow(row);    
     if(chkquote.selected) {
         row=new ArrayList<String>();
         row.add("Quote " + txtquote.text + "");
-        row.add(lblquote.text);
+        row.add(lblquote.text + " €");
         ct.addRow(row);
     }
     if(chkZahlungen.selected) {
         row=new ArrayList<String>();
         row.add("bisherige Zahlungen");
-        row.add(lblZahlungen.text);
+        row.add(lblZahlungen.text + " €");
         ct.addRow(row);
     }
     if((chkmwst.selected)&&(chkZahlungen.selected)) {
         row=new ArrayList<String>();
         row.add("darin enthaltene MwSt. (19%)");
-        row.add(lblmwstZahlung.text);
+        row.add(lblmwstZahlung.text + " €");
         ct.addRow(row);
     }
     if(chkZahlungen.selected) {
         row=new ArrayList<String>();
-        row.add("Summe");
-        row.add(lblsum2.text);
+        row.add("Zahlbetrag");
+        row.add(lblsum2.text + " €");
         ct.addRow(row);
     }
     ct.setColumnLabels(colLabels);
