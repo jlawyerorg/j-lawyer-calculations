@@ -1713,13 +1713,13 @@ def String copyToClipboard() {
         
     if(chkVV2300.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV2300.value.toString()).append(" - Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV2300.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1000.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr.1000ff VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1000.value.toString()).append(" - Einigungsgebühr Nr.1000ff VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1000.text).append(" €</td>");
         sbf.append("</tr>");
     }
@@ -1731,7 +1731,7 @@ def String copyToClipboard() {
     }
     if(chkVV3100.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3100.value.toString()).append(" - Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3100.text).append(" €</td>");
         sbf.append("</tr>");
     }
@@ -1743,13 +1743,13 @@ def String copyToClipboard() {
     }
     if(chkVV3104.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3104 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3104.value.toString()).append(" - Terminsgebühr Nr. 3104 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3104.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1003.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1003.value.toString()).append(" - Einigungsgebühr Nr. 1003 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1003.text).append(" €</td>");
         sbf.append("</tr>");
     }
@@ -1761,19 +1761,19 @@ def String copyToClipboard() {
     }
     if(chkVV3200.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3200.value.toString()).append(" - Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3200.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV3202.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3202 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3202.value.toString()).append(" - Terminsgebühr Nr. 3202 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3202.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1003Berufung.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003f VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1003Berufung.value.toString()).append(" - Einigungsgebühr Nr. 1003f VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1003Berufung.text).append(" €</td>");
         sbf.append("</tr>");
     }
@@ -1896,13 +1896,13 @@ def CalculationTable copyToDocument() {
      */
     if(chkVV2300.selected) {
         row=new ArrayList<String>();
-        row.add("Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV2300.value.toString() + " - Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV2300.text + " €");
         ct.addRow(row);
     }
     if(chkVV1000.selected) {
         row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr.1000ff VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1000.value.toString() + " - Einigungsgebühr Nr.1000ff VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV1000.text + " €");
         ct.addRow(row);
     }
@@ -1914,7 +1914,7 @@ def CalculationTable copyToDocument() {
     }
     if(chkVV3100.selected) {
         row=new ArrayList<String>();
-        row.add("Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3100.value.toString() + " - Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV3100.text + " €");
         ct.addRow(row);
     }
@@ -1926,13 +1926,13 @@ def CalculationTable copyToDocument() {
     }
     if(chkVV3104.selected) {
         row=new ArrayList<String>();
-        row.add("Terminsgebühr Nr. 3104 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3104.value.toString() + " - Terminsgebühr Nr. 3104 VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV3104.text + " €");
         ct.addRow(row);
     }
     if(chkVV1003.selected) {
         row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr. 1003 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1003.value.toString() + " - Einigungsgebühr Nr. 1003 VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV1003.text + " €");
         ct.addRow(row);
     } 
@@ -1944,19 +1944,19 @@ def CalculationTable copyToDocument() {
     }
     if(chkVV3200.selected) {
         row=new ArrayList<String>();
-        row.add("Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3200.value.toString() + " - Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV3200.text + " €");
         ct.addRow(row);
     }
     if(chkVV3202.selected) {
         row=new ArrayList<String>();
-        row.add("Terminsgebühr Nr. 3202 VV RVG - " + txtStreitWert.text + " €");
-        row.add(lblVV3104.text + " €");
+        row.add(spnVV3202.value.toString() + " - Terminsgebühr Nr. 3202 VV RVG - " + txtStreitWert.text + " €");
+        row.add(lblVV3202.text + " €");
         ct.addRow(row);
     }
     if(chkVV1003Berufung.selected) {
         row=new ArrayList<String>();
-        row.add("Einigungsgebühr Nr. 1003f VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1003Berufung.value.toString() + " - Einigungsgebühr Nr. 1003f VV RVG - " + txtStreitWert.text + " €");
         row.add(lblVV1003Berufung.text + " €");
         ct.addRow(row);
     } 
