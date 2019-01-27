@@ -758,7 +758,8 @@ new SwingBuilder().edt {
                                     label(text: 'Mandant in Haft:')
                                 }
                                 td {
-                                    chkHaft = checkBox(id: 'bHaft', text: '', selected: false, stateChanged: {
+                                    chkHaft = checkBox(id: 'bHaft', text: '', selected: false, actionPerformed: {
+                                                haft()
                                                 calculate()
                                             })
                                 }
@@ -782,6 +783,11 @@ new SwingBuilder().edt {
                                     lblVV4100 = label(id: 'nVV4100', text: 'Grundgebühr Nr. 4100:')
                                 }
                                 td {
+                                    haftVV4100 = checkBox(id: 'haftVV4100', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4100 = label(id: 'nVV4100', text: '0,00 - 0,00')
                                 }
                                 td {
@@ -801,6 +807,11 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                }
+                                td {
+                                    haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
                                     rhVV4102 = label(id: 'nVV4102', text: '0,00 - 0,00')
@@ -831,6 +842,11 @@ new SwingBuilder().edt {
                                     lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr 4104:')
                                 }
                                 td {
+                                    haftVV4104 = checkBox(id: 'haftVV4104', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4104 = label(id: 'nVV4104', text: '0,00 - 0,00')
                                 }
                                 td {
@@ -848,6 +864,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Auslagen VV7002.:')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -878,6 +897,11 @@ new SwingBuilder().edt {
                                     lblVV4106 = label(id: 'nVV4106', text: 'Verfahrensgebühr Nr. 4106') 
                                 }
                                 td {
+                                    haftVV4106 = checkBox(id: 'haftVV4106', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4106 = label(id: 'nVV4106', text: '0,00 - 0,00') 
                                 }
                                 td {
@@ -897,6 +921,11 @@ new SwingBuilder().edt {
                                     lblVV4108 = label(id: 'nVV4108', text: 'Terminsgebühr Nr 4108:') 
                                 }
                                 td {
+                                    haftVV4108 = checkBox(id: 'haftVV4108', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4108 = label(id: 'nVV4108', text: '0,00 - 0,00') 
                                 }
                                 td {
@@ -912,6 +941,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Anzahl Verhandlungstage')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     spnVerTage1 = spinner(id: 'VerTage1', 
@@ -937,6 +969,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Auslagen VV7002.:')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -967,6 +1002,11 @@ new SwingBuilder().edt {
                                     lblVV4124 = label(id: 'nVV4124', text: 'Verfahrensgebühr Nr. 4124:') 
                                 }
                                 td {
+                                    haftVV4124 = checkBox(id: 'haftVV4124', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4124 = label(id: 'nVV4124', text: '0,00 - 0,00') 
                                 }
                                 td {
@@ -987,6 +1027,11 @@ new SwingBuilder().edt {
                                     lblVV4126 = label(id: 'nVV4126', text: 'Terminsgebühr Nr. 4126:') 
                                 }
                                 td {
+                                    haftVV4126 = checkBox(id: 'haftVV4126', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     rhVV4126 = label(id: 'nVV4126', text: '0,00 - 0,00') 
                                 }
                                 td {
@@ -1002,6 +1047,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Anzahl Verhandlungstage')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     spnVerTage2 = spinner(id: 'VerTage2', 
@@ -1029,6 +1077,9 @@ new SwingBuilder().edt {
                                     label(text: 'Auslagen VV7002.:')
                                 }
                                  td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
@@ -1297,6 +1348,25 @@ new SwingBuilder().edt {
     }
 }
 
+def haft() {
+if (chkHaft.isSelected()) {
+    haftVV4100.setSelected(true)
+    haftVV4102.setSelected(true)
+    haftVV4104.setSelected(true)
+    haftVV4106.setSelected(true)
+    haftVV4108.setSelected(true)
+    haftVV4124.setSelected(true)
+    haftVV4126.setSelected(true)
+} else {
+    haftVV4100.setSelected(false)
+    haftVV4102.setSelected(false)
+    haftVV4104.setSelected(false)
+    haftVV4106.setSelected(false)
+    haftVV4108.setSelected(false)
+    haftVV4124.setSelected(false)
+    haftVV4126.setSelected(false)
+}
+}
 
 def float calculate() {
 
@@ -1318,52 +1388,14 @@ def float calculate() {
         break
         default: change = 1.0f
     }
-    
-    if (chkHaft.isSelected()) {
-        lblVV4100.text = 'Grundgebühr Nr. 4101'
-        lblVV4102.text = 'Terminsgebühr Nr. 4103'
-        lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
-        switch (cbGericht){
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4113';
-                lblVV4108.text='Terminsgebühr Nr. 4115';
-            break
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4119';
-                lblVV4108.text='Terminsgebühr Nr. 4121';
-            break
-            default:
-                lblVV4106.text='Verfahrensgebühr Nr. 4107';
-                lblVV4108.text='Terminsgebühr Nr. 4109';
-        }
-        lblVV4124.text = 'Verfahrensgebühr Nr. 4125' 
-        lblVV4126.text = 'Terminsgebühr Nr. 4127';
-    } else {
-        lblVV4100.text = 'Grundgebühr Nr. 4100'
-        lblVV4102.text = 'Terminsgebühr Nr. 4102'
-        lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
-        switch (cbGericht){
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4112';
-                lblVV4108.text='Terminsgebühr Nr. 4114';
-            break
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4118';
-                lblVV4108.text='Terminsgebühr Nr. 4120';
-            break
-            default:
-                lblVV4106.text='Verfahrensgebühr Nr. 4106';
-                lblVV4108.text='Terminsgebühr Nr. 4108';
-        }
-        lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
-        lblVV4126.text = 'Terminsgebühr Nr. 4126';
-    }
   
     if(chkVV4100.isSelected()) {
         urahmen = 40f;
-        if(chkHaft.isSelected()) {
+        if(haftVV4100.isSelected()) {
+            lblVV4100.text = 'Grundgebühr Nr. 4101'
             orahmen = 450f
         } else {
+            lblVV4100.text = 'Grundgebühr Nr. 4100'
             orahmen = 360f
         }
         rhVV4100.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -1384,9 +1416,11 @@ def float calculate() {
         
     if(chkVV4102.isSelected()) {
         urahmen = 40f;
-        if(chkHaft.isSelected()) {
+        if(haftVV4102.isSelected()) {
+            lblVV4102.text = 'Terminsgebühr Nr. 4103'
             orahmen = 375f
         } else {
+            lblVV4102.text = 'Terminsgebühr Nr. 4102'
             orahmen = 300f
         }
         rhVV4102.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -1406,9 +1440,11 @@ def float calculate() {
 
     if(chkVV4104.isSelected()) {
         urahmen = 40f;
-        if(chkHaft.isSelected()) {
+        if(haftVV4104.isSelected()) {
+            lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
             orahmen = 362.50f
         } else {
+            lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
             orahmen = 290f
         }
         rhVV4104.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -1442,24 +1478,30 @@ def float calculate() {
     if(chkVV4106.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
             urahmen = 50f;
-            if(chkHaft.isSelected()) {
-            orahmen = 400f
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4113';
+                orahmen = 400f
             } else {
-            orahmen = 320f
+                lblVV4106.text='Verfahrensgebühr Nr. 4112';
+                orahmen = 320f
             }
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
             urahmen = 100f;
-            if(chkHaft.isSelected()) {
-            orahmen = 862.50f
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4119';
+                orahmen = 862.50f
             } else {
-            orahmen = 690f
+                lblVV4106.text='Verfahrensgebühr Nr. 4118';
+                orahmen = 690f
             }
         } else {
             urahmen = 40f;
-            if(chkHaft.isSelected()) {
-            orahmen = 362.50f
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4107';
+                orahmen = 362.50f
             } else {
-            orahmen = 290f
+                lblVV4106.text='Verfahrensgebühr Nr. 4106';
+                orahmen = 290f
             }
         }
         rhVV4106.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -1480,23 +1522,29 @@ def float calculate() {
     if(chkVV4108.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
             urahmen = 80f;
-            if(chkHaft.isSelected()) {
-            orahmen = 700f
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4115';
+                orahmen = 700f
             } else {
-            orahmen = 560f
+                lblVV4108.text='Terminsgebühr Nr. 4114';
+                orahmen = 560f
             }
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
             urahmen = 130f;
-            if(chkHaft.isSelected()) {
-            orahmen = 1162.50f
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4121';
+                orahmen = 1162.50f
             } else {
-            orahmen = 930f
+                lblVV4108.text='Terminsgebühr Nr. 4120';
+                orahmen = 930f
             }
         } else {
             urahmen = 70f;
-            if(chkHaft.isSelected()) {
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4109';
                 orahmen = 600f
             } else {
+                lblVV4108.text='Terminsgebühr Nr. 4108';
                 orahmen = 480f
             }
         }
@@ -1537,9 +1585,11 @@ def float calculate() {
     
     if(chkVV4124.isSelected()) {
         urahmen = 80f;
-        if(chkHaft.isSelected()) {
+        if(haftVV4124.isSelected()) {
+            lblVV4124.text = 'Verfahrensgebühr Nr. 4125'
             orahmen = 700f
         } else {
+            lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
             orahmen = 560f
         }        
         rhVV4124.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
@@ -1559,9 +1609,11 @@ def float calculate() {
     
     if(chkVV4126.isSelected()) {
         urahmen = 80f;
-        if(chkHaft.isSelected()) {
+        if(haftVV4126.isSelected()) {
+            lblVV4126.text = 'Terminsgebühr Nr. 4127';
             orahmen = 700f
         } else {
+            lblVV4126.text = 'Terminsgebühr Nr. 4126';
             orahmen = 560f
         }
         rhVV4126.text = "${df.format(urahmen)} - ${df.format(orahmen)}";

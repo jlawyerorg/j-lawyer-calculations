@@ -748,7 +748,8 @@ new SwingBuilder().edt {
                                     label(text: 'Mandant in Haft:')
                                 }
                                 td {
-                                    chkHaft = checkBox(id: 'bHaft', text: '', selected: false, stateChanged: {
+                                    chkHaft = checkBox(id: 'bHaft', text: '', selected: false, actionPerformed: {
+                                                haft()
                                                 calculate()
                                             })
                                 }
@@ -769,7 +770,12 @@ new SwingBuilder().edt {
                                             })
                                 }
                                 td {
-                                    lblVV4100 = label(id: 'nVV4100', text: 'Grundgebühr Nr. 4100')
+                                    lblVV4100 = label(id: 'nVV4100', text: 'Grundgebühr Nr. 4100:')
+                                }
+                                td {
+                                    haftVV4100 = checkBox(id: 'haftVV4100', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
                                    txtVV4100 = label(text: '0,00')
@@ -785,7 +791,12 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr. 4102')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                }
+                                td {
+                                    haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
                                    txtVV4102 = label(text: '0,00')
@@ -810,7 +821,12 @@ new SwingBuilder().edt {
                                             })
                                 }
                                 td {
-                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr. 4104')
+                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr 4104:')
+                                }
+                                td {
+                                    haftVV4104 = checkBox(id: 'haftVV4104', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td (align: 'right') {
                                    txtVV4104 = label(text: '0,00')
@@ -827,6 +843,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Auslagen Nr. 7002')
+				}
+                                td {
+                                    label(text: ' ')
                                 }
                                 td (align: 'right') {
                                     lblvorVV7002 = label(text: '0,00')
@@ -854,6 +873,11 @@ new SwingBuilder().edt {
                                     lblVV4106 = label(id: 'nVV4106', text: 'Verfahrensgebühr Nr. 4106') 
                                 }
                                 td {
+                                    haftVV4106 = checkBox(id: 'haftVV4106', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
@@ -871,6 +895,11 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     lblVV4108 = label(id: 'nVV4108', text: 'Terminsgebühr Nr. 4108') 
+                                }
+                                td {
+                                    haftVV4108 = checkBox(id: 'haftVV4108', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
                                     spnVV4108 = spinner(id: 'nspnVV4108', 
@@ -898,6 +927,9 @@ new SwingBuilder().edt {
                                     lblVV4110=label(id: 'nVV4110', text: 'Zuschlag (5-8h) Nr. 4110') 
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     spnVV4110 = spinner(id: 'nspnVV4110', 
                                         model:spinnerNumberModel(minimum:1, 
                                             maximum: 99, 
@@ -923,6 +955,9 @@ new SwingBuilder().edt {
                                     lblVV4111=label(id: 'nVV4111', text: 'Zuschlag (ab 8h) Nr. 4111') 
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     spnVV4111 = spinner(id: 'nspnVV4111', 
                                         model:spinnerNumberModel(minimum:1, 
                                             maximum: 99, 
@@ -946,6 +981,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: 'Auslagen Nr. 7002')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -976,6 +1014,11 @@ new SwingBuilder().edt {
                                     lblVV4124 = label(id: 'nVV4124', text: 'Verfahrensgebühr Nr. 4124') 
                                 }
                                 td {
+                                    haftVV4124 = checkBox(id: 'haftVV4124', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                }
+                                td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
@@ -993,6 +1036,11 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     lblVV4126 = label(id: 'nVV4126', text: 'Terminsgebühr Nr. 4126') 
+                                }
+                                td {
+                                    haftVV4126 = checkBox(id: 'haftVV4126', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
                                 }
                                 td {
                                     spnVV4126 = spinner(id: 'nspnVV4126', 
@@ -1020,6 +1068,9 @@ new SwingBuilder().edt {
                                     label(id: 'nVV4128', text: 'Zuschlag (5-8h) Nr. 4128') 
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     spnVV4128 = spinner(id: 'nspnVV4128', 
                                         model:spinnerNumberModel(minimum:1, 
                                             maximum: 99, 
@@ -1043,6 +1094,9 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(id: 'nVV4129', text: 'Zuschlag (ab 8h) Nr. 4129') 
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     spnVV4129 = spinner(id: 'nspnVV4129', 
@@ -1069,7 +1123,10 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: 'Auslagen Nr. 7002')
                                 }
-                                 td {
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
@@ -1169,7 +1226,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto)', selected: false, stateChanged: {
+                                   chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto):', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
@@ -1185,7 +1242,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Zwischensumme')
+                                    label(text: 'Zwischensumme:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1199,7 +1256,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkmwst = checkBox(text: 'Umsatzsteuer VV7008', selected: true, stateChanged: {
+                                    chkmwst = checkBox(text: 'Umsatzsteuer VV7008:', selected: true, stateChanged: {
                                         calculate()
                                     })
                                 }
@@ -1231,7 +1288,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Summe')
+                                    label(text: 'Summe:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1246,7 +1303,7 @@ new SwingBuilder().edt {
 
                             tr {
                                 td {
-                                    chkquote = checkBox(text: 'Quote (Bsp: 0,5)', selected: false, stateChanged: {
+                                    chkquote = checkBox(text: 'Quote (Bsp: 0,5):', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
@@ -1338,6 +1395,25 @@ new SwingBuilder().edt {
     }
 }
 
+def haft() {
+if (chkHaft.isSelected()) {
+    haftVV4100.setSelected(true)
+    haftVV4102.setSelected(true)
+    haftVV4104.setSelected(true)
+    haftVV4106.setSelected(true)
+    haftVV4108.setSelected(true)
+    haftVV4124.setSelected(true)
+    haftVV4126.setSelected(true)
+} else {
+    haftVV4100.setSelected(false)
+    haftVV4102.setSelected(false)
+    haftVV4104.setSelected(false)
+    haftVV4106.setSelected(false)
+    haftVV4108.setSelected(false)
+    haftVV4124.setSelected(false)
+    haftVV4126.setSelected(false)
+}
+}
 
 def float calculate() {
 
@@ -1347,64 +1423,13 @@ def float calculate() {
     float orahmen=0.0f
     String VVVerhandG='4106, 4107'
 
-    
-    if (chkHaft.isSelected()) {
-        lblVV4100.text = 'Grundgebühr Nr. 4101'
-        lblVV4102.text = 'Terminsgebühr Nr. 4103'
-        lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
-        switch (cbGericht){
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4113';
-                lblVV4108.text='Terminsgebühr Nr. 4115';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4116:';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4117';
-            break
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4119';
-                lblVV4108.text='Terminsgebühr Nr. 4121';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4122:';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4123'; 
-            break
-            default:
-                lblVV4106.text='Verfahrensgebühr Nr. 4107';
-                lblVV4108.text='Terminsgebühr Nr. 4109';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4110:';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4111'; 
-        }
-        lblVV4124.text = 'Verfahrensgebühr Nr. 4125' 
-        lblVV4126.text = 'Terminsgebühr Nr. 4127';
-
-    } else {
-        lblVV4100.text = 'Grundgebühr Nr. 4100'
-        lblVV4102.text = 'Terminsgebühr Nr. 4102'
-        lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
-        switch (cbGericht){
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4112';
-                lblVV4108.text='Terminsgebühr Nr. 4114';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4116:';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4117';
-            break
-            case {cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG'}:
-                lblVV4106.text='Verfahrensgebühr Nr. 4118';
-                lblVV4108.text='Terminsgebühr Nr. 4120';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4122:';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4123';
-            break
-            default:
-                lblVV4106.text='Verfahrensgebühr Nr. 4106';
-                lblVV4108.text='Terminsgebühr Nr. 4108';
-                lblVV4110.text='Zuschlag (5-8h) Nr. 4110';
-                lblVV4111.text='Zuschlag (ab 8h) Nr. 4111'; 
-        }
-        lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
-        lblVV4126.text = 'Terminsgebühr Nr. 4126';
-    }
   
     if(chkVV4100.isSelected()) {
-        if(chkHaft.isSelected()) {
+        if(haftVV4100.isSelected()) {
+            lblVV4100.text = 'Grundgebühr Nr. 4101'
             txtVV4100.text = df.format(192f)
         } else {
+            lblVV4100.text = 'Grundgebühr Nr. 4100'
             txtVV4100.text = df.format(160f)
         }
     } else {
@@ -1412,9 +1437,11 @@ def float calculate() {
     }
         
     if(chkVV4102.isSelected()) {
-        if(chkHaft.isSelected()) {
+        if(haftVV4102.isSelected()) {
+            lblVV4102.text = 'Terminsgebühr Nr. 4103'
             txtVV4102.text = df.format(166f)
         } else {
+            lblVV4102.text = 'Terminsgebühr Nr. 4102'
             txtVV4102.text = df.format(136f)
         }
     } else {
@@ -1422,9 +1449,11 @@ def float calculate() {
     }
 
     if(chkVV4104.isSelected()) {
-        if(chkHaft.isSelected()) {
+        if(haftVV4104.isSelected()) {
+            lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
             txtVV4104.text = df.format(161f)
         } else {
+            lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
             txtVV4104.text = df.format(132f)
         }
     } else {
@@ -1445,22 +1474,28 @@ def float calculate() {
     }
     if(chkVV4106.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
-            if(chkHaft.isSelected()) {
-            txtVV4106.text = df.format(180f)
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4113';
+                txtVV4106.text = df.format(180f)
             } else {
-            txtVV4106.text = df.format(148f)
+                lblVV4106.text='Verfahrensgebühr Nr. 4112';
+                txtVV4106.text = df.format(148f)
             }
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
-            if(chkHaft.isSelected()) {
-            txtVV4106.text = df.format(385f)
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4119';
+                txtVV4106.text = df.format(385f)
             } else {
-            txtVV4106.text = df.format(316f)
+                lblVV4106.text='Verfahrensgebühr Nr. 4118';
+                txtVV4106.text = df.format(316f)
             }
         } else {
-            if(chkHaft.isSelected()) {
-            txtVV4106.text = df.format(161f)
+            if(haftVV4106.isSelected()) {
+                lblVV4106.text='Verfahrensgebühr Nr. 4107';
+                txtVV4106.text = df.format(161f)
             } else {
-            txtVV4106.text = df.format(132f)
+                lblVV4106.text='Verfahrensgebühr Nr. 4106';
+                txtVV4106.text = df.format(132f)
             }
         }
     } else {
@@ -1469,22 +1504,28 @@ def float calculate() {
 
     if(chkVV4108.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
-            if(chkHaft.isSelected()) {
-            gebuehr = 312f;
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4115';
+                gebuehr = 312f;
             } else {
-            gebuehr = 256f;
+                lblVV4108.text='Terminsgebühr Nr. 4114';
+                gebuehr = 256f;
             }
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
-            if(chkHaft.isSelected()) {
-            gebuehr = 517f;
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4121';
+                gebuehr = 517f;
             } else {
-            gebuehr = 424f;
+                lblVV4108.text='Terminsgebühr Nr. 4120';
+                gebuehr = 424f;
             }
         } else {
-            if(chkHaft.isSelected()) {
-            gebuehr = 268f;
+            if(haftVV4108.isSelected()) {
+                lblVV4108.text='Terminsgebühr Nr. 4109';
+                gebuehr = 268f;
             } else {
-            gebuehr = 220f;
+                lblVV4108.text='Terminsgebühr Nr. 4108';
+                gebuehr = 220f;
             }
         }
         gebuehr = gebuehr * spnVV4108.value.toFloat();
@@ -1495,10 +1536,13 @@ def float calculate() {
 
     if(chkVV4110.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4116:';
             gebuehr = 128f;
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4122:';
             gebuehr = 212f;
         } else {
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4110:';
             gebuehr = 110f;
             }
         gebuehr = gebuehr * spnVV4110.value.toFloat();
@@ -1509,10 +1553,13 @@ def float calculate() {
 
     if(chkVV4111.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+            lblVV4111.text='Zuschlag (ab 8h) Nr. 4117';
             gebuehr = 256f;
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+            lblVV4111.text='Zuschlag (ab 8h) Nr. 4123';
             gebuehr = 424f;
         } else {
+            lblVV4111.text='Zuschlag (ab 8h) Nr. 4111';
             gebuehr = 220f;
             }
         gebuehr = gebuehr * spnVV4111.value.toFloat();
@@ -1538,9 +1585,11 @@ def float calculate() {
     }
     
     if(chkVV4124.isSelected()) {
-        if(chkHaft.isSelected()) {
+        if(haftVV4124.isSelected()) {
+            lblVV4124.text = 'Verfahrensgebühr Nr. 4125' 
             txtVV4124.text = df.format(161f)
         } else {
+            lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
             txtVV4124.text = df.format(132f)
         }
     } else {
@@ -1548,9 +1597,11 @@ def float calculate() {
     }
 
     if(chkVV4126.isSelected()) {
-        if(chkHaft.isSelected()) {
+        if(haftVV4126.isSelected()) {
+            lblVV4126.text = 'Terminsgebühr Nr. 4127';
             gebuehr = 161f
         } else {
+            lblVV4126.text = 'Terminsgebühr Nr. 4126';
             gebuehr = 132f
         }
         gebuehr = gebuehr * spnVV4126.value.toFloat();
