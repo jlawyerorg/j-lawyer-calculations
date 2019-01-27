@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "RVG-Rechner"
 description = "j-lawyer.org RVG-Rechner"
-version = "1.8.0";
+version = "1.8.1";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "23.01.2019"
+updated = "27.01.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

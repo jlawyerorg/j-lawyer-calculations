@@ -1048,19 +1048,47 @@ new SwingBuilder().edt {
                 td (colfill:true) {
                     panel(border: titledBorder(title: 'Sonstiges')) {
                         tableLayout (cellpadding: 5) {
-                            tr {
+                          tr {
                                 td {
-                                   chkVV7000 =  checkBox(id:'bVV7000', text: 'Kopien VV7000:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkVV7000sw =  checkBox(id:'bVV7000sw', text: 'Kopien VV7000 schwarz/weiß:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
-                                    txtVV7000=formattedTextField(id: 'nVV7000', format: betragFormat, text: '0,00', columns: 4)
+                                    spnVV7000sw = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 10000f, 
+                                            value:1f,
+                                            stepSize:1), stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
-                                    lblVV7000 = label(text: '0,00')
+                                    lblVV7000sw = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
+                                    label(text: 'EUR' )
+                                }
+                            }
+                            tr {
+                                td {
+                                    chkVV7000farbe =  checkBox(id:'bVV7000farbe', text: 'Kopien VV7000 farbe:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    spnVV7000farbe = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 10000f, 
+                                            value:1f,
+                                            stepSize:1), stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td (align: 'right') {
+                                    lblVV7000farbe = label(text: '0,00')
+                                }
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
@@ -1570,10 +1598,26 @@ def float calculate() {
         lblVV7002Berufung.text = df.format(0f)
     }
     
-    if(chkVV7000.isSelected()) {
-        lblVV7000.text = txtVV7000.text
+    if(chkVV7000sw.isSelected()) {
+        if (spnVV7000sw.value.toFloat()<= 50f) {
+            gebuehr = spnVV7000sw.value.toFloat()*0.5f
+        } else {
+            gebuehr = 25f + (spnVV7000sw.value.toFloat()-50f)*0.15f
+        }
+        lblVV7000sw.text = df.format(gebuehr)
     } else {
-        lblVV7000.text = df.format(0f)
+        lblVV7000sw.text = df.format(0f)
+    }
+
+    if(chkVV7000farbe.isSelected()) {
+        if (spnVV7000farbe.value.toFloat()<= 50f) {
+            gebuehr = spnVV7000farbe.value.toFloat()
+        } else {
+            gebuehr = 50f + (spnVV7000farbe.value.toFloat()-50f)*0.30f
+        }
+        lblVV7000farbe.text = df.format(gebuehr)
+    } else {
+        lblVV7000farbe.text = df.format(0f)
     }
 
     if(chkVV7003.isSelected()) {
@@ -1613,7 +1657,8 @@ def float calculate() {
         +df.parse(txtVV4124.text)
         +df.parse(lblVerTage2.text)
         +df.parse(lblVV7002Berufung.text)
-        +df.parse(lblVV7000.text)
+        +df.parse(lblVV7000sw.text)
+        +df.parse(lblVV7000farbe.text)
         +df.parse(lblVV7003.text)
         +df.parse(lblAuslagenmM.text)
         +df.parse(lblVV7005.text)
@@ -1743,10 +1788,16 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\">").append(lblVV7002Berufung.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkVV7000.selected) {
+ if(chkVV7000sw.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Kopien Nr. 7000 VV RVG:</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7000.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV7000sw.value.toInteger().toString()).append(" Kopien in schwarz/weiß Nr. 7000 VV RVG:</td>");
+        sbf.append("<td align=\"right\">").append(lblVV7000sw.text).append(" €</td>");
+        sbf.append("</tr>");
+    }
+    if(chkVV7000farbe.selected) {
+        sbf.append("<tr>")
+        sbf.append("<td align=\"left\">").append(spnVV7000farbe.value.toInteger().toString()).append(" Kopien in Farbe Nr. 7000 VV RVG:</td>");
+        sbf.append("<td align=\"right\">").append(lblVV7000farbe.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV7003.selected) {
@@ -1890,10 +1941,16 @@ def CalculationTable copyToDocument() {
         row.add(lblVV7002Berufung.text + " €");
         ct.addRow(row);
     }
-    if(chkVV7000.selected) {
+    if(chkVV7000sw.selected) {
         row=new ArrayList<String>();
-        row.add("Kopien Nr. 7000 VV RVG");
-        row.add(lblVV7000.text + " €");
+        row.add(spnVV7000sw.value.toInteger().toString() + " Kopien in schwarz/weiß Nr. 7000 VV RVG");
+        row.add(lblVV7000sw.text + " €");
+        ct.addRow(row);
+    }
+    if(chkVV7000farbe.selected) {
+        row=new ArrayList<String>();
+        row.add(spnVV7000farbe.value.toInteger().toString() + " Kopien in Farbe Nr. 7000 VV RVG");
+        row.add(lblVV7000farbe.text + " €");
         ct.addRow(row);
     }
     if(chkVV7003.selected) {
