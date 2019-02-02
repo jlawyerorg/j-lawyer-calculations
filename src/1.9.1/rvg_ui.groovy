@@ -739,10 +739,17 @@ new SwingBuilder().edt {
                                     label(text: 'Streitwert:')
                                 }
                                 td {
-                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: binding.claimvalue, columns: 10)
+                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: binding.claimvalue, columns: 10, actionPerformed: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: 'EUR')
+                                }
+                                td (align: 'right') {
+                                    chkstreitwert = checkBox(id: 'bstreitwert', text: 'einheitlicher Streitwert', selected: true, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                             }
                 
@@ -779,14 +786,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                             }
-                                                  
-        
-        
-        
-        
-        
                         }   
-        
                         /*textlabel = label(text: 'Click the button!', constraints: BL.NORTH)
                         button(text:'Click Me',
                         actionPerformed: {count++; textlabel.text = "Clicked ${count} time(s)."; println "clicked"}, constraints:BL.SOUTH)*/
@@ -813,6 +813,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV2300 = formattedTextField(id: 'nswVV2300', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV2300 = label(id: 'nGeschaeftsGebuehr', text: '0,00')
                                 }
@@ -837,6 +846,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV1000 = formattedTextField(id: 'nswVV1000', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV1000 = label(text: '0,00')
                                 }
@@ -853,6 +871,15 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: ' ')
                                 }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
                                 td (align: 'right') {
                                     lblvorVV7002 = label(text: '0,00')
                                 }
@@ -860,10 +887,7 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                             }
-
                         }  
-                        
-                       
                     }     
                 }
             }
@@ -887,6 +911,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV3100 = formattedTextField(id: 'nswVV3100', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV3100 = label(text: '0,00')
                                 }
@@ -900,6 +933,15 @@ new SwingBuilder().edt {
                                     chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -926,6 +968,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV3104 = formattedTextField(id: 'nswVV3104', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV3104 = label(text: '0,00')
                                 }
@@ -948,6 +999,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV1003 = formattedTextField(id: 'nswVV1003', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV1003 = label(text: '0,00')
                                 }
@@ -960,6 +1020,15 @@ new SwingBuilder().edt {
                                     chkVV7002 =  checkBox(text: 'Auslagen VV7002:', selected: false,stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -995,6 +1064,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV3200 = formattedTextField(id: 'nswVV3200', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV3200 = label(text: '0,00')
                                 }
@@ -1018,6 +1096,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV3202 = formattedTextField(id: 'nswVV3202', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV3202 = label(text: '0,00')
                                 }
@@ -1040,6 +1127,15 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
+                                td {
+                                    label (text: 'Streitwert')
+                                }
+                                td {
+                                    swVV1003Berufung = formattedTextField(id: 'nswVV1003Berufung', format: betragFormat, columns:5, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
                                 td (align: 'right') {
                                     lblVV1003Berufung = label(text: '0,00')
                                 }
@@ -1056,6 +1152,15 @@ new SwingBuilder().edt {
                                 td {
                                     label(text: ' ')
                                 }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
                                 td (align: 'right') {
                                     lblVV7002Berufung = label(text: '0,00')
                                 }
@@ -1067,107 +1172,94 @@ new SwingBuilder().edt {
                     }
                 }
             }
-           
-           
             tr {
                 td (colfill:true) {
                     panel(border: titledBorder(title: 'Sonstiges')) {
                         tableLayout (cellpadding: 5) {
                             tr {
-                                td {
-                                    chkVV7000sw =  checkBox(id:'bVV7000sw', text: 'Kopien VV7000 schwarz/weiß:', selected: false, stateChanged: {
-                                            calculate()
-                                        })
-                                }
-                                td {
-                                    spnVV7000sw = spinner(
-                                        model:spinnerNumberModel(minimum:0f, 
-                                            maximum: 10000f, 
-                                            value:1f,
-                                            stepSize:1), stateChanged: {
-                                            calculate()
-                                        })
-                                }
                                 td (align: 'right') {
-                                    lblVV7000sw = label(text: '0,00')
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR' )
+                                    panel {
+                                        
+                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                    }
                                 }
                             }
                             tr {
                                 td {
-                                    chkVV7000farbe =  checkBox(id:'bVV7000farbe', text: 'Kopien VV7000 farbe:', selected: false, stateChanged: {
+                                    panel {
+                                        cmbCustomEntryName = comboBox(items: [
+                                            'Kopien schwarz/weiß Nr.7000 VV RVG',
+                                            'Kopien farbe Nr. 7000 VV RVG',
+                                            'Fahrtkosten Nr. 7004 VV RVG (netto)',
+                                            'Tagegeld Nr. 7005 VV RVG bis 4h',
+                                            'Tagegeld Nr. 7005 VV RVG 4 bis 8h',
+                                            'Tagegeld Nr. 7005 VV RVG ab 8h',
+                                            'steuerpflichtige Auslagen (netto)'
+                                            ], editable: true, itemStateChanged: {
                                             calculate()
-                                        })
-                                }
-                                td {
-                                    spnVV7000farbe = spinner(
-                                        model:spinnerNumberModel(minimum:0f, 
-                                            maximum: 10000f, 
-                                            value:1f,
-                                            stepSize:1), stateChanged: {
-                                            calculate()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    lblVV7000farbe = label(text: '0,00')
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR' )
-                                }
-                            }
-                            tr {
-                                td {
-                                    chkVV7003 =  checkBox(id:'bVV7003', text: 'Fahrtkosten VV7003/7004 (netto):', selected: false, stateChanged: {
-                                            calculate()
-                                        })
-                                }
-                                td {
-                                    txtFahrtkosten=formattedTextField(id: 'nFahrtkosten', format: betragFormat, text: '0,00', columns: 4)
-                                }
-                                td (align: 'right') {
-                                    lblVV7003 = label(text: '0,00')
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR' )
-                                }
-                            }
-                            tr {
-                                td {
-                                    chkTagegeld = checkBox(id: 'bVVTagegeld',text: 'Tagegeld VV7005.:', selected: false, stateChanged: {
-                                        calculate()
-                                    })
-                                }
-                                td {
-                                    cbTagegeld=comboBox(id:'cb', items:['bis 4h', '4 bis 8h', 'ab 8h'], selectedItem:'bis 4h', itemStateChanged: {
-                                            calculate()
-                                        })
-                                }
-                                td (align: 'right'){
-                                    lblVV7005 = label(text: '0,00')
-                                }
-                                td  (align: 'right'){
-                                    label(text: 'EUR')
-                                }
-                            }
+                                            spnCustomEntry1.setValue(1)
 
-                            tr {
-                                td {
-                                    chkAuslagenmM =  checkBox(id:'bAuslagenmM', text: 'steuerpflichtige Auslagen (netto):', selected: false, stateChanged: {
+                                        })
+                                        label (text: 'Anzahl:')
+                                        spnCustomEntry1 = spinner(
+                                        model:spinnerNumberModel(minimum:0f, maximum: 10000f, value:1f, stepSize:1f), stateChanged: {
                                             calculate()
                                         })
-                                }
-                                td {
-                                    txtAuslagenmM=formattedTextField(id: 'nAuslagenmM', format: betragFormat, text: '0,00', columns: 4)
-                                }
-                                td (align: 'right') {
-                                    lblAuslagenmM = label(text: '0,00')
-                                }
-                                td (align: 'right') {
-                                    label(text: 'EUR' )
+                                        txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
+                                        label (text: 'EUR')
+                                        button(text:'Hinzufügen', actionPerformed: { add() })
+                                    }
                                 }
                             }
+                            tr {
+                                td {
+                                    panel {
+                                        cmbCustomEntryName2 = comboBox(items: [
+                                            '',
+                                            'eigene',
+                                            'Verfahrensgebühr Nr. 3101 VV RVG'
+                                            ], editable: true, selectedItem:'', itemStateChanged: {
+                                            calculate()
+                                        })
+                                        label (text: 'Streitwert')
+                                        swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
+                                        spnCustomEntry2 = spinner(
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:0.0f,
+                                            stepSize:0.1f), stateChanged: {
+                                            calculate()
+                                        })
+                                        txtCustomEntryValue2 = label(text: '0,00')
+                                        label (text: 'EUR')
+                                        button(text:'Hinzufügen', actionPerformed: { add2() })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel{
+                                        scrollPane(preferredSize:[600, 100]){
+                                            customTable = table(){
+                                                tableModel(){
+                                                    closureColumn(header:'Anzahl', read:{it.anzahl})
+                                                    closureColumn(header:'Position', read:{it.name})
+                                                    closureColumn(header:'Betrag', read:{it.number})
+                                                }
+                                            }
+                                        }
+                                    }
+                                }   
+                            }  
+                        }  
+                    }     
+                }
+            }
+           
+            tr {
+                td (colfill:true) {
+                    panel(border: titledBorder(title: '')) {
+                        tableLayout (cellpadding: 5) {
                             tr {
                                 td {
                                     label(text: 'Zwischensumme:')
@@ -1278,7 +1370,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Summe:')
+                                    label(text: 'Zahlbetrag:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1309,61 +1401,7 @@ new SwingBuilder().edt {
                         }  
                     }     
                 }
-            }
-            
-            tr {
-                td (colfill:true) {
-                    panel(border: titledBorder(title: 'Benutzerdefiniert')) {
-                        tableLayout (cellpadding: 5) {
-                            tr {
-                                td (align: 'right') {
-                                    panel {
-                                        
-                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
-                                    }
-                                }
-                            }
-                            tr {
-                                td {
-                                    panel {
-                                        cmbCustomEntryName = comboBox(items: customEntries, editable: true)
-                                        txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
-                                        label (text: 'EUR')
-                                        button(text:'Hinzufügen', actionPerformed: { add() })
-                                    }
-                                }
-                            }
-                            tr {
-                                td {
-                                    panel{
-                                        scrollPane(preferredSize:[600, 250]){
-                                            customTable = table(){
-                                                tableModel(){
-                                                    closureColumn(header:'Position', read:{it.name})
-                                                    closureColumn(header:'Betrag', read:{it.number})
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                
-                            }
-                            tr {
-                                td (align: 'right') {
-                                    panel {
-                                        label(text: 'Zahlbetrag:')
-                                        lblsum3 = label(text: '0,00')
-                                        label(text: 'EUR')
-                                    }
-                                }
-                                
-                            }
-                            
-                        }  
-                    }     
-                }
-            }
-            
+            } 
             tr  {
                 td (align: 'right') {
                     panel {
@@ -1387,18 +1425,11 @@ new SwingBuilder().edt {
                                 binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
                                         
                             })
-                    
                     }
                 }
-
-                
-            }
-            
-        }
-        
-  
+            }   
+        }  
     }
-
 }
 
 
@@ -1410,7 +1441,14 @@ def void reset() {
 }
  
 def void add() {
-    def newEntry = ['name': cmbCustomEntryName.selectedItem, 'number': txtCustomEntryValue.text]
+    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'number': txtCustomEntryValue.text]
+    customTable.model.rowsModel.value.add(newEntry)
+    customTable.model.fireTableDataChanged()
+    calculate()
+}
+
+def void add2() {
+    def newEntry = ['anzahl': spnCustomEntry2.value.toString(), 'name': cmbCustomEntryName2.selectedItem, 'number': txtCustomEntryValue2.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -1432,13 +1470,24 @@ def float calculate() {
    
     
     
-    
     rvgtab= new rvgtables_ui()
     pkhtab= new pkhtables_ui()
     float gebuehr=0f
     float factor=0.0f
     float diffPKH=0.0f
     
+    if (chkstreitwert.isSelected()) {
+        swVV2300.text = df.format(betragFormat.parse(streitWert))
+        swVV1000.text = df.format(betragFormat.parse(streitWert))
+        swVV3100.text = df.format(betragFormat.parse(streitWert))
+        swVV3104.text = df.format(betragFormat.parse(streitWert))
+        swVV1003.text = df.format(betragFormat.parse(streitWert))
+        swVV3200.text = df.format(betragFormat.parse(streitWert))
+        swVV3202.text = df.format(betragFormat.parse(streitWert))
+        swVV1003Berufung.text = df.format(betragFormat.parse(streitWert))
+        swCustomEntry2.text = df.format(betragFormat.parse(streitWert))
+        }
+
     if(chkVV2300.isSelected()) {
         switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1f}: factor = spnVV2300.value.toFloat()
@@ -1449,10 +1498,10 @@ def float calculate() {
             break
         }
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor);  
         }
         lblVV2300.text = df.format(gebuehr)
     } else {
@@ -1460,10 +1509,10 @@ def float calculate() {
     }
     if(chkVV1000.isSelected()) {
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat()))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1000.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
         }
         lblVV1000.text = df.format(gebuehr)
     } else {
@@ -1491,10 +1540,10 @@ def float calculate() {
             break
         }
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor);  
         }     
         lblVV3100.text = df.format(gebuehr)
     } else {
@@ -1509,10 +1558,10 @@ def float calculate() {
 
     if(chkVV3104.isSelected()) {
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat()))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3104.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
         } 
         lblVV3104.text = df.format(gebuehr)
     } else {
@@ -1521,10 +1570,10 @@ def float calculate() {
 
     if(chkVV1003.isSelected()) {
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat()))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
         }
         lblVV1003.text = df.format(gebuehr)
     } else {
@@ -1559,10 +1608,10 @@ def float calculate() {
             break
         }
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor);  
         }
         lblVV3200.text = df.format(gebuehr)
     } else {
@@ -1571,10 +1620,10 @@ def float calculate() {
     
     if(chkVV3202.isSelected()) {
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat()))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV3202.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
         }
         lblVV3202.text = df.format(gebuehr)
     } else {
@@ -1583,10 +1632,10 @@ def float calculate() {
 
     if(chkVV1003Berufung.isSelected()) {
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat()))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat()))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(streitWert).floatValue(), spnVV1003Berufung.value.toFloat());
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
         }
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
@@ -1610,58 +1659,72 @@ def float calculate() {
         lblVV7002Berufung.text = df.format(0f)
     }
     
-    if(chkVV7000sw.isSelected()) {
-        if (spnVV7000sw.value.toFloat()<= 50f) {
-            gebuehr = spnVV7000sw.value.toFloat()*0.5f
+switch (cmbCustomEntryName) {
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+        if (spnCustomEntry1.value.toFloat()<= 50f) {
+            gebuehr = spnCustomEntry1.value.toFloat()*0.5f
         } else {
-            gebuehr = 25f + (spnVV7000sw.value.toFloat()-50f)*0.15f
+            gebuehr = 25f + (spnCustomEntry1.value.toFloat()-50f)*0.15f
         }
-        lblVV7000sw.text = df.format(gebuehr)
-    } else {
-        lblVV7000sw.text = df.format(0f)
-    }
-
-    if(chkVV7000farbe.isSelected()) {
-        if (spnVV7000farbe.value.toFloat()<= 50f) {
-            gebuehr = spnVV7000farbe.value.toFloat()
+        txtCustomEntryValue.text = df.format(gebuehr)
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbe Nr. 7000 VV RVG'}:
+        if (spnCustomEntry1.value.toFloat()<= 50f) {
+            gebuehr = spnCustomEntry1.value.toFloat()
         } else {
-            gebuehr = 50f + (spnVV7000farbe.value.toFloat()-50f)*0.30f
+            gebuehr = 50f + (spnCustomEntry1.value.toFloat()-50f)*0.30f
         }
-        lblVV7000farbe.text = df.format(gebuehr)
-    } else {
-        lblVV7000farbe.text = df.format(0f)
-    }
+        txtCustomEntryValue.text = df.format(gebuehr)
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten Nr. 7004 VV RVG (netto)'}:
+    txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
+    txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG 4 bis 8h'}:
+    txtCustomEntryValue.text = df.format(40f*spnCustomEntry1.value.toFloat())
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
+    txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
+    txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    default:
+    txtCustomEntryValue.text = df.format(0f)
+}
 
-    if(chkVV7003.isSelected()) {
-        lblVV7003.text = txtFahrtkosten.text
-    } else {
-        lblVV7003.text = df.format(0f)
-    }
 
-    if(chkTagegeld.isSelected()) {
-        switch (cbTagegeld){
-        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='bis 4h'}:lblVV7005.text=df.format(25f)
-        break
-        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='4 bis 8h'}:lblVV7005.text=df.format(40f)
-        break
-        case {cbTagegeld.getItemAt(cbTagegeld.getSelectedIndex())=='ab 8h'}:lblVV7005.text=df.format(70f)
-        break
-        default: lblVV7005.text=df.format(0)
-        }
-    } else {
-        lblVV7005.text = df.format(0f)
+    switch (cmbCustomEntryName2) {
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)
+    break
+    }
+    if(chkPKH.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
+        } else {
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        } 
+    txtCustomEntryValue2.text = df.format(gebuehr)
+
+
+    // custom entries
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
+    float customSum=0f;
+    for(int i=0;i<customRows;i++) {
+        rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+        rowCustomEntryName=customTable.getValueAt(i, 1);
+        rowCustomEntryValue=customTable.getValueAt(i, 2);
+        customSum=customSum+df.parse(rowCustomEntryValue);
     }
 
     if(chkdiffPKH.isSelected()) {
         lbldiffPKH.text = df.format(diffPKH)
     } else {
         lbldiffPKH.text = df.format(0f)
-    }
-
-    if(chkAuslagenmM.isSelected()) {
-        lblAuslagenmM.text = txtAuslagenmM.text
-    } else {
-        lblAuslagenmM.text = df.format(0f)
     }
 
         gebuehr=(
@@ -1677,11 +1740,7 @@ def float calculate() {
                 +df.parse(lblVV3202.text)
                 +df.parse(lblVV1003Berufung.text)
                 +df.parse(lblVV7002Berufung.text)
-                +df.parse(lblVV7000sw.text)
-                +df.parse(lblVV7000farbe.text)
-                +df.parse(lblVV7003.text)
-                +df.parse(lblAuslagenmM.text)
-                +df.parse(lblVV7005.text)
+                + customSum
             )
         lblzwsum.text=df.format(gebuehr)
         
@@ -1727,20 +1786,7 @@ def float calculate() {
     
     gebuehr=df.parse(lblquote.text)-df.parse(lblZahlungen.text)
     lblsum2.text=df.format(gebuehr)
-    
-
-    // custom entries
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
-    float customSum=0f;
-    for(int i=0;i<customRows;i++) {
-        rowCustomEntryName=customTable.getValueAt(i, 0);
-        rowCustomEntryValue=customTable.getValueAt(i, 1);
-        customSum=customSum+df.parse(rowCustomEntryValue);
-    }
-    lblsum3.text=df.format(df.parse(lblsum2.text) + customSum);
-    
+        
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
@@ -1751,183 +1797,167 @@ def String copyToClipboard() {
     sbf=new StringBuffer()
     sbf.append("<html><table width=\"85%\">");
     sbf.append("<tr>")
+    sbf.append("<td align=\"right\"><b></b></td>");
     sbf.append("<td align=\"left\"><b>Position</b></td>");
     sbf.append("<td align=\"right\"><b>Betrag</b></td>");
     sbf.append("</tr>");
-    sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
+    sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
         
     if(chkVV2300.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV2300.value.toString()).append(" - Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV2300.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(swVV2300.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV2300.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1000.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1000.value.toString()).append(" - Einigungsgebühr Nr.1000ff VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1000.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Einigungsgebühr Nr.1000ff VV RVG - </td>").append(swVV1000.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1000.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkvorVV7002.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">Auslagen im Vorverfahren Nr. 7002 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblvorVV7002.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV3100.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3100.value.toString()).append(" - Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3100.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(swVV3100.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3100.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkAnrechenbarerAnteil.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">abz&uuml;glich anrechenbarer Teil</td>");
         sbf.append("<td align=\"right\">").append(lblAnrechenbarerAnteil.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV3104.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3104.value.toString()).append(" - Terminsgebühr Nr. 3104 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3104.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3104 VV RVG - </td>").append(swVV3104.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3104.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1003.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1003.value.toString()).append(" - Einigungsgebühr Nr. 1003 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1003.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003 VV RVG - </td>").append(swVV1003.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1003.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV7002.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7002.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV3200.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3200.value.toString()).append(" - Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3200.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(swVV3200.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3200.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV3202.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3202.value.toString()).append(" - Terminsgebühr Nr. 3202 VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV3202.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3202 VV RVG - </td>").append(swVV3202.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3202.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV1003Berufung.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1003Berufung.value.toString()).append(" - Einigungsgebühr Nr. 1003f VV RVG - </td>").append(txtStreitWert.text).append(" €</td>");
+        sbf.append("<td align=\"left\">").append(spnVV1003Berufung.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003f VV RVG - </td>").append(swVV1003Berufung.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV1003Berufung.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkVV7002Berufung.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblVV7002Berufung.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkVV7000sw.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV7000sw.value.toInteger().toString()).append(" Kopien in schwarz/weiß Nr. 7000 VV RVG:</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7000sw.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV7000farbe.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV7000farbe.value.toInteger().toString()).append(" Kopien in Farbe Nr. 7000 VV RVG:</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7000farbe.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV7003.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Fahrtkosten Nr. 7003/7004 VV RVG:</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7003.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkTagegeld.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">Tagegeld Nr. 7005 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7005.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkAuslagenmM.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">sonstige steuerpflichtige Auslagen (netto):</td>");
-        sbf.append("<td align=\"right\">").append(lblAuslagenmM.text).append(" €</td>");
-        sbf.append("</tr>");
-    }     
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryValue=customTable.getValueAt(i, 2);
+            sbf.append("<tr>")
+            sbf.append("<td align=\"right\">").append(rowCustomEntryAnzahl).append("</td>");
+            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
+            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
+            sbf.append("</tr>");
+        }
+    }    
     if(chkmwst.selected) {
-        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>")
+        sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>")
         sbf.append("<tr>");
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
         sbf.append("</tr>");
         sbf.append("<tr>");
+        sbf.append("<td align=\"left\"></td>");        
         sbf.append("<td align=\"left\">Umsatzsteuer 19% Nr. 7008 VV RVG</td>");
         sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkAuslagenoM.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">sonstige steuerfreie Auslagen</td>");
         sbf.append("<td align=\"right\">").append(lblAuslagenoM.text).append(" €</td>");
         sbf.append("</tr>");
     }
-     
-    sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
-    sbf.append("<tr>")
-    sbf.append("<td align=\"left\"><b>Summe</b></td>");
-    sbf.append("<td align=\"right\"><b>").append(lblsum1.text).append(" €</td></b>");
-    sbf.append("</tr>");
+    sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
+
+    if((chkquote.selected)||(chkZahlungen.selected)){ 
+        sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
+        sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
+        sbf.append("<td align=\"right\"><b>").append(lblsum1.text).append(" €</td></b>");
+        sbf.append("</tr>");
+    }
 
     if(chkquote.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">Quote ").append(txtquote.text).append(":</td>");
         sbf.append("<td align=\"right\">").append(lblquote.text).append(" €</td>");
         sbf.append("</tr>");
     }
     if(chkZahlungen.selected) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">bisherige Zahlungen</td>");
         sbf.append("<td align=\"right\">").append(lblZahlungen.text).append(" €</td>");
         sbf.append("</tr>");
     } 
     if((chkmwst.selected)&&(chkZahlungen.selected)) {
         sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">darin enthaltenen MwSt. (19%)</td>");
         sbf.append("<td align=\"right\">").append(lblmwstZahlung.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkZahlungen.selected) {
-        
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Summe</b></td>");
+        sbf.append("<td align=\"left\"></td>");
+        sbf.append("<td align=\"left\"><b>Zahlbetrag</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblsum2.text).append(" €</td></b>");
         sbf.append("</tr>");
-    }
-    
-    
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    if(customRows>0) {
-        for(int i=0;i<customRows;i++) {
-            rowCustomEntryName=customTable.getValueAt(i, 0);
-            rowCustomEntryValue=customTable.getValueAt(i, 1);
-            sbf.append("<tr>")
-            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
-            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
-            sbf.append("</tr>");
-        }
-        sbf.append("<tr><td colspan=\"2\"><hr noshade size=\"2\"/></td></tr>");
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"><b>Zahlbetrag</b></td>");
-        sbf.append("<td align=\"right\"><b>").append(lblsum3.text).append(" €</td></b>");
-        sbf.append("</tr>");
         
-    }
-
     sbf.append("</table></html>");
     
     return sbf.toString()
@@ -1937,6 +1967,7 @@ def String copyToClipboard() {
 def CalculationTable copyToDocument() {
     CalculationTable ct=new CalculationTable();
     ArrayList<String> colLabels=new ArrayList<String>();
+    colLabels.add("");
     colLabels.add("Position");
     colLabels.add("Betrag");
     
@@ -1947,175 +1978,161 @@ def CalculationTable copyToDocument() {
      */
     if(chkVV2300.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV2300.value.toString() + " - Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV2300.value.toString());
+        row.add("Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €");
         row.add(lblVV2300.text + " €");
         ct.addRow(row);
     }
     if(chkVV1000.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV1000.value.toString() + " - Einigungsgebühr Nr.1000ff VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1000.value.toString());
+        row.add("Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €");
         row.add(lblVV1000.text + " €");
         ct.addRow(row);
     }
     if(chkvorVV7002.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("Auslagen im Vorverfahren Nr. 7002 VV RVG");
         row.add(lblvorVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV3100.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3100.value.toString() + " - Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3100.value.toString());
+        row.add("Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €");
         row.add(lblVV3100.text + " €");
         ct.addRow(row);
     }
     if(chkAnrechenbarerAnteil.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("abzüglich anrechenbarer Teil");
         row.add(lblAnrechenbarerAnteil.text + " €");
         ct.addRow(row);
     }
     if(chkVV3104.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3104.value.toString() + " - Terminsgebühr Nr. 3104 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3104.value.toString());
+        row.add("Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €");
         row.add(lblVV3104.text + " €");
         ct.addRow(row);
     }
     if(chkVV1003.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV1003.value.toString() + " - Einigungsgebühr Nr. 1003 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1003.value.toString());
+        row.add("Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €");
         row.add(lblVV1003.text + " €");
         ct.addRow(row);
     } 
     if(chkVV7002.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("Auslagen Nr. 7002 VV RVG");
         row.add(lblVV7002.text + " €");
         ct.addRow(row);
     }
     if(chkVV3200.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3200.value.toString() + " - Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3200.value.toString());
+        row.add("Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €");
         row.add(lblVV3200.text + " €");
         ct.addRow(row);
     }
     if(chkVV3202.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3202.value.toString() + " - Terminsgebühr Nr. 3202 VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV3202.value.toString());
+        row.add("Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €");
         row.add(lblVV3202.text + " €");
         ct.addRow(row);
     }
     if(chkVV1003Berufung.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV1003Berufung.value.toString() + " - Einigungsgebühr Nr. 1003f VV RVG - " + txtStreitWert.text + " €");
+        row.add(spnVV1003Berufung.value.toString());
+        row.add("Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €");
         row.add(lblVV1003Berufung.text + " €");
         ct.addRow(row);
     } 
     if(chkVV7002Berufung.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("Auslagen Nr. 7002 VV RVG");
         row.add(lblVV7002Berufung.text + " €");
         ct.addRow(row);
     }
-    if(chkVV7000sw.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV7000sw.value.toInteger().toString() + " Kopien in schwarz/weiß Nr. 7000 VV RVG");
-        row.add(lblVV7000sw.text + " €");
-        ct.addRow(row);
-    }
-    if(chkVV7000farbe.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV7000farbe.value.toInteger().toString() + " Kopien in Farbe Nr. 7000 VV RVG");
-        row.add(lblVV7000farbe.text + " €");
-        ct.addRow(row);
-    }
-    if(chkVV7003.selected) {
-        row=new ArrayList<String>();
-        row.add("Fahrtkosten Nr. 7003/7004 VV RVG");
-        row.add(lblVV7003.text + " €");
-        ct.addRow(row);
-    }
-    if(chkTagegeld.selected) {
-        row=new ArrayList<String>();
-        row.add("Tagegeld Nr. 7005 VV RVG");
-        row.add(lblVV7005.text + " €");
-        ct.addRow(row);
-    }
-    if(chkAuslagenmM.selected) {
-        row=new ArrayList<String>();
-        row.add("sonstige steuerpflichtige Auslagen (netto)");
-        row.add(lblAuslagenmM.text + " €");
-        ct.addRow(row);
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryValue=customTable.getValueAt(i, 2);
+            row=new ArrayList<String>();
+            row.add(rowCustomEntryAnzahl);
+            row.add(rowCustomEntryName);
+            row.add(rowCustomEntryValue);
+            ct.addRow(row);
+        }
     }
     if(chkmwst.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("Zwischensumme");
         row.add(lblzwsum.text + " €");
         ct.addRow(row);  
         row=new ArrayList<String>();
+        row.add("");
         row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
         row.add(lblmwst.text + " €");
         ct.addRow(row);
     }
     if(chkAuslagenoM.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("sonstige steuerfreie Auslagen");
         row.add(lblAuslagenoM.text + " €");
         ct.addRow(row);
     }
+    if((chkquote.selected)||(chkZahlungen.selected)){
     row=new ArrayList<String>();
-    row.add("Summe");
+    row.add("");
+    row.add("Zwischensumme");
     row.add(lblsum1.text + " €");
     ct.addRow(row);
+    }
     
     if(chkquote.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("Quote " + txtquote.text + "");
         row.add(lblquote.text + " €");
         ct.addRow(row);
     }
     if(chkZahlungen.selected) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("bisherige Zahlungen");
         row.add(lblZahlungen.text + " €");
         ct.addRow(row);
     }
     if((chkmwst.selected)&&(chkZahlungen.selected)) {
         row=new ArrayList<String>();
+        row.add("");
         row.add("darin enthaltene MwSt. (19%)");
         row.add(lblmwstZahlung.text + " €");
         ct.addRow(row);
     }
-    if(chkZahlungen.selected) {
-        row=new ArrayList<String>();
-        row.add("Summe");
-        row.add(lblsum2.text + " €");
-        ct.addRow(row);
-    }
-    
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    if(customRows>0) {
-        for(int i=0;i<customRows;i++) {
-            rowCustomEntryName=customTable.getValueAt(i, 0);
-            rowCustomEntryValue=customTable.getValueAt(i, 1);
-            row=new ArrayList<String>();
-            row.add(rowCustomEntryName);
-            row.add(rowCustomEntryValue);
-            ct.addRow(row);
-        }
-        row=new ArrayList<String>();
-        row.add("Zahlbetrag");
-        row.add(lblsum3.text + " €");
-        ct.addRow(row);
-        
-    }
+    row=new ArrayList<String>();
+    row.add("");
+    row.add("Zahlbetrag");
+    row.add(lblsum2.text + " €");
+    ct.addRow(row);
     
     ct.setColumnLabels(colLabels);
-    ct.setAlignment(1, CalculationTable.ALIGNMENT_RIGHT);
+    ct.setAlignment(2, CalculationTable.ALIGNMENT_RIGHT);
     
     return ct;
     
-}
+} 
 
 
