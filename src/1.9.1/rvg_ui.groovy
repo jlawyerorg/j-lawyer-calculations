@@ -1195,7 +1195,8 @@ new SwingBuilder().edt {
                                             'Tagegeld Nr. 7005 VV RVG bis 4h',
                                             'Tagegeld Nr. 7005 VV RVG 4 bis 8h',
                                             'Tagegeld Nr. 7005 VV RVG ab 8h',
-                                            'steuerpflichtige Auslagen (netto)'
+                                            'steuerpflichtige Auslagen (netto)',
+                                            'Hebegebühr Nr. 1009 VV RVG'
                                             ], editable: true, itemStateChanged: {
                                             calculate()
                                             spnCustomEntry1.setValue(1)
@@ -1203,7 +1204,7 @@ new SwingBuilder().edt {
                                         })
                                         label (text: 'Anzahl:')
                                         spnCustomEntry1 = spinner(
-                                        model:spinnerNumberModel(minimum:0f, maximum: 10000f, value:1f, stepSize:1f), stateChanged: {
+                                        model:spinnerNumberModel(minimum:0f, maximum: 1000000f, value:1f, stepSize:1f), stateChanged: {
                                             calculate()
                                         })
                                         txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
@@ -1695,10 +1696,20 @@ switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Hebegebühr Nr. 1009 VV RVG'}:
+        if (spnCustomEntry1.value.toFloat()<= 2500f) {
+            gebuehr = (spnCustomEntry1.value.toFloat()*0.01f)
+        } else if (spnCustomEntry1.value.toFloat()<= 10000f) {
+            gebuehr = (25f+((spnCustomEntry1.value.toFloat()-2500f)*0.005f))
+        } else if (spnCustomEntry1.value.toFloat() > 10000f) {
+            gebuehr = (62.5f+((spnCustomEntry1.value.toFloat()-10000)*0.0025f))
+        }
+        if (gebuehr < 1f) {gebuehr = 1f}
+        txtCustomEntryValue.text = df.format(gebuehr)
+    break
     default:
     txtCustomEntryValue.text = df.format(0f)
 }
-
 
     switch (cmbCustomEntryName2) {
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)
