@@ -1190,6 +1190,7 @@ new SwingBuilder().edt {
                                         cmbCustomEntryName = comboBox(items: [
                                             'Kopien schwarz/weiß Nr.7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
+                                            'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
                                             'Tagegeld Nr. 7005 VV RVG bis 4h',
                                             'Tagegeld Nr. 7005 VV RVG 4 bis 8h',
@@ -1678,6 +1679,9 @@ switch (cmbCustomEntryName) {
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten Nr. 7004 VV RVG (netto)'}:
     txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
+    txtCustomEntryValue.text = df.format(0.3f*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
     txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
