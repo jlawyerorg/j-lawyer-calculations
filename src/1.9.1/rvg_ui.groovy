@@ -691,7 +691,8 @@ df.setMinimumFractionDigits(2);
 betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
-faktorFormat = new DecimalFormat("0.00");
+faktorFormat = new DecimalFormat("0.0");
+quoteFormat = new DecimalFormat("0.00")
 
 customEntries = ['Beispieleintrag 1',
                     'Beispieleintrag 2',
@@ -814,6 +815,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    faktorVV2300 = label(id: 'nfaktor2300', text: '1,3')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -847,6 +851,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -867,6 +874,9 @@ new SwingBuilder().edt {
                                     chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002:', selected: false,stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -912,6 +922,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    faktorVV3100 = label(id: 'nfaktor3100', text: '1,3')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -933,6 +946,9 @@ new SwingBuilder().edt {
                                     chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -969,6 +985,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -1000,6 +1019,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -1020,6 +1042,9 @@ new SwingBuilder().edt {
                                     chkVV7002 =  checkBox(text: 'Auslagen VV7002:', selected: false,stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1065,6 +1090,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    faktorVV3200 = label(id: 'nfaktor3200', text: '1,6')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -1095,6 +1123,9 @@ new SwingBuilder().edt {
                                             stepSize:0.1), stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label (text: 'Streitwert')
@@ -1128,6 +1159,9 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
+                                    label(text: ' ')
+                                }
+                                td {
                                     label (text: 'Streitwert')
                                 }
                                 td {
@@ -1148,6 +1182,9 @@ new SwingBuilder().edt {
                                     chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002:', selected: false, stateChanged: {
                                             calculate()
                                         })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1331,7 +1368,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtquote=formattedTextField(id: 'nquote', format: faktorFormat, text: 1, columns: 4)
+                                    txtquote=formattedTextField(id: 'nquote', format: quoteFormat, text: 1, columns: 4)
                                 }
                                 td (align: 'right') {
                                     lblquote = label(text: '0,00')
@@ -1475,9 +1512,11 @@ def float calculate() {
     rvgtab= new rvgtables_ui()
     pkhtab= new pkhtables_ui()
     float gebuehr=0f
-    float factor=0.0f
+    float faktor=0.0f
     float diffPKH=0.0f
-    
+    float diffstreitwert=0f
+
+
     if (chkstreitwert.isSelected()) {
         swVV2300.text = df.format(betragFormat.parse(streitWert))
         swVV1000.text = df.format(betragFormat.parse(streitWert))
@@ -1492,18 +1531,19 @@ def float calculate() {
 
     if(chkVV2300.isSelected()) {
         switch (spnMandanten){
-        case {spnMandanten.value.toFloat()==1f}: factor = spnVV2300.value.toFloat()
+        case {spnMandanten.value.toFloat()==1f}: faktor = spnVV2300.value.toFloat()
             break
-        case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV2300.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: faktor = 2f + spnVV2300.value.toFloat()
             break
-        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV2300.value.toFloat()
+        default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV2300.value.toFloat()
             break
         }
+        faktorVV2300.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
         }
         lblVV2300.text = df.format(gebuehr)
     } else {
@@ -1534,26 +1574,43 @@ def float calculate() {
     }
     if(chkVV3100.isSelected()) {
         switch (spnMandanten){
-        case {spnMandanten.value.toFloat()==1f}: factor = spnVV3100.value.toFloat()
+        case {spnMandanten.value.toFloat()==1f}: faktor = spnVV3100.value.toFloat()
             break
-        case {spnMandanten.value.toFloat()==8f}: factor = 2f + spnVV3100.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: faktor = 2f + spnVV3100.value.toFloat()
             break
-        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3100.value.toFloat()
+        default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3100.value.toFloat()
             break
         }
+        faktorVV3100.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
         }     
         lblVV3100.text = df.format(gebuehr)
     } else {
         lblVV3100.text = df.format(0f)
     }
     
-    if(chkAnrechenbarerAnteil.isSelected()) {
-        lblAnrechenbarerAnteil.text = df.format(df.parse(lblVV2300.text) / 2f * -1f)
+    if((chkAnrechenbarerAnteil.isSelected()) && (chkVV3100.isSelected()) && (chkVV2300.isSelected())) {
+        if (faktorFormat.parse(faktorVV2300.text) < 1.5f) {
+            faktor = faktorFormat.parse(faktorVV2300.text)/2
+        } else {
+            faktor = 0.75f
+        }
+        if (betragFormat.parse(swVV2300.text) > betragFormat.parse(swVV3100.text)) {
+            diffstreitwert = betragFormat.parse(swVV3100.text)
+        } else {
+            diffstreitwert = betragFormat.parse(swVV2300.text)
+        }
+        if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor);
+                diffPKH=diffPKH-(rvgtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor)-pkhtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor))
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor);  
+            } 
+        lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
     } else {
         lblAnrechenbarerAnteil.text = df.format(0f)
     }
@@ -1602,18 +1659,19 @@ def float calculate() {
    
     if(chkVV3200.isSelected()) {
         switch (spnMandanten){
-        case {spnMandanten.value.toFloat()==1f}: factor = spnVV3200.value.toFloat()
+        case {spnMandanten.value.toFloat()==1f}: faktor = spnVV3200.value.toFloat()
             break
-        case {spnMandanten.value.toFloat()==8f}: factor = 2f +  + spnVV3200.value.toFloat()
+        case {spnMandanten.value.toFloat()==8f}: faktor = 2f +  + spnVV3200.value.toFloat()
             break
-        default: factor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3200.value.toFloat()
+        default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + spnVV3200.value.toFloat()
             break
         }
+        faktorVV3200.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor))
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor))
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), factor);  
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);  
         }
         lblVV3200.text = df.format(gebuehr)
     } else {
@@ -1820,7 +1878,7 @@ def String copyToClipboard() {
         
     if(chkVV2300.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV2300.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">").append(faktorVV2300.text).append("</td>");
         sbf.append("<td align=\"left\">Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(swVV2300.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV2300.text).append(" €</td>");
         sbf.append("</tr>");
@@ -1841,7 +1899,7 @@ def String copyToClipboard() {
     }
     if(chkVV3100.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3100.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">").append(faktorVV3100.text).append("</td>");
         sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(swVV3100.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3100.text).append(" €</td>");
         sbf.append("</tr>");
@@ -1876,7 +1934,7 @@ def String copyToClipboard() {
     }
     if(chkVV3200.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3200.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">").append(faktorVV3200.text).append("</td>");
         sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(swVV3200.text).append(" €</td>");
         sbf.append("<td align=\"right\">").append(lblVV3200.text).append(" €</td>");
         sbf.append("</tr>");
@@ -1993,7 +2051,7 @@ def CalculationTable copyToDocument() {
      */
     if(chkVV2300.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV2300.value.toString());
+        row.add(faktorVV2300.text);
         row.add("Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €");
         row.add(lblVV2300.text + " €");
         ct.addRow(row);
@@ -2014,7 +2072,7 @@ def CalculationTable copyToDocument() {
     }
     if(chkVV3100.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3100.value.toString());
+        row.add(faktorVV3100.text);
         row.add("Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €");
         row.add(lblVV3100.text + " €");
         ct.addRow(row);
@@ -2049,7 +2107,7 @@ def CalculationTable copyToDocument() {
     }
     if(chkVV3200.selected) {
         row=new ArrayList<String>();
-        row.add(spnVV3200.value.toString());
+        row.add(faktorVV3200.text);
         row.add("Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €");
         row.add(lblVV3200.text + " €");
         ct.addRow(row);
