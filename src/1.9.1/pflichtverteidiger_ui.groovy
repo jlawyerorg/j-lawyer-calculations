@@ -1727,7 +1727,7 @@ def float calculate() {
     }
 
     if(chkmwst.isSelected()) {
-        gebuehr=(df.parse(lblZahlungen.text)*0.19f)
+        gebuehr=(df.parse(lblZahlungen.text)/1.19f*0.19f)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblmwstZahlung.text = df.format(0f)
