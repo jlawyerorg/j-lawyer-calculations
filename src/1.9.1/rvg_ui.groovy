@@ -674,6 +674,7 @@ import javax.swing.JTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import rvgtables_ui
 import pkhtables_ui
+import gkgtables_ui
 
 @Bindable
 class Address { 
@@ -1256,7 +1257,8 @@ new SwingBuilder().edt {
                                         cmbCustomEntryName2 = comboBox(items: [
                                             '',
                                             'eigene',
-                                            'Verfahrensgebühr Nr. 3101 VV RVG'
+                                            'Verfahrensgebühr Nr. 3101 VV RVG',
+                                            'Gerichtskostenvorschuss'
                                             ], editable: true, selectedItem:'', itemStateChanged: {
                                             calculate()
                                         })
@@ -1511,6 +1513,7 @@ def float calculate() {
     
     rvgtab= new rvgtables_ui()
     pkhtab= new pkhtables_ui()
+    gkgtab= new gkgtables_ui()
     float gebuehr=0f
     float faktor=0.0f
     float diffPKH=0.0f
@@ -1770,9 +1773,7 @@ switch (cmbCustomEntryName) {
 }
 
     switch (cmbCustomEntryName2) {
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)
-    break
-    }
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)    
     if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
             diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
@@ -1780,6 +1781,14 @@ switch (cmbCustomEntryName) {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         } 
     txtCustomEntryValue2.text = df.format(gebuehr)
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: spnCustomEntry2.setValue(3)
+        gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        txtCustomEntryValue2.text = df.format(gebuehr)
+    break
+    default:
+    txtCustomEntryValue2.text = df.format(0f)
+    }
 
 
     // custom entries
@@ -1968,7 +1977,7 @@ def String copyToClipboard() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryValue=customTable.getValueAt(i, 2);
             sbf.append("<tr>")
-            sbf.append("<td align=\"right\">").append(rowCustomEntryAnzahl).append("</td>");
+            sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
             sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
             sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
             sbf.append("</tr>");

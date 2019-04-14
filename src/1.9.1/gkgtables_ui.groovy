@@ -668,6 +668,13 @@ import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
 
+def float berechneWertGebuehr(float streitWert, float factor) { 
+
+    GkgTablesRangeList rl = new GkgTablesRangeList()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    
+}
+
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
