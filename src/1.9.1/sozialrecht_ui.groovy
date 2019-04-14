@@ -753,8 +753,8 @@ new SwingBuilder().edt {
                                     label(text: 'pauschale Erhöhung/Reduzierung: ')
                                 }
                                 td {
-                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Veringerung um 10%', 'Veringerung um 20%', 'eigene'], selectedItem:'Mittelgebühr', itemStateChanged: {
-                                                calculate()
+                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Veringerung um 10%', 'Veringerung um 20%'], selectedItem:'Mittelgebühr', itemStateChanged: {
+                                                setchange()
                                             })
                                     }
                             }
@@ -780,14 +780,17 @@ new SwingBuilder().edt {
                                     lblVV2302oR = label(id: 'nVV2302oR', text: '0,00')
                                 }
                                 td {
+                                    cbchVV2302=comboBox(id:'cbchVV2302', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%','Schwelleng.', 'eigene'], selectedItem:'Schwelleng.', itemStateChanged: {
+                                        calculate()
+                                    })
+                                }
+                                td {
                                     txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
                                 }
                             }
-                                   
-                
                             tr {
                                 td {
                                     chkVV1005 = checkBox(id: 'bVV1005',text: 'Einigungsgebühr VV1005.:', selected: false, stateChanged: {
@@ -799,6 +802,11 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     lblVV1005oR = label(id: 'nVV1005oR', text: '0,00')
+                                }
+                                td {
+                                    cbchVV1005=comboBox(id:'cbchVV1005', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'Schwelleng.', 'eigene'], selectedItem:'Schwelleng.', itemStateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td (align: 'right') {
                                     txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 4)
@@ -812,6 +820,9 @@ new SwingBuilder().edt {
                                    chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
                                                 calculate()
                                    })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -848,6 +859,11 @@ new SwingBuilder().edt {
                                     lblVV3102oR = label(id: 'nVV3102oR', text: '0,00') 
                                 }
                                 td {
+                                    cbchVV3102=comboBox(id:'cbchVV3102', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
                                     txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
@@ -859,6 +875,9 @@ new SwingBuilder().edt {
                                     chkAnrechenbarerAnteil = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
                                                 calculate()
                                             })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -886,6 +905,11 @@ new SwingBuilder().edt {
                                     lblVV3106oR = label(id: 'nVV3106oR', text: '0,00') 
                                 }
                                 td {
+                                    cbchVV3106=comboBox(id:'cbchVV3106', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
                                     txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
@@ -904,6 +928,11 @@ new SwingBuilder().edt {
                                 td {
                                     lblVV1006oR = label(id: 'nVV1006oR', text: '0,00')
                                 }
+                                td {
+                                    cbchVV1006=comboBox(id:'cbchVV1006', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
                                 td (align: 'right') {
                                     txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
                                 }
@@ -916,6 +945,9 @@ new SwingBuilder().edt {
                                    chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: false,stateChanged: {
                                                 calculate()
                                             })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -952,6 +984,11 @@ new SwingBuilder().edt {
                                     lblVV3204oR = label(id: 'nVV3204oR', text: '0,00') 
                                 }
                                 td {
+                                    cbchVV3204=comboBox(id:'cbchVV3204', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
                                     txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
@@ -972,6 +1009,11 @@ new SwingBuilder().edt {
                                     lblVV3205oR = label(id: 'nVV3205oR', text: '0,00') 
                                 }
                                 td {
+                                    cbchVV3205=comboBox(id:'cbchVV3205', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
                                     txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
@@ -990,6 +1032,11 @@ new SwingBuilder().edt {
                                 td {
                                     lblVV1006BerufungoR = label(id: 'nVV1006BerufungoR', text: '0,00')
                                 }
+                                td {
+                                    cbchVV1006Berufung=comboBox(id:'cbchVV1006Berufung', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                }
                                 td (align: 'right') {
                                     txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
                                 }
@@ -1002,6 +1049,9 @@ new SwingBuilder().edt {
                                    chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
                                                 calculate()
                                             })
+                                }
+                                td {
+                                    label(text: ' ')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1257,6 +1307,64 @@ def void add() {
     customTable.model.fireTableDataChanged()
     calculate()
 }
+def void setchange(){
+    switch (cbchange){
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 20%'}:
+        cbchVV3102.setSelectedItem('+20%')
+        cbchVV3106.setSelectedItem('+20%')
+        cbchVV1006.setSelectedItem('+20%')
+        cbchVV3204.setSelectedItem('+20%')
+        cbchVV3205.setSelectedItem('+20%')
+        cbchVV1006Berufung.setSelectedItem('+20%')
+        break
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 10%'}:
+        cbchVV3102.setSelectedItem('+10%')
+        cbchVV3106.setSelectedItem('+10%')
+        cbchVV1006.setSelectedItem('+10%')
+        cbchVV3204.setSelectedItem('+10%')
+        cbchVV3205.setSelectedItem('+10%')
+        cbchVV1006Berufung.setSelectedItem('+10%')
+        break
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 10%'}:
+        cbchVV3102.setSelectedItem('-10%')
+        cbchVV3106.setSelectedItem('-10%')
+        cbchVV1006.setSelectedItem('-10%')
+        cbchVV3204.setSelectedItem('-10%')
+        cbchVV3205.setSelectedItem('-10%')
+        cbchVV1006Berufung.setSelectedItem('-10%')
+        break
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 20%'}:
+        cbchVV3102.setSelectedItem('-20%')
+        cbchVV3106.setSelectedItem('-20%')
+        cbchVV1006.setSelectedItem('-20%')
+        cbchVV3204.setSelectedItem('-20%')
+        cbchVV3205.setSelectedItem('-20%')
+        cbchVV1006Berufung.setSelectedItem('-20%')
+        break
+        default: 
+        cbchVV3102.setSelectedItem('Mittelg.')
+        cbchVV3106.setSelectedItem('Mittelg.')
+        cbchVV1006.setSelectedItem('Mittelg.')
+        cbchVV3204.setSelectedItem('Mittelg.')
+        cbchVV3205.setSelectedItem('Mittelg.')
+        cbchVV1006Berufung.setSelectedItem('Mittelg.')
+        }
+}
+def float calchange(String changeItem){
+    float test
+    switch (changeItem){
+        case {changeItem =='+20%'}:return 1.2f;
+        break
+        case {changeItem =='+10%'}:return 1.1f;
+        break
+        case {changeItem =='-10%'}:return 0.9f;
+        break
+        case {changeItem =='-20%'}:return 0.8f;
+        break
+        default: return 1.0f
+    }
+}
+
 def float calculate() {
 
     float gebuehr=0f
@@ -1264,18 +1372,8 @@ def float calculate() {
     float change=1.0f
     float urahmen=0.0f
     float orahmen=0.0f
+    float test=1.0f
     
-    switch (cbchange){
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 20%'}:change = 1.2f
-        break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 10%'}:change = 1.1f
-        break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 10%'}:change = 0.9f
-        break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 20%'}:change = 0.8f
-        break
-        default: change = 1.0f
-    }
     switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1f}: factor = 0f
         break
@@ -1291,34 +1389,30 @@ def float calculate() {
         orahmen = 640f +(640f * factor);
         lblVV2302uR.text = df.format(urahmen);
         lblVV2302oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV2302.text) == 0f) {
-                txtVV2302.text = df.format(300f + (300f*factor))  
-            } else {
-                txtVV2302.text = txtVV2302.text
-            }
-        } else {
+        if (cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())=='Schwelleng.') {
             txtVV2302.text = df.format(300f + (300f*factor))
+        } else if (cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())=='eigene') {
+            txtVV2302.text = txtVV2302.text
+        } else {
+            txtVV2302.text = df.format((urahmen+orahmen)/2*calchange(cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())))
         }
     } else {
         lblVV2302uR.text = df.format(0f);
         lblVV2302oR.text = df.format(0f)
         txtVV2302.text = df.format(0f)
     }
-        
+
     if(chkVV1005.isSelected()) {
         urahmen = 50f;
         orahmen = 640f;
         lblVV1005uR.text = df.format(urahmen);
         lblVV1005oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1005.text) == 0f) {
-                txtVV1005.text = df.format(300f)
-            } else {
-                txtVV1005.text = txtVV1005.text
-            }
-        } else {
+        if (cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())=='Schwelleng.') {
             txtVV1005.text = df.format(300f)
+        } else if (cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())=='eigene') {
+            txtVV1005.text = txtVV1005.text
+        } else {
+            txtVV1005.text = df.format((urahmen+orahmen)/2*calchange(cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())))
         }
     } else {
         lblVV1005uR.text = df.format(0f);
@@ -1344,14 +1438,10 @@ def float calculate() {
         orahmen = 550f +(550f * factor);
         lblVV3102uR.text = df.format(urahmen);
         lblVV3102oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3102.text) == 0f) {
-                txtVV3102.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV3102.text = txtVV3102.text
-            }
+        if (cbchVV3102.getItemAt(cbchVV3102.getSelectedIndex())!='eigene') {
+            txtVV3102.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3102.getItemAt(cbchVV3102.getSelectedIndex())))
         } else {
-            txtVV3102.text = df.format((urahmen+orahmen)/2*change)
+            txtVV3102.text = txtVV3102.text
         }
     } else {
         lblVV3102uR.text = df.format(0f);
@@ -1375,14 +1465,10 @@ def float calculate() {
         orahmen = 510f;
         lblVV3106uR.text = df.format(urahmen);
         lblVV3106oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3106.text) == 0f) {
-                txtVV3106.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV3106.text = txtVV3106.text
-            }
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+            txtVV3106.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3106.getItemAt(cbchVV3106.getSelectedIndex())))
         } else {
-            txtVV3106.text = df.format((urahmen+orahmen)/2*change)
+            txtVV3106.text = txtVV3106.text
         }
     } else {
         lblVV3106uR.text = df.format(0f);
@@ -1395,14 +1481,10 @@ def float calculate() {
         orahmen = 550f;
         lblVV1006uR.text = df.format(urahmen);
         lblVV1006oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1006.text) == 0f) {
-                txtVV1006.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV1006.text = txtVV1006.text
-            }
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+            txtVV1006.text = df.format((urahmen+orahmen)/2*calchange(cbchVV1006.getItemAt(cbchVV1006.getSelectedIndex())))
         } else {
-            txtVV1006.text = df.format((urahmen+orahmen)/2*change)
+            txtVV1006.text = txtVV1006.text
         }
     } else {
         lblVV1006uR.text = df.format(0f);
@@ -1433,15 +1515,11 @@ def float calculate() {
         orahmen = 680f +(680f * factor);
         lblVV3204uR.text = df.format(urahmen);
         lblVV3204oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3204.text) == 0f) {
-                txtVV3204.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV3204.text = txtVV3204.text
-            }
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+           txtVV3204.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3204.getItemAt(cbchVV3204.getSelectedIndex())))
         } else {
-            txtVV3204.text = df.format((urahmen+orahmen)/2*change)
-        }
+            txtVV3204.text = txtVV3204.text
+        } 
     } else {
         lblVV3204uR.text = df.format(0f);
         lblVV3204oR.text = df.format(0f)
@@ -1453,15 +1531,11 @@ def float calculate() {
         orahmen = 510f;
         lblVV3205uR.text = df.format(urahmen);
         lblVV3205oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV3205.text) == 0f) {
-                txtVV3205.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV3205.text = txtVV3205.text
-            }
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+            txtVV3205.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3205.getItemAt(cbchVV3205.getSelectedIndex())))
         } else {
-            txtVV3205.text = df.format((urahmen+orahmen)/2*change)
-        }     
+            txtVV3205.text = txtVV3205.text
+        }    
     } else {
         lblVV3205uR.text = df.format(0f);
         lblVV3205oR.text = df.format(0f)
@@ -1473,15 +1547,11 @@ def float calculate() {
         orahmen = 680f;
         lblVV1006BerufunguR.text = df.format(urahmen);
         lblVV1006BerufungoR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())=='eigene') {
-            if (df.parse(txtVV1006Berufung.text) == 0f) {
-                txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*change)
-            } else {
-                txtVV1006Berufung.text = txtVV1006Berufung.text
-            }
+        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+                txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*calchange(cbchVV1006Berufung.getItemAt(cbchVV1006Berufung.getSelectedIndex())))
         } else {
-            txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*change)
-        } 
+            txtVV1006Berufung.text = txtVV1006Berufung.text
+        }
     } else {
         lblVV1006BerufunguR.text = df.format(0f);
         lblVV1006BerufungoR.text = df.format(0f)
