@@ -949,19 +949,25 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    label(text: ' ')
+                                    spnAnrechenbarerAnteil = spinner(
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:0.65f,
+                                            stepSize:0.1), stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label(text: ' ')
+                                    label(text: 'Streitwert')
                                 }
                                 td {
-                                    label(text: ' ')
+                                    swAnrechenbarerAnteil = formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, columns:5, text: '0.0')
                                 }
                                 td {
-                                    label(text: ' ')
+                                    label(text: 'EUR')
                                 }
                                 td (align: 'right') {
                                     lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
@@ -1526,6 +1532,7 @@ def float calculate() {
         swVV2300.text = df.format(betragFormat.parse(streitWert))
         swVV1000.text = df.format(betragFormat.parse(streitWert))
         swVV3100.text = df.format(betragFormat.parse(streitWert))
+        swAnrechenbarerAnteil.text = df.format(betragFormat.parse(streitWert))
         swVV3104.text = df.format(betragFormat.parse(streitWert))
         swVV1003.text = df.format(betragFormat.parse(streitWert))
         swVV3200.text = df.format(betragFormat.parse(streitWert))
@@ -1599,7 +1606,17 @@ def float calculate() {
     }
     
     if((chkAnrechenbarerAnteil.isSelected()) && (chkVV3100.isSelected()) && (chkVV2300.isSelected())) {
-        if (faktorFormat.parse(faktorVV2300.text) < 1.5f) {
+        if(chkPKH.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
+        } else {
+            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+        } 
+        lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
+    } else {
+        lblAnrechenbarerAnteil.text = df.format(0f)
+    }
+/*        if (faktorFormat.parse(faktorVV2300.text) < 1.5f) {
             faktor = faktorFormat.parse(faktorVV2300.text)/2
         } else {
             faktor = 0.75f
@@ -1618,7 +1635,7 @@ def float calculate() {
         lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
     } else {
         lblAnrechenbarerAnteil.text = df.format(0f)
-    }
+    }*/
 
     if(chkVV3104.isSelected()) {
         if(chkPKH.isSelected()) {
