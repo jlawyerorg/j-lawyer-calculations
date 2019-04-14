@@ -1285,7 +1285,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkZahlungen =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen (Brutto)', selected: false, stateChanged: {
+                                   chkZahlungen =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen', selected: false, stateChanged: {
                                         calculate()
                                     })
                                 }
@@ -1301,7 +1301,9 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'darin enthaltene Umsatzsteuer')
+                                    chkZahlungenmwST =  checkBox(id:'bAuslagenM', text: 'darin enthaltene Umsatzsteuer:', selected: true, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
                                     label(text: ' ')
@@ -1863,7 +1865,7 @@ def String copyToClipboard() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryValue=customTable.getValueAt(i, 2);
             sbf.append("<tr>")
-            sbf.append("<td align=\"right\">").append(rowCustomEntryAnzahl).append("</td>");
+            sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
             sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
             sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
             sbf.append("</tr>");
@@ -1913,7 +1915,7 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\">").append(lblZahlungen.text).append(" €</td>");
         sbf.append("</tr>");
     } 
-    if((chkmwst.selected)&&(chkZahlungen.selected)) {
+    if((chkmwst.selected)&&(chkZahlungenmwST.selected)&&(chkZahlungen.selected)) {
         sbf.append("<tr>")
         sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">darin enthaltenen MwSt. (19%)</td>");
@@ -2097,7 +2099,7 @@ def CalculationTable copyToDocument() {
         row.add(lblZahlungen.text + " €");
         ct.addRow(row);
     }
-    if((chkmwst.selected)&&(chkZahlungen.selected)) {
+    if((chkmwst.selected)&&(chkZahlungenmwST.selected)&&(chkZahlungen.selected)) {
         row=new ArrayList<String>();
         row.add("");
         row.add("darin enthaltene MwSt. (19%)");
