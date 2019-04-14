@@ -1264,9 +1264,10 @@ new SwingBuilder().edt {
                                             '',
                                             'eigene',
                                             'Verfahrensgebühr Nr. 3101 VV RVG',
+                                            'Einigungsgebühr Nr. 1003f VV RVG',
                                             'Gerichtskostenvorschuss'
                                             ], editable: true, selectedItem:'', itemStateChanged: {
-                                            calculate()
+                                            setfaktor()
                                         })
                                         label (text: 'Streitwert')
                                         swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
@@ -1501,6 +1502,17 @@ def void add2() {
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
+}
+
+def float setfaktor( ) {
+    switch (cmbCustomEntryName2) {
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: spnCustomEntry2.setValue(3)
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)    
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1003f VV RVG'}: spnCustomEntry2.setValue(1)    
+    break
+    }
 }
 
 def float calculate() {
@@ -1791,22 +1803,17 @@ switch (cmbCustomEntryName) {
     txtCustomEntryValue.text = df.format(0f)
 }
 
-    switch (cmbCustomEntryName2) {
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)    
-    if(chkPKH.isSelected()) {
+    if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
+        gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        txtCustomEntryValue2.text = df.format(gebuehr)
+    } else {
+        if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
             diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         } 
-    txtCustomEntryValue2.text = df.format(gebuehr)
-    break
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: spnCustomEntry2.setValue(3)
-        gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         txtCustomEntryValue2.text = df.format(gebuehr)
-    break
-    default:
-    txtCustomEntryValue2.text = df.format(0f)
     }
 
 
