@@ -858,6 +858,28 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
+                                   chkVV4141 =  checkBox(text: '', selected: false,stateChanged: {
+                                                calculate()
+                                   })
+                                }
+                                td {
+                                    label(text: 'Erledigungsgebühr Nr 4141:')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    txtVV4141 = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                            tr {
+                                td {
                                    chkvorVV7002 =  checkBox(text: '', selected: false,stateChanged: {
                                                 calculate()
                                    })
@@ -1435,6 +1457,14 @@ def float calculate() {
         txtVV4104.text = df.format(0f)
     }
 
+    if (chkVV4141.isSelected()){
+        txtVV4141.text = txtVV4104.text
+    } else {
+        txtVV4141.text = df.format(0f)
+    }
+
+
+
     if(chkvorVV7002.isSelected()) {
         gebuehr=(df.parse(txtVV4104.text)) * 0.2f;
         switch(gebuehr) {
@@ -1690,6 +1720,7 @@ def float calculate() {
         df.parse(txtVV4100.text)
         +df.parse(txtVV4102.text)
         +df.parse(txtVV4104.text)
+        +df.parse(txtVV4141.text)
         +df.parse(lblvorVV7002.text)        
         +df.parse(txtVV4106.text)
         +df.parse(lblVerTage1.text)
@@ -1782,6 +1813,14 @@ def String copyToClipboard() {
         sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\">").append(lblVV4104.text).append(" VV RVG</td>");
         sbf.append("<td align=\"right\">").append(txtVV4104.text).append(" €</td>");
+        sbf.append("</tr>");
+    } 
+
+    if(chkVV4141.selected) {
+        sbf.append("<tr>")
+        sbf.append("<td align=\"left\"></td>");
+        sbf.append("<td align=\"left\">Erledigungsgebühr Nr. 4141 VV RVG</td>");
+        sbf.append("<td align=\"right\">").append(txtVV4141.text).append(" €</td>");
         sbf.append("</tr>");
     } 
 
@@ -1943,6 +1982,13 @@ def CalculationTable copyToDocument() {
         row.add("");
         row.add(lblVV4104.text + " VV RVG");
         row.add(txtVV4104.text + " €");
+        ct.addRow(row);
+    }
+    if(chkVV4141.selected) {
+        row=new ArrayList<String>();
+        row.add("");
+        row.add("Erledigungsgebühr Nr. 4141 VV RVG");
+        row.add(txtVV4141.text + " €");
         ct.addRow(row);
     }
     if(chkvorVV7002.selected) {
