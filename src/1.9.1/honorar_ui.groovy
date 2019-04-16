@@ -797,11 +797,23 @@ new SwingBuilder().edt {
                                     label (text: 'Stunden:')
                                 }   
                                 td {
-                                    spnzeit = spinner(
-                                        model:spinnerNumberModel(minimum:0.00f, 
-                                            maximum: 999.00f, 
-                                            value:0.0f,
-                                            stepSize:0.10), stateChanged: {
+                                    spnstunden = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 999f, 
+                                            value:0f,
+                                            stepSize:1), stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    label (text: 'Minuten:')
+                                }   
+                                td {
+                                    spnmin = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 59f, 
+                                            value:0f,
+                                            stepSize:1), stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -1124,7 +1136,7 @@ if (chkhonne.isSelected()) {
 }
 
 if (chkhonst.isSelected()) {
-    gebuehr = spnzeit.value.toFloat()* betragFormat.parse(txthonst.text).floatValue()
+    gebuehr = (spnstunden.value.toFloat()+(spnmin.value.toFloat()*1/60))* betragFormat.parse(txthonst.text).floatValue()
     lblhonst.text = df.format(gebuehr)
 } else {
     lblhonst.text = df.format(0.0f)
