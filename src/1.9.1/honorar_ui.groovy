@@ -1296,7 +1296,7 @@ def String copyToClipboard() {
     }
     if(chkhonst.selected) {
         sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnzeit.value.toString()).append("</td>");
+        sbf.append("<td align=\"left\">").append(((Integer)spnstunden.value).toString()).append(":").append(((Integer)spnmin.value).toString()).append("</td>");
         sbf.append("<td align=\"left\">Zeithonorar - </td>").append(txthonst.text).append(" € pro Stunde</td>");
         sbf.append("<td align=\"right\">").append(lblhonst.text).append(" €</td>");
         sbf.append("</tr>");
@@ -1404,7 +1404,7 @@ def CalculationTable copyToDocument() {
     }
     if(chkhonst.selected) {
         row=new ArrayList<String>();
-        row.add(spnzeit.value.toString());
+        row.add(((Integer)spnstunden.value).toString() + ":" + ((Integer)spnmin.value).toString());
         row.add("Zeithonorar - " + txthonst.text + " € pro Stunde");
         row.add(lblhonst.text + " €");
         ct.addRow(row);
