@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner Honorarvereinbarung (in Entwicklung)"
 description = "j-lawyer.org Rechner Honorarvereinbarungen (in Entwicklung)"
-version = "1.1.0";
-author = "Anatol Anuschewski"
-updated = "14.04.2019"
+version = "1.1.1";
+author = "Anatol Anuschewski, Jens Kutschke"
+updated = "27.04.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 
