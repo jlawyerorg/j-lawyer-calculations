@@ -662,8 +662,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Sozialrecht (in Entwicklung)"
-description = "j-lawyer.org Rechner Sozialrecht (in Entwicklung)"
+name = "Rechner Sozialrecht"
+description = "j-lawyer.org Rechner Sozialrecht"
 version = "1.3.0";
 author = "Anatol Anuschewski"
 updated = "14.04.2019"

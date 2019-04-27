@@ -662,8 +662,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Strafrecht Pflichtverteidigung (in Entwicklung)"
-description = "j-lawyer.org Rechner Strafrecht Pflichtverteidigung (in Entwicklung)"
+name = "Rechner Strafrecht Pflichtverteidigung"
+description = "j-lawyer.org Rechner Strafrecht Pflichtverteidigung"
 version = "1.2.0";
 author = "Anatol Anuschewski"
 updated = "14.04.2019"

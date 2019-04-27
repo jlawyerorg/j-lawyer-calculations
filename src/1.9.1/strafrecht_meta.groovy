@@ -662,8 +662,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Strafrecht (in Entwicklung)"
-description = "j-lawyer.org Rechner Strafrecht (in Entwicklung)"
+name = "Rechner Strafrecht"
+description = "j-lawyer.org Rechner Strafrecht"
 version = "1.2.0";
 author = "Anatol Anuschewski"
 updated = "14.04.2019"
