@@ -860,6 +860,7 @@ new SwingBuilder().edt {
                                             'Tagegeld Nr. 7005 VV RVG bis 4h',
                                             'Tagegeld Nr. 7005 VV RVG 4 bis 8h',
                                             'Tagegeld Nr. 7005 VV RVG ab 8h',
+                                            'Auslagen Nr. 7002 VV RVG',
                                             'steuerpflichtige Auslagen (netto)',
                                             'Hebegebühr Nr. 1009 VV RVG'
                                             ], editable: true, itemStateChanged: {
@@ -1175,6 +1176,19 @@ switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
     txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
     break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Auslagen Nr. 7002 VV RVG'}:
+    gebuehr=(
+        df.parse(lblhonbr.text)
+        +df.parse(lblhonne.text)
+        +df.parse(lblhonst.text)
+    ) * 0.2f;
+    switch(gebuehr) {
+    case {it < 20f}: gebuehr = gebuehr
+        break
+    case {it >= 20f}: gebuehr = 20f  
+        break
+    }
+    txtCustomEntryValue.text = df.format(gebuehr)
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
