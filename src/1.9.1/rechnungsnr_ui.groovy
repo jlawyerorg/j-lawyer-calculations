@@ -667,6 +667,7 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
+import com.jdimension.jlawyer.client.settings.ServerSettings
 
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
@@ -674,16 +675,74 @@ new SwingBuilder().edt {
         tableLayout {
             tr  {
                 td (align: 'left') {
-                    label(text: 'erste Nr. (fortlaufend)')
+                    label(text: 'Nummernschema:')
                 }
                 td (align: 'left') {
-                    textField(id: 'poolBeginIndex', actionPerformed: { println("execute some action") })
+                    txtInvoiceSchema=textField(id: 'invoiceSchema', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchema", "R19#####"), actionPerformed: { println("execute some action") })
                 }
-                td (align: 'right') {
+                td (align: 'left') {
+//                    panel {
+//                        button(text: 'Übernehmen', actionPerformed: {
+//                                
+//                                //calculate()
+//                            })
+//                                
+//                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'erste Nr. (fortlaufend):')
+                }
+                td (align: 'left') {
+                    txtInvoicePoolBegin=textField(id: 'invoicePoolBegin', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin", "0"), actionPerformed: { println("execute some action") })
+                    //textField(id: 'invoicePoolBegin', columns: 4, actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+//                    panel {
+//                        button(text: 'Übernehmen', actionPerformed: {
+//                                
+//                                //calculate()
+//                            })
+//                                
+//                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'zuletzt verwendet:')
+                }
+                td (align: 'left') {
+                    lblInvoicePoolValue = label(id: 'invoicePoolValue', text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue", "0"))
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    //textField(id: 'invoicePoolValue', columns: 4, actionPerformed: { println("execute some action") })
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                }
+                td (align: 'left') {
+                    txtNewInvoice=textField(id: 'invoicePoolNewValue', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
                     panel {
-                        button(text: 'Übernehmen', actionPerformed: {
+                        button(text: 'Generieren', actionPerformed: {
                                 
-                                //calculate()
+                                generate()
                             })
                                 
                     }
@@ -695,3 +754,39 @@ new SwingBuilder().edt {
 
 }
 
+def void generate() {
+    println("generate")
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema", txtInvoiceSchema.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin", txtInvoicePoolBegin.text);
+    int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue", "0"));
+    int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin", "0"));
+    if(beginValue>lastUsed)
+        lastUsed=beginValue;
+    else 
+        lastUsed=lastUsed+1;
+    
+    String schema=txtInvoiceSchema.text;
+    String maxIndexes="##########";
+    String newValue="" + lastUsed;
+    
+    while(maxIndexes.length()>1) {
+        String pattern=""
+        for(int i=0;i<maxIndexes.length();i++) {
+            pattern=pattern+"#";
+        }
+        if(newValue.length()>pattern.length())
+            break;
+        
+        String replacePattern=newValue;
+        for(int i=0;i<(pattern.length()-newValue.length());i++) {
+            replacePattern="0"+newValue;
+        }
+        
+        schema=schema.replaceAll(pattern, replacePattern);
+        maxIndexes=maxIndexes.substring(0,maxIndexes.length()-1);
+    }
+    txtNewInvoice.text=schema;
+    
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue", "" + lastUsed);
+    lblInvoicePoolValue.text=lastUsed;
+}
