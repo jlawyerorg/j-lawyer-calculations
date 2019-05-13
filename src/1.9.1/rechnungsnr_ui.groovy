@@ -673,6 +673,37 @@ new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         
         tableLayout {
+            
+            tr  {
+                td (colspan:3, align:'center') {
+                    label(text: '<html>Rechnungsnummern generieren: <ol><li>Schema für Rechnungsnummern vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Rechnungsnummer verwendet werden. Bsp: aus ##### wird für Rechnung 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Rechnungsnummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Rechnung werden gespeichert.</html>')
+                }
+                
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    //textField(id: 'invoicePoolValue', columns: 4, actionPerformed: { println("execute some action") })
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    //textField(id: 'invoicePoolValue', columns: 4, actionPerformed: { println("execute some action") })
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
             tr  {
                 td (align: 'left') {
                     label(text: 'Nummernschema:')
@@ -744,14 +775,62 @@ new SwingBuilder().edt {
                                 
                                 generate()
                             })
+                        cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboard(copyToClipboard())
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
+                                        
+                            })
                                 
                     }
                 } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+            }
+            
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'right') {
+                    button(text: 'Plugineinstellungen zurücksetzen', toolTipText: 'Setzt Schema, Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
+                                reset()
+                                        
+                            })
+                }
             }
             
         }
     }
 
+}
+
+def String copyToClipboard() {
+    return txtNewInvoice.text;
+}
+
+def void reset() {
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema", "R19#####");
+    txtInvoiceSchema.text="R19#####";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin", "0");
+    txtInvoicePoolBegin.text="0";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue", "0");
+    lblInvoicePoolValue.text="0";
 }
 
 def void generate() {
@@ -779,7 +858,7 @@ def void generate() {
         
         String replacePattern=newValue;
         for(int i=0;i<(pattern.length()-newValue.length());i++) {
-            replacePattern="0"+newValue;
+            replacePattern="0"+replacePattern;
         }
         
         schema=schema.replaceAll(pattern, replacePattern);
@@ -789,4 +868,5 @@ def void generate() {
     
     ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue", "" + lastUsed);
     lblInvoicePoolValue.text=lastUsed;
+    cmdCopy.enabled=true
 }
