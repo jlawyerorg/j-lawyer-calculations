@@ -8,7 +8,7 @@
     <calculation name="gkgtables" version="1.1.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy"/>
     <calculation name="strafrecht" version="1.2.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="strafrecht_meta.groovy,strafrecht_ui.groovy"/>
     <calculation name="pflichtverteidiger" version="1.2.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="pflichtverteidiger_meta.groovy,pflichtverteidiger_ui.groovy"/>
-    <calculation name="honorar" version="1.1.1" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="honorar_meta.groovy,honorar_ui.groovy"/>
+    <calculation name="honorar" version="1.1.2" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="honorar_meta.groovy,honorar_ui.groovy"/>
     <calculation name="rechnungsnr" version="0.9.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
 
     <!-- j-lawyer.org version 1.10.0.0 -->
@@ -19,7 +19,7 @@
     <calculation name="gkgtables" version="1.1.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy"/>
     <calculation name="strafrecht" version="1.2.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="strafrecht_meta.groovy,strafrecht_ui.groovy"/>
     <calculation name="pflichtverteidiger" version="1.2.0" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="pflichtverteidiger_meta.groovy,pflichtverteidiger_ui.groovy"/>
-    <calculation name="honorar" version="1.1.1" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="honorar_meta.groovy,honorar_ui.groovy"/>
+    <calculation name="honorar" version="1.1.2" for="1.10.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="honorar_meta.groovy,honorar_ui.groovy"/>
     <calculation name="rechnungsnr" version="0.9.0" for="1.9.1" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.9.1" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
 
 </calculations>
