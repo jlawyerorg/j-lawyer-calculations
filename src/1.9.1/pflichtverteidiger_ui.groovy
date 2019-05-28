@@ -1585,10 +1585,10 @@ def float calculate() {
     if(chkVV4124.isSelected()) {
         if(haftVV4124.isSelected()) {
             lblVV4124.text = 'Verfahrensgebühr Nr. 4125' 
-            txtVV4124.text = df.format(161f)
+            txtVV4124.text = df.format(312f)
         } else {
             lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
-            txtVV4124.text = df.format(132f)
+            txtVV4124.text = df.format(256f)
         }
     } else {
         txtVV4124.text = df.format(0f)
@@ -1597,10 +1597,10 @@ def float calculate() {
     if(chkVV4126.isSelected()) {
         if(haftVV4126.isSelected()) {
             lblVV4126.text = 'Terminsgebühr Nr. 4127';
-            gebuehr = 161f
+            gebuehr = 312f
         } else {
             lblVV4126.text = 'Terminsgebühr Nr. 4126';
-            gebuehr = 132f
+            gebuehr = 256f
         }
         gebuehr = gebuehr * spnVV4126.value.toFloat();
         txtVV4126.text = df.format(gebuehr) 
