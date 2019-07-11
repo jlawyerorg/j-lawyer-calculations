@@ -989,7 +989,7 @@ new SwingBuilder().edt {
                                             value:1.2f,
                                             stepSize:0.1), stateChanged: {
                                             calculate()
-                                        })
+                                     faktorFormat   })
                                 }
                                 td {
                                     label(text: ' ')
@@ -1221,17 +1221,10 @@ new SwingBuilder().edt {
                     panel(border: titledBorder(title: 'Sonstiges')) {
                         tableLayout (cellpadding: 5) {
                             tr {
-                                td (align: 'right') {
-                                    panel {
-                                        
-                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
-                                    }
-                                }
-                            }
-                            tr {
                                 td {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
+                                            '',
                                             'Kopien schwarz/weiß Nr.7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
@@ -1239,18 +1232,28 @@ new SwingBuilder().edt {
                                             'Tagegeld Nr. 7005 VV RVG bis 4h',
                                             'Tagegeld Nr. 7005 VV RVG 4 bis 8h',
                                             'Tagegeld Nr. 7005 VV RVG ab 8h',
+                                            'Gebühr Akteneinsicht',
                                             'steuerpflichtige Auslagen (netto)',
+                                            'umsatzsteuerfreie Auslagen',
                                             'Hebegebühr Nr. 1009 VV RVG'
                                             ], editable: true, itemStateChanged: {
                                             calculate()
                                             spnCustomEntry1.setValue(1)
-
-                                        })
+                                            }
+                                        )
                                         label (text: 'Anzahl:')
                                         spnCustomEntry1 = spinner(
-                                        model:spinnerNumberModel(minimum:0f, maximum: 1000000f, value:1f, stepSize:1f), stateChanged: {
+                                        model:spinnerNumberModel(minimum:0f, maximum: 1000000f, value:0f, stepSize:1f), stateChanged: {
                                             calculate()
                                         })
+                                        chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
+                                            calculate()
+                                        })
+                                        ustCustomEntry1 =  label(text: '19%')
+                                    }
+                                }
+                                td (align: 'right') {
+                                    panel {
                                         txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
                                         label (text: 'EUR')
                                         button(text:'Hinzufügen', actionPerformed: { add() })
@@ -1278,6 +1281,14 @@ new SwingBuilder().edt {
                                             stepSize:0.1f), stateChanged: {
                                             calculate()
                                         })
+                                        chkUStCustomEntry2 = checkBox(text: 'USt', selected: true, stateChanged: {
+                                            calculate()
+                                        })
+                                        ustCustomEntry2 =  label(text: '19%')
+                                    }
+                                }
+                                td (align: 'right') {
+                                    panel {
                                         txtCustomEntryValue2 = label(text: '0,00')
                                         label (text: 'EUR')
                                         button(text:'Hinzufügen', actionPerformed: { add2() })
@@ -1287,17 +1298,23 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     panel{
-                                        scrollPane(preferredSize:[600, 100]){
+                                        scrollPane(preferredSize:[550, 100]){
                                             customTable = table(){
                                                 tableModel(){
-                                                    closureColumn(header:'Anzahl', read:{it.anzahl})
+                                                    closureColumn(header:'Anzahl', read:{it.anzahl}, maxWidth:60)
                                                     closureColumn(header:'Position', read:{it.name})
-                                                    closureColumn(header:'Betrag', read:{it.number})
+                                                    closureColumn(header:'USt', read:{it.ust}, maxWidth:60)
+                                                    closureColumn(header:'Betrag', read:{it.number}, maxWidth:80)
                                                 }
                                             }
                                         }
                                     }
-                                }   
+                                }
+                                td (align: 'right') {
+                                    panel {
+                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                    }
+                                }
                             }  
                         }  
                     }     
@@ -1341,20 +1358,19 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkAuslagenoM =  checkBox(id:'bAuslagenoM', text: 'steuerfreie Auslagen:', selected: false, stateChanged: {
-                                            calculate()
-                                        })
+                                    label(text: 'Summe steuerfreie Auslagen:')
                                 }
                                 td {
-                                    txtAuslagenoM=formattedTextField(id: 'nAuslagenoM', format: betragFormat, text: '0,00', columns: 4)
+                                    label(text: ' ')
                                 }
                                 td (align: 'right') {
                                     lblAuslagenoM = label(text: '0,00')
                                 }
                                 td (align: 'right') {
-                                    label(text: 'EUR' )
+                                    label(text: 'EUR')
                                 }
                             }
+
                             tr {
                                 td {
                                     label(text: 'Summe:')
@@ -1491,14 +1507,14 @@ def void reset() {
 }
  
 def void add() {
-    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'number': txtCustomEntryValue.text]
+    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void add2() {
-    def newEntry = ['anzahl': spnCustomEntry2.value.toString(), 'name': cmbCustomEntryName2.selectedItem, 'number': txtCustomEntryValue2.text]
+    def newEntry = ['anzahl': spnCustomEntry2.value.toString(), 'name': cmbCustomEntryName2.selectedItem, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -1506,11 +1522,17 @@ def void add2() {
 
 def float setfaktor( ) {
     switch (cmbCustomEntryName2) {
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: spnCustomEntry2.setValue(3)
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(3)
     break
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: spnCustomEntry2.setValue(0.8)    
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(0.8)    
     break
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1003f VV RVG'}: spnCustomEntry2.setValue(1)    
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1003f VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(1)    
     break
     }
 }
@@ -1628,26 +1650,6 @@ def float calculate() {
     } else {
         lblAnrechenbarerAnteil.text = df.format(0f)
     }
-/*        if (faktorFormat.parse(faktorVV2300.text) < 1.5f) {
-            faktor = faktorFormat.parse(faktorVV2300.text)/2
-        } else {
-            faktor = 0.75f
-        }
-        if (betragFormat.parse(swVV2300.text) > betragFormat.parse(swVV3100.text)) {
-            diffstreitwert = betragFormat.parse(swVV3100.text)
-        } else {
-            diffstreitwert = betragFormat.parse(swVV2300.text)
-        }
-        if(chkPKH.isSelected()) {
-                gebuehr=pkhtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor);
-                diffPKH=diffPKH-(rvgtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor)-pkhtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor))
-            } else {
-                gebuehr=rvgtab.berechneWertGebuehr(diffstreitwert.floatValue(), faktor);  
-            } 
-        lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
-    } else {
-        lblAnrechenbarerAnteil.text = df.format(0f)
-    }*/
 
     if(chkVV3104.isSelected()) {
         if(chkPKH.isSelected()) {
@@ -1755,6 +1757,7 @@ def float calculate() {
     
 switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+        chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()*0.5f
         } else {
@@ -1763,6 +1766,7 @@ switch (cmbCustomEntryName) {
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbe Nr. 7000 VV RVG'}:
+        chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()
         } else {
@@ -1771,24 +1775,39 @@ switch (cmbCustomEntryName) {
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten Nr. 7004 VV RVG (netto)'}:
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = df.format(0.3f*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG 4 bis 8h'}:
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = df.format(40f*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
     break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
+    chkUStCustomEntry1.setSelected(false)
+    txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
+    chkUStCustomEntry1.setSelected(true)
+    txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'umsatzsteuerfreie Auslagen'}:
+    chkUStCustomEntry1.setSelected(false)
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Hebegebühr Nr. 1009 VV RVG'}:
+        chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 2500f) {
             gebuehr = (spnCustomEntry1.value.toFloat()*0.01f)
         } else if (spnCustomEntry1.value.toFloat()<= 10000f) {
@@ -1802,8 +1821,14 @@ switch (cmbCustomEntryName) {
     default:
     txtCustomEntryValue.text = df.format(0f)
 }
+    if (chkUStCustomEntry1.isSelected()) {
+            ustCustomEntry1.text = '19%'
+        } else {
+            ustCustomEntry1.text = '0%'
+        }
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
+        chkUStCustomEntry2.setSelected(false)
         gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         txtCustomEntryValue2.text = df.format(gebuehr)
     } else {
@@ -1816,17 +1841,30 @@ switch (cmbCustomEntryName) {
         txtCustomEntryValue2.text = df.format(gebuehr)
     }
 
+        if (chkUStCustomEntry2.isSelected()) {
+            ustCustomEntry2.text = '19%'
+        } else {
+            ustCustomEntry2.text = '0%'
+        }
+
 
     // custom entries
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
     // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
     float customSum=0f;
+    float customSum2=0f;
     for(int i=0;i<customRows;i++) {
         rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
         rowCustomEntryName=customTable.getValueAt(i, 1);
-        rowCustomEntryValue=customTable.getValueAt(i, 2);
-        customSum=customSum+df.parse(rowCustomEntryValue);
+        rowCustomEntryUSt=customTable.getValueAt(i, 2);
+        rowCustomEntryValue=customTable.getValueAt(i, 3);
+        if (rowCustomEntryUSt =='19%') {
+            customSum=customSum+df.parse(rowCustomEntryValue);
+        } else {
+            customSum2=customSum2+df.parse(rowCustomEntryValue);
+
+        }
     }
 
     if(chkdiffPKH.isSelected()) {
@@ -1859,11 +1897,7 @@ switch (cmbCustomEntryName) {
         lblmwst.text = df.format(0f)
     }
 
-    if(chkAuslagenoM.isSelected()) {
-        lblAuslagenoM.text = txtAuslagenoM.text
-    } else {
-        lblAuslagenoM.text = df.format(0f)
-    }
+    lblAuslagenoM.text = df.format(customSum2)
     
     gebuehr=(
         df.parse(lblzwsum.text)
@@ -2001,14 +2035,17 @@ def String copyToClipboard() {
         for(int i=0;i<customRows;i++) {
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryValue=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt =='19%') {
             sbf.append("<tr>")
             sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
             sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
             sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
             sbf.append("</tr>");
+            }
         }
-    }    
+    }
     if(chkmwst.selected) {
         sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>")
         sbf.append("<tr>");
@@ -2022,13 +2059,25 @@ def String copyToClipboard() {
         sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
         sbf.append("</tr>");
     }
-    if(chkAuslagenoM.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">sonstige steuerfreie Auslagen</td>");
-        sbf.append("<td align=\"right\">").append(lblAuslagenoM.text).append(" €</td>");
-        sbf.append("</tr>");
+
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt =='0%') {
+            sbf.append("<tr>")
+            sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
+            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
+            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
+            sbf.append("</tr>");
+            }
+        }
     }
+
     sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
 
     if((chkquote.selected)||(chkZahlungen.selected)){ 
@@ -2174,12 +2223,15 @@ def CalculationTable copyToDocument() {
         for(int i=0;i<customRows;i++) {
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryValue=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt =='19%') {
             row=new ArrayList<String>();
             row.add(rowCustomEntryAnzahl);
             row.add(rowCustomEntryName);
             row.add(rowCustomEntryValue);
             ct.addRow(row);
+            }
         }
     }
     if(chkmwst.selected) {
@@ -2194,12 +2246,22 @@ def CalculationTable copyToDocument() {
         row.add(lblmwst.text + " €");
         ct.addRow(row);
     }
-    if(chkAuslagenoM.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("sonstige steuerfreie Auslagen");
-        row.add(lblAuslagenoM.text + " €");
-        ct.addRow(row);
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt =='0%') {
+            row=new ArrayList<String>();
+            row.add(rowCustomEntryAnzahl);
+            row.add(rowCustomEntryName);
+            row.add(rowCustomEntryValue);
+            ct.addRow(row);
+            }
+        }
     }
     if((chkquote.selected)||(chkZahlungen.selected)){
     row=new ArrayList<String>();
@@ -2241,6 +2303,4 @@ def CalculationTable copyToDocument() {
     
     return ct;
     
-} 
-
-
+}
