@@ -1294,7 +1294,7 @@ if (chkUStCustomEntry1.isSelected()) {
     if(chkmwst.isSelected()) {
         gebuehr=df.parse(lblzwsum.text)*0.19f
         lblmwst.text = df.format(gebuehr)
-    } else {    sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
+    } else {
 
         lblmwst.text = df.format(0f)
     }
