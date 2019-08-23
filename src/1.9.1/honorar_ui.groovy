@@ -932,9 +932,22 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                        label (text: 'Zeile')
+                                        spnRowNr = spinner(
+                                        model:spinnerNumberModel(minimum:1f, 
+                                            maximum: 99f, 
+                                            value:1f,
+                                            stepSize:1f), stateChanged: {
+                                            calculate()
+                                        })
+                                        button(text:'löschen', actionPerformed: { delete() })
                                     }
                                 }
+                                /*td (align: 'right') {
+                                    panel {
+                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                    }
+                                }*/
                             }  
                         }  
                     }     
@@ -1103,13 +1116,19 @@ new SwingBuilder().edt {
 }
 
 
-def void reset() {
+/*def void reset() {
     customTable.model.getRows().clear() 
     //customTable.model.rowsModel.value = model
     customTable.model.fireTableDataChanged()
     calculate()
+}*/
+
+def void delete() {
+    customTable.model.getRows().remove(spnRowNr.value.toInteger()-1)
+    customTable.model.fireTableDataChanged()
+    calculate()
 }
- 
+
 def void add() {
     def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text]
     customTable.model.rowsModel.value.add(newEntry)
@@ -1267,7 +1286,6 @@ if (chkUStCustomEntry1.isSelected()) {
     // custom entries
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
-    // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
     float customSum=0f;
     float customSum2=0f;
     for(int i=0;i<customRows;i++) {
@@ -1279,7 +1297,6 @@ if (chkUStCustomEntry1.isSelected()) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
-
         }
     }
 

@@ -1312,9 +1312,22 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                        label (text: 'Zeile')
+                                        spnRowNr = spinner(
+                                        model:spinnerNumberModel(minimum:1f, 
+                                            maximum: 99f, 
+                                            value:1f,
+                                            stepSize:1f), stateChanged: {
+                                            calculate()
+                                        })
+                                        button(text:'löschen', actionPerformed: { delete() })
                                     }
                                 }
+                                /*td (align: 'right') {
+                                    panel {
+                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
+                                    }
+                                }*/
                             }  
                         }  
                     }     
@@ -1499,9 +1512,15 @@ new SwingBuilder().edt {
 }
 
 
-def void reset() {
+/*def void reset() {
     customTable.model.getRows().clear() 
     //customTable.model.rowsModel.value = model
+    customTable.model.fireTableDataChanged()
+    calculate()
+}*/
+
+def void delete() {
+    customTable.model.getRows().remove(spnRowNr.value.toInteger()-1)
     customTable.model.fireTableDataChanged()
     calculate()
 }
