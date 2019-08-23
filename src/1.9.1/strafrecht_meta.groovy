@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner Strafrecht"
 description = "j-lawyer.org Rechner Strafrecht"
-version = "1.3.0";
+version = "1.3.1";
 author = "Anatol Anuschewski"
-updated = "11.07.2019"
+updated = "23.08.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

@@ -1711,7 +1711,7 @@ def float calculate() {
     txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
-    chkUStCustomEntry1.setSelected(false)
+    chkUStCustomEntry1.setSelected(true)
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
