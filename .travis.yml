@@ -10,10 +10,20 @@ services:
 #    packages:
 #      - mysql-server
 #      - mysql-client
+
 sudo: true
+
 language: java
-jdk:
-  - oraclejdk8
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      jdk: oraclejdk8
+    - os: linux
+      dist: xenial
+      jdk: openjdk8
+
 # install: ant default
 before_install:
   - mkdir /home/travis/.ant
