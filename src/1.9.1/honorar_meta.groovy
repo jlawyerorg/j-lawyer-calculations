@@ -662,11 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Honorarvereinbarung (in Entwicklung)"
-description = "j-lawyer.org Rechner Honorarvereinbarungen (in Entwicklung)"
-version = "1.1.2";
+name = "Rechner Honorarvereinbarung"
+description = "j-lawyer.org Rechner Honorarvereinbarungen"
+version = "1.2.2";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "29.04.2019"
+updated = "23.08.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

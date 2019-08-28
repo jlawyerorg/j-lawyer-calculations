@@ -1,3 +1,4 @@
+dist: trusty
 notifications:
   email:
     on_success: always # default: change
@@ -10,6 +11,7 @@ services:
 #    packages:
 #      - mysql-server
 #      - mysql-client
+
 sudo: true
 language: java
 jdk:
