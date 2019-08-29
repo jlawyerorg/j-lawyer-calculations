@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 notifications:
   email:
     on_success: always # default: change
@@ -15,7 +15,7 @@ services:
 sudo: true
 language: java
 jdk:
-  - oraclejdk8
+  - openjdk8
 # install: ant default
 before_install:
   - mkdir /home/travis/.ant
