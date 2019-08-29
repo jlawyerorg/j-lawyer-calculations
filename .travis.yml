@@ -24,6 +24,6 @@ before_install:
   - sudo apt-get install wget
   - wget -O jsh.jar https://search.maven.org/remotecontent?filepath=com/jcraft/jsch/0.1.55/jsch-0.1.55.jar
   - cd /usr/share/ant/lib
-  - wget -O jsh.jar https://search.maven.org/remotecontent?filepath=com/jcraft/jsch/0.1.55/jsch-0.1.55.jar
+  - sudo wget -O jsh.jar https://search.maven.org/remotecontent?filepath=com/jcraft/jsch/0.1.55/jsch-0.1.55.jar
   - cd /home/travis/build/jlawyerorg/j-lawyer-calculations
 script: ant upload
