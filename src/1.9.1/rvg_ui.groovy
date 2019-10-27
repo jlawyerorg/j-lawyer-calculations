@@ -989,7 +989,7 @@ new SwingBuilder().edt {
                                             value:1.2f,
                                             stepSize:0.1), stateChanged: {
                                             calculate()
-                                     faktorFormat   })
+                                      })
                                 }
                                 td {
                                     label(text: ' ')
@@ -1533,7 +1533,7 @@ def void add() {
 }
 
 def void add2() {
-    def newEntry = ['anzahl': spnCustomEntry2.value.toString(), 'name': cmbCustomEntryName2.selectedItem, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text]
+    def newEntry = ['anzahl': faktorFormat.format(spnCustomEntry2.value.toFloat()).toString(), 'name': cmbCustomEntryName2.selectedItem, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
