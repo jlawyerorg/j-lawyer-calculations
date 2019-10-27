@@ -1492,7 +1492,7 @@ def float calculate() {
         orahmen = 510f;
         lblVV3106uR.text = df.format(urahmen);
         lblVV3106oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+        if (cbchVV3106.getItemAt(cbchVV3106.getSelectedIndex())!='eigene') {
             txtVV3106.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3106.getItemAt(cbchVV3106.getSelectedIndex())))
         } else {
             txtVV3106.text = txtVV3106.text
@@ -1508,7 +1508,7 @@ def float calculate() {
         orahmen = 550f;
         lblVV1006uR.text = df.format(urahmen);
         lblVV1006oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+        if (cbchVV1006.getItemAt(cbchVV1006.getSelectedIndex())!='eigene') {
             txtVV1006.text = df.format((urahmen+orahmen)/2*calchange(cbchVV1006.getItemAt(cbchVV1006.getSelectedIndex())))
         } else {
             txtVV1006.text = txtVV1006.text
@@ -1542,7 +1542,7 @@ def float calculate() {
         orahmen = 680f +(680f * factor);
         lblVV3204uR.text = df.format(urahmen);
         lblVV3204oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+        if (cbchVV3204.getItemAt(cbchVV3204.getSelectedIndex())!='eigene') {
            txtVV3204.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3204.getItemAt(cbchVV3204.getSelectedIndex())))
         } else {
             txtVV3204.text = txtVV3204.text
@@ -1558,7 +1558,7 @@ def float calculate() {
         orahmen = 510f;
         lblVV3205uR.text = df.format(urahmen);
         lblVV3205oR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+        if (cbchVV3205.getItemAt(cbchVV3205.getSelectedIndex())!='eigene') {
             txtVV3205.text = df.format((urahmen+orahmen)/2*calchange(cbchVV3205.getItemAt(cbchVV3205.getSelectedIndex())))
         } else {
             txtVV3205.text = txtVV3205.text
@@ -1574,7 +1574,7 @@ def float calculate() {
         orahmen = 680f;
         lblVV1006BerufunguR.text = df.format(urahmen);
         lblVV1006BerufungoR.text = df.format(orahmen);
-        if (cbchange.getItemAt(cbchange.getSelectedIndex())!='eigene') {
+        if (cbchVV1006Berufung.getItemAt(cbchVV1006Berufung.getSelectedIndex())!='eigene') {
                 txtVV1006Berufung.text = df.format((urahmen+orahmen)/2*calchange(cbchVV1006Berufung.getItemAt(cbchVV1006Berufung.getSelectedIndex())))
         } else {
             txtVV1006Berufung.text = txtVV1006Berufung.text
