@@ -2318,7 +2318,7 @@ def StyledCalculationTable copyToDocument() {
     ct.addRow(row);
     
     ct.setColumnLabels(colLabels);
-    ct.setAlignment(2, CalculationTable.ALIGNMENT_RIGHT);
+    ct.setAlignment(2, StyledCalculationTable.ALIGNMENT_RIGHT);
     
     return ct;
     
