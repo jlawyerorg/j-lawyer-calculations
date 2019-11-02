@@ -77,6 +77,9 @@
         
         <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADPLUGINS}" trust="true">
           <fileset dir="src/1.9.1"/>
+        </scp>
+        
+        <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADPLUGINS}" trust="true">
           <fileset dir="src/1.11.0.0"/>
         </scp>
 
