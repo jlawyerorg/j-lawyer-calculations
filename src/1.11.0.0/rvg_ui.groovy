@@ -671,7 +671,7 @@ import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
 import javax.swing.JTable
-import org.jlawyer.plugins.calculation.CalculationTable
+import org.jlawyer.plugins.calculation.StyledCalculationTable
 import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
@@ -2140,8 +2140,8 @@ def String copyToClipboard() {
     
 }
 
-def CalculationTable copyToDocument() {
-    CalculationTable ct=new CalculationTable();
+def StyledCalculationTable copyToDocument() {
+    StyledCalculationTable ct=new StyledCalculationTable();
     ArrayList<String> colLabels=new ArrayList<String>();
     colLabels.add("");
     colLabels.add("Position");
