@@ -672,6 +672,7 @@ import java.util.ArrayList
 import java.util.Locale
 import javax.swing.JTable
 import org.jlawyer.plugins.calculation.StyledCalculationTable
+import org.jlawyer.plugins.calculation.Cell
 import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
@@ -1955,286 +1956,52 @@ switch (cmbCustomEntryName) {
 }
 
 def String copyToClipboard() {
-    sbf=new StringBuffer()
-    sbf.append("<html><table width=\"85%\">");
-    sbf.append("<tr>")
-    sbf.append("<td align=\"right\"><b></b></td>");
-    sbf.append("<td align=\"left\"><b>Position</b></td>");
-    sbf.append("<td align=\"right\"><b>Betrag</b></td>");
-    sbf.append("</tr>");
-    sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
-        
-    if(chkVV2300.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(faktorVV2300.text).append("</td>");
-        sbf.append("<td align=\"left\">Geschäftsgebühr Nr. 2300, 1008 VV RVG - </td>").append(swVV2300.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV2300.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV1000.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1000.value.toString()).append("</td>");
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr.1000ff VV RVG - </td>").append(swVV1000.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV1000.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkvorVV7002.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">Auslagen im Vorverfahren Nr. 7002 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(lblvorVV7002.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV3100.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(faktorVV3100.text).append("</td>");
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3100, 1008 VV RVG - </td>").append(swVV3100.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV3100.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkAnrechenbarerAnteil.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">abz&uuml;glich anrechenbarer Teil</td>");
-        sbf.append("<td align=\"right\">").append(lblAnrechenbarerAnteil.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV3104.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3104.value.toString()).append("</td>");
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3104 VV RVG - </td>").append(swVV3104.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV3104.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV1003.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1003.value.toString()).append("</td>");
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003 VV RVG - </td>").append(swVV1003.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV1003.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV7002.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7002.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV3200.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(faktorVV3200.text).append("</td>");
-        sbf.append("<td align=\"left\">Verfahrensgebühr Nr. 3200, 1008 VV RVG - </td>").append(swVV3200.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV3200.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV3202.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV3202.value.toString()).append("</td>");
-        sbf.append("<td align=\"left\">Terminsgebühr Nr. 3202 VV RVG - </td>").append(swVV3202.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV3202.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV1003Berufung.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\">").append(spnVV1003Berufung.value.toString()).append("</td>");
-        sbf.append("<td align=\"left\">Einigungsgebühr Nr. 1003f VV RVG - </td>").append(swVV1003Berufung.text).append(" €</td>");
-        sbf.append("<td align=\"right\">").append(lblVV1003Berufung.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkVV7002Berufung.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">Auslagen Nr. 7002 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(lblVV7002Berufung.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    if(customRows>0) {
-        for(int i=0;i<customRows;i++) {
-            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
-            rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryUSt=customTable.getValueAt(i, 2);
-            rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='19%') {
-            sbf.append("<tr>")
-            sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
-            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
-            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
-            sbf.append("</tr>");
-            }
-        }
-    }
-    if(chkmwst.selected) {
-        sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>")
-        sbf.append("<tr>");
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
-        sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
-        sbf.append("</tr>");
-        sbf.append("<tr>");
-        sbf.append("<td align=\"left\"></td>");        
-        sbf.append("<td align=\"left\">Umsatzsteuer 19% Nr. 7008 VV RVG</td>");
-        sbf.append("<td align=\"right\">").append(lblmwst.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
 
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    if(customRows>0) {
-        for(int i=0;i<customRows;i++) {
-            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
-            rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryUSt=customTable.getValueAt(i, 2);
-            rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='0%') {
-            sbf.append("<tr>")
-            sbf.append("<td align=\"left\">").append(rowCustomEntryAnzahl).append("</td>");
-            sbf.append("<td align=\"left\">" + rowCustomEntryName + "</td>");
-            sbf.append("<td align=\"right\">").append(rowCustomEntryValue).append(" €</td>");
-            sbf.append("</tr>");
-            }
-        }
-    }
-
-    sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
-
-    if((chkquote.selected)||(chkZahlungen.selected)){ 
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
-        sbf.append("<td align=\"right\"><b>").append(lblsum1.text).append(" €</td></b>");
-        sbf.append("</tr>");
-    }
-
-    if(chkquote.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">Quote ").append(txtquote.text).append(":</td>");
-        sbf.append("<td align=\"right\">").append(lblquote.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-    if(chkZahlungen.selected) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">bisherige Zahlungen</td>");
-        sbf.append("<td align=\"right\">").append(lblZahlungen.text).append(" €</td>");
-        sbf.append("</tr>");
-    } 
-    if((chkmwst.selected)&&(chkZahlungenmwST.selected)&&(chkZahlungen.selected)) {
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\">darin enthaltenen MwSt. (19%)</td>");
-        sbf.append("<td align=\"right\">").append(lblmwstZahlung.text).append(" €</td>");
-        sbf.append("</tr>");
-    }
-        sbf.append("<tr>")
-        sbf.append("<td align=\"left\"></td>");
-        sbf.append("<td align=\"left\"><b>Zahlbetrag</b></td>");
-        sbf.append("<td align=\"right\"><b>").append(lblsum2.text).append(" €</td></b>");
-        sbf.append("</tr>");
-        
-    sbf.append("</table></html>");
-    
-    return sbf.toString()
+    StyledCalculationTable st=copyToDocument();
+    return st.toHtml();
     
 }
 
 def StyledCalculationTable copyToDocument() {
     StyledCalculationTable ct=new StyledCalculationTable();
-    ArrayList<String> colLabels=new ArrayList<String>();
-    colLabels.add("");
-    colLabels.add("Position");
-    colLabels.add("Betrag");
+    ct.addHeaders("", "Position", "Betrag");
+    ct.addHeaders("", "", "");
     
-    ArrayList<String> row=new ArrayList<String>();
-    /*row.add(" ");
-    row.add(" ");
-    ct.addRow(row);
-     */
     if(chkVV2300.selected) {
-        row=new ArrayList<String>();
-        row.add(faktorVV2300.text);
-        row.add("Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €");
-        row.add(lblVV2300.text + " €");
-        ct.addRow(row);
+        ct.addRow(faktorVV2300.text, "Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €", lblVV2300.text + " €");
     }
     if(chkVV1000.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV1000.value.toString());
-        row.add("Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €");
-        row.add(lblVV1000.text + " €");
-        ct.addRow(row);
+        ct.addRow(spnVV1000.value.toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
     }
     if(chkvorVV7002.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Auslagen im Vorverfahren Nr. 7002 VV RVG");
-        row.add(lblvorVV7002.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");
     }
     if(chkVV3100.selected) {
-        row=new ArrayList<String>();
-        row.add(faktorVV3100.text);
-        row.add("Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €");
-        row.add(lblVV3100.text + " €");
-        ct.addRow(row);
+        ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
     }
     if(chkAnrechenbarerAnteil.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("abzüglich anrechenbarer Teil");
-        row.add(lblAnrechenbarerAnteil.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
     }
     if(chkVV3104.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV3104.value.toString());
-        row.add("Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €");
-        row.add(lblVV3104.text + " €");
-        ct.addRow(row);
+        ct.addRow(spnVV3104.value.toString(), "Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €", lblVV3104.text + " €");
     }
     if(chkVV1003.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV1003.value.toString());
-        row.add("Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €");
-        row.add(lblVV1003.text + " €");
-        ct.addRow(row);
+        ct.addRow(spnVV1003.value.toString(), "Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €", lblVV1003.text + " €");
     } 
     if(chkVV7002.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002.text + " €");
     }
     if(chkVV3200.selected) {
-        row=new ArrayList<String>();
-        row.add(faktorVV3200.text);
-        row.add("Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €");
-        row.add(lblVV3200.text + " €");
-        ct.addRow(row);
+        ct.addRow(faktorVV3200.text, "Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €", lblVV3200.text + " €");
     }
     if(chkVV3202.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV3202.value.toString());
-        row.add("Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €");
-        row.add(lblVV3202.text + " €");
-        ct.addRow(row);
+        ct.addRow(spnVV3202.value.toString(), "Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €", lblVV3202.text + " €");
     }
     if(chkVV1003Berufung.selected) {
-        row=new ArrayList<String>();
-        row.add(spnVV1003Berufung.value.toString());
-        row.add("Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €");
-        row.add(lblVV1003Berufung.text + " €");
-        ct.addRow(row);
+        ct.addRow(spnVV1003Berufung.value.toString(), "Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
     } 
     if(chkVV7002Berufung.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Auslagen Nr. 7002 VV RVG");
-        row.add(lblVV7002Berufung.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Berufung.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2245,25 +2012,14 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='19%') {
-            row=new ArrayList<String>();
-            row.add(rowCustomEntryAnzahl);
-            row.add(rowCustomEntryName);
-            row.add(rowCustomEntryValue);
-            ct.addRow(row);
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue);
             }
         }
     }
     if(chkmwst.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Zwischensumme");
-        row.add(lblzwsum.text + " €");
-        ct.addRow(row);  
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
-        row.add(lblmwst.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "", "");
+        ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
+        ct.addRow("", "Umsatzsteuer 19% Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2274,51 +2030,49 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='0%') {
-            row=new ArrayList<String>();
-            row.add(rowCustomEntryAnzahl);
-            row.add(rowCustomEntryName);
-            row.add(rowCustomEntryValue);
-            ct.addRow(row);
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue);
             }
         }
     }
     if((chkquote.selected)||(chkZahlungen.selected)){
-    row=new ArrayList<String>();
-    row.add("");
-    row.add("Zwischensumme");
-    row.add(lblsum1.text + " €");
-    ct.addRow(row);
+    ct.addRow("", "", "");
+    ct.addRow("", "Zwischensumme", lblsum1.text + " €");
     }
     
     if(chkquote.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("Quote " + txtquote.text + "");
-        row.add(lblquote.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
     }
     if(chkZahlungen.selected) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("bisherige Zahlungen");
-        row.add(lblZahlungen.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "bisherige Zahlungen", lblZahlungen.text + " €");
     }
     if((chkmwst.selected)&&(chkZahlungenmwST.selected)&&(chkZahlungen.selected)) {
-        row=new ArrayList<String>();
-        row.add("");
-        row.add("darin enthaltene MwSt. (19%)");
-        row.add(lblmwstZahlung.text + " €");
-        ct.addRow(row);
+        ct.addRow("", "darin enthaltene MwSt. (19%)", lblmwstZahlung.text + " €");
     }
-    row=new ArrayList<String>();
-    row.add("");
-    row.add("Zahlbetrag");
-    row.add(lblsum2.text + " €");
-    ct.addRow(row);
     
-    ct.setColumnLabels(colLabels);
-    ct.setAlignment(2, StyledCalculationTable.ALIGNMENT_RIGHT);
+    ct.addRow("", "", "");
+    int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
+    ct.setRowBold(footerRow, true);
+    
+    ct.setRowForeGround(0, java.awt.Color.DARK_GRAY);
+    ct.setRowBackGround(0, java.awt.Color.LIGHT_GRAY);
+
+    ct.setRowForeGround(footerRow, java.awt.Color.DARK_GRAY);
+    ct.setRowBackGround(footerRow, java.awt.Color.LIGHT_GRAY);
+    
+    ct.getCellAt(footerRow, 1).setItalic(true);
+    ct.getCellAt(footerRow, 2).setItalic(true);
+    ct.getCellAt(footerRow, 1).setUnderline(true);
+    ct.getCellAt(footerRow, 2).setUnderline(true);
+    
+    ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
+    
+    ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
+
+    ct.setRowFontSize(0, 12);
+    
+    ct.setLineBorder(true);
+    ct.setBorderColor(java.awt.Color.DARK_GRAY);
+    ct.setColumnWidth(0, 25);
     
     return ct;
     
