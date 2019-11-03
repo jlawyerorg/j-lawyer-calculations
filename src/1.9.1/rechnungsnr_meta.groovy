@@ -662,11 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechnungsnummern-Generator (in Entwicklung)"
+name = "Rechnungsnummern-Generator"
 description = "j-lawyer.org Rechnungsnummern-Generator"
-version = "0.9.3";
+version = "1.0.0";
 author = "Jens Kutschke"
-updated = "17.05.2019"
+updated = "03.11.2019"
 supportedPlaceHolders = ""
 
 
