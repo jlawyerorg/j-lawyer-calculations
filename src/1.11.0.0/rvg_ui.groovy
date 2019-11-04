@@ -2073,6 +2073,9 @@ def StyledCalculationTable copyToDocument() {
     ct.setLineBorder(true);
     ct.setBorderColor(java.awt.Color.DARK_GRAY);
     ct.setColumnWidth(0, 25);
+    ct.setColumnWidth(1, 120);
+    ct.setColumnWidth(2, 35);
+    ct.setFontFamily("Arial");
     
     return ct;
     
