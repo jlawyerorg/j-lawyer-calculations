@@ -741,7 +741,7 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
-                                                                td {
+                                td {
                                     txthonbr = formattedTextField(id: 'txthonbr', format: betragFormat, columns:5, text: '0.0')
                                 }
                                 td {
@@ -761,7 +761,7 @@ new SwingBuilder().edt {
                                             calculate()
                                         })
                                 }
-                                                                td {
+                                td {
                                     txthonne = formattedTextField(id: 'txthonne', format: betragFormat, columns:5, text: '0.0')
                                 }
                                 td {
@@ -1355,6 +1355,7 @@ if (chkUStCustomEntry1.isSelected()) {
 }
 
 def String copyToClipboard() {
+    float rowcount=0f
     sbf=new StringBuffer()
     sbf.append("<html><table width=\"85%\">");
     sbf.append("<tr>")
@@ -1365,6 +1366,7 @@ def String copyToClipboard() {
     sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>");
 
     if(chkhonbr.selected) {
+        rowcount=rowcount+1
         sbf.append("<tr>")
         sbf.append("<td align=\"left\"> </td>");
         sbf.append("<td align=\"left\">Pauschalhonorar</td>");
@@ -1372,6 +1374,7 @@ def String copyToClipboard() {
         sbf.append("</tr>");
     }
     if(chkhonne.selected) {
+        rowcount=rowcount+1
         sbf.append("<tr>")
         sbf.append("<td align=\"left\"> </td>");
         sbf.append("<td align=\"left\">Pauschalhonorar</td>");
@@ -1379,6 +1382,7 @@ def String copyToClipboard() {
         sbf.append("</tr>");
     }
     if(chkhonst.selected) {
+        rowcount=rowcount+1
         sbf.append("<tr>")
         sbf.append("<td align=\"left\">").append(((Integer)spnstunden.value).toString()).append(" h ").append(((Integer)spnmin.value).toString()).append(" min</td>");
         sbf.append("<td align=\"left\">Zeithonorar - </td>").append(txthonst.text).append(" € pro Stunde</td>");
@@ -1390,6 +1394,7 @@ def String copyToClipboard() {
     System.out.println(customRows + " custom entries")
     if(customRows>0) {
         for(int i=0;i<customRows;i++) {
+            rowcount=rowcount+1
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
@@ -1403,13 +1408,16 @@ def String copyToClipboard() {
             }
         }
     }    
-    if(chkmwst.selected) {
+    if((rowcount>1) && (chkmwst.selected)){
         sbf.append("<tr><td colspan=\"3\"><hr noshade size=\"3\"/></td></tr>")
         sbf.append("<tr>");
         sbf.append("<td align=\"left\"></td>");
         sbf.append("<td align=\"left\"><b>Zwischensumme</b></td>");
         sbf.append("<td align=\"right\"><b>").append(lblzwsum.text).append(" €</td></b>");
         sbf.append("</tr>");
+    }
+
+    if(chkmwst.selected) {
         sbf.append("<tr>");
         sbf.append("<td align=\"left\"></td>");        
         sbf.append("<td align=\"left\">Umsatzsteuer 19% Nr. 7008 VV RVG</td>");
@@ -1479,6 +1487,7 @@ def String copyToClipboard() {
 }
 
 def CalculationTable copyToDocument() {
+    float rowcount=0f
     CalculationTable ct=new CalculationTable();
     ArrayList<String> colLabels=new ArrayList<String>();
     colLabels.add("");
@@ -1488,6 +1497,7 @@ def CalculationTable copyToDocument() {
     ArrayList<String> row=new ArrayList<String>();
     
     if(chkhonbr.selected) {
+        rowcount=rowcount+1
         row=new ArrayList<String>();
         row.add("");
         row.add("Pauschalhonorar");
@@ -1495,6 +1505,7 @@ def CalculationTable copyToDocument() {
         ct.addRow(row);
     }
     if(chkhonne.selected) {
+        rowcount=rowcount+1
         row=new ArrayList<String>();
         row.add("");
         row.add("Pauschalhonorar");
@@ -1502,6 +1513,7 @@ def CalculationTable copyToDocument() {
         ct.addRow(row);
     }
     if(chkhonst.selected) {
+        rowcount=rowcount+1
         row=new ArrayList<String>();
         row.add(((Integer)spnstunden.value).toString() + " h " + ((Integer)spnmin.value).toString() + " min");
         row.add("Zeithonorar - " + txthonst.text + " € pro Stunde");
@@ -1512,6 +1524,7 @@ def CalculationTable copyToDocument() {
     System.out.println(customRows + " custom entries")
     if(customRows>0) {
         for(int i=0;i<customRows;i++) {
+            rowcount=rowcount+1
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
@@ -1525,12 +1538,15 @@ def CalculationTable copyToDocument() {
             }
         }
     }
-    if(chkmwst.selected) {
+    if((rowcount>1) && (chkmwst.selected)) {
         row=new ArrayList<String>();
         row.add("");
         row.add("Zwischensumme");
         row.add(lblzwsum.text + " €");
-        ct.addRow(row);  
+        ct.addRow(row);
+    }
+    
+    if(chkmwst.selected) {
         row=new ArrayList<String>();
         row.add("");
         row.add("Umsatzsteuer 19% Nr. 7008 VV RVG");
