@@ -2012,7 +2012,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='19%') {
-                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue);
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
     }
@@ -2030,7 +2030,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='0%') {
-                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue);
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
     }

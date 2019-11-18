@@ -2124,7 +2124,7 @@ def CalculationTable copyToDocument() {
             row=new ArrayList<String>();
             row.add(rowCustomEntryAnzahl);
             row.add(rowCustomEntryName);
-            row.add(rowCustomEntryValue);
+            row.add(rowCustomEntryValue + " €");
             ct.addRow(row);
             }
         }
@@ -2153,7 +2153,7 @@ def CalculationTable copyToDocument() {
             row=new ArrayList<String>();
             row.add(rowCustomEntryAnzahl);
             row.add(rowCustomEntryName);
-            row.add(rowCustomEntryValue);
+            row.add(rowCustomEntryValue + " €");
             ct.addRow(row);
             }
         }
