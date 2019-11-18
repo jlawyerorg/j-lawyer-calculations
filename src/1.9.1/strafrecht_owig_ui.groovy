@@ -1946,7 +1946,7 @@ def float calculate() {
     }
 
     switch (cmbTermin1IName) {
-        case {cmbTermin1IName.getItemAt(cmbTermin1IName.getSelectedIndex()) == 'Terminsgebühr'}:
+        case {cmbTermin1IName.selectedItem.contains("Terminsgebühr")}:
             if (chkPflichtV.isSelected()) {
                 rhTermin1I.text = ''
                 if (chkowig.isSelected()) {
@@ -2044,7 +2044,7 @@ def float calculate() {
             }
         }
         break
-        case {cmbTermin1IName.getItemAt(cmbTermin1IName.getSelectedIndex()) == 'Zuschlag (5-8h)'}:
+        case {cmbTermin1IName.selectedItem.contains('Zuschlag (5-8h)')}:
         rhTermin1I.text = ''
         if (chkPflichtV.isSelected()) {
             if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
@@ -2062,7 +2062,7 @@ def float calculate() {
             txtTermin1IValue.text = df.format(0f)
         }
         break
-        case {cmbTermin1IName.getItemAt(cmbTermin1IName.getSelectedIndex()) == 'Zuschlag (ab 8h)'}:
+        case {cmbTermin1IName.selectedItem.contains('Zuschlag (ab 8h)')}:
         rhTermin1I.text = ''
         if (chkPflichtV.isSelected()) {
             if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
@@ -2147,7 +2147,7 @@ def float calculate() {
     }
     
     switch (cmbTermin2IName) {
-        case {cmbTermin2IName.getItemAt(cmbTermin2IName.getSelectedIndex()) == 'Terminsgebühr'}:
+        case {cmbTermin2IName.selectedItem.contains('Terminsgebühr')}:
             if (chkPflichtV.isSelected()) {
                 rhTermin2I.text = ''
                 if (chkowig.isSelected()) {
@@ -2189,7 +2189,7 @@ def float calculate() {
                 }
             }
         break
-        case {cmbTermin2IName.getItemAt(cmbTermin2IName.getSelectedIndex()) == 'Zuschlag (5-8h)'}:
+        case {cmbTermin2IName.selectedItem.contains('Zuschlag (5-8h)')}:
         rhTermin2I.text = ''
         if (chkPflichtV.isSelected()){
             rvgVVTermin2I.text='Nr. 4128 VV RVG';
@@ -2198,7 +2198,7 @@ def float calculate() {
             txtTermin2IValue.text = df.format(0f)
         }
         break
-        case {cmbTermin2IName.getItemAt(cmbTermin2IName.getSelectedIndex()) == 'Zuschlag (ab 8h)'}:
+        case {cmbTermin2IName.selectedItem.contains('Zuschlag (ab 8h)')}:
         rhTermin2I.text = ''
         if (chkPflichtV.isSelected()) { 
             rvgVVTermin2I.text='Nr. 4129 VV RVG';
@@ -2262,7 +2262,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     }
     
     switch (cmbTerminRevName) {
-        case {cmbTerminRevName.getItemAt(cmbTerminRevName.getSelectedIndex()) == 'Terminsgebühr'}:
+        case {cmbTerminRevName.selectedItem.contains('Terminsgebühr')}:
             if (chkPflichtV.isSelected() && !chkowig.isSelected()) {
                 rhTerminRev.text = ''
                 if(haftTerminRev.isSelected()) {
@@ -2297,7 +2297,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
                 txtTerminRevValue.text = df.format(0f)
             }
         break
-        case {cmbTerminRevName.getItemAt(cmbTerminRevName.getSelectedIndex()) == 'Zuschlag (5-8h)'}:
+        case {cmbTerminRevName.selectedItem.contains('Zuschlag (5-8h)')}:
         rhTerminRev.text = ''
         if (chkPflichtV.isSelected()){
             rvgVVTerminRev.text='Nr. 4134 VV RVG';
@@ -2306,7 +2306,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
             txtTerminRevValue.text = df.format(0f)
         }
         break
-        case {cmbTerminRevName.getItemAt(cmbTerminRevName.getSelectedIndex()) == 'Zuschlag (ab 8h)'}:
+        case {cmbTerminRevName.selectedItem.contains('Zuschlag (ab 8h)')}:
         rhTerminRev.text = ''
         if (chkPflichtV.isSelected()) { 
             rvgVVTerminRev.text='Nr. 4135 VV RVG';
