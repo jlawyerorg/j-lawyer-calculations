@@ -664,7 +664,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner Strafrecht Pflichtverteidigung"
 description = "j-lawyer.org Rechner Strafrecht Pflichtverteidigung"
-version = "2.0.0";
+version = "2.0.1";
 author = "Anatol Anuschewski"
-updated = "27.11.2019"
+updated = "08.12.2019"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
