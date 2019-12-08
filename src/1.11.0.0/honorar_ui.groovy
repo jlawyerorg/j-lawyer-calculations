@@ -671,6 +671,7 @@ import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
 import javax.swing.JTable
+import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import rvgtables_ui
 import pkhtables_ui
@@ -1374,7 +1375,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Pauschalhonorar", lblhonne.text + " €");
     }    
     if(chkhonst.selected) {
-        ct.addRow((Integer)spnstunden.value).toString() + " h " + ((Integer)spnmin.value).toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", lblhonst.text + " €");
+        ct.addRow(spnstunden.value.toString() + " h " + spnmin.value.toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", lblhonst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")

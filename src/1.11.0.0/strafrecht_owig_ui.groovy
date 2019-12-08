@@ -2491,13 +2491,13 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", lblVV4100.text + " VV RVG", txtVV4100.text + " €");
     }
     if(chkVV4102.selected) {
-        ct.addRow("", lblVV4102 + " VV RVG", txtVV4102.text + " €");
+        ct.addRow("", lblVV4102.text + " VV RVG", txtVV4102.text + " €");
     }
     if(chkVV4104.selected) {
-        ct.addRow("", lblVV4104 + " VV RVG", txtVV4104.text + " €");
+        ct.addRow("", lblVV4104.text + " VV RVG", txtVV4104.text + " €");
     }
     if(chkVV4141.selected) {
-        ct.addRow("", lblVV4141 + " VV RVG", txtVV4141.text + " €");
+        ct.addRow("", "Erledigungsgebühr Nr. 4141 VV RVG", txtVV4141.text + " €");
     }
     if(chkvorVV7002.selected) {
         ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");

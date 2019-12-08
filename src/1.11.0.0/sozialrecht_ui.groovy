@@ -672,8 +672,6 @@ import java.util.ArrayList
 import java.util.Locale
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
-//import rvgtables_ui
-//import pkhtables_ui
 
 @Bindable
 class Address { 

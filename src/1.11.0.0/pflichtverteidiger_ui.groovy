@@ -672,8 +672,6 @@ import java.util.ArrayList
 import java.util.Locale
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
-//import rvgtables_ui
-//import pkhtables_ui
 
 @Bindable
 class Address { 
@@ -1568,13 +1566,13 @@ def float calculate() {
 
     if(chkVV4110.isSelected()) {
         if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
-            lblVV4110.text='Zuschlag (5-8h) Nr. 4116:';
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4116';
             gebuehr = 128f;
         } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
-            lblVV4110.text='Zuschlag (5-8h) Nr. 4122:';
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4122';
             gebuehr = 212f;
         } else {
-            lblVV4110.text='Zuschlag (5-8h) Nr. 4110:';
+            lblVV4110.text='Zuschlag (5-8h) Nr. 4110';
             gebuehr = 110f;
             }
         gebuehr = gebuehr * spnVV4110.value.toFloat();
@@ -1847,13 +1845,13 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", lblVV4100.text + " VV RVG", txtVV4100.text + " €");
     }
     if(chkVV4102.selected) {
-        ct.addRow("", lblVV4102 + " VV RVG", txtVV4102.text + " €");
+        ct.addRow("", lblVV4102.text + " VV RVG", txtVV4102.text + " €");
     }
     if(chkVV4104.selected) {
-        ct.addRow("", lblVV4104 + " VV RVG", txtVV4104.text + " €");
+        ct.addRow("", lblVV4104.text + " VV RVG", txtVV4104.text + " €");
     }
     if(chkVV4141.selected) {
-        ct.addRow("", lblVV4141 + " VV RVG", txtVV4141.text + " €");
+        ct.addRow("", "Erledigungsgebühr Nr. 4141 VV RVG", txtVV4141.text + " €");
     }
     if(chkvorVV7002.selected) {
         ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");
@@ -1880,10 +1878,10 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", lblVV4126.text + " VV RVG für " + spnVV4126.value.toString() + " Verhandlungstage", txtVV4126.text + " €");
     }
     if(chkVV4128.selected) {
-        ct.addRow("", lblVV4128.text + " VV RVG für " + spnVV4128.value.toString() + " Verhandlungstage", txtVV4128.text + " €");
+        ct.addRow("", "Zuschlag (5-8h) Nr. 4128 VV RVG für " + spnVV4128.value.toString() + " Verhandlungstage", txtVV4128.text + " €");
     }
     if(chkVV4129.selected) {
-        ct.addRow("", lblVV4129.text + " VV RVG für " + spnVV4129.value.toString() + " Verhandlungstage", txtVV4129.text + " €");
+        ct.addRow("", "Zuschlag (ab 8h) Nr. 4129 VV RVG für " + spnVV4129.value.toString() + " Verhandlungstage", txtVV4129.text + " €");
     }
     if(chkVV7002Berufung.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Berufung.text + " €");
