@@ -662,8 +662,8 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "RVG-Rechner"
-description = "j-lawyer.org RVG-Rechner"
+name = "Rechner RVG Wertgebühren"
+description = "j-lawyer.org Rechner RVG Wertgebühren"
 version = "2.0.1";
 author = "Anatol Anuschewski, Jens Kutschke"
 updated = "18.11.2019"
