@@ -673,6 +673,7 @@ import java.util.Locale
 import javax.swing.JTable
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
+import org.jlawyer.plugins.calculation.Cell
 import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
@@ -1390,7 +1391,7 @@ def StyledCalculationTable copyToDocument() {
             }
         }
     }
-    if((rowcount>1) && (chkmwst.selected)) {
+    if((ct.getRowCount()>1) && (chkmwst.selected)) {
         ct.addRow("", "", "");
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
