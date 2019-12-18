@@ -671,6 +671,7 @@ import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
 import org.jlawyer.plugins.calculation.StyledCalculationTable
+import org.jlawyer.plugins.calculation.Cell
 import org.jlawyer.plugins.calculation.CalculationTable
 
 @Bindable
