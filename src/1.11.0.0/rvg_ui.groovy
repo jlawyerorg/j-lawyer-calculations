@@ -1462,7 +1462,8 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                             }
-                            tr {
+                            //Berechnung der PKH Differenz testweise entfernt. Aktuelle Fehler: Anrechnung Vorverfahren und Custom Entrys. Wenn es keinen Widerspruch gibt kann beizeiten der zugehörige Code komplett entfernt werden. Siehe #48
+                            /*tr {
                                 td {
                                     chkdiffPKH = checkBox(id: 'bdiffPKH',text: 'Differenz PKH', selected: false, stateChanged: {
                                             calculate()
@@ -1477,7 +1478,7 @@ new SwingBuilder().edt {
                                 td (align: 'right') {
                                     label(text: 'EUR')
                                 }
-                            }
+                            }*/
                         }  
                     }     
                 }
@@ -1578,8 +1579,8 @@ def float calculate() {
     gkgtab= new gkgtables_ui()
     float gebuehr=0f
     float faktor=0.0f
-    float diffPKH=0.0f
-    float diffstreitwert=0f
+    //float diffPKH=0.0f
+    //float diffstreitwert=0f
 
 
     if (chkstreitwert.isSelected()) {
@@ -1607,7 +1608,7 @@ def float calculate() {
         faktorVV2300.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
         }
@@ -1618,7 +1619,7 @@ def float calculate() {
     if(chkVV1000.isSelected()) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
         }
@@ -1650,7 +1651,7 @@ def float calculate() {
         faktorVV3100.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
         }     
@@ -1662,7 +1663,7 @@ def float calculate() {
     if((chkAnrechenbarerAnteil.isSelected()) && (chkVV3100.isSelected()) && (chkVV2300.isSelected())) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
         } 
@@ -1674,7 +1675,7 @@ def float calculate() {
     if(chkVV3104.isSelected()) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
         } 
@@ -1686,7 +1687,7 @@ def float calculate() {
     if(chkVV1003.isSelected()) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
         }
@@ -1725,7 +1726,7 @@ def float calculate() {
         faktorVV3200.text = faktorFormat.format(faktor)
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);  
         }
@@ -1737,7 +1738,7 @@ def float calculate() {
     if(chkVV3202.isSelected()) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
         }
@@ -1749,7 +1750,7 @@ def float calculate() {
     if(chkVV1003Berufung.isSelected()) {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
         }
@@ -1854,7 +1855,7 @@ switch (cmbCustomEntryName) {
     } else {
         if(chkPKH.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
-            diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
+            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         } 
@@ -1887,11 +1888,11 @@ switch (cmbCustomEntryName) {
         }
     }
 
-    if(chkdiffPKH.isSelected()) {
+    /*if(chkdiffPKH.isSelected()) {
         lbldiffPKH.text = df.format(diffPKH)
     } else {
         lbldiffPKH.text = df.format(0f)
-    }
+    }*/
 
         gebuehr=(
                 df.parse(lblVV2300.text)
