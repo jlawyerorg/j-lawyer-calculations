@@ -1282,34 +1282,48 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkZahlungen =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen', selected: false, stateChanged: {
-                                        calculate()
-                                    })
+                                    chkZahlungenBrutto =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen inkl. Umsatzsteuer', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                                 td {
-                                    txtZahlungen=formattedTextField(id: 'nZahlungen', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto=formattedTextField(id: 'nZahlungenBrutto', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
-                                    lblZahlungen = label(text: '0,00')
+                                    lblZahlungenBrutto = label(text: '0,00')
                                 }
-                                 td (align: 'right') {
+                                td (align: 'right') {
                                     label(text: 'EUR' )
                                 }
                             }
                             tr {
                                 td {
-                                    chkZahlungenmwST =  checkBox(id:'bAuslagenM', text: 'darin enthaltene Umsatzsteuer:', selected: true, stateChanged: {
+                                    label(text: 'darin enthaltene Umsatzsteuer:')
+                                }
+                                td {
+                                    label(text: '')
+                                }
+                                td (align: 'right') {
+                                    lblmwstZahlung = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    chkZahlungenNetto =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen ohne Umsatzsteuer', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
                                 td {
-                                    label(text: ' ')
+                                    txtZahlungenNetto=formattedTextField(id: 'nZahlungenNetto', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
-                                   lblmwstZahlung = label(text: '0,00')
+                                    lblZahlungenNetto = label(text: '0,00')
                                 }
                                 td (align: 'right') {
-                                    label(text: 'EUR')
+                                    label(text: 'EUR' )
                                 }
                             }
                             tr {
@@ -1819,20 +1833,22 @@ def float calculate() {
         lblquote.text=lblsum1.text
     }
 
-    if(chkZahlungen.isSelected()) {
-        lblZahlungen.text = txtZahlungen.text
-    } else {
-        lblZahlungen.text = df.format(0f)
-    }
-
-    if(chkmwst.isSelected() && chkZahlungenmwST.isSelected()) {
-        gebuehr=(df.parse(lblZahlungen.text)/1.19f*0.19f)
+    if(chkZahlungenBrutto.isSelected()) {
+        lblZahlungenBrutto.text = txtZahlungenBrutto.text
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/1.19f*0.19f)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
+        lblZahlungenBrutto.text = df.format(0f)
         lblmwstZahlung.text = df.format(0f)
     }
+
+    if(chkZahlungenNetto.isSelected()) {
+        lblZahlungenNetto.text = txtZahlungenNetto.text
+    } else {
+        lblZahlungenNetto.text = df.format(0f)
+    }
     
-    gebuehr=df.parse(lblquote.text)-df.parse(lblZahlungen.text)
+    gebuehr=df.parse(lblquote.text) - df.parse(lblZahlungenBrutto.text) - df.parse(lblZahlungenNetto.text)
     lblsum2.text=df.format(gebuehr)
     
 
@@ -1918,7 +1934,7 @@ def StyledCalculationTable copyToDocument() {
             }
         }
     }
-    if((chkquote.selected)||(chkZahlungen.selected)){
+    if((chkquote.selected)||(chkZahlungenBrutto.selected)||(chkZahlungenNetto.selected)){
     ct.addRow("", "", "");
     ct.addRow("", "Zwischensumme", lblsum1.text + " €");
     }
@@ -1926,11 +1942,12 @@ def StyledCalculationTable copyToDocument() {
     if(chkquote.selected) {
         ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
     }
-    if(chkZahlungen.selected) {
-        ct.addRow("", "bisherige Zahlungen", lblZahlungen.text + " €");
+    if(chkZahlungenBrutto.selected) {
+        ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", lblZahlungenBrutto.text + " €");
+        ct.addRow("", "darin enthaltene USt. (19%)", lblmwstZahlung.text + " €");
     }
-    if((chkmwst.selected)&&(chkZahlungenmwST.selected)&&(chkZahlungen.selected)) {
-        ct.addRow("", "darin enthaltene MwSt. (19%)", lblmwstZahlung.text + " €");
+    if(chkZahlungenNetto.selected) {
+        ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", lblZahlungenNetto.text + " €");
     }
     
     ct.addRow("", "", "");
