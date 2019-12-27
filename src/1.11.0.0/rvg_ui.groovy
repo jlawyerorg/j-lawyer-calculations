@@ -1290,7 +1290,7 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                        txtCustomEntryValue2 = label(text: '0,00')
+                                        txtCustomEntryValue2 = formattedTextField(id: 'nCustomEntryValue2', format: betragFormat, columns:4, text: '0,00')
                                         label (text: 'EUR')
                                         button(text:'Hinzufügen', actionPerformed: { add2() })
                                     }
@@ -1872,8 +1872,12 @@ switch (cmbCustomEntryName) {
             //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
         } else {
             gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
-        } 
-        txtCustomEntryValue2.text = df.format(gebuehr)
+        }
+        if (df.parse(txtCustomEntryValue2.text)==0) {
+            txtCustomEntryValue2.text = df.format(gebuehr)
+        } else {
+            txtCustomEntryValue2.text = txtCustomEntryValue2.text
+        }
     }
 
         if (chkUStCustomEntry2.isSelected()) {
