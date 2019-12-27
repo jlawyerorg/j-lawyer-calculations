@@ -677,6 +677,8 @@ import org.jlawyer.plugins.calculation.Cell
 import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
+import com.jdimension.jlawyer.client.settings.ServerSettings
+
 
 @Bindable
 class Address { 
@@ -1381,23 +1383,28 @@ def String copyToClipboard() {
 }
 
 def StyledCalculationTable copyToDocument() {
+    float rowcount=0f
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
     ct.addHeaders("", "", "");
     
     if(chkhonbr.selected) {
+        rowcount=rowcount+1
         ct.addRow("", "Pauschalhonorar", lblhonbr.text + " €");
     }
     if(chkhonne.selected) {
+        rowcount=rowcount+1
         ct.addRow("", "Pauschalhonorar", lblhonne.text + " €");
     }    
     if(chkhonst.selected) {
+        rowcount=rowcount+1
         ct.addRow(spnstunden.value.toString() + " h " + spnmin.value.toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", lblhonst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
     if(customRows>0) {
         for(int i=0;i<customRows;i++) {
+            rowcount=rowcount+1
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
@@ -1407,7 +1414,7 @@ def StyledCalculationTable copyToDocument() {
             }
         }
     }
-    if((ct.getRowCount()>1) && (chkmwst.selected)) {
+    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Bei Honorarvereinbarungen wird es oft vorkommen, dass es nur einen Rechnungsposten gibt.
         ct.addRow("", "", "");
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
@@ -1445,11 +1452,15 @@ def StyledCalculationTable copyToDocument() {
     
     ct.addRow("", "", "");
     int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
-    ct.setRowBold(footerRow, true);
     
+    //HeaderRow
     ct.setRowForeGround(0, java.awt.Color.DARK_GRAY);
     ct.setRowBackGround(0, java.awt.Color.LIGHT_GRAY);
 
+
+    //FooterRow
+    ct.setRowBold(footerRow, true);
+    
     ct.setRowForeGround(footerRow, java.awt.Color.DARK_GRAY);
     ct.setRowBackGround(footerRow, java.awt.Color.LIGHT_GRAY);
     
@@ -1458,12 +1469,10 @@ def StyledCalculationTable copyToDocument() {
     ct.getCellAt(footerRow, 1).setUnderline(true);
     ct.getCellAt(footerRow, 2).setUnderline(true);
     
+    //TableLayout
     ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
-    
     ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
-
     ct.setRowFontSize(0, 12);
-    
     ct.setLineBorder(true);
     ct.setBorderColor(java.awt.Color.DARK_GRAY);
     ct.setColumnWidth(0, 25);
