@@ -845,7 +845,6 @@ def void lineColorSelection() {
     TablePropertiesUtils tableProps=new TablePropertiesUtils();
     Color currentColor=lineColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getTableLineColor());
     if(currentColor!=null) {
-        System.out.println("set" + currentColor);
         lineColorButton.setBackground(currentColor);
         tableProps.setTableLineColor(currentColor);
     }
