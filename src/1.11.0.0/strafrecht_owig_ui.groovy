@@ -1236,6 +1236,7 @@ new SwingBuilder().edt {
                                                     closureColumn(header:'Position', read:{it.name})
                                                     closureColumn(header:'USt', read:{it.ust}, maxWidth:60)
                                                     closureColumn(header:'Betrag', read:{it.number}, maxWidth:80)
+                                                    closureColumn(header:'Instanz', read:{it.instanz}, maxWidth:0)
                                                 }
                                             }
                                         }
@@ -1581,28 +1582,28 @@ def void delete() {
 }
 
 def void addsonstige() {
-    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text]
+    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text, 'instanz':'S']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void add1Instanz() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': '19%', 'number': txtTermin1IValue.text]
+    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': '19%', 'number': txtTermin1IValue.text, 'instanz':'1']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addBerufung() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': '19%', 'number': txtTermin2IValue.text]
+    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': '19%', 'number': txtTermin2IValue.text, 'instanz':'2']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addRevision() {
-    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': '19%', 'number': txtTerminRevValue.text]
+    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': '19%', 'number': txtTerminRevValue.text, 'instanz':'3']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -2522,17 +2523,59 @@ def StyledCalculationTable copyToDocument() {
     if(chkVV4106.selected) {
         ct.addRow("", lblVV4106.text + " VV RVG", txtVV4106.text + " €");
     }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='1') {
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+            }
+        }
+    }
     if(chkVV7002.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002.text + " €");
     }
     if(chkVV4124.selected) {
         ct.addRow("", lblVV4124.text + " VV RVG", txtVV4124.text + " €");
     }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='2') {
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+            }
+        }
+    }
     if(chkVV7002Berufung.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Berufung.text + " €");
     }
     if(chkVV4130.selected) {
         ct.addRow("", lblVV4130.text + " VV RVG", txtVV4130.text + " €");
+    }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='3') {
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+            }
+        }
     }
     if(chkVV7002Rev.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Rev.text + " €");
@@ -2545,7 +2588,8 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='19%') {
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if ((rowCustomEntryUSt =='19%')&&(rowCustomEntryInstanz =='S')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
@@ -2563,7 +2607,8 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='0%') {
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if ((rowCustomEntryUSt =='0%')&&(rowCustomEntryInstanz =='3')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
