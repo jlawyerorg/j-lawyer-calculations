@@ -971,10 +971,16 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                                 td (align: 'right') {
-                                    lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
+                                    //lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
+                                    lblAnrechenbarerAnteil = formattedTextField(id: 'lblAnrechenbarerAnteil', format: betragFormat, columns:4, text: '0,00', foreground: java.awt.Color.RED)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
+                                }
+                                td {
+                                    chkeditAnrechenbarerAnteil = checkBox(text: 'edit', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                             }
                             tr {
@@ -1675,13 +1681,21 @@ def float calculate() {
     }
     
     if((chkAnrechenbarerAnteil.isSelected()) && (chkVV3100.isSelected()) && (chkVV2300.isSelected())) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
+        if (chkeditAnrechenbarerAnteil.isSelected()) {
+            if(df.parse(lblAnrechenbarerAnteil.text)>0) {
+                lblAnrechenbarerAnteil.text = df.format(df.parse(lblAnrechenbarerAnteil.text) * -1f)
+            } else {
+                lblAnrechenbarerAnteil.text = lblAnrechenbarerAnteil.text
+            } 
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
-        } 
-        lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+            } 
+            lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
+        }
     } else {
         lblAnrechenbarerAnteil.text = df.format(0f)
     }
