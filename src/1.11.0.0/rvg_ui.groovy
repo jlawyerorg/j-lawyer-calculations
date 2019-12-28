@@ -1229,6 +1229,11 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
+                                    label(text: 'Auslagen:')
+                                }
+                            }
+                            tr {
+                                td {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
@@ -1269,12 +1274,21 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
+                                    label(text: 'sonstige Wertgebühren:')
+                                }
+                            }
+                            tr {
+                                td {
                                     panel {
                                         cmbCustomEntryName2 = comboBox(items: [
                                             '',
                                             'eigene',
                                             'Verfahrensgebühr Nr. 3101 VV RVG',
                                             'Einigungsgebühr Nr. 1003f VV RVG',
+                                            'Verfahrensgebühr Nr. 3309 VV RVG',
+                                            'Terminsgebühr Nr. 3310 VV RVG',
+                                            'Verfahrensgebühr Nr. 3311 VV RVG',
+                                            'Terminsgebühr Nr. 3312 VV RVG',
                                             'Gerichtskostenvorschuss'
                                             ], editable: true, selectedItem:'', itemStateChanged: {
                                             setfaktor()
@@ -1286,7 +1300,8 @@ new SwingBuilder().edt {
                                             maximum: 10.0f, 
                                             value:0.0f,
                                             stepSize:0.1f), stateChanged: {
-                                            calculate()
+                                                txtCustomEntryValue2.text=df.format(0)
+                                                calculate()
                                         })
                                         chkUStCustomEntry2 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
@@ -1575,7 +1590,24 @@ def float setfaktor( ) {
     chkUStCustomEntry2.setSelected(true)
     spnCustomEntry2.setValue(1)    
     break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3309 VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(0.3)    
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Terminsgebühr Nr. 3310 VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(0.3)    
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3311 VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(0.4)    
+    break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Terminsgebühr Nr. 3312 VV RVG'}: 
+    chkUStCustomEntry2.setSelected(true)
+    spnCustomEntry2.setValue(0.4)    
+    break
     }
+    txtCustomEntryValue2.text = df.format(0f)
 }
 
 def float calculate() {
