@@ -680,10 +680,16 @@ public static final Color DEFAULT_TABLE_LINE_COLOR=Color.BLACK;
         
     }
     
-    Color tableLineColor() { 
+    Color getTableLineColor() { 
 
         int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_TABLE_LINES_COLOR, DEFAULT_TABLE_LINE_COLOR.getRGB());
         return new Color(rgb);
     
+    }
+    
+    void setTableLineColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_TABLE_LINES_COLOR,""+c.getRGB());
+        }
     }
 }
