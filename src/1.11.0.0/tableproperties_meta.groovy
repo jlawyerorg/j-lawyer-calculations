@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Tabellenformatierung"
 description = "j-lawyer.org Tabellenformatierung"
-version = "0.0.1";
-author = "Anatol Anuschewski"
-updated = "27.12.2019"
+version = "0.0.2";
+author = "Anatol Anuschewski, Jens Kutschke"
+updated = "04.01.2020"
 supportedPlaceHolders = ""
 
 
