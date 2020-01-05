@@ -772,7 +772,7 @@ new SwingBuilder().edt {
                                             }
                                             tr {
                                                 td (align: 'left'){
-                                                    label(text: 'Zahlbetrag Schriftfarbe')
+                                                    label(text: 'Zwischensumme Schriftfarbe')
                                                 }
                                                 td (align: 'left'){
                                                     zwischensummeForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Zwischensumme auswaehlen', background: new TablePropertiesUtils().getZwischensummeForeColor(), actionPerformed: {
@@ -782,7 +782,7 @@ new SwingBuilder().edt {
                                             }
                                             tr {
                                                 td (align: 'left'){
-                                                    label(text: 'Zahlbetrag Hintergrundfarbe')
+                                                    label(text: 'Zwischensumme Hintergrundfarbe')
                                                 }
                                                 td (align: 'left'){
                                                     zwischensummeBackColorButton = button(text: ' ', toolTipText: 'Zwischensumme Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getZwischensummeBackColor(), actionPerformed: {
