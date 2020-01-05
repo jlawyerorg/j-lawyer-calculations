@@ -672,10 +672,13 @@ import java.util.ArrayList
 import java.util.Locale
 import javax.swing.JTable
 import org.jlawyer.plugins.calculation.StyledCalculationTable
+import org.jlawyer.plugins.calculation.CalculationTable
 import org.jlawyer.plugins.calculation.Cell
 import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
+import com.jdimension.jlawyer.client.settings.ServerSettings
+
 
 @Bindable
 class Address { 
@@ -2030,45 +2033,60 @@ def String copyToClipboard() {
 }
 
 def StyledCalculationTable copyToDocument() {
+    float rowcount=0f
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
-    ct.addHeaders("", "", "");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+        ct.addRow("", "", "");
+    }
     
     if(chkVV2300.selected) {
         ct.addRow(faktorVV2300.text, "Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €", lblVV2300.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV1000.selected) {
         ct.addRow(spnVV1000.value.toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
+        rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
         ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV3100.selected) {
         ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
+        rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
         ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV3104.selected) {
         ct.addRow(spnVV3104.value.toString(), "Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €", lblVV3104.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV1003.selected) {
         ct.addRow(spnVV1003.value.toString(), "Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €", lblVV1003.text + " €");
+        rowcount=rowcount+1
     } 
     if(chkVV7002.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV3200.selected) {
         ct.addRow(faktorVV3200.text, "Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €", lblVV3200.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV3202.selected) {
         ct.addRow(spnVV3202.value.toString(), "Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €", lblVV3202.text + " €");
+        rowcount=rowcount+1
     }
     if(chkVV1003Berufung.selected) {
         ct.addRow(spnVV1003Berufung.value.toString(), "Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
+        rowcount=rowcount+1
     } 
     if(chkVV7002Berufung.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Berufung.text + " €");
+        rowcount=rowcount+1
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2080,13 +2098,18 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='19%') {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+            	rowcount=rowcount+1
             }
         }
     }
-    if(chkmwst.selected) {
-        ct.addRow("", "", "");
+    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
+        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.addRow("", "", "");
+        }
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
-        ct.addRow("", "Umsatzsteuer 19% Nr. 7008 VV RVG", lblmwst.text + " €");
+    }
+    if(chkmwst.selected) {
+            ct.addRow("", "Umsatzsteuer 19% Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2102,7 +2125,9 @@ def StyledCalculationTable copyToDocument() {
         }
     }
     if((chkquote.selected)||(chkZahlungenBrutto.selected)||(chkZahlungenNetto.selected)){
-    ct.addRow("", "", "");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+        ct.addRow("", "", "");
+    }
     ct.addRow("", "Zwischensumme", lblsum1.text + " €");
     }
     
@@ -2117,34 +2142,89 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", lblZahlungenNetto.text + " €");
     }
     
-    ct.addRow("", "", "");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+        ct.addRow("", "", "");
+    }
     int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
     ct.setRowBold(footerRow, true);
     
-    ct.setRowForeGround(0, java.awt.Color.DARK_GRAY);
-    ct.setRowBackGround(0, java.awt.Color.LIGHT_GRAY);
+    //HeaderRow
+    ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
+    ct.setRowBackGround(0, new TablePropertiesUtils().getHeaderBackColor());
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true)) {
+        ct.setRowBold(0, true);
+    } else {
+        ct.setRowBold(0, false);
+    }
+  
+    //Zwischensumme
+    ctRows=ct.getRowCount()
+    if(ctRows>0) {
+        for(int i=0;i<ctRows;i++) {
+            if (ct.getValueAt(i, 1) == 'Zwischensumme') {
+                //ct.setRowBold(i, false)
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true)) {
+                    ct.setRowBold(i, true);
+                } else {
+                    ct.setRowBold(i, false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true)) {
+                    ct.getCellAt(i, 1).setUnderline(true);
+                    ct.getCellAt(i, 2).setUnderline(true);
+                } else {
+                    ct.getCellAt(i, 1).setUnderline(false);
+                    ct.getCellAt(i, 2).setUnderline(false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
+                    ct.getCellAt(i, 1).setItalic(true);
+                    ct.getCellAt(i, 2).setItalic(true);
+                } else {
+                    ct.getCellAt(i, 1).setItalic(false);
+                    ct.getCellAt(i, 2).setItalic(false);
+                }
+                ct.setRowForeGround(i, new TablePropertiesUtils().getZwischensummeForeColor());
+                ct.setRowBackGround(i, new TablePropertiesUtils().getZwischensummeBackColor());
+            }
+        }
+    }
 
-    ct.setRowForeGround(footerRow, java.awt.Color.DARK_GRAY);
-    ct.setRowBackGround(footerRow, java.awt.Color.LIGHT_GRAY);
+    //FooterRow
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true)) {
+        ct.setRowBold(footerRow, true);
+    } else {
+        ct.setRowBold(footerRow, false);
+    }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true)) {
+        ct.getCellAt(footerRow, 1).setUnderline(true);
+        ct.getCellAt(footerRow, 2).setUnderline(true);
+    } else {
+        ct.getCellAt(footerRow, 1).setUnderline(false);
+        ct.getCellAt(footerRow, 2).setUnderline(false);
+    }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
+        ct.getCellAt(footerRow, 1).setItalic(true);
+        ct.getCellAt(footerRow, 2).setItalic(true);
+    } else {
+        ct.getCellAt(footerRow, 1).setItalic(false);
+        ct.getCellAt(footerRow, 2).setItalic(false);
+    }
+    ct.setRowForeGround(footerRow, new TablePropertiesUtils().getFooterRowForeColor());
+    ct.setRowBackGround(footerRow, new TablePropertiesUtils().getFooterRowBackColor());
     
-    ct.getCellAt(footerRow, 1).setItalic(true);
-    ct.getCellAt(footerRow, 2).setItalic(true);
-    ct.getCellAt(footerRow, 1).setUnderline(true);
-    ct.getCellAt(footerRow, 2).setUnderline(true);
-    
+    //TableLayout
     ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
-    
     ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
-
     ct.setRowFontSize(0, 12);
-    
-    ct.setLineBorder(true);
-    ct.setBorderColor(java.awt.Color.DARK_GRAY);
     ct.setColumnWidth(0, 25);
     ct.setColumnWidth(1, 120);
     ct.setColumnWidth(2, 35);
     ct.setFontFamily("Arial");
-    
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true)) {
+        ct.setLineBorder(true);
+    } else {
+        ct.setLineBorder(false);
+    }
+    ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
+
     return ct;
-    
 }

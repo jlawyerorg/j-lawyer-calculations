@@ -679,138 +679,177 @@ new SwingBuilder().edt {
                     panel(border: titledBorder(title: 'Einstellungen Rechnungslayout')) {
                         tableLayout (cellpadding: 5) {
                             tr {
-                                td (align: 'left'){
-                                    label(text: 'Tabellenlayout')
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Tabellenlayout')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    tablelines = checkBox(id: 'tablelines', text: 'Tabellenlinien einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }           
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Tabellenlinien Farbe (zZ. fehlerhaft)')
+                                                }
+                                                td (align: 'right'){
+                                                    lineColorButton = button(text: ' ', toolTipText: 'Farbe fuer Tabellenlinien auswaehlen', background: new TablePropertiesUtils().getTableLineColor(), actionPerformed: {
+                                                            lineColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td {
+                                                    tableemptyRows = checkBox(id: 'tableemptyRows', text: 'leere Zeilen einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             tr {
-                                td {
-                                    tablelines = checkBox(id: 'tablelines', text: 'Tabellenlinien einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true), stateChanged: {
-                                            setProps()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    chktablelines = label(text: '0')
-                                }           
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: 'Tabellenlinien Farbe') //table.linesColor
-                                }
-                            }
-                            tr {
-                                td (align: 'left'){
-                    
-                                    //label(text: '0')
-                  
-                                    lineColorButton = button(text: ' ', toolTipText: 'Farbe fuer Tabellenlinien auswaehlen', background: new TablePropertiesUtils().getTableLineColor(), actionPerformed: {
-                                            lineColorSelection();
-                                        })
-                    
-                    
-                                }
-                            }
-                            tr {
-                                td {
-                                    tableemptyRows = checkBox(id: 'tableemptyRows', text: 'leere Zeilen einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true), stateChanged: {
-                                            setProps()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    chktableemptyRows = label(text: '0')
-                                }           
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: '   ')
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Überschrift')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    headerBold = checkBox(id: 'headerBold', text: 'Überschrift Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }         
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Überschrift Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    headerForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Überschrift auswaehlen', background: new TablePropertiesUtils().getHeaderForeColor(), actionPerformed: {
+                                                            headerForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Überschrift Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    headerBackColorButton = button(text: ' ', toolTipText: 'Überschrift Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getHeaderBackColor(), actionPerformed: {
+                                                            headerBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             tr {
-                                td (align: 'left'){
-                                    label(text: 'Überschrift')
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Zwischensumme')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    zwischensummeBold = checkBox(id: 'zwischensummeBold', text: 'Zwischensumme Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }        
+                                            }
+                                            tr {
+                                                td {
+                                                    zwischensummeUnderline = checkBox(id: 'zwischensummeUnderline', text: 'Zwischensumme unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
+                                                    zwischensummeItalic = checkBox(id: 'zwischensummeItalic', text: 'Zwischensumme kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    zwischensummeForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Zwischensumme auswaehlen', background: new TablePropertiesUtils().getZwischensummeForeColor(), actionPerformed: {
+                                                            zwischensummeForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    zwischensummeBackColorButton = button(text: ' ', toolTipText: 'Zwischensumme Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getZwischensummeBackColor(), actionPerformed: {
+                                                            zwischensummeBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             tr {
-                                td (align: 'left'){
-                                    label(text: 'Überschrift Schriftfarbe')  //header.forecolor
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Zahlbetrag')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    footerRowBold = checkBox(id: 'footerRowBold', text: 'Zahlbetrag Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }        
+                                            }
+                                            tr {
+                                                td {
+                                                    footerRowUnderline = checkBox(id: 'footerRowUnderline', text: 'Zahlbetrag unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
+                                                    footerRowItalic = checkBox(id: 'footerRowItalic', text: 'Zahlbetrag kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    footerRowForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Zahlbetrag auswaehlen', background: new TablePropertiesUtils().getFooterRowForeColor(), actionPerformed: {
+                                                            footerRowForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    footerRowBackColorButton = button(text: ' ', toolTipText: 'Zahlbetrag Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getFooterRowBackColor(), actionPerformed: {
+                                                            footerRowBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: 'Überschrift Hintergrundfarbe')  //header.backcolor
-                                }
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: '   ')
-                                }
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: 'Zahlbetrag')
-                                }
-                            }
-                            tr {
-                                td {
-                                    footerRowBold = checkBox(id: 'footerRowBold', text: 'Zahlbetrag Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true), stateChanged: {
-                                            setProps()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    chkfooterRowBold = label(text: '0')
-                                }           
-                            }
-                            tr {
-                                td {
-                                    footerRowUnderline = checkBox(id: 'footerRowUnderline', text: 'Zahlbetrag unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true), stateChanged: {
-                                            setProps()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    chkfooterRowUnderline = label(text: '0')
-                                }           
-                            }
-                            tr {
-                                td {
-                                    footerRowItalic = checkBox(id: 'footerRowItalic', text: 'Zahlbetrag kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true), stateChanged: {
-                                            setProps()
-                                        })
-                                }
-                                td (align: 'right') {
-                                    chkfooterRowItalic = label(text: '0')
-                                }           
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: 'Zahlbetrag Schriftfarbe')  //footerRow.forecolor
-                                }
-                            }
-                            tr {
-                                td (align: 'left'){
-                                    label(text: 'Zahlbetrag Hintergrundfarbe')  //footerRow.backcolor
-                                }
-                            }
-
                         }  
                     }     
-                }
-            }
-            tr  {
-                td (align: 'right') {
-                    button(text: 'control', toolTipText: 'Setzt Schema, Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
-                            control()
-                        })
                 }
             }
         }
     }
 }
-/*
-Zwischensumme unterstrichen
-Zwischensumme fett
- */
-
-
 
 def void setProps() {
     if (tablelines.isSelected()) {
@@ -822,6 +861,26 @@ def void setProps() {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+true);
     } else {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+false);
+    }
+    if (headerBold.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+false);
+    }
+    if (zwischensummeBold.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+false);
+    }
+    if (zwischensummeUnderline.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+false);
+    }
+    if (zwischensummeItalic.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+false);
     }
     if (footerRowBold.isSelected()) {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+true);
@@ -847,34 +906,65 @@ def void lineColorSelection() {
     if(currentColor!=null) {
         lineColorButton.setBackground(currentColor);
         tableProps.setTableLineColor(currentColor);
-    }
-                         
+    }                     
 }
 
-def void control() {
-    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true)) {
-        chktablelines.text = 'true'
-    } else {
-        chktablelines.text = 'false'
-    }
-    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-        chktableemptyRows.text = 'true'
-    } else {
-        chktableemptyRows.text = 'false'
-    }
-    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true)) {
-        chkfooterRowBold.text = 'true'
-    } else {
-        chkfooterRowBold.text = 'false'
-    }
-    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true)) {
-        chkfooterRowUnderline.text = 'true'
-    } else {
-        chkfooterRowUnderline.text = 'false'
-    }
-    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
-        chkfooterRowItalic.text = 'true'
-    } else {
-        chkfooterRowItalic.text = 'false'
-    }
+def void headerForeColorSelection() {
+    JColorChooser headerForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=headerForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getHeaderForeColor());
+    if(currentColor!=null) {
+        headerForeColorButton.setBackground(currentColor);
+        tableProps.setHeaderForeColor(currentColor);
+    }                    
+}
+
+def void headerBackColorSelection() {
+    JColorChooser headerBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=headerBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getHeaderBackColor());
+    if(currentColor!=null) {
+        headerBackColorButton.setBackground(currentColor);
+        tableProps.setHeaderBackColor(currentColor);
+    }                         
+}
+
+def void zwischensummeForeColorSelection() {
+    JColorChooser zwischensummeForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=zwischensummeForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getZwischensummeForeColor());
+    if(currentColor!=null) {
+        zwischensummeForeColorButton.setBackground(currentColor);
+        tableProps.setZwischensummeForeColor(currentColor);
+    }                    
+}
+
+def void zwischensummeBackColorSelection() {
+    JColorChooser zwischensummeBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=zwischensummeBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getZwischensummeBackColor());
+    if(currentColor!=null) {
+        zwischensummeBackColorButton.setBackground(currentColor);
+        tableProps.setZwischensummeBackColor(currentColor);
+    }                    
+}
+
+def void footerRowForeColorSelection() {
+    JColorChooser footerRowForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=footerRowForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getFooterRowForeColor());
+    if(currentColor!=null) {
+        footerRowForeColorButton.setBackground(currentColor);
+        tableProps.setFooterRowForeColor(currentColor);
+    }                    
+}
+
+def void footerRowBackColorSelection() {
+    JColorChooser footerRowBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=footerRowBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getFooterRowBackColor());
+    if(currentColor!=null) {
+        footerRowBackColorButton.setBackground(currentColor);
+        tableProps.setFooterRowBackColor(currentColor);
+    }                    
 }

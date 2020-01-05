@@ -947,11 +947,6 @@ new SwingBuilder().edt {
                                         button(text:'löschen', actionPerformed: { delete() })
                                     }
                                 }
-                                /*td (align: 'right') {
-                                    panel {
-                                        button(text:'Zurücksetzen', actionPerformed: { reset() })
-                                    }
-                                }*/
                             }  
                         }  
                     }     
@@ -1134,12 +1129,6 @@ new SwingBuilder().edt {
 }
 
 
-/*def void reset() {
-    customTable.model.getRows().clear() 
-    //customTable.model.rowsModel.value = model
-    customTable.model.fireTableDataChanged()
-    calculate()
-}*/
 
 def void delete() {
     customTable.model.getRows().remove(spnRowNr.value.toInteger()-1)
@@ -1386,8 +1375,9 @@ def StyledCalculationTable copyToDocument() {
     float rowcount=0f
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
-    ct.addHeaders("", "", "");
-    
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+        ct.addHeaders("", "", "");
+    }
     if(chkhonbr.selected) {
         rowcount=rowcount+1
         ct.addRow("", "Pauschalhonorar", lblhonbr.text + " €");
@@ -1415,7 +1405,9 @@ def StyledCalculationTable copyToDocument() {
         }
     }
     if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Bei Honorarvereinbarungen wird es oft vorkommen, dass es nur einen Rechnungsposten gibt.
-        ct.addRow("", "", "");
+        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.addHeaders("", "", "");
+        } 
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
@@ -1435,7 +1427,9 @@ def StyledCalculationTable copyToDocument() {
         }
     }
     if((chkquote.selected)||(chkZahlungenBrutto.selected)||(chkZahlungenNetto.selected)){
-    ct.addRow("", "", "");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.addHeaders("", "", "");
+        } 
     ct.addRow("", "Zwischensumme", lblsum1.text + " €");
     }
     
@@ -1450,35 +1444,90 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", lblZahlungenNetto.text + " €");
     }
     
-    ct.addRow("", "", "");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.addHeaders("", "", "");
+        } 
     int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
     
     //HeaderRow
-    ct.setRowForeGround(0, java.awt.Color.DARK_GRAY);
-    ct.setRowBackGround(0, java.awt.Color.LIGHT_GRAY);
-
+    ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
+    ct.setRowBackGround(0, new TablePropertiesUtils().getHeaderBackColor());
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true)) {
+        ct.setRowBold(0, true);
+    } else {
+        ct.setRowBold(0, false);
+    }
+  
+    //Zwischensumme
+    ctRows=ct.getRowCount()
+    if(ctRows>0) {
+        for(int i=0;i<ctRows;i++) {
+            if (ct.getValueAt(i, 1) == 'Zwischensumme') {
+                //ct.setRowBold(i, false)
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true)) {
+                    ct.setRowBold(i, true);
+                } else {
+                    ct.setRowBold(i, false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true)) {
+                    ct.getCellAt(i, 1).setUnderline(true);
+                    ct.getCellAt(i, 2).setUnderline(true);
+                } else {
+                    ct.getCellAt(i, 1).setUnderline(false);
+                    ct.getCellAt(i, 2).setUnderline(false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
+                    ct.getCellAt(i, 1).setItalic(true);
+                    ct.getCellAt(i, 2).setItalic(true);
+                } else {
+                    ct.getCellAt(i, 1).setItalic(false);
+                    ct.getCellAt(i, 2).setItalic(false);
+                }
+                ct.setRowForeGround(i, new TablePropertiesUtils().getZwischensummeForeColor());
+                ct.setRowBackGround(i, new TablePropertiesUtils().getZwischensummeBackColor());
+            }
+        }
+    }
 
     //FooterRow
-    ct.setRowBold(footerRow, true);
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true)) {
+        ct.setRowBold(footerRow, true);
+    } else {
+        ct.setRowBold(footerRow, false);
+    }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true)) {
+        ct.getCellAt(footerRow, 1).setUnderline(true);
+        ct.getCellAt(footerRow, 2).setUnderline(true);
+    } else {
+        ct.getCellAt(footerRow, 1).setUnderline(false);
+        ct.getCellAt(footerRow, 2).setUnderline(false);
+    }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
+        ct.getCellAt(footerRow, 1).setItalic(true);
+        ct.getCellAt(footerRow, 2).setItalic(true);
+    } else {
+        ct.getCellAt(footerRow, 1).setItalic(false);
+        ct.getCellAt(footerRow, 2).setItalic(false);
+    }
+    ct.setRowForeGround(footerRow, new TablePropertiesUtils().getFooterRowForeColor());
+    ct.setRowBackGround(footerRow, new TablePropertiesUtils().getFooterRowBackColor());
     
-    ct.setRowForeGround(footerRow, java.awt.Color.DARK_GRAY);
-    ct.setRowBackGround(footerRow, java.awt.Color.LIGHT_GRAY);
-    
-    ct.getCellAt(footerRow, 1).setItalic(true);
-    ct.getCellAt(footerRow, 2).setItalic(true);
-    ct.getCellAt(footerRow, 1).setUnderline(true);
-    ct.getCellAt(footerRow, 2).setUnderline(true);
     
     //TableLayout
     ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
     ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
     ct.setRowFontSize(0, 12);
-    ct.setLineBorder(true);
-    ct.setBorderColor(java.awt.Color.DARK_GRAY);
     ct.setColumnWidth(0, 25);
     ct.setColumnWidth(1, 120);
     ct.setColumnWidth(2, 35);
     ct.setFontFamily("Arial");
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true)) {
+        ct.setLineBorder(true);
+    } else {
+        ct.setLineBorder(false);
+    }
+    ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
+
     
     return ct;
     
