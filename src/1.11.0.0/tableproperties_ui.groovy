@@ -706,6 +706,13 @@ new SwingBuilder().edt {
                                                         })
                                                 }          
                                             }
+                                            tr {
+                                                td {
+                                                    vorSummeUnderline = checkBox(id: 'vorSummeUnderline', text: 'Zahl vor der Summe unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", false), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
                                         }
                                     }
                                 }
@@ -765,7 +772,7 @@ new SwingBuilder().edt {
                                             }
                                             tr {
                                                 td {
-                                                    zwischensummeItalic = checkBox(id: 'zwischensummeItalic', text: 'Zwischensumme kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true), stateChanged: {
+                                                    zwischensummeItalic = checkBox(id: 'zwischensummeItalic', text: 'Zwischensumme kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", false), stateChanged: {
                                                             setProps()
                                                         })
                                                 }          
@@ -876,6 +883,11 @@ def void setProps() {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+true);
     } else {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+false);
+    }
+    if (vorSummeUnderline.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+false);
     }
     if (zwischensummeItalic.isSelected()) {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+true);

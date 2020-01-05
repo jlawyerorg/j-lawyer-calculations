@@ -1376,7 +1376,7 @@ def StyledCalculationTable copyToDocument() {
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-        ct.addHeaders("", "", "");
+        ct.addRow("", "", "");
     }
     if(chkhonbr.selected) {
         rowcount=rowcount+1
@@ -1394,25 +1394,25 @@ def StyledCalculationTable copyToDocument() {
     System.out.println(customRows + " custom entries")
     if(customRows>0) {
         for(int i=0;i<customRows;i++) {
-            rowcount=rowcount+1
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='19%') {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+            	rowcount=rowcount+1
             }
         }
     }
     if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Bei Honorarvereinbarungen wird es oft vorkommen, dass es nur einen Rechnungsposten gibt.
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-            ct.addHeaders("", "", "");
-        } 
+            ct.addRow("", "", "");
+        }
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
             ct.addRow("", "Umsatzsteuer 19% Nr. 7008 VV RVG", lblmwst.text + " €");
-        }
+    }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
     if(customRows>0) {
@@ -1428,8 +1428,8 @@ def StyledCalculationTable copyToDocument() {
     }
     if((chkquote.selected)||(chkZahlungenBrutto.selected)||(chkZahlungenNetto.selected)){
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-            ct.addHeaders("", "", "");
-        } 
+        ct.addRow("", "", "");
+    }
     ct.addRow("", "Zwischensumme", lblsum1.text + " €");
     }
     
@@ -1445,8 +1445,8 @@ def StyledCalculationTable copyToDocument() {
     }
     
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-            ct.addHeaders("", "", "");
-        } 
+        ct.addRow("", "", "");
+    }
     int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
     
     //HeaderRow
@@ -1463,7 +1463,6 @@ def StyledCalculationTable copyToDocument() {
     if(ctRows>0) {
         for(int i=0;i<ctRows;i++) {
             if (ct.getValueAt(i, 1) == 'Zwischensumme') {
-                //ct.setRowBold(i, false)
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true)) {
                     ct.setRowBold(i, true);
                 } else {
@@ -1475,6 +1474,11 @@ def StyledCalculationTable copyToDocument() {
                 } else {
                     ct.getCellAt(i, 1).setUnderline(false);
                     ct.getCellAt(i, 2).setUnderline(false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
+                    ct.getCellAt(i-1, 2).setUnderline(true);
+                } else {
+                    ct.getCellAt(i-1, 2).setUnderline(false);
                 }
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
                     ct.getCellAt(i, 1).setItalic(true);
@@ -1502,6 +1506,11 @@ def StyledCalculationTable copyToDocument() {
         ct.getCellAt(footerRow, 1).setUnderline(false);
         ct.getCellAt(footerRow, 2).setUnderline(false);
     }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
+        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+    } else {
+        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
+    }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
         ct.getCellAt(footerRow, 1).setItalic(true);
         ct.getCellAt(footerRow, 2).setItalic(true);
@@ -1511,7 +1520,6 @@ def StyledCalculationTable copyToDocument() {
     }
     ct.setRowForeGround(footerRow, new TablePropertiesUtils().getFooterRowForeColor());
     ct.setRowBackGround(footerRow, new TablePropertiesUtils().getFooterRowBackColor());
-    
     
     //TableLayout
     ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
@@ -1528,7 +1536,5 @@ def StyledCalculationTable copyToDocument() {
     }
     ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
 
-    
     return ct;
-    
 }

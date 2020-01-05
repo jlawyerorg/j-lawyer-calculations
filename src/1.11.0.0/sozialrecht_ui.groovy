@@ -1895,7 +1895,6 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "", "");
     }
     int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
-    ct.setRowBold(footerRow, true);
     
     //HeaderRow
     ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
@@ -1911,7 +1910,6 @@ def StyledCalculationTable copyToDocument() {
     if(ctRows>0) {
         for(int i=0;i<ctRows;i++) {
             if (ct.getValueAt(i, 1) == 'Zwischensumme') {
-                //ct.setRowBold(i, false)
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true)) {
                     ct.setRowBold(i, true);
                 } else {
@@ -1923,6 +1921,11 @@ def StyledCalculationTable copyToDocument() {
                 } else {
                     ct.getCellAt(i, 1).setUnderline(false);
                     ct.getCellAt(i, 2).setUnderline(false);
+                }
+                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
+                    ct.getCellAt(i-1, 2).setUnderline(true);
+                } else {
+                    ct.getCellAt(i-1, 2).setUnderline(false);
                 }
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
                     ct.getCellAt(i, 1).setItalic(true);
@@ -1949,6 +1952,11 @@ def StyledCalculationTable copyToDocument() {
     } else {
         ct.getCellAt(footerRow, 1).setUnderline(false);
         ct.getCellAt(footerRow, 2).setUnderline(false);
+    }
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
+        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+    } else {
+        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
         ct.getCellAt(footerRow, 1).setItalic(true);
