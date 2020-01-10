@@ -745,7 +745,7 @@ new SwingBuilder().edt {
                                     label(text: 'Streitwert:')
                                 }
                                 td {
-                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: binding.claimvalue, columns: 10, actionPerformed: {
+                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: quoteFormat.format(binding.claimvalue), columns: 10, actionPerformed: {
                                             calculate()
                                         })
                                 }
