@@ -2045,7 +2045,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV1000.selected) {
-        ct.addRow(spnVV1000.value.toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
@@ -2061,11 +2061,11 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3104.selected) {
-        ct.addRow(spnVV3104.value.toString(), "Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €", lblVV3104.text + " €");
+        ct.addRow(faktorFormat.format(spnVV3104.value.toFloat()).toString(), "Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €", lblVV3104.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV1003.selected) {
-        ct.addRow(spnVV1003.value.toString(), "Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €", lblVV1003.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1003.value.toFloat()).toString(), "Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €", lblVV1003.text + " €");
         rowcount=rowcount+1
     } 
     if(chkVV7002.selected) {
@@ -2077,11 +2077,11 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3202.selected) {
-        ct.addRow(spnVV3202.value.toString(), "Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €", lblVV3202.text + " €");
+        ct.addRow(faktorFormat.format(spnVV3202.value.toFloat()).toString(), "Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €", lblVV3202.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV1003Berufung.selected) {
-        ct.addRow(spnVV1003Berufung.value.toString(), "Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), "Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
         rowcount=rowcount+1
     } 
     if(chkVV7002Berufung.selected) {
