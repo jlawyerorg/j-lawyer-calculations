@@ -1162,7 +1162,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV1003Berufung = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003f.:', selected: false, stateChanged: {
+                                    chkVV1003Berufung = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1004.:', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -1170,7 +1170,7 @@ new SwingBuilder().edt {
                                     spnVV1003Berufung = spinner(
                                         model:spinnerNumberModel(minimum:0.0f, 
                                             maximum: 10.0f, 
-                                            value:1.0f,
+                                            value:1.3f,
                                             stepSize:0.1), stateChanged: {
                                             calculate()
                                         })
@@ -2081,7 +2081,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV1003Berufung.selected) {
-        ct.addRow(faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), "Einigungsgebühr Nr. 1003f VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), "Einigungsgebühr Nr. 1004 VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
         rowcount=rowcount+1
     } 
     if(chkVV7002Berufung.selected) {
