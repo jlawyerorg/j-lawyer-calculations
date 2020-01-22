@@ -1525,7 +1525,11 @@ def StyledCalculationTable copyToDocument() {
     ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
     ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
     ct.setRowFontSize(0, 12);
-    ct.setColumnWidth(0, 25);
+    if(chkhonst.selected) {
+        ct.setColumnWidth(0, 50);
+    } else {
+        ct.setColumnWidth(0, 25);
+    }
     ct.setColumnWidth(1, 120);
     ct.setColumnWidth(2, 35);
     ct.setFontFamily("Arial");
