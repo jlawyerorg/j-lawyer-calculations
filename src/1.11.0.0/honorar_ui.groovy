@@ -1388,7 +1388,7 @@ def StyledCalculationTable copyToDocument() {
     }    
     if(chkhonst.selected) {
         rowcount=rowcount+1
-        ct.addRow(spnstunden.value.toString() + " h " + spnmin.value.toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", lblhonst.text + " €");
+        ct.addRow(spnstunden.value.toInteger().toString() + " h " + spnmin.value.toInteger().toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", lblhonst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
