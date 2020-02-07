@@ -898,7 +898,7 @@ new SwingBuilder().edt {
                                    })
                                 }
                                 td {
-                                    label(text: 'Erledigungsgebühr Nr 4141:')
+                                    lblVV4141 = label(id:'nVV4141', text: 'Erledigungsgebühr Nr 4141')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1790,44 +1790,84 @@ def float calculate() {
         txtVV4102.text = df.format(0f)
     }
 
-    if (chkVV4141.isSelected()&& !chkowig.isSelected()) {
-        if (chkVV4130.isSelected()) {
-            if (chkPflichtV.isSelected()) {
-                txtVV4141.text  = df.format(492f)
-            } else {
-                txtVV4141.text  = df.format((120+1110)/2)
-            }
-        } else if (chkVV4124.isSelected()) {
-            if (chkPflichtV.isSelected()) {
-                txtVV4141.text  = df.format(256f)
-            } else {
-                txtVV4141.text  = df.format((80+560)/2)
-            }
-        } else if (chkVV4106.isSelected()) {
-            if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+    if (chkVV4141.isSelected()) {
+        if (chkowig.isSelected()) {
+            lblVV4141.text = 'Erledigungsgebühr Nr 5115'
+            if (chkVV4124.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    txtVV4141.text  = df.format(148f)
+                    txtVV4141.text  = df.format(256f)
                 } else {
-                    txtVV4141.text  = df.format((50+320)/2)
+                    txtVV4141.text  = df.format((80+560)/2)
                 }
-            } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+            } else if (chkVV4106.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    txtVV4141.text  = df.format(316f)
+                    txtVV4141.text = txtVV4106.text
                 } else {
-                    txtVV4141.text  = df.format((100+690)/2)
+                    if (chkowig5000.isSelected()) {
+                        txtVV4141.text  = df.format((50+350)/2)
+                    } else if (chkowig60.isSelected()) {
+                        txtVV4141.text  = df.format((30+290)/2)
+                    } else {
+                        txtVV4141.text  = df.format((20+110)/2)
+                    }
+                }
+            } else if (chkVV4104.isSelected()) {
+                if (chkPflichtV.isSelected()) {
+                    txtVV4141.text = txtVV4104.text
+                } else {
+                    if (chkowig5000.isSelected()) {
+                        txtVV4141.text  = df.format((40+300)/2)
+                    } else if (chkowig60.isSelected()) {
+                        txtVV4141.text  = df.format((30+290)/2)
+                    } else {
+                        txtVV4141.text  = df.format((20+110)/2)
+                    }
                 }
             } else {
+                txtVV4141.text = df.format(0f)
+            }
+        } else {
+            lblVV4141.text = 'Erledigungsgebühr Nr 4141'
+            if (chkVV4130.isSelected()) {
+                if (chkPflichtV.isSelected()) {
+                    txtVV4141.text  = df.format(492f)
+                } else {
+                    txtVV4141.text  = df.format((120+1110)/2)
+                }
+            } else if (chkVV4124.isSelected()) {
+                if (chkPflichtV.isSelected()) {
+                    txtVV4141.text  = df.format(256f)
+                } else {
+                    txtVV4141.text  = df.format((80+560)/2)
+                }
+            } else if (chkVV4106.isSelected()) {
+                if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
+                    if (chkPflichtV.isSelected()) {
+                        txtVV4141.text  = df.format(148f)
+                    } else {
+                        txtVV4141.text  = df.format((50+320)/2)
+                    }
+                } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
+                    if (chkPflichtV.isSelected()) {
+                        txtVV4141.text  = df.format(316f)
+                    } else {
+                        txtVV4141.text  = df.format((100+690)/2)
+                    }
+                } else {
+                    if (chkPflichtV.isSelected()) {
+                        txtVV4141.text  = df.format(132f)
+                    } else {
+                        txtVV4141.text  = df.format((40+290)/2)
+                    }
+                }
+            } else  if (chkVV4104.isSelected()) {
                 if (chkPflichtV.isSelected()) {
                     txtVV4141.text  = df.format(132f)
                 } else {
                     txtVV4141.text  = df.format((40+290)/2)
                 }
-            }
-        } else  if (chkVV4104.isSelected()) {
-            if (chkPflichtV.isSelected()) {
-                txtVV4141.text  = df.format(132f)
             } else {
-                txtVV4141.text  = df.format((40+290)/2)
+                txtVV4141.text = df.format(0f)
             }
         }
     } else {
@@ -2524,7 +2564,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV4141.selected) {
-        ct.addRow("", "Erledigungsgebühr Nr. 4141 VV RVG", txtVV4141.text + " €");
+        ct.addRow("", lblVV4141.text + " VV RVG", txtVV4141.text + " €");
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
