@@ -662,11 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Strafrecht/OWiG (Beta)"
-description = "j-lawyer.org Rechner Strafrecht/OWiG (Beta)"
-version = "0.3.2";
+name = "Rechner Strafrecht/OWiG"
+description = "j-lawyer.org Rechner Strafrecht/OWiG"
+version = "1.0.0";
 author = "Anatol Anuschewski"
-updated = "06.02.2020"
+updated = "09.04.2020"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
  
