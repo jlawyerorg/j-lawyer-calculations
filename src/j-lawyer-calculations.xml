@@ -34,7 +34,7 @@
     <calculation name="pflichtverteidiger" version="2.1.1" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="pflichtverteidiger_meta.groovy,pflichtverteidiger_ui.groovy"/>
     <calculation name="honorar" version="2.1.3" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="honorar_meta.groovy,honorar_ui.groovy"/>
     <calculation name="rechnungsnr" version="1.0.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
-    <calculation name="archivnr" version="1.0.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
+    <calculation name="archivnr" version="1.1.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.0.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
     <calculation name="tableproperties" version="1.0.1" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     
@@ -46,7 +46,7 @@
     <calculation name="gkgtables" version="1.1.0" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy"/>
     <calculation name="honorar" version="2.1.3" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="honorar_meta.groovy,honorar_ui.groovy"/>
     <calculation name="rechnungsnr" version="1.0.0" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
-    <calculation name="archivnr" version="1.0.0" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
+    <calculation name="archivnr" version="1.1.0" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.0.0" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
     <calculation name="tableproperties" version="1.0.1" for="1.12.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     

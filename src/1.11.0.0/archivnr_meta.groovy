@@ -664,7 +664,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Archivnummern-Generator"
 description = "j-lawyer.org Archivnummern-Generator"
-version = "1.0.0";
+version = "1.1.0";
 author = "Jens Kutschke"
 updated = "20.04.2020"
 supportedPlaceHolders = ""

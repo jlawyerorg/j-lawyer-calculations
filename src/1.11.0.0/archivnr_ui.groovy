@@ -786,13 +786,11 @@ new SwingBuilder().edt {
                     label(text: '   ')
                 }
                 td (align: 'left') {
-                    label(text: '   ')
-                }
-                td (align: 'right') {
                     button(text: 'Plugineinstellungen zurücksetzen', toolTipText: 'Setzt Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
                                 reset()
                                         
                             })
+                    
                 }
             }
             
@@ -802,7 +800,7 @@ new SwingBuilder().edt {
 }
 
 def String copyToClipboard() {
-    return txtNewArchiveNo.text;
+    return txtNewArchivNo.text;
 }
 
 def void reset() {
@@ -822,28 +820,11 @@ def void generate() {
         lastUsed=lastUsed+1;
     
     String year=new java.text.SimpleDateFormat("yy").format(new java.util.Date());
-    String schema="#####" + "/" + year;
-    String newValue="" + lastUsed;
+    String newValue="" + lastUsed + "/" + year;
     
-    while(maxIndexes.length()>1) {
-        String pattern=""
-        for(int i=0;i<maxIndexes.length();i++) {
-            pattern=pattern+"#";
-        }
-        if(newValue.length()>pattern.length())
-            break;
-        
-        String replacePattern=newValue;
-        for(int i=0;i<(pattern.length()-newValue.length());i++) {
-            replacePattern="0"+replacePattern;
-        }
-        
-        schema=schema.replaceAll(pattern, replacePattern);
-        maxIndexes=maxIndexes.substring(0,maxIndexes.length()-1);
-    }
-    txtNewArchiveNo.text=schema;
+    txtNewArchivNo.text=newValue;
     
-    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.poolValue", "" + lastUsed);
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolValue", "" + lastUsed);
     lblArchivNoPoolValue.text=lastUsed;
     cmdCopy.enabled=true
 }
