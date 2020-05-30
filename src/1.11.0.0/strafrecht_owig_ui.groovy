@@ -2689,11 +2689,11 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
     }
     if(chkZahlungenBrutto.selected) {
-        ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", lblZahlungenBrutto.text + " €");
-        ct.addRow("", "darin enthaltene USt. (19%)", lblmwstZahlung.text + " €");
+        ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", "-" + lblZahlungenBrutto.text + " €");
+        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung.text + " €", "");
     }
     if(chkZahlungenNetto.selected) {
-        ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", lblZahlungenNetto.text + " €");
+        ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
     }
     
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -2721,16 +2721,24 @@ def StyledCalculationTable copyToDocument() {
                     ct.setRowBold(i, false);
                 }
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true)) {
-                    ct.getCellAt(i, 1).setUnderline(true);
+                    //ct.getCellAt(i, 1).setUnderline(true);
                     ct.getCellAt(i, 2).setUnderline(true);
                 } else {
-                    ct.getCellAt(i, 1).setUnderline(false);
+                    //ct.getCellAt(i, 1).setUnderline(false);
                     ct.getCellAt(i, 2).setUnderline(false);
                 }
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
-                    ct.getCellAt(i-1, 2).setUnderline(true);
+                    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+                        ct.getCellAt(i-2, 2).setUnderline(true);
+                    } else {
+                        ct.getCellAt(i-1, 2).setUnderline(true);
+                    }
                 } else {
-                    ct.getCellAt(i-1, 2).setUnderline(false);
+                    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+                        ct.getCellAt(i-2, 2).setUnderline(false);
+                    } else {
+                        ct.getCellAt(i-1, 2).setUnderline(false);
+                    }
                 }
                 if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
                     ct.getCellAt(i, 1).setItalic(true);
@@ -2752,16 +2760,24 @@ def StyledCalculationTable copyToDocument() {
         ct.setRowBold(footerRow, false);
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true)) {
-        ct.getCellAt(footerRow, 1).setUnderline(true);
+        //ct.getCellAt(footerRow, 1).setUnderline(true);
         ct.getCellAt(footerRow, 2).setUnderline(true);
     } else {
-        ct.getCellAt(footerRow, 1).setUnderline(false);
+        //ct.getCellAt(footerRow, 1).setUnderline(false);
         ct.getCellAt(footerRow, 2).setUnderline(false);
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
-        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
+        } else {
+            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+        }
     } else {
-        ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
+        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
+            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
+        } else {
+            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+        }
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
         ct.getCellAt(footerRow, 1).setItalic(true);
