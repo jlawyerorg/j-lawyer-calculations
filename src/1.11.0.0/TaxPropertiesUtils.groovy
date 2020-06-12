@@ -691,6 +691,17 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
     
     }
     
+    public static String getUstPercentageString() { 
+
+        java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+        df.setGroupingUsed(false);
+        df.setMaximumFractionDigits(0);
+        
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
+        float f= Float.parseFloat(ust);
+        return df.format(f);
+    }
+    
     public static float getUstFactor() { 
 
         String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
@@ -710,6 +721,17 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
         String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
         return Float.parseFloat(ust);
     
+    }
+    
+    public static String getUstReducedPercentageString() { 
+
+        java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+        df.setGroupingUsed(false);
+        df.setMaximumFractionDigits(0);
+        
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        float f= Float.parseFloat(ust);
+        return df.format(f);
     }
     
     public static float getUstReducedFactor() { 

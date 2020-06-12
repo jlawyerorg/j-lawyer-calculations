@@ -875,7 +875,7 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
                                         })
-                                        ustCustomEntry1 =  label(text: '19%')
+                                        ustCustomEntry1 =  label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -908,7 +908,7 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry2 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
                                         })
-                                        ustCustomEntry2 =  label(text: '19%')
+                                        ustCustomEntry2 =  label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -979,7 +979,7 @@ new SwingBuilder().edt {
                                     )
                                 }
                                 td {
-                                    label(text: '19%')
+                                    label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
                                 }
                                 td (align: 'right') {
                                     lblmwst = label(text: '0,00')
@@ -1168,7 +1168,8 @@ def float calculate() {
     float faktor=0.0f
 
 if (chkhonbr.isSelected()) {
-    gebuehr = df.parse(txthonbr.text) - (df.parse(txthonbr.text)/1.19f*0.19f)
+    // gebuehr = df.parse(txthonbr.text) - (df.parse(txthonbr.text)/1.19f*0.19f)
+    gebuehr = df.parse(txthonbr.text) - (df.parse(txthonbr.text)/(1+TaxPropertiesUtils.getUstFactor())*TaxPropertiesUtils.getUstFactor())
     lblhonbr.text = df.format(gebuehr)
 } else {
     lblhonbr.text = df.format(0.0f)
@@ -1269,7 +1270,7 @@ switch (cmbCustomEntryName) {
     txtCustomEntryValue.text = df.format(0f)
 }
 if (chkUStCustomEntry1.isSelected()) {
-            ustCustomEntry1.text = '19%'
+            ustCustomEntry1.text = TaxPropertiesUtils.getUstPercentageString() + '%'
         } else {
             ustCustomEntry1.text = '0%'
         }
@@ -1284,7 +1285,7 @@ if (chkUStCustomEntry1.isSelected()) {
     }
 
     if (chkUStCustomEntry2.isSelected()) {
-            ustCustomEntry2.text = '19%'
+            ustCustomEntry2.text = TaxPropertiesUtils.getUstPercentageString() + '%'
         } else {
             ustCustomEntry2.text = '0%'
         }
@@ -1300,7 +1301,7 @@ if (chkUStCustomEntry1.isSelected()) {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt =='19%') {
+        if (rowCustomEntryUSt ==(TaxPropertiesUtils.getUstPercentageString() + '%')) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
@@ -1316,7 +1317,7 @@ if (chkUStCustomEntry1.isSelected()) {
     lblzwsum.text=df.format(gebuehr)
         
     if(chkmwst.isSelected()) {
-        gebuehr=df.parse(lblzwsum.text)*0.19f
+        gebuehr=df.parse(lblzwsum.text)*TaxPropertiesUtils.getUstFactor()
         lblmwst.text = df.format(gebuehr)
     } else {
 
@@ -1341,7 +1342,7 @@ if (chkUStCustomEntry1.isSelected()) {
 
     if(chkZahlungenBrutto.isSelected()) {
         lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/1.19f*0.19f)
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+TaxPropertiesUtils.getUstFactor())*TaxPropertiesUtils.getUstFactor())
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto.text = df.format(0f)
@@ -1398,7 +1399,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='19%') {
+            if (rowCustomEntryUSt ==(TaxPropertiesUtils.getUstPercentageString()+'%')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             	rowcount=rowcount+1
             }
@@ -1411,7 +1412,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
-            ct.addRow("", "Umsatzsteuer 19% Nr. 7008 VV RVG", lblmwst.text + " €");
+            ct.addRow("", "Umsatzsteuer " + TaxPropertiesUtils.getUstPercentageString() + "% Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -1438,7 +1439,7 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chkZahlungenBrutto.selected) {
         ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", "-" + lblZahlungenBrutto.text + " €");
-        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung.text + " €", "");
+        ct.addRow("", "darin enthaltene USt. (" + TaxPropertiesUtils.getUstPercentageString() + "%): " + lblmwstZahlung.text + " €", "");
     }
     if(chkZahlungenNetto.selected) {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
