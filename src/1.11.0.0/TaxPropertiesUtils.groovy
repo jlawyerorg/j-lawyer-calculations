@@ -676,6 +676,9 @@ class TaxPropertiesUtils {
 public static final String KEY_TAX_UST="plugins.global.taxproperties.ust.default";
 public static final String DEFAULT_TAX_UST="19.0";
 
+public static final String KEY_TAX_UST_REDUCED="plugins.global.taxproperties.ust.reduced";
+public static final String DEFAULT_TAX_UST_REDUCED="7.0";
+
 
     TaxPropertiesUtils() {
         
@@ -698,6 +701,27 @@ public static final String DEFAULT_TAX_UST="19.0";
     public void setUstPercentage(float f) {
         if(f>=0 && f<=100) {
             ServerSettings.getInstance().setSetting(KEY_TAX_UST,""+f);
+        }
+        
+    }
+    
+    public static float getUstReducedPercentage() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        return Float.parseFloat(ust);
+    
+    }
+    
+    public static float getUstReducedFactor() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        float percentage = Float.parseFloat(ust);
+        return (float) (percentage / 100f);
+    }
+
+    public void setUstReducedPercentage(float f) {
+        if(f>=0 && f<=100) {
+            ServerSettings.getInstance().setSetting(KEY_TAX_UST_REDUCED,""+f);
         }
         
     }

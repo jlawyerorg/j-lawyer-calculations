@@ -680,10 +680,32 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td (colfill:true) {
-                                    
+                                    label(text: 'Normal-Steuersatz: ')
+                                }
+                                td (colfill:true) {
+                                    spnUst = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 100f, 
+                                            value:TaxPropertiesUtils.getUstPercentage(),
+                                            stepSize:1), stateChanged: {
+                                            setProps()
+                                        })
                                 }
                             }
-                            
+                            tr {
+                                td (colfill:true) {
+                                    label(text: 'ermäßigter Steuersatz: ')
+                                }
+                                td (colfill:true) {
+                                    spnUstErm = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 100f, 
+                                            value:TaxPropertiesUtils.getUstReducedPercentage(),
+                                            stepSize:1), stateChanged: {
+                                            setProps()
+                                        })
+                                }
+                            }
                         }  
                     }     
                 }
@@ -694,11 +716,12 @@ new SwingBuilder().edt {
 
 def void setProps() {
     
-//    if (footerRowItalic.isSelected()) {
-//        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+true);
-//    } else {
-//        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+false);
-//    }
+    float ust=spnUst.value.toFloat();
+    new TaxPropertiesUtils().setUstPercentage(ust);
+    
+    float usterm=spnUstErm.value.toFloat();
+    new TaxPropertiesUtils().setUstReducedPercentage(usterm);
+    
 }
 
 def void lineColorSelection() {
