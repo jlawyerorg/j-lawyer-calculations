@@ -684,6 +684,15 @@ class Address {
     String toString() { "address[street=$street,number=$number,city=$city]" }
 }
 
+class TaxModel {
+    @Bindable float ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
+    @Bindable float ustPercentage=TaxPropertiesUtils.getUstPercentage(); // 19
+    @Bindable String ustPercentageString=TaxPropertiesUtils.getUstPercentageString(); // 19
+}
+
+taxModel=new TaxModel();
+
+
 count = 0
 //df = new DecimalFormat("0.00")
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
@@ -702,9 +711,32 @@ new SwingBuilder().edt {
             tr  {
                 td (align: 'right') {
                     panel {
-                        button(text: 'Berechnen', actionPerformed: {
-                                calculate()
-                            })
+                        tableLayout (cellpadding: 5) {
+                            tr {
+                                td {
+                                    label(text: 'MwSt.:')
+                                }
+                                td {
+                                    spnUst = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 100f, 
+                                            value:taxModel.ustPercentage,
+                                            stepSize:1, stateChanged: {
+                                                updateTax()
+                                            }))
+                                }
+                                td {
+                                    label(text: '%')
+                                }
+                                td {
+                                    button(text: 'Berechnen', actionPerformed: {
+                                            //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
+                                            calculate()
+                                        })
+                                }
+                            }
+                        }
+                        
                     }
                 } 
             }
@@ -1218,7 +1250,7 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
                                         })
-                                        ustCustomEntry1 =  label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
+                                        ustCustomEntry1 =  label(text: taxModel.ustPercentageString + '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -1289,7 +1321,7 @@ new SwingBuilder().edt {
                                     )
                                 }
                                 td {
-                                    label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
+                                    label(text: taxModel.ustPercentageString + '%')
                                 }
                                 td (align: 'right') {
                                    lblmwst = label(text: '0,00')
@@ -1592,21 +1624,21 @@ def void addsonstige() {
 }
 
 def void add1Instanz() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': TaxPropertiesUtils.getUstPercentageString() + '%', 'number': txtTermin1IValue.text, 'instanz':'1']
+    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTermin1IValue.text, 'instanz':'1']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addBerufung() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': TaxPropertiesUtils.getUstPercentageString() + '%', 'number': txtTermin2IValue.text, 'instanz':'2']
+    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTermin2IValue.text, 'instanz':'2']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addRevision() {
-    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': TaxPropertiesUtils.getUstPercentageString() + '%', 'number': txtTerminRevValue.text, 'instanz':'3']
+    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTerminRevValue.text, 'instanz':'3']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -2448,7 +2480,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     txtCustomEntryValue.text = df.format(0f)
 }
     if (chkUStCustomEntry1.isSelected()) {
-            ustCustomEntry1.text = TaxPropertiesUtils.getUstPercentageString() + '%'
+            ustCustomEntry1.text = taxModel.ustPercentageString + '%'
         } else {
             ustCustomEntry1.text = '0%'
         }
@@ -2463,7 +2495,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt ==(TaxPropertiesUtils.getUstPercentageString() + '%')) {
+        if (rowCustomEntryUSt ==(taxModel.ustPercentageString + '%')) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
@@ -2489,7 +2521,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     lblzwsum.text=df.format(gebuehr)
 
     if(chkmwst.isSelected()) {
-        gebuehr=df.parse(lblzwsum.text)*TaxPropertiesUtils.getUstFactor()
+        gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
         lblmwst.text = df.format(gebuehr)
     } else {
         lblmwst.text = df.format(0f)
@@ -2513,7 +2545,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
 
     if(chkZahlungenBrutto.isSelected()) {
         lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+TaxPropertiesUtils.getUstFactor())*TaxPropertiesUtils.getUstFactor())
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+taxModel.ustFactor)*taxModel.ustFactor)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto.text = df.format(0f)
@@ -2649,7 +2681,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             rowCustomEntryInstanz=customTable.getValueAt(i, 4);
-            if ((rowCustomEntryUSt ==(TaxPropertiesUtils.getUstPercentageString() + '%'))&&(rowCustomEntryInstanz =='S')) {
+            if ((rowCustomEntryUSt ==(taxModel.ustPercentageString + '%'))&&(rowCustomEntryInstanz =='S')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
                 rowcount=rowcount+1
             }
@@ -2662,7 +2694,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
-            ct.addRow("", "Umsatzsteuer " + TaxPropertiesUtils.getUstPercentageString() + "% Nr. 7008 VV RVG", lblmwst.text + " €");
+            ct.addRow("", "Umsatzsteuer " + taxModel.ustPercentageString + "% Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2690,7 +2722,7 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chkZahlungenBrutto.selected) {
         ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", "-" + lblZahlungenBrutto.text + " €");
-        ct.addRow("", "darin enthaltene USt. (" + TaxPropertiesUtils.getUstPercentageString() + "%): " + lblmwstZahlung.text + " €", "");
+        ct.addRow("", "darin enthaltene USt. (" + taxModel.ustPercentageString + "%): " + lblmwstZahlung.text + " €", "");
     }
     if(chkZahlungenNetto.selected) {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
@@ -2805,4 +2837,19 @@ def StyledCalculationTable copyToDocument() {
     ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
 
     return ct;
+}
+
+
+def void updateTax() {
+    
+    taxModel.ustPercentage=spnUst.value.toFloat();
+    taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
+    
+    java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+    df.setGroupingUsed(false);
+    df.setMaximumFractionDigits(0);
+        
+        
+    taxModel.ustPercentageString=df.format(taxModel.ustPercentage);
+       
 }

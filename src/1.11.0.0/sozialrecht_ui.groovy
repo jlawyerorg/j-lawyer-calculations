@@ -681,6 +681,15 @@ class Address {
     String toString() { "address[street=$street,number=$number,city=$city]" }
 }
 
+class TaxModel {
+    @Bindable float ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
+    @Bindable float ustPercentage=TaxPropertiesUtils.getUstPercentage(); // 19
+    @Bindable String ustPercentageString=TaxPropertiesUtils.getUstPercentageString(); // 19
+}
+
+taxModel=new TaxModel();
+
+
 count = 0
 //df = new DecimalFormat("0.00")
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
@@ -699,25 +708,32 @@ new SwingBuilder().edt {
             tr  {
                 td (align: 'right') {
                     panel {
-                        button(text: 'Berechnen', actionPerformed: {
-                                //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
-                                calculate()
-                            })
-                                
-                        /*cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard())
-                                java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
-                                container.setVisible(false)
-                                ((javax.swing.JDialog)container).dispose()
-                                        
-                            })
+                        tableLayout (cellpadding: 5) {
+                            tr {
+                                td {
+                                    label(text: 'MwSt.:')
+                                }
+                                td {
+                                    spnUst = spinner(
+                                        model:spinnerNumberModel(minimum:0f, 
+                                            maximum: 100f, 
+                                            value:taxModel.ustPercentage,
+                                            stepSize:1, stateChanged: {
+                                                updateTax()
+                                            }))
+                                }
+                                td {
+                                    label(text: '%')
+                                }
+                                td {
+                                    button(text: 'Berechnen', actionPerformed: {
+                                            //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
+                                            calculate()
+                                        })
+                                }
+                            }
+                        }
                         
-                        cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
-                                        
-                            })*/
                     }
                 } 
             }
@@ -1105,7 +1121,8 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
                                         })
-                                        ustCustomEntry1 =  label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
+                                        ustCustomEntry1 =  label(text: taxModel.ustPercentageString)
+                                        label(text: '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -1181,7 +1198,10 @@ new SwingBuilder().edt {
                                     )
                                 }
                                 td {
-                                    label(text: TaxPropertiesUtils.getUstPercentageString() + '%')
+                                    panel {
+                                        label(text: taxModel.ustPercentageString + '%')
+                                        label(text: '%')
+                                    }
                                 }
                                 td (align: 'right') {
                                    lblmwst = label(text: '0,00')
@@ -1684,7 +1704,7 @@ switch (cmbCustomEntryName) {
     txtCustomEntryValue.text = df.format(0f)
 }
     if (chkUStCustomEntry1.isSelected()) {
-            ustCustomEntry1.text = TaxPropertiesUtils.getUstPercentageString() + '%'
+            ustCustomEntry1.text = taxModel.ustPercentageString + '%'
         } else {
             ustCustomEntry1.text = '0%'
         }
@@ -1700,7 +1720,7 @@ switch (cmbCustomEntryName) {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt ==(TaxPropertiesUtils.getUstPercentageString() +'%')) {
+        if (rowCustomEntryUSt ==(taxModel.ustPercentageString +'%')) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
@@ -1727,7 +1747,7 @@ switch (cmbCustomEntryName) {
     lblzwsum.text=df.format(gebuehr)
 
     if(chkmwst.isSelected()) {
-        gebuehr=df.parse(lblzwsum.text)*TaxPropertiesUtils.getUstFactor()
+        gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
         lblmwst.text = df.format(gebuehr)
     } else {
         lblmwst.text = df.format(0f)
@@ -1751,7 +1771,7 @@ switch (cmbCustomEntryName) {
 
     if(chkZahlungenBrutto.isSelected()) {
         lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+TaxPropertiesUtils.getUstFactor())*TaxPropertiesUtils.getUstFactor())
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+taxModel.ustFactor)*taxModel.ustFactor)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto.text = df.format(0f)
@@ -1845,7 +1865,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt ==TaxPropertiesUtils.getUstPercentageString() + '%') {
+            if (rowCustomEntryUSt ==taxModel.ustPercentageString + '%') {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             	rowcount=rowcount+1
             }
@@ -1858,7 +1878,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
-            ct.addRow("", "Umsatzsteuer " + TaxPropertiesUtils.getUstPercentageString() + "% Nr. 7008 VV RVG", lblmwst.text + " €");
+            ct.addRow("", "Umsatzsteuer " + taxModel.ustPercentageString + "% Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -1885,7 +1905,7 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chkZahlungenBrutto.selected) {
         ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", "-" + lblZahlungenBrutto.text + " €");
-        ct.addRow("", "darin enthaltene USt. (" + TaxPropertiesUtils.getUstPercentageString() + "%): " + lblmwstZahlung.text + " €", "");
+        ct.addRow("", "darin enthaltene USt. (" + taxModel.ustPercentageString + "%): " + lblmwstZahlung.text + " €", "");
     }
     if(chkZahlungenNetto.selected) {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
@@ -2000,4 +2020,18 @@ def StyledCalculationTable copyToDocument() {
     ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
 
     return ct;
+}
+
+def void updateTax() {
+    
+    taxModel.ustPercentage=spnUst.value.toFloat();
+    taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
+    
+    java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+    df.setGroupingUsed(false);
+    df.setMaximumFractionDigits(0);
+        
+        
+    taxModel.ustPercentageString=df.format(taxModel.ustPercentage);
+       
 }
