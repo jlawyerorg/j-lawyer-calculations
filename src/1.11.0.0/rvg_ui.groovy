@@ -673,6 +673,7 @@ import java.util.Locale
 import javax.swing.JTable
 import java.lang.String
 import javax.swing.JSpinner
+import javax.swing.JRadioButton
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import org.jlawyer.plugins.calculation.Cell
@@ -827,7 +828,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                             }
-                        }   
+                        }  
                         /*textlabel = label(text: 'Click the button!', constraints: BL.NORTH)
                         button(text:'Click Me',
                         actionPerformed: {count++; textlabel.text = "Clicked ${count} time(s)."; println "clicked"}, constraints:BL.SOUTH)*/
@@ -1944,9 +1945,9 @@ def float calculate() {
         txtCustomEntryValue.text = df.format(0f)
     }
     if (chkUStCustomEntry1.isSelected()) {
-        ustCustomEntry1.text = taxModel.ustPercentageString + '%'
+        ustCustomEntry1.text = taxModel.ustPercentageString
     } else {
-        ustCustomEntry1.text = '0%'
+        ustCustomEntry1.text = '0'
     }
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
@@ -1968,9 +1969,9 @@ def float calculate() {
     }
 
     if (chkUStCustomEntry2.isSelected()) {
-        ustCustomEntry2.text = taxModel.ustPercentageString + '%'
+        ustCustomEntry2.text = taxModel.ustPercentageString
     } else {
-        ustCustomEntry2.text = '0%'
+        ustCustomEntry2.text = '0'
     }
 
 
@@ -1985,7 +1986,7 @@ def float calculate() {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt ==(taxModel.ustPercentageString + '%')) {
+        if (rowCustomEntryUSt ==taxModel.ustPercentageString) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
@@ -2134,7 +2135,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt ==(taxModel.ustPercentageString + '%')) {
+            if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             	rowcount=rowcount+1
             }
@@ -2157,7 +2158,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='0%') {
+            if (rowCustomEntryUSt =='0') {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
