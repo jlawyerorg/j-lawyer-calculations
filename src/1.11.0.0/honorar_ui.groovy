@@ -694,6 +694,7 @@ class TaxModel {
 
 taxModel=new TaxModel();
 
+
 count = 0
 //df = new DecimalFormat("0.00")
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
@@ -889,8 +890,8 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
                                                 calculate()
                                             })
-                                        ustCustomEntry1 =  label(text: bind { taxModel.ustPercentageString})
-                                        label(text: '%')
+                                        ustCustomEntry1 =  label(text: bind {taxModel.ustPercentageString})
+                                        label (text: '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -996,8 +997,8 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        label(text: bind{taxModel.ustPercentageString})
-                                        label(text: '%')
+                                        label(text: bind {taxModel.ustPercentageString})
+                                        label(text: '%');
                                     }
                                 }
                                 td (align: 'right') {
@@ -1288,9 +1289,9 @@ def float calculate() {
         txtCustomEntryValue.text = df.format(0f)
     }
     if (chkUStCustomEntry1.isSelected()) {
-        ustCustomEntry1.text = taxModel.ustPercentageString + '%'
+        ustCustomEntry1.text = taxModel.ustPercentageString
     } else {
-        ustCustomEntry1.text = '0%'
+        ustCustomEntry1.text = '0'
     }
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
@@ -1303,9 +1304,9 @@ def float calculate() {
     }
 
     if (chkUStCustomEntry2.isSelected()) {
-        ustCustomEntry2.text = taxModel.ustPercentageString + '%'
+        ustCustomEntry2.text = taxModel.ustPercentageString
     } else {
-        ustCustomEntry2.text = '0%'
+        ustCustomEntry2.text = '0'
     }
 
 
@@ -1319,12 +1320,14 @@ def float calculate() {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt ==(taxModel.ustPercentageString + '%')) {
+        if (rowCustomEntryUSt ==taxModel.ustPercentageString) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
+
         }
     }
+
 
     gebuehr=(
         df.parse(lblhonne.text)
@@ -1338,7 +1341,6 @@ def float calculate() {
         gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
         lblmwst.text = df.format(gebuehr)
     } else {
-
         lblmwst.text = df.format(0f)
     }
 
@@ -1360,7 +1362,7 @@ def float calculate() {
 
     if(chkZahlungenBrutto.isSelected()) {
         lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+taxModel.ustFactor)*taxModel.ustFactor)
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1 + taxModel.ustFactor)*taxModel.ustFactor)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto.text = df.format(0f)
@@ -1381,7 +1383,6 @@ def float calculate() {
     cmdDocument.enabled=true
     return gebuehr
 }
-
 
 def String copyToClipboard() {
 
@@ -1417,13 +1418,13 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt ==(taxModel.ustPercentageString+'%')) {
+            if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
                 rowcount=rowcount+1
             }
         }
     }
-    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Bei Honorarvereinbarungen wird es oft vorkommen, dass es nur einen Rechnungsposten gibt.
+    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
             ct.addRow("", "", "");
         }
@@ -1440,7 +1441,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
-            if (rowCustomEntryUSt =='0%') {
+            if (rowCustomEntryUSt =='0') {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }

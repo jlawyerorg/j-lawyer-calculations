@@ -2480,9 +2480,9 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     txtCustomEntryValue.text = df.format(0f)
 }
     if (chkUStCustomEntry1.isSelected()) {
-            ustCustomEntry1.text = taxModel.ustPercentageString + '%'
+            ustCustomEntry1.text = taxModel.ustPercentageString
         } else {
-            ustCustomEntry1.text = '0%'
+            ustCustomEntry1.text = '0'
         }
 
 // custom entries
@@ -2495,7 +2495,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         rowCustomEntryName=customTable.getValueAt(i, 1);
         rowCustomEntryUSt=customTable.getValueAt(i, 2);
         rowCustomEntryValue=customTable.getValueAt(i, 3);
-        if (rowCustomEntryUSt ==(taxModel.ustPercentageString + '%')) {
+        if (rowCustomEntryUSt ==taxModel.ustPercentageString) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
@@ -2545,7 +2545,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
 
     if(chkZahlungenBrutto.isSelected()) {
         lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1+taxModel.ustFactor)*taxModel.ustFactor)
+        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1 + taxModel.ustFactor)*taxModel.ustFactor)
         lblmwstZahlung.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto.text = df.format(0f)
@@ -2561,7 +2561,6 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     gebuehr=df.parse(lblquote.text) - df.parse(lblZahlungenBrutto.text) - df.parse(lblZahlungenNetto.text)
     lblsum2.text=df.format(gebuehr)
     
-
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
@@ -2681,7 +2680,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             rowCustomEntryInstanz=customTable.getValueAt(i, 4);
-            if ((rowCustomEntryUSt ==(taxModel.ustPercentageString + '%'))&&(rowCustomEntryInstanz =='S')) {
+            if ((rowCustomEntryUSt ==(taxModel.ustPercentageString))&&(rowCustomEntryInstanz =='S')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
                 rowcount=rowcount+1
             }
@@ -2705,7 +2704,7 @@ def StyledCalculationTable copyToDocument() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             rowCustomEntryInstanz=customTable.getValueAt(i, 4);
-            if ((rowCustomEntryUSt =='0%')&&(rowCustomEntryInstanz =='3')) {
+            if ((rowCustomEntryUSt =='0')&&(rowCustomEntryInstanz =='S')) {
                 ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
             }
         }
@@ -2838,7 +2837,6 @@ def StyledCalculationTable copyToDocument() {
 
     return ct;
 }
-
 
 def void updateTax() {
     
