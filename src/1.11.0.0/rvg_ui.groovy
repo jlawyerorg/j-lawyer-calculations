@@ -727,7 +727,7 @@ new SwingBuilder().edt {
                     panel {
                         tableLayout (cellpadding: 5) {
                             tr {
-                                td {
+                                /*td {
                                     label(text: 'MwSt.:')
                                 }
                                 td {
@@ -741,7 +741,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     label(text: '%')
-                                }
+                                }*/
                                 td {
                                     button(text: 'Berechnen', actionPerformed: {
                                             //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
@@ -828,7 +828,23 @@ new SwingBuilder().edt {
                                         })
                                 }
                             }
-                        }  
+                            tr {
+                                td {
+                                    label(text: 'Umsatzsteuersatz')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpUst = buttonGroup(id:'GrpUst')
+                                            radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==16, stateChanged: {
+                                                updateTax()
+                                            })
+                                            radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==19, stateChanged: {
+                                                updateTax()
+                                            })
+                                    }
+                                }
+                            }
+                        }
                         /*textlabel = label(text: 'Click the button!', constraints: BL.NORTH)
                         button(text:'Click Me',
                         actionPerformed: {count++; textlabel.text = "Clicked ${count} time(s)."; println "clicked"}, constraints:BL.SOUTH)*/
@@ -2293,9 +2309,12 @@ def StyledCalculationTable copyToDocument() {
 }
 
 def void updateTax() {
-    
-    taxModel.ustPercentage=spnUst.value.toFloat();
-    taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
+    if (radioUst16.isSelected()) {
+        taxModel.ustPercentage=16;
+    } else if (radioUst19.isSelected()) {
+        taxModel.ustPercentage=19;
+    }
+    taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);  
     
     java.text.DecimalFormat df=new java.text.DecimalFormat("0");
     df.setGroupingUsed(false);

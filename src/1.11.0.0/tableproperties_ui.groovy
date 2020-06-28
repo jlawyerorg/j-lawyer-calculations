@@ -850,6 +850,27 @@ new SwingBuilder().edt {
                                     }
                                 }
                             }
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Umsatzsteuersatz')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    panel {
+                                                            btnGrpUst = buttonGroup(id:'GrpUst')
+                                                            radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==16, stateChanged: {
+                                                            setTaxProps()
+                                                        })
+                                                            radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==19, stateChanged: {
+                                                            setTaxProps()
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }  
                     }     
                 }
@@ -909,7 +930,7 @@ def void setProps() {
     } else {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+false);
     }
-}
+   }
 
 def void lineColorSelection() {
     JColorChooser lineColorChooser2=new JColorChooser();
@@ -979,4 +1000,12 @@ def void footerRowBackColorSelection() {
         footerRowBackColorButton.setBackground(currentColor);
         tableProps.setFooterRowBackColor(currentColor);
     }                    
+}
+
+def void setTaxProps() {
+    float ust=19
+    if (radioUst16.isSelected()) {
+        ust=16;
+    }    
+    new TaxPropertiesUtils().setUstPercentage(ust);
 }

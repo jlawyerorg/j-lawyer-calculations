@@ -662,11 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Tabellenformatierung"
-description = "j-lawyer.org Tabellenformatierung"
-version = "1.0.2";
+name = "Tabelleneinstellungen"
+description = "j-lawyer.org Tabelleneinstellungen"
+version = "1.1.0";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "05.01.2020"
+updated = "28.06.2020"
 supportedPlaceHolders = ""
 
 
