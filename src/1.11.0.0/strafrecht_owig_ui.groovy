@@ -674,7 +674,6 @@ import javax.swing.JTable
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import org.jlawyer.plugins.calculation.Cell
-import org.jlawyer.plugins.calculation.CalculationTable
 import com.jdimension.jlawyer.client.settings.ServerSettings
 
 
@@ -690,9 +689,6 @@ class TaxModel {
     @Bindable String ustPercentageString=TaxPropertiesUtils.getUstPercentageString(); // 19
 }
 
-taxModel=new TaxModel();
-
-
 count = 0
 //df = new DecimalFormat("0.00")
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
@@ -704,6 +700,9 @@ betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
 quoteFormat = new DecimalFormat("0.00")
+
+taxModel=new TaxModel();
+
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         //borderLayout()
@@ -713,21 +712,6 @@ new SwingBuilder().edt {
                     panel {
                         tableLayout (cellpadding: 5) {
                             tr {
-                                td {
-                                    label(text: 'MwSt.:')
-                                }
-                                td {
-                                    spnUst = spinner(
-                                        model:spinnerNumberModel(minimum:0f, 
-                                            maximum: 100f, 
-                                            value:taxModel.ustPercentage,
-                                            stepSize:1, stateChanged: {
-                                                updateTax()
-                                            }))
-                                }
-                                td {
-                                    label(text: '%')
-                                }
                                 td {
                                     button(text: 'Berechnen', actionPerformed: {
                                             //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
@@ -824,6 +808,22 @@ new SwingBuilder().edt {
                                         chkowig5000 = checkBox(id: 'bowig5000', text: '5000€', selected: false, actionPerformed: {
                                             calculate()
                                         })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    label(text: 'Umsatzsteuersatz')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpUst = buttonGroup(id:'GrpUst')
+                                            radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==16, stateChanged: {
+                                                updateTax()
+                                            })
+                                            radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==19, stateChanged: {
+                                                updateTax()
+                                            })
                                     }
                                 }
                             }
@@ -2839,15 +2839,16 @@ def StyledCalculationTable copyToDocument() {
 }
 
 def void updateTax() {
-    
-    taxModel.ustPercentage=spnUst.value.toFloat();
+        if (radioUst16.isSelected()) {
+        taxModel.ustPercentage=16;
+    } else if (radioUst19.isSelected()) {
+        taxModel.ustPercentage=19;
+    }
     taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
     
     java.text.DecimalFormat df=new java.text.DecimalFormat("0");
     df.setGroupingUsed(false);
     df.setMaximumFractionDigits(0);
-        
-        
+           
     taxModel.ustPercentageString=df.format(taxModel.ustPercentage);
-       
 }

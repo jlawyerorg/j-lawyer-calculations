@@ -692,9 +692,6 @@ class TaxModel {
     @Bindable String ustPercentageString=TaxPropertiesUtils.getUstPercentageString(); // 19
 }
 
-taxModel=new TaxModel();
-
-
 count = 0
 //df = new DecimalFormat("0.00")
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
@@ -707,6 +704,9 @@ betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
 faktorFormat = new DecimalFormat("0.0");
 quoteFormat = new DecimalFormat("0.00")
+
+taxModel=new TaxModel();
+
 
 customEntries = ['Beispieleintrag 1',
                     'Beispieleintrag 2',
@@ -723,21 +723,6 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
-                                    label(text: 'MwSt.:')
-                                }
-                                td {
-                                    spnUst = spinner(
-                                        model:spinnerNumberModel(minimum:0f, 
-                                            maximum: 100f, 
-                                            value:taxModel.ustPercentage,
-                                            stepSize:1, stateChanged: {
-                                                updateTax()
-                                            }))
-                                }
-                                td {
-                                    label(text: '%')
-                                }
-                                td {
                                     button(text: 'Berechnen', actionPerformed: {
                                             //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
                                             calculate()
@@ -748,6 +733,30 @@ new SwingBuilder().edt {
                         
                     }
                 }                
+            }
+            tr {
+                td (colfill:true, align: 'left') {
+                    panel(border: titledBorder(title: 'Basisdaten')) {
+                        tableLayout {
+                            tr {
+                                td {
+                                    label(text: 'Umsatzsteuersatz')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpUst = buttonGroup(id:'GrpUst')
+                                            radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==16, stateChanged: {
+                                                updateTax()
+                                            })
+                                            radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==19, stateChanged: {
+                                                updateTax()
+                                            })
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
             tr {
@@ -1580,15 +1589,16 @@ def StyledCalculationTable copyToDocument() {
 }
 
 def void updateTax() {
-    
-    taxModel.ustPercentage=spnUst.value.toFloat();
-    taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
+    if (radioUst16.isSelected()) {
+        taxModel.ustPercentage=16;
+    } else if (radioUst19.isSelected()) {
+        taxModel.ustPercentage=19;
+    }
+        taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
     
     java.text.DecimalFormat df=new java.text.DecimalFormat("0");
     df.setGroupingUsed(false);
     df.setMaximumFractionDigits(0);
         
-        
     taxModel.ustPercentageString=df.format(taxModel.ustPercentage);
-       
 }
