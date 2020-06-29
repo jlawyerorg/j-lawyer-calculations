@@ -1467,7 +1467,6 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                             }
-
                             tr {
                                 td {
                                     label(text: 'Summe:')
@@ -1501,15 +1500,15 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkZahlungenBrutto =  checkBox(id:'bAuslagenoM', text: 'bisherige Zahlungen inkl. Umsatzsteuer', selected: false, stateChanged: {
+                                    chkZahlungenBrutto19 =  checkBox(id:'bAuslagenM19', text: 'bisherige Zahlungen inkl. 19 % Umsatzsteuer', selected: false, stateChanged: {
                                             calculate()
                                         })
                                 }
                                 td {
-                                    txtZahlungenBrutto=formattedTextField(id: 'nZahlungenBrutto', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto19=formattedTextField(id: 'nZahlungenBrutto19', format: betragFormat, text: '0,00', columns: 4)
                                 }
                                 td (align: 'right') {
-                                    lblZahlungenBrutto = label(text: '0,00')
+                                    lblZahlungenBrutto19 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR' )
@@ -1517,13 +1516,43 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'darin enthaltene Umsatzsteuer:')
+                                    label(text: 'darin enthaltene Umsatzsteuer zu 19%:')
                                 }
                                 td {
                                     label(text: '')
                                 }
                                 td (align: 'right') {
-                                    lblmwstZahlung = label(text: '0,00')
+                                    lblmwstZahlung19 = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    chkZahlungenBrutto16 =  checkBox(id:'bAuslagenM16', text: 'bisherige Zahlungen inkl. 16% Umsatzsteuer', selected: false, stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    txtZahlungenBrutto16=formattedTextField(id: 'nZahlungenBrutto16', format: betragFormat, text: '0,00', columns: 4)
+                                }
+                                td (align: 'right') {
+                                    lblZahlungenBrutto16 = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR' )
+                                }
+                            }
+                            tr {
+                                td {
+                                    label(text: 'darin enthaltene Umsatzsteuer zu 16%:')
+                                }
+                                td {
+                                    label(text: '')
+                                }
+                                td (align: 'right') {
+                                    lblmwstZahlung16 = label(text: '0,00')
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -2056,13 +2085,22 @@ def float calculate() {
         lblquote.text=lblsum1.text
     }
 
-    if(chkZahlungenBrutto.isSelected()) {
-        lblZahlungenBrutto.text = txtZahlungenBrutto.text
-        gebuehr=(df.parse(lblZahlungenBrutto.text)/(1 + taxModel.ustFactor)*taxModel.ustFactor)
-        lblmwstZahlung.text = df.format(gebuehr)
+    if(chkZahlungenBrutto19.isSelected()) {
+        lblZahlungenBrutto19.text = txtZahlungenBrutto19.text
+        gebuehr=(df.parse(lblZahlungenBrutto19.text)/1.19f*0.19f)
+        lblmwstZahlung19.text = df.format(gebuehr)
     } else {
-        lblZahlungenBrutto.text = df.format(0f)
-        lblmwstZahlung.text = df.format(0f)
+        lblZahlungenBrutto19.text = df.format(0f)
+        lblmwstZahlung19.text = df.format(0f)
+    }
+    
+    if(chkZahlungenBrutto16.isSelected()) {
+        lblZahlungenBrutto16.text = txtZahlungenBrutto16.text
+        gebuehr=(df.parse(lblZahlungenBrutto16.text)/1.16f*0.16f)
+        lblmwstZahlung16.text = df.format(gebuehr)
+    } else {
+        lblZahlungenBrutto19.text = df.format(0f)
+        lblmwstZahlung16.text = df.format(0f)
     }
 
     if(chkZahlungenNetto.isSelected()) {
@@ -2071,7 +2109,7 @@ def float calculate() {
         lblZahlungenNetto.text = df.format(0f)
     }
     
-    gebuehr=df.parse(lblquote.text) - df.parse(lblZahlungenBrutto.text) - df.parse(lblZahlungenNetto.text)
+    gebuehr=df.parse(lblquote.text) - df.parse(lblZahlungenBrutto19.text) - df.parse(lblZahlungenBrutto16.text) - df.parse(lblZahlungenNetto.text)
     lblsum2.text=df.format(gebuehr)
         
 
@@ -2179,7 +2217,7 @@ def StyledCalculationTable copyToDocument() {
             }
         }
     }
-    if((chkquote.selected)||(chkZahlungenBrutto.selected)||(chkZahlungenNetto.selected)){
+    if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
             ct.addRow("", "", "");
         }
@@ -2189,9 +2227,13 @@ def StyledCalculationTable copyToDocument() {
     if(chkquote.selected) {
         ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
     }
-    if(chkZahlungenBrutto.selected) {
-        ct.addRow("", "bisherige Zahlungen inkl. Umsatzsteuer ", "-" + lblZahlungenBrutto.text + " €");
-        ct.addRow("", "darin enthaltene USt. (" + taxModel.ustPercentageString + "%): " + lblmwstZahlung.text + " €", "");
+    if(chkZahlungenBrutto19.selected) {
+        ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
+        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text + " €", "");
+    }
+    if(chkZahlungenBrutto16.selected) {
+        ct.addRow("", "bisherige Zahlungen inkl. 16% Umsatzsteuer ", "-" + lblZahlungenBrutto16.text + " €");
+        ct.addRow("", "darin enthaltene USt. (16 %): " + lblmwstZahlung16.text + " €", "");
     }
     if(chkZahlungenNetto.selected) {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
@@ -2320,10 +2362,5 @@ def void updateTax() {
     df.setGroupingUsed(false);
     df.setMaximumFractionDigits(0);
         
-        
     taxModel.ustPercentageString=df.format(taxModel.ustPercentage);
-    
-    //    float ust=spnUst.value.toFloat();
-    //    new TaxPropertiesUtils().setUstPercentage(ust);
-    
 }
