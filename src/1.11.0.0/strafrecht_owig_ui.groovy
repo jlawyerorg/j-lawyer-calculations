@@ -820,9 +820,11 @@ new SwingBuilder().edt {
                                             btnGrpUst = buttonGroup(id:'GrpUst')
                                             radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==16, stateChanged: {
                                                 updateTax()
+                                                calculate()
                                             })
                                             radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==19, stateChanged: {
                                                 updateTax()
+                                                calculate()
                                             })
                                     }
                                 }
@@ -2590,7 +2592,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         gebuehr=(df.parse(lblZahlungenBrutto16.text)/1.16f*0.16f)
         lblmwstZahlung16.text = df.format(gebuehr)
     } else {
-        lblZahlungenBrutto19.text = df.format(0f)
+        lblZahlungenBrutto16.text = df.format(0f)
         lblmwstZahlung16.text = df.format(0f)
     }
 
