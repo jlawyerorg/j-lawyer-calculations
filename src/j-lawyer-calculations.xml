@@ -36,7 +36,7 @@
     <calculation name="rechnungsnr" version="1.0.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
     <calculation name="archivnr" version="1.1.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.3.2" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
-    <calculation name="tableproperties" version="1.1.0" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
+    <calculation name="tableproperties" version="1.1.1" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     
     <!-- j-lawyer.org version 1.12.0.8  -->
     <calculation name="rvg" version="2.4.2" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
@@ -48,7 +48,7 @@
     <calculation name="rechnungsnr" version="1.0.0" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
     <calculation name="archivnr" version="1.1.0" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.3.2" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
-    <calculation name="tableproperties" version="1.1.0" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
+    <calculation name="tableproperties" version="1.1.1" for="1.12.0.8" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     
     <!-- j-lawyer.org version 1.12.0.9  -->
     <calculation name="rvg" version="2.4.2" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
@@ -60,7 +60,7 @@
     <calculation name="rechnungsnr" version="1.0.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
     <calculation name="archivnr" version="1.1.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.3.2" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
-    <calculation name="tableproperties" version="1.1.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
+    <calculation name="tableproperties" version="1.1.1" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     
     <!-- j-lawyer.org version 1.13.0.0  -->
     <calculation name="rvg" version="2.4.2" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
@@ -72,6 +72,6 @@
     <calculation name="rechnungsnr" version="1.0.0" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
     <calculation name="archivnr" version="1.1.0" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
     <calculation name="strafrecht_owig" version="1.3.2" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy"/>
-    <calculation name="tableproperties" version="1.1.0" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
+    <calculation name="tableproperties" version="1.1.1" for="1.13.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>
     
 </calculations>
