@@ -1252,7 +1252,8 @@ new SwingBuilder().edt {
                                         chkUStCustomEntry1 = checkBox(text: 'USt', selected: true, stateChanged: {
                                             calculate()
                                         })
-                                        ustCustomEntry1 =  label(text: taxModel.ustPercentageString + '%')
+                                        ustCustomEntry1 =  label(text: bind {taxModel.ustPercentageString})
+                                        label (text: '%')
                                     }
                                 }
                                 td (align: 'right') {
@@ -1659,21 +1660,21 @@ def void addsonstige() {
 }
 
 def void add1Instanz() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTermin1IValue.text, 'instanz':'1']
+    def newEntry = ['anzahl': '1', 'name': cmbTermin1IName.selectedItem+' '+rvgVVTermin1I.text, 'ust': taxModel.ustPercentageString, 'number': txtTermin1IValue.text, 'instanz':'1']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addBerufung() {
-    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTermin2IValue.text, 'instanz':'2']
+    def newEntry = ['anzahl': '1', 'name': cmbTermin2IName.selectedItem+' '+rvgVVTermin2I.text, 'ust': taxModel.ustPercentageString, 'number': txtTermin2IValue.text, 'instanz':'2']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void addRevision() {
-    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': taxModel.ustPercentageString + '%', 'number': txtTerminRevValue.text, 'instanz':'3']
+    def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': taxModel.ustPercentageString, 'number': txtTerminRevValue.text, 'instanz':'3']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
