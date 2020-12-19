@@ -777,6 +777,22 @@ new SwingBuilder().edt {
                                     }
                                 }
                             }
+                            tr {
+                                td {
+                                    label(text: '')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpRVG = buttonGroup(id:'GrpRVG')
+                                            radioRVG2013 = radioButton(text: 'RVG 2013', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
+                                                calculate()
+                                            })
+                                            radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, stateChanged: {
+                                                calculate()
+                                            })
+                                    }
+                                }
+                            }
                         }   
                     }     
                 }
@@ -1466,7 +1482,7 @@ def float calculate() {
     float change=1.0f
     float urahmen=0.0f
     float orahmen=0.0f
-//    float test=1.0f
+    float schwellenG=0.0f
     
     switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1f}: factor = 0f
@@ -1479,12 +1495,19 @@ def float calculate() {
   
   
     if(chkVV2302.isSelected()) {
-        urahmen = 50f + (50f * factor);
-        orahmen = 640f +(640f * factor);
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f + (50f * factor);
+            orahmen = 640f +(640f * factor);
+            schwellenG = 300
+        } else {
+            urahmen = 60f + (60f * factor);
+            orahmen = 768f +(768f * factor);
+            schwellenG = 359
+        }
         lblVV2302uR.text = df.format(urahmen);
         lblVV2302oR.text = df.format(orahmen);
         if (cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())=='Schwelleng.') {
-            txtVV2302.text = df.format(300f + (300f*factor))
+            txtVV2302.text = df.format(schwellenG + (schwellenG*factor))
         } else if (cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())=='eigene') {
             txtVV2302.text = txtVV2302.text
         } else {
@@ -1497,12 +1520,19 @@ def float calculate() {
     }
 
     if(chkVV1005.isSelected()) {
-        urahmen = 50f;
-        orahmen = 640f;
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f;
+            orahmen = 640f;
+            schwellenG = 300
+        } else  {
+            urahmen = 60f;
+            orahmen = 768f;
+            schwellenG = 359
+        }
         lblVV1005uR.text = df.format(urahmen);
         lblVV1005oR.text = df.format(orahmen);
         if (cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())=='Schwelleng.') {
-            txtVV1005.text = df.format(300f)
+            txtVV1005.text = df.format(schwellenG)
         } else if (cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())=='eigene') {
             txtVV1005.text = txtVV1005.text
         } else {
@@ -1528,8 +1558,13 @@ def float calculate() {
     }
 
     if(chkVV3102.isSelected()) {
-        urahmen = 50f + (50f * factor);
-        orahmen = 550f +(550f * factor);
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f + (50f * factor);
+            orahmen = 550f +(550f * factor);
+        } else {
+            urahmen = 60f + (60f * factor);
+            orahmen = 660f +(660f * factor);
+        }
         lblVV3102uR.text = df.format(urahmen);
         lblVV3102oR.text = df.format(orahmen);
         if (cbchVV3102.getItemAt(cbchVV3102.getSelectedIndex())!='eigene') {
@@ -1544,19 +1579,29 @@ def float calculate() {
         }
     
     if(chkAnrechenbarerAnteil.isSelected()) {
+        if (radioRVG2013.isSelected()){
+            maxAnrechnung = -175
+        } else {
+            maxAnrechnung = -207
+        }
         gebuehr = df.parse(txtVV2302.text) / 2f * -1f
-        if (gebuehr > -175f) {
+        if (gebuehr > maxAnrechnung) {
             lblAnrechenbarerAnteil.text = df.format(gebuehr)
         } else {
-         lblAnrechenbarerAnteil.text = df.format(-175f)   
+         lblAnrechenbarerAnteil.text = df.format(maxAnrechnung)   
         }
     } else {
         lblAnrechenbarerAnteil.text = df.format(0f)
     }
 
     if(chkVV3106.isSelected()) {
-        urahmen = 50f;
-        orahmen = 510f;
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f;
+            orahmen = 510f;
+        } else {
+            urahmen = 60f;
+            orahmen = 610f;
+        }
         lblVV3106uR.text = df.format(urahmen);
         lblVV3106oR.text = df.format(orahmen);
         if (cbchVV3106.getItemAt(cbchVV3106.getSelectedIndex())!='eigene') {
@@ -1571,8 +1616,13 @@ def float calculate() {
         }
 
     if(chkVV1006.isSelected()) {
-        urahmen = 50f;
-        orahmen = 550f;
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f;
+            orahmen = 550f;
+        } else {
+            urahmen = 60f;
+            orahmen = 660f;
+        }
         lblVV1006uR.text = df.format(urahmen);
         lblVV1006oR.text = df.format(orahmen);
         if (cbchVV1006.getItemAt(cbchVV1006.getSelectedIndex())!='eigene') {
@@ -1605,8 +1655,13 @@ def float calculate() {
     }
     
     if(chkVV3204.isSelected()) {
-        urahmen = 60f + (60f * factor);
-        orahmen = 680f +(680f * factor);
+        if (radioRVG2013.isSelected()){
+            urahmen = 60f + (60f * factor);
+            orahmen = 680f +(680f * factor);
+        } else {
+            urahmen = 72f + (72f * factor);
+            orahmen = 816f +(816f * factor);
+        }
         lblVV3204uR.text = df.format(urahmen);
         lblVV3204oR.text = df.format(orahmen);
         if (cbchVV3204.getItemAt(cbchVV3204.getSelectedIndex())!='eigene') {
@@ -1621,8 +1676,13 @@ def float calculate() {
     }
     
     if(chkVV3205.isSelected()) {
-        urahmen = 50f;
-        orahmen = 510f;
+        if (radioRVG2013.isSelected()){
+            urahmen = 50f;
+            orahmen = 510f;
+        } else {
+            urahmen = 60f;
+            orahmen = 610f;
+        }
         lblVV3205uR.text = df.format(urahmen);
         lblVV3205oR.text = df.format(orahmen);
         if (cbchVV3205.getItemAt(cbchVV3205.getSelectedIndex())!='eigene') {
@@ -1637,8 +1697,13 @@ def float calculate() {
     }
 
     if(chkVV1006Berufung.isSelected()) {
-        urahmen = 60f;
-        orahmen = 680f;
+        if (radioRVG2013.isSelected()){
+            urahmen = 60f;
+            orahmen = 680f;
+        } else {
+            urahmen = 72f;
+            orahmen = 816f;
+        }
         lblVV1006BerufunguR.text = df.format(urahmen);
         lblVV1006BerufungoR.text = df.format(orahmen);
         if (cbchVV1006Berufung.getItemAt(cbchVV1006Berufung.getSelectedIndex())!='eigene') {
@@ -1693,20 +1758,40 @@ switch (cmbCustomEntryName) {
     txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
+    if (radioRVG2013.isSelected()){
+            betrag = 0.3
+        } else {
+            betrag = 0.42
+        }
     chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = df.format(0.3f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 25
+        } else {
+            betrag = 30
+        }
     chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG 4 bis 8h'}:
+    if (radioRVG2013.isSelected()){
+            betrag = 40
+        } else {
+            betrag = 50
+        }
     chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = df.format(40f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
+    if (radioRVG2013.isSelected()){
+            betrag = 70
+        } else {
+            betrag = 80
+        }
     chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
     chkUStCustomEntry1.setSelected(true)
@@ -1843,6 +1928,12 @@ def String copyToClipboard() {
 
 def StyledCalculationTable copyToDocument() {
     float rowcount=0f
+    String text1008 = '' //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+    if (spnMandanten.value.toFloat()!=1f) {
+        text1008 = ', 1008'
+    } else {
+        text1008 = ''
+    }
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -1850,7 +1941,7 @@ def StyledCalculationTable copyToDocument() {
     }
     
     if(chkVV2302.selected) {
-        ct.addRow("", "Geschäftsgebühr Nr. 2302, 1008 VV RVG", txtVV2302.text + " €");
+        ct.addRow("", "Geschäftsgebühr Nr. 2302" + text1008 + " VV RVG", txtVV2302.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV1005.selected) {
@@ -1862,7 +1953,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3102.selected) {
-        ct.addRow("", "Verfahrensgebühr Nr. 3102, 1008 VV RVG", txtVV3102.text + " €");
+        ct.addRow("", "Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", txtVV3102.text + " €");
         rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
@@ -1882,7 +1973,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3204.selected) {
-        ct.addRow("", "Verfahrensgebühr Nr. 3204, 1008 VV RVG", txtVV3204.text + " €");
+        ct.addRow("", "Verfahrensgebühr Nr. 3204" + text1008 + " VV RVG", txtVV3204.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV3205.selected) {

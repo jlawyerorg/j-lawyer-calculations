@@ -668,9 +668,16 @@ import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
 
-def float berechneWertGebuehr(float streitWert, float factor) { 
+def float berechneWertGebuehr2013(float streitWert, float factor) { 
 
     RvgTablesRangeList rl = new RvgTablesRangeList()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    
+}
+
+def float berechneWertGebuehr2021(float streitWert, float factor) { 
+
+    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
     return Math.max(rl.getMappedValue(streitWert) * factor, 0);
     
 }

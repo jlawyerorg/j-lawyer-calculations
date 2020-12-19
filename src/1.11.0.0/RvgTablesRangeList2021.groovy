@@ -662,11 +662,99 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Gerichtskostentabelle"
-description = "j-lawyer.org Gerichtskostentabelle GKG Anlage 2"
-version = "1.2.0";
-author = "Jens Kutschke, Anatol Anuschewski"
-updated = "04.12.2020"
-supportedPlaceHolders = "{{GKG_TABELLE}}, {{GKG}}"
+import java.util.ArrayList
+import RvgTablesRange
 
+class RvgTablesRangeList2021 { 
+    ArrayList<RvgTablesRange> ranges
+    
+    RvgTablesRangeList2021() {
+        ranges=new ArrayList<RvgTablesRange>()
+        ranges.add(new RvgTablesRange(0,500,49))
+        ranges.add(new RvgTablesRange(500,1000,88))
+        ranges.add(new RvgTablesRange(1000,1500,127))
+        ranges.add(new RvgTablesRange(1500,2000,166))
+        ranges.add(new RvgTablesRange(2000,3000,222))
+        ranges.add(new RvgTablesRange(3000,4000,278))
+        ranges.add(new RvgTablesRange(4000,5000,334))
+        ranges.add(new RvgTablesRange(5000,6000,390))
+        ranges.add(new RvgTablesRange(6000,7000,446))
+        ranges.add(new RvgTablesRange(7000,8000,502))
+        ranges.add(new RvgTablesRange(8000,9000,558))
+        ranges.add(new RvgTablesRange(9000,10000,614))
+        ranges.add(new RvgTablesRange(10000,13000,666))
+        ranges.add(new RvgTablesRange(13000,16000,718))
+        ranges.add(new RvgTablesRange(16000,19000,770))
+        ranges.add(new RvgTablesRange(19000,22000,822))
+        ranges.add(new RvgTablesRange(22000,25000,874))
+        ranges.add(new RvgTablesRange(25000,30000,955))
+        ranges.add(new RvgTablesRange(30000,35000,1036))
+        ranges.add(new RvgTablesRange(35000,40000,1117))
+        ranges.add(new RvgTablesRange(40000,45000,1198))
+        ranges.add(new RvgTablesRange(45000,50000,1279))
+        ranges.add(new RvgTablesRange(50000,65000,1373))
+        ranges.add(new RvgTablesRange(65000,80000,1467))
+        ranges.add(new RvgTablesRange(80000,95000,1561))
+        ranges.add(new RvgTablesRange(95000,110000,1655))
+        ranges.add(new RvgTablesRange(110000,125000,1749))
+        ranges.add(new RvgTablesRange(125000,140000,1843))
+        ranges.add(new RvgTablesRange(140000,155000,1937))
+        ranges.add(new RvgTablesRange(155000,170000,2031))
+        ranges.add(new RvgTablesRange(170000,185000,2125))
+        ranges.add(new RvgTablesRange(185000,200000,2219))
+        ranges.add(new RvgTablesRange(200000,230000,2351))
+        ranges.add(new RvgTablesRange(230000,260000,2483))
+        ranges.add(new RvgTablesRange(260000,290000,2615))
+        ranges.add(new RvgTablesRange(290000,320000,2747))
+        ranges.add(new RvgTablesRange(320000,350000,2879))
+        ranges.add(new RvgTablesRange(350000,380000,3011))
+        ranges.add(new RvgTablesRange(380000,410000,3143))
+        ranges.add(new RvgTablesRange(410000,440000,3275))
+        ranges.add(new RvgTablesRange(440000,470000,3407))
+        ranges.add(new RvgTablesRange(470000,500000,3539))//
+        ranges.add(new RvgTablesRange(500000,550000,3869))
+        ranges.add(new RvgTablesRange(550000,600000,4034))
+        ranges.add(new RvgTablesRange(600000,650000,4199))
+        ranges.add(new RvgTablesRange(650000,700000,4364))
+        ranges.add(new RvgTablesRange(700000,750000,4529))
+        ranges.add(new RvgTablesRange(750000,800000,4694))
+        ranges.add(new RvgTablesRange(800000,850000,4859))
+        ranges.add(new RvgTablesRange(850000,900000,5024))
+        ranges.add(new RvgTablesRange(900000,950000,5189))
+        ranges.add(new RvgTablesRange(950000,1000000,5354))
+        ranges.add(new RvgTablesRange(1000000,1050000,5519))
+        ranges.add(new RvgTablesRange(1050000,1100000,5684))
+        ranges.add(new RvgTablesRange(1100000,1150000,5849))
+        ranges.add(new RvgTablesRange(1150000,1200000,6014))
+        ranges.add(new RvgTablesRange(1200000,1250000,6179))
+        ranges.add(new RvgTablesRange(1250000,1300000,6344))
+        ranges.add(new RvgTablesRange(1300000,1350000,6509))
+        ranges.add(new RvgTablesRange(1350000,1400000,6674))
+        ranges.add(new RvgTablesRange(1400000,1450000,6839))
+        ranges.add(new RvgTablesRange(1450000,1500000,7004))
+        ranges.add(new RvgTablesRange(1500000,1550000,7169))
+        ranges.add(new RvgTablesRange(1550000,1600000,7334))
+        ranges.add(new RvgTablesRange(1600000,1650000,7499))
+        ranges.add(new RvgTablesRange(1650000,1700000,7664))
+        ranges.add(new RvgTablesRange(1700000,1750000,7829))
+        ranges.add(new RvgTablesRange(1750000,1800000,7994))
+        ranges.add(new RvgTablesRange(1800000,1850000,8159))
+        ranges.add(new RvgTablesRange(1850000,1900000,8324))
+        ranges.add(new RvgTablesRange(1900000,1950000,8489))
+        ranges.add(new RvgTablesRange(1950000,2000000,8654))
 
+    }
+    
+    ArrayList<RvgTablesRange> getRanges() {
+        return ranges
+    }
+    
+    float getMappedValue(float streitWert) {
+           for(RvgTablesRange r: ranges) {
+       if(r.contains(streitWert))
+            return r.mappedValue
+   }
+   return -1f
+    }
+    
+}

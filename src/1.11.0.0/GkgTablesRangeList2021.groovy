@@ -662,11 +662,72 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Gerichtskostentabelle"
-description = "j-lawyer.org Gerichtskostentabelle GKG Anlage 2"
-version = "1.2.0";
-author = "Jens Kutschke, Anatol Anuschewski"
-updated = "04.12.2020"
-supportedPlaceHolders = "{{GKG_TABELLE}}, {{GKG}}"
+import java.util.ArrayList
+import GkgTablesRange
+
+class GkgTablesRangeList2021 { 
+    ArrayList<GkgTablesRange> ranges
+    
+    GkgTablesRangeList2021() {
+        ranges=new ArrayList<GkgTablesRange>()
+        ranges.add(new GkgTablesRange(0,500,38))
+        ranges.add(new GkgTablesRange(500,1000,58))
+        ranges.add(new GkgTablesRange(1000,1500,78))
+        ranges.add(new GkgTablesRange(1500,2000,98))
+        ranges.add(new GkgTablesRange(2000,3000,119))
+        ranges.add(new GkgTablesRange(3000,4000,140))
+        ranges.add(new GkgTablesRange(4000,5000,161))
+        ranges.add(new GkgTablesRange(5000,6000,182))
+        ranges.add(new GkgTablesRange(6000,7000,203))
+        ranges.add(new GkgTablesRange(7000,8000,224))
+        ranges.add(new GkgTablesRange(8000,9000,245))
+        ranges.add(new GkgTablesRange(9000,10000,266))
+        ranges.add(new GkgTablesRange(10000,13000,295))
+        ranges.add(new GkgTablesRange(13000,16000,324))
+        ranges.add(new GkgTablesRange(16000,19000,353))
+        ranges.add(new GkgTablesRange(19000,22000,382))
+        ranges.add(new GkgTablesRange(22000,25000,411))
+        ranges.add(new GkgTablesRange(25000,30000,449))
+        ranges.add(new GkgTablesRange(30000,35000,487))
+        ranges.add(new GkgTablesRange(35000,40000,525))
+        ranges.add(new GkgTablesRange(40000,45000,563))
+        ranges.add(new GkgTablesRange(45000,50000,601))
+        ranges.add(new GkgTablesRange(50000,65000,733))
+        ranges.add(new GkgTablesRange(65000,80000,865))
+        ranges.add(new GkgTablesRange(80000,95000,997))
+        ranges.add(new GkgTablesRange(95000,110000,1129))
+        ranges.add(new GkgTablesRange(110000,125000,1261))
+        ranges.add(new GkgTablesRange(125000,140000,1396))
+        ranges.add(new GkgTablesRange(140000,155000,1525))
+        ranges.add(new GkgTablesRange(155000,170000,1657))
+        ranges.add(new GkgTablesRange(170000,185000,1789))
+        ranges.add(new GkgTablesRange(185000,200000,1921))
+        ranges.add(new GkgTablesRange(200000,230000,2119))
+        ranges.add(new GkgTablesRange(230000,260000,2317))
+        ranges.add(new GkgTablesRange(260000,290000,2515))
+        ranges.add(new GkgTablesRange(290000,320000,2713))
+        ranges.add(new GkgTablesRange(320000,350000,2911))
+        ranges.add(new GkgTablesRange(350000,380000,3109))
+        ranges.add(new GkgTablesRange(380000,410000,3307))
+        ranges.add(new GkgTablesRange(410000,440000,3505))
+        ranges.add(new GkgTablesRange(440000,470000,3703))
+        ranges.add(new GkgTablesRange(470000,500000,3901))
+        
+    }
+    
+    ArrayList<GkgTablesRange> getRanges() {
+        return ranges
+    }
+    
+    float getMappedValue(float streitWert) {
+           for(GkgTablesRange r: ranges) {
+       if(r.contains(streitWert))
+            return r.mappedValue
+   }
+   return -1f
+    }
+    
+}
+
 
 

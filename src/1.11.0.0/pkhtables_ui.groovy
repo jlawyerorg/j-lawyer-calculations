@@ -732,12 +732,18 @@ ranges.add(new Range(470000,500000,3213))
 //    return ranges
 //}
 
-def float berechneWertGebuehr(float streitWert, float factor) { 
+def float berechneWertGebuehr2013(float streitWert, float factor) { 
 
     PkhTablesRangeList rl = new PkhTablesRangeList()
     return Math.max(rl.getMappedValue(streitWert) * factor, 0);
     
+}
 
+def float berechneWertGebuehr2021(float streitWert, float factor) { 
+
+    PkhTablesRangeList2021 rl = new PkhTablesRangeList2021()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    
 }
 
 new SwingBuilder().edt {
@@ -764,5 +770,3 @@ def String getPkhTableAsHtml() {
 //    println(f.getAbsolutePath())
     return sb.toString();    
 }
-
-

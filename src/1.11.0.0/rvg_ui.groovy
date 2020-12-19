@@ -846,6 +846,22 @@ new SwingBuilder().edt {
                                     }
                                 }
                             }
+                            tr {
+                                td {
+                                    label(text: '')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpRVG = buttonGroup(id:'GrpRVG')
+                                            radioRVG2013 = radioButton(text: 'RVG 2013', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
+                                                calculate()
+                                            })
+                                            radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, stateChanged: {
+                                                calculate()
+                                            })
+                                    }
+                                }
+                            }
                         }
                         /*textlabel = label(text: 'Click the button!', constraints: BL.NORTH)
                         button(text:'Click Me',
@@ -1590,23 +1606,6 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                             }
-                            //Berechnung der PKH Differenz testweise entfernt. Aktuelle Fehler: Anrechnung Vorverfahren und Custom Entrys. Wenn es keinen Widerspruch gibt kann beizeiten der zugehörige Code komplett entfernt werden. Siehe #48
-                            /*tr {
-                            td {
-                            chkdiffPKH = checkBox(id: 'bdiffPKH',text: 'Differenz PKH', selected: false, stateChanged: {
-                            calculate()
-                            })
-                            }
-                            td {
-                            label(text: ' ')
-                            }
-                            td (align: 'right') {
-                            lbldiffPKH = label(text: '0,00')
-                            }
-                            td (align: 'right') {
-                            label(text: 'EUR')
-                            }
-                            }*/
                         }  
                     }     
                 }
@@ -1720,8 +1719,6 @@ def float calculate() {
     gkgtab= new gkgtables_ui()
     float gebuehr=0f
     float faktor=0.0f
-    //float diffPKH=0.0f
-    //float diffstreitwert=0f
 
 
     if (chkstreitwert.isSelected()) {
@@ -1747,22 +1744,37 @@ def float calculate() {
             break
         }
         faktorVV2300.text = faktorFormat.format(faktor)
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV2300.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV2300.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
+            }
         }
+
         lblVV2300.text = df.format(gebuehr)
     } else {
         lblVV2300.text = df.format(0f)
     }
     if(chkVV1000.isSelected()) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
+            }
         }
         lblVV1000.text = df.format(gebuehr)
     } else {
@@ -1790,12 +1802,19 @@ def float calculate() {
             break
         }
         faktorVV3100.text = faktorFormat.format(faktor)
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV3100.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
+            } 
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
-        }     
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV3100.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
+            } 
+        }   
         lblVV3100.text = df.format(gebuehr)
     } else {
         lblVV3100.text = df.format(0f)
@@ -1809,11 +1828,18 @@ def float calculate() {
                 lblAnrechenbarerAnteil.text = lblAnrechenbarerAnteil.text
             } 
         } else {
-            if(chkPKH.isSelected()) {
-                gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
-                //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat()))
+            if (radioRVG2013.isSelected()){
+                if(chkPKH.isSelected()) {
+                    gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                } else {
+                    gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                }
             } else {
-                gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                if(chkPKH.isSelected()) {
+                    gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                } else {
+                    gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
+                }
             } 
             lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
         }
@@ -1822,23 +1848,37 @@ def float calculate() {
     }
 
     if(chkVV3104.isSelected()) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
-        } 
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
+            }
+        }
         lblVV3104.text = df.format(gebuehr)
     } else {
         lblVV3104.text = df.format(0f)
     }
 
     if(chkVV1003.isSelected()) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
+            }
         }
         lblVV1003.text = df.format(gebuehr)
     } else {
@@ -1873,11 +1913,19 @@ def float calculate() {
             break
         }
         faktorVV3200.text = faktorFormat.format(faktor)
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor)-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV3200.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV3200.text).floatValue(), faktor);  
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3200.text).floatValue(), faktor);  
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV3200.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3200.text).floatValue(), faktor);  
+            }
+
         }
         lblVV3200.text = df.format(gebuehr)
     } else {
@@ -1885,11 +1933,19 @@ def float calculate() {
     }
     
     if(chkVV3202.isSelected()) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3202.text).floatValue(), spnVV3202.value.toFloat());
+            }
+
         }
         lblVV3202.text = df.format(gebuehr)
     } else {
@@ -1897,11 +1953,19 @@ def float calculate() {
     }
 
     if(chkVV1003Berufung.isSelected()) {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV1003Berufung.text).floatValue(), spnVV1003Berufung.value.toFloat());
+            }
+
         }
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
@@ -1949,20 +2013,40 @@ def float calculate() {
         txtCustomEntryValue.text = txtCustomEntryValue.text
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 0.3
+        } else {
+            betrag = 0.42
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(0.3f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 25
+        } else {
+            betrag = 30
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG 4 bis 8h'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 40
+        } else {
+            betrag = 50
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(40f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 70
+        } else {
+            betrag = 80
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
         chkUStCustomEntry1.setSelected(true)
@@ -1999,14 +2083,25 @@ def float calculate() {
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
         chkUStCustomEntry2.setSelected(false)
-        gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        if (radioRVG2013.isSelected()){
+            gebuehr=gkgtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        } else {
+            gebuehr=gkgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        }
         txtCustomEntryValue2.text = df.format(gebuehr)
     } else {
-        if(chkPKH.isSelected()) {
-            gebuehr=pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
-            //diffPKH=diffPKH+(rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat())-pkhtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat()))
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            }
         } else {
-            gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+            }
         }
         if (df.parse(txtCustomEntryValue2.text)==0) {
             txtCustomEntryValue2.text = df.format(gebuehr)
@@ -2040,12 +2135,6 @@ def float calculate() {
 
         }
     }
-
-    /*if(chkdiffPKH.isSelected()) {
-    lbldiffPKH.text = df.format(diffPKH)
-    } else {
-    lbldiffPKH.text = df.format(0f)
-    }*/
 
     gebuehr=(
         df.parse(lblVV2300.text)
@@ -2129,6 +2218,12 @@ def String copyToClipboard() {
 
 def StyledCalculationTable copyToDocument() {
     float rowcount=0f
+    String text1008 = '' //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+    if (spnMandanten.value.toFloat()!=1f) {
+        text1008 = ', 1008'
+    } else {
+        text1008 = ''
+    }
     StyledCalculationTable ct=new StyledCalculationTable();
     ct.addHeaders("", "Position", "Betrag");
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -2136,7 +2231,7 @@ def StyledCalculationTable copyToDocument() {
     }
     
     if(chkVV2300.selected) {
-        ct.addRow(faktorVV2300.text, "Geschäftsgebühr Nr. 2300, 1008 VV RVG - " + swVV2300.text + " €", lblVV2300.text + " €");
+        ct.addRow(faktorVV2300.text, "Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG - " + swVV2300.text + " €", lblVV2300.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV1000.selected) {
@@ -2148,7 +2243,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3100.selected) {
-        ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100, 1008 VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
+        ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
         rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
@@ -2168,7 +2263,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV3200.selected) {
-        ct.addRow(faktorVV3200.text, "Verfahrensgebühr Nr. 3200, 1008 VV RVG - " + swVV3200.text + " €", lblVV3200.text + " €");
+        ct.addRow(faktorVV3200.text, "Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG - " + swVV3200.text + " €", lblVV3200.text + " €");
         rowcount=rowcount+1
     }
     if(chkVV3202.selected) {
