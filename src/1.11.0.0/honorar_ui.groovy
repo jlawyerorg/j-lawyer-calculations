@@ -1337,10 +1337,10 @@ def float calculate() {
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
         chkUStCustomEntry2.setSelected(false)
-        gebuehr=gkgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        gebuehr=gkgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         txtCustomEntryValue2.text = df.format(gebuehr)
     } else {
-        gebuehr=rvgtab.berechneWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         txtCustomEntryValue2.text = df.format(gebuehr)
     }
 
