@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "RVG-Tabelle"
 description = "j-lawyer.org RVG-Tabelle"
-version = "1.2.0";
+version = "1.3.0";
 author = "Jens Kutschke, Anatol Anuschewski"
-updated = "04.12.2020"
+updated = "04.01.2021"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 
