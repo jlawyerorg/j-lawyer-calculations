@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner Strafrecht/OWiG"
 description = "j-lawyer.org Rechner Strafrecht/OWiG"
-version = "1.4.0";
+version = "1.5.0";
 author = "Anatol Anuschewski"
-updated = "19.12.2020"
+updated = "10.01.2021"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
  
