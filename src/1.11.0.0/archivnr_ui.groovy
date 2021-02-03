@@ -678,7 +678,7 @@ new SwingBuilder().edt {
             
             tr  {
                 td (colspan:3, align:'center') {
-                    label(text: '<html>Archivnummern generieren: <ol><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Rechnungsnummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in die Notizen oder ein eigenes Feld der Akte eingefügt werden.</li></ol>Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Rechnung werden gespeichert.</html>')
+                    label(text: '<html>Archivnummern generieren: <ol><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Archiv-/Ablagenr. generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in die Notizen oder ein eigenes Feld der Akte eingefügt werden.</li></ol>Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Archivnummer werden gespeichert.</html>')
                 }
                 
             }
@@ -702,6 +702,23 @@ new SwingBuilder().edt {
                 }
                 td (align: 'left') {
                     label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'vorangestellter Präfix:')
+                }
+                td (align: 'left') {
+                    txtArchivNoPoolPrefix=textField(id: 'poolPrefix', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.archivnr.poolPrefix", "A"))
+                }
+                td (align: 'left') {
+//                    panel {
+//                        button(text: 'Übernehmen', actionPerformed: {
+//                                
+//                                //calculate()
+//                            })
+//                                
+//                    }
                 } 
             }
             tr  {
@@ -812,15 +829,17 @@ def void reset() {
 
 def void generate() {
     ServerSettings.getInstance().setSetting("plugins.archivnr.poolBegin", txtArchivNoPoolBegin.text);
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolPrefix", txtArchivNoPoolPrefix.text);
     int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.archivnr.poolValue", "0"));
     int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.archivnr.poolBegin", "0"));
+    String prefix=ServerSettings.getInstance().getSetting("plugins.archivnr.poolPrefix", "A");
     if(beginValue>lastUsed)
         lastUsed=beginValue;
     else 
         lastUsed=lastUsed+1;
     
     String year=new java.text.SimpleDateFormat("yy").format(new java.util.Date());
-    String newValue="" + lastUsed + "/" + year;
+    String newValue=prefix + "" + lastUsed + "/" + year;
     
     txtNewArchivNo.text=newValue;
     
