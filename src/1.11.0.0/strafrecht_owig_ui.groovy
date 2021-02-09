@@ -3274,7 +3274,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
-            ct.addRow("", "Umsatzsteuer " + taxModel.ustPercentageString + "% Nr. 7008 VV RVG", lblmwst.text + " €");
+            ct.addRow(taxModel.ustPercentageString + " %", "Umsatzsteuer Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -3390,9 +3390,9 @@ def StyledCalculationTable copyToDocument() {
         }
     } else {
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
+            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(false);
         } else {
-            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
         }
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {

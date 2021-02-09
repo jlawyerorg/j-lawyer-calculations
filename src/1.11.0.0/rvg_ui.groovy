@@ -1757,7 +1757,7 @@ def float calculate() {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV2300.text).floatValue(), faktor);  
             }
         }
-
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV2300.text = df.format(gebuehr)
     } else {
         lblVV2300.text = df.format(0f)
@@ -1776,6 +1776,7 @@ def float calculate() {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV1000.text).floatValue(), spnVV1000.value.toFloat());
             }
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV1000.text = df.format(gebuehr)
     } else {
         lblVV1000.text = df.format(0f)
@@ -1814,19 +1815,20 @@ def float calculate() {
             } else {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3100.text).floatValue(), faktor);  
             } 
-        }   
+        }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV3100.text = df.format(gebuehr)
     } else {
         lblVV3100.text = df.format(0f)
     }
     
-    if((chkAnrechenbarerAnteil.isSelected()) && (chkVV3100.isSelected()) && (chkVV2300.isSelected())) {
+    if((chkAnrechenbarerAnteil.isSelected()) /*&& (chkVV3100.isSelected()) && (chkVV2300.isSelected())*/) {
         if (chkeditAnrechenbarerAnteil.isSelected()) {
             if(df.parse(lblAnrechenbarerAnteil.text)>0) {
                 lblAnrechenbarerAnteil.text = df.format(df.parse(lblAnrechenbarerAnteil.text) * -1f)
-            } else {
+            } /*else {
                 lblAnrechenbarerAnteil.text = lblAnrechenbarerAnteil.text
-            } 
+            }*/
         } else {
             if (radioRVG2013.isSelected()){
                 if(chkPKH.isSelected()) {
@@ -1861,6 +1863,7 @@ def float calculate() {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3104.text).floatValue(), spnVV3104.value.toFloat());
             }
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV3104.text = df.format(gebuehr)
     } else {
         lblVV3104.text = df.format(0f)
@@ -1880,6 +1883,7 @@ def float calculate() {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV1003.text).floatValue(), spnVV1003.value.toFloat());
             }
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV1003.text = df.format(gebuehr)
     } else {
         lblVV1003.text = df.format(0f)
@@ -1927,6 +1931,7 @@ def float calculate() {
             }
 
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV3200.text = df.format(gebuehr)
     } else {
         lblVV3200.text = df.format(0f)
@@ -1947,6 +1952,7 @@ def float calculate() {
             }
 
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV3202.text = df.format(gebuehr)
     } else {
         lblVV3202.text = df.format(0f)
@@ -1967,6 +1973,7 @@ def float calculate() {
             }
 
         }
+        if (gebuehr<15) {gebuehr = 15f}
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
         lblVV1003Berufung.text = df.format(0f)
@@ -2104,6 +2111,7 @@ def float calculate() {
             }
         }
         if (df.parse(txtCustomEntryValue2.text)==0) {
+            if (gebuehr<15) {gebuehr = 15f}
             txtCustomEntryValue2.text = df.format(gebuehr)
         } else {
             txtCustomEntryValue2.text = txtCustomEntryValue2.text
@@ -2299,7 +2307,7 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
     }
     if(chkmwst.selected) {
-        ct.addRow("", "Umsatzsteuer " + taxModel.ustPercentageString + "% Nr. 7008 VV RVG", lblmwst.text + " €");
+        ct.addRow(taxModel.ustPercentageString + " %", "Umsatzsteuer Nr. 7008 VV RVG", lblmwst.text + " €");
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2414,9 +2422,9 @@ def StyledCalculationTable copyToDocument() {
         }
     } else {
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
+            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(false);
         } else {
-            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
+            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
         }
     }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
