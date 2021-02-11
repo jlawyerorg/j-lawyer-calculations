@@ -16,7 +16,7 @@
     
     <!-- j-lawyer.org version 1.12.0.9  --> 
     <calculation name="rvg" version="2.6.1" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
-    <calculation name="rvgtables" version="1.3.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
+    <calculation name="rvgtables" version="1.4.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.3.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="2.6.1" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.2.0" for="1.12.0.9" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy,GkgTablesRangeList2021.groovy"/>
@@ -28,7 +28,7 @@
     
     <!-- j-lawyer.org version 1.12.0.10  -->
     <calculation name="rvg" version="2.6.1" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
-    <calculation name="rvgtables" version="1.3.0" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
+    <calculation name="rvgtables" version="1.4.0" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.3.0" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="2.6.1" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.2.0" for="1.12.0.10" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy,GkgTablesRangeList2021.groovy"/>
@@ -40,7 +40,7 @@
     
     <!-- j-lawyer.org version 1.13.0.5  -->
     <calculation name="rvg" version="2.6.1" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
-    <calculation name="rvgtables" version="1.3.0" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
+    <calculation name="rvgtables" version="1.4.0" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.3.0" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="2.6.1" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.2.0" for="1.13.0.5" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy,GkgTablesRangeList2021.groovy"/>
@@ -52,7 +52,7 @@
     
     <!-- j-lawyer.org version 1.14.0.0  -->
     <calculation name="rvg" version="2.6.1" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
-    <calculation name="rvgtables" version="1.3.0" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
+    <calculation name="rvgtables" version="1.4.0" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.3.0" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="2.6.1" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy"/>
     <calculation name="gkgtables" version="1.2.0" for="1.14.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="gkgtables_meta.groovy,gkgtables_ui.groovy,GkgTablesRange.groovy,GkgTablesRangeList.groovy,GkgTablesRangeList2021.groovy"/>
