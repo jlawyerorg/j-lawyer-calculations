@@ -914,6 +914,7 @@ new SwingBuilder().edt {
                                 td {
                                     chkVV1000 = checkBox(id: 'bVV1000',text: 'Einigungsgebühr VV1000ff.:', selected: false, stateChanged: {
                                             calculate()
+                                            cal15Abs3()
                                         })
                                 }
                                 td {
@@ -985,6 +986,7 @@ new SwingBuilder().edt {
                                 td {
                                     chkVV3100 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3100:', selected: false, stateChanged: {
                                             calculate()
+                                            cal15Abs3()
                                         })
                                 }
                                 td {
@@ -1094,6 +1096,7 @@ new SwingBuilder().edt {
                                 td {
                                     chkVV1003 = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003f.:', selected: false, stateChanged: {
                                             calculate()
+                                            cal15Abs3()
                                         })
                                 }
                                 td {
@@ -1165,6 +1168,7 @@ new SwingBuilder().edt {
                                 td {
                                     chkVV3200 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3200:', selected: false, stateChanged: {
                                             calculate()
+                                            cal15Abs3()
                                         })
                                 }
                                 td {
@@ -1234,6 +1238,7 @@ new SwingBuilder().edt {
                                 td {
                                     chkVV1003Berufung = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1004.:', selected: false, stateChanged: {
                                             calculate()
+                                            cal15Abs3()
                                         })
                                 }
                                 td {
@@ -1365,8 +1370,9 @@ new SwingBuilder().edt {
                                             'Verfahrensgebühr Nr. 3311 VV RVG',
                                             'Terminsgebühr Nr. 3312 VV RVG',
                                             'Gerichtskostenvorschuss'
-                                            ], editable: true, selectedItem:'', itemStateChanged: {
+                                            ], editable: true, itemStateChanged: {
                                                 setfaktor()
+                                                calculate()
                                             })
                                         label (text: 'Streitwert')
                                         swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
@@ -1397,11 +1403,12 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     panel{
-                                        scrollPane(preferredSize:[550, 100]){
+                                        scrollPane(preferredSize:[580, 100]){
                                             customTable = table(){
                                                 tableModel(){
                                                     closureColumn(header:'Anzahl', read:{it.anzahl}, maxWidth:60)
                                                     closureColumn(header:'Position', read:{it.name})
+                                                    closureColumn(header:'Streitwert', read:{it.streitwert}, maxWidth:80)
                                                     closureColumn(header:'USt', read:{it.ust}, maxWidth:60)
                                                     closureColumn(header:'Betrag', read:{it.number}, maxWidth:80)
                                                 }
@@ -1437,6 +1444,38 @@ new SwingBuilder().edt {
                 td (colfill:true) {
                     panel(border: titledBorder(title: '')) {
                         tableLayout (cellpadding: 5) {
+                            tr {
+                                td {
+                                    chk15Abs3Verfahren =  checkBox(text: 'Deckelung nach § 15 Abs. 3 - Verfahrensgebühr:', selected: false,stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    lbl15Abs3Verfahren = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                            tr {
+                                td {
+                                    chk15Abs3Einigung =  checkBox(text: 'Deckelung nach § 15 Abs. 3 - Einigungsgebühr:', selected: false,stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    lbl15Abs3Einigung = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
                             tr {
                                 td {
                                     label(text: 'Zwischensumme:')
@@ -1651,20 +1690,21 @@ def void delete() {
 }
  
 def void add() {
-    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text]
+    def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'streitwert': '', 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
 }
 
 def void add2() {
-    def newEntry = ['anzahl': faktorFormat.format(spnCustomEntry2.value.toFloat()).toString(), 'name': cmbCustomEntryName2.selectedItem, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text]
+    def newEntry = ['anzahl': faktorFormat.format(spnCustomEntry2.value.toFloat()).toString(), 'name': cmbCustomEntryName2.selectedItem, 'streitwert': swCustomEntry2.text, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text]
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
+    cal15Abs3()
 }
 
-def float setfaktor( ) {
+def void setfaktor( ) {
     switch (cmbCustomEntryName2) {
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -1695,7 +1735,23 @@ def float setfaktor( ) {
         spnCustomEntry2.setValue(0.4)    
         break
     }
-    txtCustomEntryValue2.text = df.format(0f)
+}
+
+//Methode prüft, ob ein fall der Anrechnung nach § 15 Abs 3 RVG vorliegt
+def void cal15Abs3() {
+    //Einigungsgebühr
+    if (chkVV1000.isSelected() && (chkVV1003.isSelected() || chkVV1003Berufung.isSelected())) {
+    chk15Abs3Einigung.setSelected(true)
+    }
+    customRows=customTable.getRowCount()
+
+    //Verfahrensgebühr
+    for(int i=0;i<customRows;i++) {
+        rowCustomEntryName=customTable.getValueAt(i, 1);
+        if (rowCustomEntryName =='Verfahrensgebühr Nr. 3101 VV RVG' && (chkVV3100.isSelected() || chkVV3200.isSelected())) {
+            chk15Abs3Verfahren.setSelected(true)
+        }
+    }
 }
 
 def float calculate() {
@@ -1708,11 +1764,6 @@ def float calculate() {
         txtStreitWert.foreground=java.awt.Color.BLACK
     }
     
-    //println( streitWert.toFloat() * 1.5d)
-    println( betragFormat.parse(streitWert).floatValue() * 1.5d)
-    //nGeschaeftsGebuehr.text = df.format(nStreitwert.text.toInteger() * 1.5d)
-   
-    
     
     rvgtab= new rvgtables_ui()
     pkhtab= new pkhtables_ui()
@@ -1720,6 +1771,7 @@ def float calculate() {
     float gebuehr=0f
     float faktor=0.0f
 
+    customRows=customTable.getRowCount() //Variable: zählt die Tabellenzeilen für die Schleife
 
     if (chkstreitwert.isSelected()) {
         swVV2300.text = df.format(betragFormat.parse(streitWert))
@@ -1793,6 +1845,7 @@ def float calculate() {
     } else {
         lblvorVV7002.text = df.format(0f)
     }
+
     if(chkVV3100.isSelected()) {
         switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1f}: faktor = spnVV3100.value.toFloat()
@@ -2110,7 +2163,7 @@ def float calculate() {
                 gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
             }
         }
-        if (df.parse(txtCustomEntryValue2.text)==0) {
+        if (gebuehr!=0) {
             if (gebuehr<15) {gebuehr = 15f}
             txtCustomEntryValue2.text = df.format(gebuehr)
         } else {
@@ -2126,22 +2179,100 @@ def float calculate() {
 
 
     // custom entries
-    customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
-    // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
     float customSum=0f;
     float customSum2=0f;
     for(int i=0;i<customRows;i++) {
-        rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
-        rowCustomEntryName=customTable.getValueAt(i, 1);
-        rowCustomEntryUSt=customTable.getValueAt(i, 2);
-        rowCustomEntryValue=customTable.getValueAt(i, 3);
+        rowCustomEntryUSt=customTable.getValueAt(i, 3);
+        rowCustomEntryValue=customTable.getValueAt(i, 4);
         if (rowCustomEntryUSt ==taxModel.ustPercentageString) {
             customSum=customSum+df.parse(rowCustomEntryValue);
         } else {
             customSum2=customSum2+df.parse(rowCustomEntryValue);
 
         }
+    }
+
+        if (chk15Abs3Verfahren.isSelected()) {
+        gebuehr = 0
+        //Fragt die customTable ab und sucht nach der VV 3101 Gebühr
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
+            if (rowCustomEntryName =='Verfahrensgebühr Nr. 3101 VV RVG') {
+                //addiert die Verfahrensgebühren
+                anrechnungsgebuehr1 = df.parse(rowCustomEntryValue) + df.parse(lblVV3100.text) + df.parse(lblVV3200.text)
+
+                //addiert die Streitwerte der ausgewählten Verfahrensgebühren
+                float addierteStreitwerte = betragFormat.parse(rowCustomEntryStreitwert).floatValue()
+                if (chkVV3100.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV3100.text).floatValue()}
+                if (chkVV3200.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV3200.text).floatValue()}
+                
+                //Berechnet die Verfahrensgebühr für die addierten Streitwerte
+                faktor = 1.3
+                if (chkVV3200.isSelected()) {faktor = spnVV3200.value.toFloat()} //setzt den Faktor auf 1,6 wenn die Einigung ind er Berufungsinstanz erfolgt
+                if (radioRVG2013.isSelected()){
+                    if(chkPKH.isSelected()) {
+                        anrechnungsgebuehr2=pkhtab.berechneWertGebuehr2013(addierteStreitwerte, faktor);
+                    } else {
+                        anrechnungsgebuehr2=rvgtab.berechneWertGebuehr2013(addierteStreitwerte, faktor);
+                    }
+                } else {
+                        if(chkPKH.isSelected()) {
+                        anrechnungsgebuehr2=pkhtab.berechneWertGebuehr2021(addierteStreitwerte, faktor);
+                    } else {
+                        anrechnungsgebuehr2=rvgtab.berechneWertGebuehr2021(addierteStreitwerte, faktor);
+                    }
+                }
+                //überprüft nach § 15 Abs.3 RVG, ob die addierten Verfahrensgebühren größer sind, als die Verfahrensgebühr der addierten Streitwerte
+                if (anrechnungsgebuehr1>anrechnungsgebuehr2) {
+                    gebuehr = anrechnungsgebuehr1 - anrechnungsgebuehr2
+                    lbl15Abs3Verfahren.text=df.format(gebuehr * -1f)
+                    lbl15Abs3Verfahren.foreground=java.awt.Color.RED
+                }
+            }
+        }
+    } else {
+        lbl15Abs3Verfahren.text=df.format(0)
+        lbl15Abs3Verfahren.foreground=java.awt.Color.BLACK
+    }
+
+
+    if (chk15Abs3Einigung.isSelected()) {
+        gebuehr = 0 
+        //addiert alle Einigungsgebühren
+        anrechnungsgebuehr1 = df.parse(lblVV1000.text) + df.parse(lblVV1003.text) + df.parse(lblVV1003Berufung.text)
+        
+        //addiert die Streitwerte der ausgewählten Einigungsgebühren
+        float addierteStreitwerte = betragFormat.parse(swVV1000.text).floatValue()
+        if (chkVV1003.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV1003.text).floatValue()}
+        if (chkVV1003Berufung.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV1003Berufung.text).floatValue()} 
+        
+        //Berechnet die Einigungsgebühr für die addierten Streitwerte
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                anrechnungsgebuehr2=pkhtab.berechneWertGebuehr2013(addierteStreitwerte, 1.5);
+            } else {
+                anrechnungsgebuehr2=rvgtab.berechneWertGebuehr2013(addierteStreitwerte, 1.5);
+            }
+        } else {
+                if(chkPKH.isSelected()) {
+                anrechnungsgebuehr2=pkhtab.berechneWertGebuehr2021(addierteStreitwerte, 1.5);
+            } else {
+                anrechnungsgebuehr2=rvgtab.berechneWertGebuehr2021(addierteStreitwerte, 1.5);
+            }
+        }
+        
+        //überprüft nach § 15 Abs.3 RVG, ob die addierten Einigungsgebühren größer sind, als die Einigungsgebühr der addierten Streitwerte
+        if (anrechnungsgebuehr1>anrechnungsgebuehr2) {
+            gebuehr = anrechnungsgebuehr1 - anrechnungsgebuehr2
+            lbl15Abs3Einigung.text=df.format(gebuehr * -1f)
+            lbl15Abs3Einigung.foreground=java.awt.Color.RED
+        }
+
+    } else {
+        lbl15Abs3Einigung.text=df.format(0)
+        lbl15Abs3Einigung.foreground=java.awt.Color.BLACK
     }
 
     gebuehr=(
@@ -2158,6 +2289,8 @@ def float calculate() {
         +df.parse(lblVV1003Berufung.text)
         +df.parse(lblVV7002Berufung.text)
         + customSum
+        +df.parse(lbl15Abs3Einigung.text)
+        +df.parse(lbl15Abs3Verfahren.text)
     )
     lblzwsum.text=df.format(gebuehr)
         
@@ -2226,7 +2359,9 @@ def String copyToClipboard() {
 
 def StyledCalculationTable copyToDocument() {
     float rowcount=0f
-    String text1008 = '' //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+
+    //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+    String text1008 = ''
     if (spnMandanten.value.toFloat()!=1f) {
         text1008 = ', 1008'
     } else {
@@ -2287,18 +2422,30 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     customRows=customTable.getRowCount()
-    System.out.println(customRows + " custom entries")
+    //System.out.println(customRows + " custom entries")
     if(customRows>0) {
         for(int i=0;i<customRows;i++) {
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryUSt=customTable.getValueAt(i, 2);
-            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 3);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
-                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-            	rowcount=rowcount+1
+                if (rowCustomEntryStreitwert == '') {//Unterschiedliche Ausgabe für Wertgebühren oder sonstige Auslagen (für die keine Streitwert angegeben ist)
+                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                	rowcount=rowcount+1
+                } else {
+                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
+                	rowcount=rowcount+1
+                } 
             }
         }
+    }
+    if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
+        ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
+    }
+    if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
+        ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
     }
     if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -2315,11 +2462,15 @@ def StyledCalculationTable copyToDocument() {
         for(int i=0;i<customRows;i++) {
             rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
             rowCustomEntryName=customTable.getValueAt(i, 1);
-            rowCustomEntryUSt=customTable.getValueAt(i, 2);
-            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 3);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
             if (rowCustomEntryUSt =='0') {
-                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-            }
+                if (rowCustomEntryStreitwert == '') {
+                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                } else {
+                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
+                }            }
         }
     }
     if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
