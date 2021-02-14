@@ -674,6 +674,8 @@ import javax.swing.JTable
 import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import org.jlawyer.plugins.calculation.Cell
+import rvgtables_ui
+import pkhtables_ui
 import com.jdimension.jlawyer.client.settings.ServerSettings
 
 
@@ -699,6 +701,7 @@ df.setMinimumFractionDigits(2);
 betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
+faktorFormat = new DecimalFormat("0.0");
 quoteFormat = new DecimalFormat("0.00")
 
 taxModel=new TaxModel();
@@ -1241,6 +1244,11 @@ new SwingBuilder().edt {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td {
+                                    label(text: 'Auslagen:')
+                                }
+                            }
+                            tr {
+                                td {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
@@ -1276,7 +1284,59 @@ new SwingBuilder().edt {
                                     panel {
                                         txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
                                         label (text: 'EUR')
-                                        button(text:'Hinzufügen', actionPerformed: { addsonstige() })
+                                        button(text:'Hinzufügen', actionPerformed: { addauslagen() })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    label(text: 'sonstige Wertgebühren:')
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel {
+                                        cmbCustomEntryName2 = comboBox(items: [
+                                            '',
+                                            'eigene',
+                                            'Verfahrensgebühr Nr. 4142 VV RVG',
+                                            'Verfahrensgebühr Nr. 4143 VV RVG',
+                                            'Verfahrensgebühr Nr. 4144 VV RVG',
+                                            'Verfahrensgebühr Nr. 4145 VV RVG',
+                                            'Verfahrensgebühr Nr. 4146 VV RVG',
+                                            ], editable: true, selectedItem:'', itemStateChanged: {
+                                                setWertgebuehr()
+                                            })
+                                        label (text: 'Streitwert')
+                                        swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00', actionPerformed: {
+                                            setWertgebuehr()
+                                            calculate()
+                                        })
+                                        spnCustomEntry2 = spinner(
+                                            model:spinnerNumberModel(minimum:0.0f, 
+                                                maximum: 10.0f, 
+                                                value:0.0f,
+                                                stepSize:0.1f), stateChanged: {
+                                                txtCustomEntryValue2.text=df.format(0)
+                                                calculate()
+                                                setWertgebuehr()
+                                            })
+                                        chkUStCustomEntry2 = checkBox(text: 'USt', selected: true, stateChanged: {
+                                                calculate()
+                                                setWertgebuehr()
+                                            })
+                                        ustCustomEntry2 =  label(text: bind {taxModel.ustPercentageString})
+                                        label (text: '%')
+                                    }
+                                }
+                                td (align: 'right') {
+                                    panel {
+                                        txtCustomEntryValue2 = formattedTextField(id: 'nCustomEntryValue2', format: betragFormat, columns:4, text: '0,00')
+                                        label (text: 'EUR')
+                                        button(text:'Hinzufügen', actionPerformed: { 
+                                            calculate()
+                                            setWertgebuehr()
+                                            addWertgebuehren() })
                                     }
                                 }
                             }
@@ -1668,8 +1728,15 @@ def void delete() {
     calculate()
 }
 
-def void addsonstige() {
+def void addauslagen() {
     def newEntry = ['anzahl': spnCustomEntry1.value.toInteger().toString(), 'name': cmbCustomEntryName.selectedItem, 'ust': ustCustomEntry1.text, 'number': txtCustomEntryValue.text, 'instanz':'S']
+    customTable.model.rowsModel.value.add(newEntry)
+    customTable.model.fireTableDataChanged()
+    calculate()
+}
+
+def void addWertgebuehren() {
+    def newEntry = ['anzahl': faktorFormat.format(spnCustomEntry2.value.toFloat()).toString(), 'name': cmbCustomEntryName2.selectedItem, 'ust': ustCustomEntry2.text, 'number': txtCustomEntryValue2.text, 'instanz':'S']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -1694,6 +1761,59 @@ def void addRevision() {
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
+}
+def void setWertgebuehr( ) {
+    rvgtab= new rvgtables_ui()
+    pkhtab= new pkhtables_ui()
+    float gebuehr=0f
+    switch (cmbCustomEntryName2) {
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 4142 VV RVG'}: 
+        chkUStCustomEntry2.setSelected(true)
+        spnCustomEntry2.setValue(1)
+        break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 4143 VV RVG'}: 
+        chkUStCustomEntry2.setSelected(true)
+        spnCustomEntry2.setValue(2)    
+        break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 4144 VV RVG'}: 
+        chkUStCustomEntry2.setSelected(true)
+        spnCustomEntry2.setValue(2.5)    
+        break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 4145 VV RVG'}: 
+        chkUStCustomEntry2.setSelected(true)
+        spnCustomEntry2.setValue(0.5)    
+        break
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 4146 VV RVG'}: 
+        chkUStCustomEntry2.setSelected(true)
+        spnCustomEntry2.setValue(1.5)    
+        break
+    }
+    
+    if (chkUStCustomEntry2.isSelected()) {
+        ustCustomEntry2.text = taxModel.ustPercentageString
+    } else {
+        ustCustomEntry2.text = '0'
+    }
+    
+    if (radioRVG2013.isSelected()){
+        if(chkPflichtV.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        } else {
+            gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        }
+    } else {
+        if(chkPflichtV.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        } else {
+            gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        }
+     }
+    if (gebuehr!=0) {
+        if (gebuehr<15) {gebuehr = 15f}
+        txtCustomEntryValue2.text = df.format(gebuehr)
+    } else {
+        txtCustomEntryValue2.text = txtCustomEntryValue2.text
+    }
 }
 
 def float calculate() {
