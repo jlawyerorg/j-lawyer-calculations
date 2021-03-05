@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <calculations>
+    
     <!-- j-lawyer.org version 1.11.0.4 -->
     <calculation name="rvg" version="2.6.1" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvg_meta.groovy,rvg_ui.groovy"/>
     <calculation name="rvgtables" version="1.1.1" for="1.11.0.4" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/1.11.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy"/>
