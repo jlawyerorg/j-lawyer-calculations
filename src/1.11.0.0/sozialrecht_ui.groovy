@@ -820,7 +820,10 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV2302.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -844,7 +847,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV1005.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -899,7 +905,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV3102.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -945,7 +954,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV3106.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -969,7 +981,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV1006.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -1024,7 +1039,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV3204.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -1049,7 +1067,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV3205.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -1073,7 +1094,10 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4)
+                                    txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                        cbchVV1006Berufung.setSelectedItem('eigene')
+                                        calculate()
+                                    })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
