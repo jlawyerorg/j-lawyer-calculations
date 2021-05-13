@@ -692,7 +692,7 @@ class PkhTablesRangeList2021 {
         ranges.add(new PkhTablesRange(35000,40000,531))
         ranges.add(new PkhTablesRange(40000,45000,570))
         ranges.add(new PkhTablesRange(45000,50000,609))
-        ranges.add(new PkhTablesRange(50000,500000,659))
+        ranges.add(new PkhTablesRange(50000,5000000,659))
     }
     
     ArrayList<PkhTablesRange> getRanges() {
