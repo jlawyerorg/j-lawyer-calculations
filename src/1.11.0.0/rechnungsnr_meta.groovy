@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechnungsnummern-Generator"
 description = "j-lawyer.org Rechnungsnummern-Generator"
-version = "1.0.0";
+version = "2.0.0";
 author = "Jens Kutschke"
-updated = "03.11.2019"
+updated = "25.06.2021"
 supportedPlaceHolders = ""
 
 
