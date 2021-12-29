@@ -46,5 +46,4 @@ jobs:
           UPLOADUSER: ${{ secrets.UPLOADUSER }}
           UPLOADPWD: ${{ secrets.UPLOADPWD }}
           UPLOADMETAXML: ${{ secrets.UPLOADMETAXML }}
-          UPLOADPLUGINS: ${{ secrets.UPLOADPLUGINS }}
           UPLOADPLUGINS111: ${{ secrets.UPLOADPLUGINS111 }}
