@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Gerichtskostentabelle"
 description = "j-lawyer.org Gerichtskostentabelle GKG Anlage 2"
-version = "1.2.0";
+version = "1.3.0";
 author = "Jens Kutschke, Anatol Anuschewski"
-updated = "04.12.2020"
+updated = "24.05.2022"
 supportedPlaceHolders = "{{GKG_TABELLE}}, {{GKG}}"
 
 
