@@ -764,7 +764,7 @@ new SwingBuilder().edt {
                             })
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard())
+                                binding.callback.processResultToClipboardAsText(copyToClipboard())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
@@ -852,7 +852,7 @@ new SwingBuilder().edt {
                             })
                         cmdCopy2 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard2())
+                                binding.callback.processResultToClipboardAsText(copyToClipboard2())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
@@ -940,7 +940,7 @@ new SwingBuilder().edt {
                             })
                         cmdCopy3 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
                                 if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard3())
+                                binding.callback.processResultToClipboardAsText(copyToClipboard3())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
