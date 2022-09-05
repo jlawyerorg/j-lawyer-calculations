@@ -667,6 +667,9 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
+import java.awt.Toolkit
+import java.awt.datatransfer.Clipboard
+import java.awt.datatransfer.StringSelection
 import com.jdimension.jlawyer.client.settings.ServerSettings
 
 new SwingBuilder().edt {
@@ -763,8 +766,8 @@ new SwingBuilder().edt {
                                 generate()
                             })
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard())
+                                
+                                pushToSystemClipboard(copyToClipboard())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
@@ -851,8 +854,8 @@ new SwingBuilder().edt {
                                 generate2()
                             })
                         cmdCopy2 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard2())
+                                
+                                pushToSystemClipboard(copyToClipboard2())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
@@ -939,8 +942,8 @@ new SwingBuilder().edt {
                                 generate3()
                             })
                         cmdCopy3 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
-                                if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard3())
+                                
+                                pushToSystemClipboard(copyToClipboard3())
                                 // do not close the window - have user do it.
                                 // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
                                 // container.setVisible(false)
@@ -955,6 +958,12 @@ new SwingBuilder().edt {
         }
     }
 
+}
+
+def pushToSystemClipboard(String clip) {
+    StringSelection stsel = new StringSelection(clip);
+    Clipboard system = Toolkit.getDefaultToolkit().getSystemClipboard();
+    system.setContents(stsel, null);
 }
 
 def String copyToClipboard() {
