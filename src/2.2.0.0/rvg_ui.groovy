@@ -1633,7 +1633,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    label(text: 'Zahlbetrag:')
+                                    label(text: 'Gesamt:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -2498,7 +2498,7 @@ def StyledCalculationTable copyToDocument() {
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
         ct.addRow("", "", "");
     }
-    int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
+    int footerRow=ct.addRow("", "Gesamt", lblsum2.text + " €");
     
     //HeaderRow
     ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
