@@ -2593,6 +2593,7 @@ def ArrayList copyToInvoice() {
         pos.setTotal(0f);
         pos.setUnitPrice(0f);
         pos.setUnits(1f);
+    positions.add(pos);
     return positions;
     
 //    float rowcount=0f
