@@ -662,96 +662,49 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-import groovy.swing.SwingBuilder
-import java.awt.BorderLayout as BL
-import groovy.beans.Bindable
-import java.text.DecimalFormat
-import java.util.List
+import java.util.ArrayList
+import PkhTablesRange
 
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
-
-    RvgTablesRangeList rl = new RvgTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+class PkhTablesRangeList2021 { 
+    ArrayList<PkhTablesRange> ranges
     
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    PkhTablesRangeList2021() {
+        ranges=new ArrayList<PkhTablesRange>()
+        ranges.add(new PkhTablesRange(0,500,49))
+        ranges.add(new PkhTablesRange(500,1000,88))
+        ranges.add(new PkhTablesRange(1000,1500,127))
+        ranges.add(new PkhTablesRange(1500,2000,166))
+        ranges.add(new PkhTablesRange(2000,3000,222))
+        ranges.add(new PkhTablesRange(3000,4000,278))
+        ranges.add(new PkhTablesRange(4000,5000,284))
+        ranges.add(new PkhTablesRange(5000,6000,295))
+        ranges.add(new PkhTablesRange(6000,7000,306))
+        ranges.add(new PkhTablesRange(7000,8000,317))
+        ranges.add(new PkhTablesRange(8000,9000,328))
+        ranges.add(new PkhTablesRange(9000,10000,339))
+        ranges.add(new PkhTablesRange(10000,13000,354))
+        ranges.add(new PkhTablesRange(13000,16000,369))
+        ranges.add(new PkhTablesRange(16000,19000,384))
+        ranges.add(new PkhTablesRange(19000,22000,399))
+        ranges.add(new PkhTablesRange(22000,25000,414))
+        ranges.add(new PkhTablesRange(25000,30000,453))
+        ranges.add(new PkhTablesRange(30000,35000,492))
+        ranges.add(new PkhTablesRange(35000,40000,531))
+        ranges.add(new PkhTablesRange(40000,45000,570))
+        ranges.add(new PkhTablesRange(45000,50000,609))
+        ranges.add(new PkhTablesRange(50000,5000000,659))
+    }
     
-}
-
-def float berechneWertGebuehr2021(double streitWert, double factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    ArrayList<PkhTablesRange> getRanges() {
+        return ranges
+    }
     
-}
-
-new SwingBuilder().edt {
-    SCRIPTPANEL=panel(size: [300, 300]) {
-        
-        tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
-            }
-            tr  {
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml())
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml2021())
-                }
-            }
-            
-        
-        }
+    float getMappedValue(float streitWert) {
+           for(PkhTablesRange r: ranges) {
+       if(r.contains(streitWert))
+            return r.mappedValue
+   }
+   return -1f
     }
-
-}
-
-def String getRvgTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
-
-def String getRvgTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+    
 }

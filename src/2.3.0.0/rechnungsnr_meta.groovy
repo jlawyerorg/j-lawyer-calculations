@@ -662,96 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-import groovy.swing.SwingBuilder
-import java.awt.BorderLayout as BL
-import groovy.beans.Bindable
-import java.text.DecimalFormat
-import java.util.List
+name = "Rechnungsnummern-Generator"
+description = "j-lawyer.org Rechnungsnummern-Generator"
+version = "2.1.0";
+author = "Jens Kutschke"
+updated = "05.09.2022"
+supportedPlaceHolders = ""
 
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
 
-    RvgTablesRangeList rl = new RvgTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(double streitWert, double factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-new SwingBuilder().edt {
-    SCRIPTPANEL=panel(size: [300, 300]) {
-        
-        tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
-            }
-            tr  {
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml())
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml2021())
-                }
-            }
-            
-        
-        }
-    }
-
-}
-
-def String getRvgTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
-
-def String getRvgTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}

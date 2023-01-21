@@ -667,91 +667,454 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
-
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
-
-    RvgTablesRangeList rl = new RvgTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(double streitWert, double factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
+import com.jdimension.jlawyer.client.settings.ServerSettings
 
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         
         tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
+            
+            tr  {
+                td (colspan:3, align:'center') {
+                    label(text: '<html>Rechnungsnummern generieren: <ol><li>Schema für Rechnungsnummern vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Rechnungsnummer verwendet werden. Bsp: aus ##### wird für Rechnung 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Rechnungsnummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Rechnung werden gespeichert.</html>')
                 }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
+                
             }
             tr  {
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml())
+                td (align: 'left') {
+                    label(text: '   ')
                 }
-                td (align:'center') {
-                    label (text: '       ')
+                td (align: 'left') {
+                    label(text: '   ')
                 }
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml2021())
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>Bezeichnung:</b></html>')
+                }
+                td (align: 'left') {
+                    txtSchemaName=textField(id: 'invoiceSchemaName', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchemaName", "Nummernkreis 1"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'Nummernschema:')
+                }
+                td (align: 'left') {
+                    txtInvoiceSchema=textField(id: 'invoiceSchema', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchema", "R19#####"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    button(text: 'Zurücksetzen', toolTipText: 'Setzt Schema, Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
+                                reset()
+                                        
+                            })
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'erste Nr. (fortlaufend):')
+                }
+                td (align: 'left') {
+                    txtInvoicePoolBegin=textField(id: 'invoicePoolBegin', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin", "0"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'zuletzt verwendet:')
+                }
+                td (align: 'left') {
+                    lblInvoicePoolValue = label(id: 'invoicePoolValue', text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue", "0"))
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                }
+                td (align: 'left') {
+                    txtNewInvoice=textField(id: 'invoicePoolNewValue', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    panel {
+                        button(text: 'Generieren', actionPerformed: {
+                                
+                                generate()
+                            })
+                        cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboardAsText(copyToClipboard())
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
+                                        
+                            })
+                                
+                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
                 }
             }
             
-        
+            // *********************
+            // SECOND SCHEMA SECTION
+            // *********************
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>Bezeichnung:</b></html>')
+                }
+                td (align: 'left') {
+                    txtSchemaName2=textField(id: 'invoiceSchemaName2', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchemaName.2", "Nummernkreis 2"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'Nummernschema:')
+                }
+                td (align: 'left') {
+                    txtInvoiceSchema2=textField(id: 'invoiceSchema2', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchema.2", "R21#####"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    button(text: 'Zurücksetzen', toolTipText: 'Setzt Schema, Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
+                                reset2()
+                                        
+                            })
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'erste Nr. (fortlaufend):')
+                }
+                td (align: 'left') {
+                    txtInvoicePoolBegin2=textField(id: 'invoicePoolBegin2', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin.2", "0"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'zuletzt verwendet:')
+                }
+                td (align: 'left') {
+                    lblInvoicePoolValue2 = label(id: 'invoicePoolValue2', text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue.2", "0"))
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                }
+                td (align: 'left') {
+                    txtNewInvoice2=textField(id: 'invoicePoolNewValue2', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    panel {
+                        button(text: 'Generieren', actionPerformed: {
+                                
+                                generate2()
+                            })
+                        cmdCopy2 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboardAsText(copyToClipboard2())
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
+                                        
+                            })
+                                
+                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+            }
+            
+            // *********************
+            // THIRD SCHEMA SECTION
+            // *********************
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>Bezeichnung:</b></html>')
+                }
+                td (align: 'left') {
+                    txtSchemaName3=textField(id: 'invoiceSchemaName3', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchemaName.3", "Nummernkreis 3"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'Nummernschema:')
+                }
+                td (align: 'left') {
+                    txtInvoiceSchema3=textField(id: 'invoiceSchema3', columns: 12, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoiceSchema.3", "R21#####"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    button(text: 'Zurücksetzen', toolTipText: 'Setzt Schema, Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
+                                reset3()
+                                        
+                            })
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'erste Nr. (fortlaufend):')
+                }
+                td (align: 'left') {
+                    txtInvoicePoolBegin3=textField(id: 'invoicePoolBegin3', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin.3", "0"), actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'zuletzt verwendet:')
+                }
+                td (align: 'left') {
+                    lblInvoicePoolValue3 = label(id: 'invoicePoolValue3', text: ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue.3", "0"))
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                }
+                td (align: 'left') {
+                    txtNewInvoice3=textField(id: 'invoicePoolNewValue3', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
+                }
+                td (align: 'left') {
+                    panel {
+                        button(text: 'Generieren', actionPerformed: {
+                                
+                                generate3()
+                            })
+                        cmdCopy3 = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboardAsText(copyToClipboard3())
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
+                                        
+                            })
+                                
+                    }
+                } 
+            }
+            
         }
     }
 
 }
 
-def String getRvgTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+def String copyToClipboard() {
+    return txtNewInvoice.text;
 }
 
-def String getRvgTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList2021().getRanges()) {
+def String copyToClipboard2() {
+    return txtNewInvoice2.text;
+}
+
+def String copyToClipboard3() {
+    return txtNewInvoice3.text;
+}
+
+def void reset() {
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName", "Nummernkreis 1");
+    txtSchemaName.text="Nummernkreis 1";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema", "R21#####");
+    txtInvoiceSchema.text="R21#####";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin", "0");
+    txtInvoicePoolBegin.text="0";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue", "0");
+    lblInvoicePoolValue.text="0";
+}
+
+def void reset2() {
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName.2", "Nummernkreis 2");
+    txtSchemaName2.text="Nummernkreis 2";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema.2", "R21#####");
+    txtInvoiceSchema2.text="R21#####";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin.2", "0");
+    txtInvoicePoolBegin2.text="0";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue.2", "0");
+    lblInvoicePoolValue2.text="0";
+}
+
+def void reset3() {
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName.3", "Nummernkreis 3");
+    txtSchemaName3.text="Nummernkreis 3";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema.3", "R21#####");
+    txtInvoiceSchema3.text="R21#####";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin.3", "0");
+    txtInvoicePoolBegin3.text="0";
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue.3", "0");
+    lblInvoicePoolValue3.text="0";
+}
+
+def void generate() {
+    println("generate")
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema", txtInvoiceSchema.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName", txtSchemaName.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin", txtInvoicePoolBegin.text);
+    int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue", "0"));
+    int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin", "0"));
+    if(beginValue>lastUsed)
+        lastUsed=beginValue;
+    else 
+        lastUsed=lastUsed+1;
+    
+    String schema=txtInvoiceSchema.text;
+    String maxIndexes="##########";
+    String newValue="" + lastUsed;
+    
+    while(maxIndexes.length()>1) {
+        String pattern=""
+        for(int i=0;i<maxIndexes.length();i++) {
+            pattern=pattern+"#";
+        }
+        if(newValue.length()>pattern.length())
+            break;
         
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
+        String replacePattern=newValue;
+        for(int i=0;i<(pattern.length()-newValue.length());i++) {
+            replacePattern="0"+replacePattern;
+        }
+        
+        schema=schema.replaceAll(pattern, replacePattern);
+        maxIndexes=maxIndexes.substring(0,maxIndexes.length()-1);
     }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+    txtNewInvoice.text=schema;
+    
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue", "" + lastUsed);
+    lblInvoicePoolValue.text=lastUsed;
+    cmdCopy.enabled=true
+}
+
+def void generate2() {
+    println("generate2")
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema.2", txtInvoiceSchema2.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName.2", txtSchemaName2.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin.2", txtInvoicePoolBegin2.text);
+    int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue.2", "0"));
+    int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin.2", "0"));
+    if(beginValue>lastUsed)
+        lastUsed=beginValue;
+    else 
+        lastUsed=lastUsed+1;
+    
+    String schema=txtInvoiceSchema2.text;
+    String maxIndexes="##########";
+    String newValue="" + lastUsed;
+    
+    while(maxIndexes.length()>1) {
+        String pattern=""
+        for(int i=0;i<maxIndexes.length();i++) {
+            pattern=pattern+"#";
+        }
+        if(newValue.length()>pattern.length())
+            break;
+        
+        String replacePattern=newValue;
+        for(int i=0;i<(pattern.length()-newValue.length());i++) {
+            replacePattern="0"+replacePattern;
+        }
+        
+        schema=schema.replaceAll(pattern, replacePattern);
+        maxIndexes=maxIndexes.substring(0,maxIndexes.length()-1);
+    }
+    txtNewInvoice2.text=schema;
+    
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue.2", "" + lastUsed);
+    lblInvoicePoolValue2.text=lastUsed;
+    cmdCopy2.enabled=true
+}
+
+def void generate3() {
+    println("generate3")
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchema.3", txtInvoiceSchema3.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoiceSchemaName.3", txtSchemaName3.text);
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolBegin.3", txtInvoicePoolBegin3.text);
+    int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolValue.3", "0"));
+    int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.rechnungsnr.invoicePoolBegin.3", "0"));
+    if(beginValue>lastUsed)
+        lastUsed=beginValue;
+    else 
+        lastUsed=lastUsed+1;
+    
+    String schema=txtInvoiceSchema3.text;
+    String maxIndexes="##########";
+    String newValue="" + lastUsed;
+    
+    while(maxIndexes.length()>1) {
+        String pattern=""
+        for(int i=0;i<maxIndexes.length();i++) {
+            pattern=pattern+"#";
+        }
+        if(newValue.length()>pattern.length())
+            break;
+        
+        String replacePattern=newValue;
+        for(int i=0;i<(pattern.length()-newValue.length());i++) {
+            replacePattern="0"+replacePattern;
+        }
+        
+        schema=schema.replaceAll(pattern, replacePattern);
+        maxIndexes=maxIndexes.substring(0,maxIndexes.length()-1);
+    }
+    txtNewInvoice3.text=schema;
+    
+    ServerSettings.getInstance().setSetting("plugins.rechnungsnr.invoicePoolValue.3", "" + lastUsed);
+    lblInvoicePoolValue3.text=lastUsed;
+    cmdCopy3.enabled=true
 }

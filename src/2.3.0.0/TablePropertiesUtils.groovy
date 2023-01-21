@@ -667,91 +667,114 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.util.List
+import java.awt.Color
+import com.jdimension.jlawyer.client.settings.ServerSettings
 
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
 
-    RvgTablesRangeList rl = new RvgTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
+class TablePropertiesUtils { 
 
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
+public static final String KEY_TABLE_LINES_COLOR="plugins.global.tableproperties.table.lines.color";
+public static final Color DEFAULT_TABLE_LINE_COLOR=Color.BLACK;
 
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
+public static final String KEY_HEADER_FORE_COLOR="plugins.global.tableproperties.header.fore.color";
+public static final Color DEFAULT_HEADER_FORE_COLOR=Color.BLACK;
 
-def float berechneWertGebuehr2021(double streitWert, double factor) { 
+public static final String KEY_HEADER_BACK_COLOR="plugins.global.tableproperties.header.back.color";
+public static final Color DEFAULT_HEADER_BACK_COLOR=Color.LIGHT_GRAY;
 
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
+public static final String KEY_ZWISCHENSUMME_FORE_COLOR="plugins.global.tableproperties.zwischensumme.fore.color";
+public static final Color DEFAULT_ZWISCHENSUMME_FORE_COLOR=Color.BLACK;
 
-new SwingBuilder().edt {
-    SCRIPTPANEL=panel(size: [300, 300]) {
+public static final String KEY_ZWISCHENSUMME_BACK_COLOR="plugins.global.tableproperties.zwischensumme.back.color";
+public static final Color DEFAULT_ZWISCHENSUMME_BACK_COLOR=Color.LIGHT_GRAY;
+
+public static final String KEY_FOOTERROW_FORE_COLOR="plugins.global.tableproperties.footerrow.fore.color";
+public static final Color DEFAULT_FOOTERROW_FORE_COLOR=Color.BLACK;
+
+public static final String KEY_FOOTERROW_BACK_COLOR="plugins.global.tableproperties.footerrow.back.color";
+public static final Color DEFAULT_FOOTERROW_BACK_COLOR=Color.LIGHT_GRAY;
+
+
+    TablePropertiesUtils() {
         
-        tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
-            }
-            tr  {
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml())
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml2021())
-                }
-            }
-            
-        
+    }
+    
+    Color getTableLineColor() { 
+
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_TABLE_LINES_COLOR, DEFAULT_TABLE_LINE_COLOR.getRGB());
+        return new Color(rgb);
+    
+    }
+
+    void setTableLineColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_TABLE_LINES_COLOR,""+c.getRGB());
         }
     }
 
-}
-
-def String getRvgTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
+    Color getHeaderForeColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_HEADER_FORE_COLOR, DEFAULT_HEADER_FORE_COLOR.getRGB());
+        return new Color(rgb);
     }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
-
-def String getRvgTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
+    
+    void setHeaderForeColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_HEADER_FORE_COLOR,""+c.getRGB());
+        }
     }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+
+    Color getHeaderBackColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_HEADER_BACK_COLOR, DEFAULT_HEADER_BACK_COLOR.getRGB());
+        return new Color(rgb);
+    }
+    
+    void setHeaderBackColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_HEADER_BACK_COLOR,""+c.getRGB());
+        }
+    }
+
+  Color getZwischensummeForeColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_ZWISCHENSUMME_FORE_COLOR, DEFAULT_ZWISCHENSUMME_FORE_COLOR.getRGB());
+        return new Color(rgb);
+    }
+    
+    void setZwischensummeForeColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_ZWISCHENSUMME_FORE_COLOR,""+c.getRGB());
+        }
+    }
+
+    Color getZwischensummeBackColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_ZWISCHENSUMME_BACK_COLOR, DEFAULT_ZWISCHENSUMME_BACK_COLOR.getRGB());
+        return new Color(rgb);
+    }
+    
+    void setZwischensummeBackColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_ZWISCHENSUMME_BACK_COLOR,""+c.getRGB());
+        }
+    }
+
+    Color getFooterRowForeColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_FOOTERROW_FORE_COLOR, DEFAULT_FOOTERROW_FORE_COLOR.getRGB());
+        return new Color(rgb);
+    }
+    
+    void setFooterRowForeColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_FOOTERROW_FORE_COLOR,""+c.getRGB());
+        }
+    }
+
+    Color getFooterRowBackColor() { 
+        int rgb=ServerSettings.getInstance().getSettingAsInt(KEY_FOOTERROW_BACK_COLOR, DEFAULT_FOOTERROW_BACK_COLOR.getRGB());
+        return new Color(rgb);
+    }
+    
+    void setFooterRowBackColor(Color c) {
+        if(c!=null) {
+            ServerSettings.getInstance().setSetting(KEY_FOOTERROW_BACK_COLOR,""+c.getRGB());
+        }
+    }
 }

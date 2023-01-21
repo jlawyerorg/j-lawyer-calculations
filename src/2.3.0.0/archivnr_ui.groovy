@@ -1,3 +1,4 @@
+
 /*
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
@@ -666,92 +667,183 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 import java.util.List
-
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
-
-    RvgTablesRangeList rl = new RvgTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2021(double streitWert, double factor) { 
-
-    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
+import com.jdimension.jlawyer.client.settings.ServerSettings
 
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         
         tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
+            
+            tr  {
+                td (colspan:3, align:'center') {
+                    label(text: '<html>Archivnummern generieren: <ol><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Archiv-/Ablagenr. generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in die Notizen oder ein eigenes Feld der Akte eingefügt werden.</li></ol>Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Archivnummer werden gespeichert.</html>')
                 }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
+                
             }
             tr  {
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml())
+                td (align: 'left') {
+                    label(text: '   ')
                 }
-                td (align:'center') {
-                    label (text: '       ')
+                td (align: 'left') {
+                    label(text: '   ')
                 }
-                td (align:'center') {
-                    label (text: getRvgTableAsHtml2021())
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'vorangestellter Präfix:')
+                }
+                td (align: 'left') {
+                    txtArchivNoPoolPrefix=textField(id: 'poolPrefix', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.archivnr.poolPrefix", "A"))
+                }
+                td (align: 'left') {
+//                    panel {
+//                        button(text: 'Übernehmen', actionPerformed: {
+//                                
+//                                //calculate()
+//                            })
+//                                
+//                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'erste Nr. (fortlaufend):')
+                }
+                td (align: 'left') {
+                    txtArchivNoPoolBegin=textField(id: 'poolBegin', columns: 4, text: ServerSettings.getInstance().getSetting("plugins.archivnr.poolBegin", "0"))
+                }
+                td (align: 'left') {
+//                    panel {
+//                        button(text: 'Übernehmen', actionPerformed: {
+//                                
+//                                //calculate()
+//                            })
+//                                
+//                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: 'zuletzt verwendet:')
+                }
+                td (align: 'left') {
+                    lblArchivNoPoolValue = label(id: 'poolValue', text: ServerSettings.getInstance().getSetting("plugins.archivnr.poolValue", "0"))
+                }
+                td (align: 'left') {
+                    
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '<html><b>neue Archivnummer:</b></html>')
+                }
+                td (align: 'left') {
+                    txtNewArchivNo=textField(id: 'poolNewValue', enabled: false, columns: 12)
+                }
+                td (align: 'left') {
+                    panel {
+                        button(text: 'Generieren', actionPerformed: {
+                                
+                                generate()
+                            })
+                        cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                if(binding.callback != null)
+                                binding.callback.processResultToClipboard(copyToClipboard())
+                                // do not close the window - have user do it.
+                                // java.awt.Container container=com.jdimension.jlawyer.client.utils.FrameUtils.getDialogOfComponent(SCRIPTPANEL)
+                                // container.setVisible(false)
+                                // ((javax.swing.JDialog)container).dispose()
+                                        
+                            })
+                                
+                    }
+                } 
+            }
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    label(text: '   ')
                 }
             }
             
-        
+            tr  {
+                td (align: 'left') {
+                    label(text: '   ')
+                }
+                td (align: 'left') {
+                    button(text: 'Plugineinstellungen zurücksetzen', toolTipText: 'Setzt Startwert und aktuellen Wert auf Standardwerte zurück', actionPerformed: {
+                                reset()
+                                        
+                            })
+                    
+                }
+            }
+            
         }
     }
 
 }
 
-def String getRvgTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+def String copyToClipboard() {
+    return txtNewArchivNo.text;
 }
 
-def String getRvgTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(RvgTablesRange r: new RvgTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+def void reset() {
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolBegin", "0");
+    txtArchivNoPoolBegin.text="0";
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolValue", "0");
+    lblArchivNoPoolValue.text="0";
+}
+
+def void generate() {
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolBegin", txtArchivNoPoolBegin.text);
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolPrefix", txtArchivNoPoolPrefix.text);
+    int lastUsed=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.archivnr.poolValue", "0"));
+    int beginValue=Integer.parseInt(ServerSettings.getInstance().getSetting("plugins.archivnr.poolBegin", "0"));
+    String prefix=ServerSettings.getInstance().getSetting("plugins.archivnr.poolPrefix", "A");
+    if(beginValue>lastUsed)
+        lastUsed=beginValue;
+    else 
+        lastUsed=lastUsed+1;
+    
+    String year=new java.text.SimpleDateFormat("yy").format(new java.util.Date());
+    String newValue=prefix + "" + lastUsed + "/" + year;
+    
+    txtNewArchivNo.text=newValue;
+    
+    ServerSettings.getInstance().setSetting("plugins.archivnr.poolValue", "" + lastUsed);
+    lblArchivNoPoolValue.text=lastUsed;
+    cmdCopy.enabled=true
 }

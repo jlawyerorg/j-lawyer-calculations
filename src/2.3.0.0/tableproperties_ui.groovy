@@ -662,128 +662,390 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
  */
 
-import java.util.ArrayList
-import RvgTablesRange
+import groovy.swing.SwingBuilder
+import java.awt.BorderLayout as BL
+import groovy.beans.Bindable
+import java.text.DecimalFormat
+import java.util.List
+import com.jdimension.jlawyer.client.settings.ServerSettings
+import java.awt.Color
+import javax.swing.JColorChooser
 
-class RvgTablesRangeList2021 { 
-    ArrayList<RvgTablesRange> ranges
-    
-    RvgTablesRangeList2021() {
-        ranges=new ArrayList<RvgTablesRange>()
-        ranges.add(new RvgTablesRange(0,500,49))
-        ranges.add(new RvgTablesRange(500,1000,88))
-        ranges.add(new RvgTablesRange(1000,1500,127))
-        ranges.add(new RvgTablesRange(1500,2000,166))
-        ranges.add(new RvgTablesRange(2000,3000,222))
-        ranges.add(new RvgTablesRange(3000,4000,278))
-        ranges.add(new RvgTablesRange(4000,5000,334))
-        ranges.add(new RvgTablesRange(5000,6000,390))
-        ranges.add(new RvgTablesRange(6000,7000,446))
-        ranges.add(new RvgTablesRange(7000,8000,502))
-        ranges.add(new RvgTablesRange(8000,9000,558))
-        ranges.add(new RvgTablesRange(9000,10000,614))
-        ranges.add(new RvgTablesRange(10000,13000,666))
-        ranges.add(new RvgTablesRange(13000,16000,718))
-        ranges.add(new RvgTablesRange(16000,19000,770))
-        ranges.add(new RvgTablesRange(19000,22000,822))
-        ranges.add(new RvgTablesRange(22000,25000,874))
-        ranges.add(new RvgTablesRange(25000,30000,955))
-        ranges.add(new RvgTablesRange(30000,35000,1036))
-        ranges.add(new RvgTablesRange(35000,40000,1117))
-        ranges.add(new RvgTablesRange(40000,45000,1198))
-        ranges.add(new RvgTablesRange(45000,50000,1279))
-        ranges.add(new RvgTablesRange(50000,65000,1373))
-        ranges.add(new RvgTablesRange(65000,80000,1467))
-        ranges.add(new RvgTablesRange(80000,95000,1561))
-        ranges.add(new RvgTablesRange(95000,110000,1655))
-        ranges.add(new RvgTablesRange(110000,125000,1749))
-        ranges.add(new RvgTablesRange(125000,140000,1843))
-        ranges.add(new RvgTablesRange(140000,155000,1937))
-        ranges.add(new RvgTablesRange(155000,170000,2031))
-        ranges.add(new RvgTablesRange(170000,185000,2125))
-        ranges.add(new RvgTablesRange(185000,200000,2219))
-        ranges.add(new RvgTablesRange(200000,230000,2351))
-        ranges.add(new RvgTablesRange(230000,260000,2483))
-        ranges.add(new RvgTablesRange(260000,290000,2615))
-        ranges.add(new RvgTablesRange(290000,320000,2747))
-        ranges.add(new RvgTablesRange(320000,350000,2879))
-        ranges.add(new RvgTablesRange(350000,380000,3011))
-        ranges.add(new RvgTablesRange(380000,410000,3143))
-        ranges.add(new RvgTablesRange(410000,440000,3275))
-        ranges.add(new RvgTablesRange(440000,470000,3407))
-        ranges.add(new RvgTablesRange(470000,500000,3539))
-        ranges.add(new RvgTablesRange(500000,550000,3704))
-        ranges.add(new RvgTablesRange(550000,600000,3869))
-        ranges.add(new RvgTablesRange(600000,650000,4034))
-        ranges.add(new RvgTablesRange(650000,700000,4199))
-        ranges.add(new RvgTablesRange(700000,750000,4364))
-        ranges.add(new RvgTablesRange(750000,800000,4529))
-        ranges.add(new RvgTablesRange(800000,850000,4694))
-        ranges.add(new RvgTablesRange(850000,900000,4859))
-        ranges.add(new RvgTablesRange(900000,950000,5024))
-        ranges.add(new RvgTablesRange(950000,1000000,5189))
-        ranges.add(new RvgTablesRange(1000000,1050000,5354))
-        ranges.add(new RvgTablesRange(1050000,1100000,5519))
-        ranges.add(new RvgTablesRange(1100000,1150000,5684))
-        ranges.add(new RvgTablesRange(1150000,1200000,5849))
-        ranges.add(new RvgTablesRange(1200000,1250000,6014))
-        ranges.add(new RvgTablesRange(1250000,1300000,6179))
-        ranges.add(new RvgTablesRange(1300000,1350000,6344))
-        ranges.add(new RvgTablesRange(1350000,1400000,6509))
-        ranges.add(new RvgTablesRange(1400000,1450000,6674))
-        ranges.add(new RvgTablesRange(1450000,1500000,6839))
-        ranges.add(new RvgTablesRange(1500000,1550000,7004))
-        ranges.add(new RvgTablesRange(1550000,1600000,7169))
-        ranges.add(new RvgTablesRange(1600000,1650000,7334))
-        ranges.add(new RvgTablesRange(1650000,1700000,7499))
-        ranges.add(new RvgTablesRange(1700000,1750000,7664))
-        ranges.add(new RvgTablesRange(1750000,1800000,7829))
-        ranges.add(new RvgTablesRange(1800000,1850000,7994))
-        ranges.add(new RvgTablesRange(1850000,1900000,8159))
-        ranges.add(new RvgTablesRange(1900000,1950000,8324))
-        ranges.add(new RvgTablesRange(1950000,2000000,8489))
-        ranges.add(new RvgTablesRange(2000000,2050000,8654))
-        ranges.add(new RvgTablesRange(2050000,2100000,8819))
-        ranges.add(new RvgTablesRange(2100000,2150000,8984))
-        ranges.add(new RvgTablesRange(2150000,2200000,9149))
-        ranges.add(new RvgTablesRange(2200000,2250000,9314))
-        ranges.add(new RvgTablesRange(2250000,2300000,9479))
-        ranges.add(new RvgTablesRange(2300000,2350000,9644))
-        ranges.add(new RvgTablesRange(2350000,2400000,9809))
-        ranges.add(new RvgTablesRange(2400000,2450000,9974))
-        ranges.add(new RvgTablesRange(2450000,2500000,10139))
-        ranges.add(new RvgTablesRange(2500000,2550000,10304))
-        ranges.add(new RvgTablesRange(2550000,2600000,10469))
-        ranges.add(new RvgTablesRange(2600000,2650000,10634))
-        ranges.add(new RvgTablesRange(2650000,2700000,10799))
-        ranges.add(new RvgTablesRange(2700000,2750000,10964))
-        ranges.add(new RvgTablesRange(2750000,2800000,11129))
-        ranges.add(new RvgTablesRange(2800000,2850000,11294))
-        ranges.add(new RvgTablesRange(2850000,2900000,11459))
-        ranges.add(new RvgTablesRange(2900000,2950000,11624))
-        ranges.add(new RvgTablesRange(2950000,3000000,11789))
-
-
-    }
-    
-    ArrayList<RvgTablesRange> getRanges() {
-        return ranges
-    }
-    
-    float getMappedValue(float streitWert) {
-        for(RvgTablesRange r: ranges) {
-            if(r.contains(streitWert))
-            return r.mappedValue
+new SwingBuilder().edt {
+    SCRIPTPANEL=panel(size: [300, 300]) {
+        tableLayout {
+            tr {
+                td (colfill:true) {
+                    panel(border: titledBorder(title: 'Tabelleneinstellungen')) {
+                        tableLayout (cellpadding: 5) {
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Tabellenlayout')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Schriftart')
+                                                }
+                                                td {
+                                                    fontfamily = comboBox(items: com.jdimension.jlawyer.client.utils.FontUtils.getFontFamilies(), editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontfamily", "Arial"), itemStateChanged: {
+                                                            setProps()
+                                                        }
+                                                    )
+                                                    
+                                                }           
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Schriftgröße')
+                                                }
+                                                td {
+                                                    fontsize = comboBox(items: [
+                                            '6',
+                                            '7',
+                                            '8',
+                                            '9',
+                                            '10',
+                                            '12',
+                                            '14',
+                                            '16',
+                                            '18',
+                                            '20',
+                                            '22',
+                                            '24',
+                                            '36'
+                                                        ], editable: true, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontsize", "12"), itemStateChanged: {
+                                                            setProps()
+                                                        }
+                                                    )
+                                                    
+                                                }           
+                                            }
+                                            tr {
+                                                td {
+                                                    tablelines = checkBox(id: 'tablelines', text: 'Tabellenlinien einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }           
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Tabellenlinien Farbe (zZ. fehlerhaft)')
+                                                }
+                                                td (align: 'left'){
+                                                    lineColorButton = button(text: ' ', toolTipText: 'Farbe fuer Tabellenlinien auswaehlen', background: new TablePropertiesUtils().getTableLineColor(), actionPerformed: {
+                                                            lineColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td {
+                                                    tableemptyRows = checkBox(id: 'tableemptyRows', text: 'leere Zeilen einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
+                                                    vorSummeUnderline = checkBox(id: 'vorSummeUnderline', text: 'Zahl vor der Summe unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", false), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Überschrift')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    headerBold = checkBox(id: 'headerBold', text: 'Überschrift Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }         
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Überschrift Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    headerForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Überschrift auswaehlen', background: new TablePropertiesUtils().getHeaderForeColor(), actionPerformed: {
+                                                            headerForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Überschrift Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    headerBackColorButton = button(text: ' ', toolTipText: 'Überschrift Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getHeaderBackColor(), actionPerformed: {
+                                                            headerBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Zwischensumme')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    zwischensummeBold = checkBox(id: 'zwischensummeBold', text: 'Zwischensumme Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }        
+                                            }
+                                            tr {
+                                                td {
+                                                    zwischensummeUnderline = checkBox(id: 'zwischensummeUnderline', text: 'Zwischensumme unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
+                                                    zwischensummeItalic = checkBox(id: 'zwischensummeItalic', text: 'Zwischensumme kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", false), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zwischensumme Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    zwischensummeForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Zwischensumme auswaehlen', background: new TablePropertiesUtils().getZwischensummeForeColor(), actionPerformed: {
+                                                            zwischensummeForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zwischensumme Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    zwischensummeBackColorButton = button(text: ' ', toolTipText: 'Zwischensumme Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getZwischensummeBackColor(), actionPerformed: {
+                                                            zwischensummeBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Zahlbetrag')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    footerRowBold = checkBox(id: 'footerRowBold', text: 'Zahlbetrag Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }        
+                                            }
+                                            tr {
+                                                td {
+                                                    footerRowUnderline = checkBox(id: 'footerRowUnderline', text: 'Zahlbetrag unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
+                                                    footerRowItalic = checkBox(id: 'footerRowItalic', text: 'Zahlbetrag kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Schriftfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    footerRowForeColorButton = button(text: ' ', toolTipText: 'Schriftfarbe Zahlbetrag auswaehlen', background: new TablePropertiesUtils().getFooterRowForeColor(), actionPerformed: {
+                                                            footerRowForeColorSelection();
+                                                        })
+                                                }
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Zahlbetrag Hintergrundfarbe')
+                                                }
+                                                td (align: 'left'){
+                                                    footerRowBackColorButton = button(text: ' ', toolTipText: 'Zahlbetrag Hintergrundfarbe auswaehlen', background: new TablePropertiesUtils().getFooterRowBackColor(), actionPerformed: {
+                                                            footerRowBackColorSelection();
+                                                        })
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            tr {
+                                td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Umsatzsteuersatz')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    panel {
+                                                        btnGrpUst = buttonGroup(id:'GrpUst')
+                                                        radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==16, stateChanged: {
+                                                                setTaxProps()
+                                                            })
+                                                        radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==19, stateChanged: {
+                                                                setTaxProps()
+                                                            })
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }  
+                    }     
+                }
+            }
         }
-        return -1f
     }
-    
-    double getMappedValue(double streitWert) {
-        for(RvgTablesRange r: ranges) {
-            if(r.contains(streitWert))
-            return r.mappedValue
-        }
-        return -1d
+}
+
+def void setProps() {
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontsize", ""+fontsize.getSelectedItem());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontfamily", ""+fontfamily.getSelectedItem());
+    if (tablelines.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+false);
     }
-    
+    if (tableemptyRows.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+false);
+    }
+    if (headerBold.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+false);
+    }
+    if (zwischensummeBold.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+false);
+    }
+    if (zwischensummeUnderline.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+false);
+    }
+    if (vorSummeUnderline.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+false);
+    }
+    if (zwischensummeItalic.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+false);
+    }
+    if (footerRowBold.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+false);
+    }
+    if (footerRowUnderline.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Underline", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Underline", ""+false);
+    }
+    if (footerRowItalic.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+false);
+    }
+}
+
+def void lineColorSelection() {
+    JColorChooser lineColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=lineColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getTableLineColor());
+    if(currentColor!=null) {
+        lineColorButton.setBackground(currentColor);
+        tableProps.setTableLineColor(currentColor);
+    }                     
+}
+
+def void headerForeColorSelection() {
+    JColorChooser headerForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=headerForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getHeaderForeColor());
+    if(currentColor!=null) {
+        headerForeColorButton.setBackground(currentColor);
+        tableProps.setHeaderForeColor(currentColor);
+    }                    
+}
+
+def void headerBackColorSelection() {
+    JColorChooser headerBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=headerBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getHeaderBackColor());
+    if(currentColor!=null) {
+        headerBackColorButton.setBackground(currentColor);
+        tableProps.setHeaderBackColor(currentColor);
+    }                         
+}
+
+def void zwischensummeForeColorSelection() {
+    JColorChooser zwischensummeForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=zwischensummeForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getZwischensummeForeColor());
+    if(currentColor!=null) {
+        zwischensummeForeColorButton.setBackground(currentColor);
+        tableProps.setZwischensummeForeColor(currentColor);
+    }                    
+}
+
+def void zwischensummeBackColorSelection() {
+    JColorChooser zwischensummeBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=zwischensummeBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getZwischensummeBackColor());
+    if(currentColor!=null) {
+        zwischensummeBackColorButton.setBackground(currentColor);
+        tableProps.setZwischensummeBackColor(currentColor);
+    }                    
+}
+
+def void footerRowForeColorSelection() {
+    JColorChooser footerRowForeColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=footerRowForeColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getFooterRowForeColor());
+    if(currentColor!=null) {
+        footerRowForeColorButton.setBackground(currentColor);
+        tableProps.setFooterRowForeColor(currentColor);
+    }                    
+}
+
+def void footerRowBackColorSelection() {
+    JColorChooser footerRowBackColorChooser2=new JColorChooser();
+    TablePropertiesUtils tableProps=new TablePropertiesUtils();
+    Color currentColor=footerRowBackColorChooser2.showDialog(SCRIPTPANEL, "Farbe waehlen", tableProps.getFooterRowBackColor());
+    if(currentColor!=null) {
+        footerRowBackColorButton.setBackground(currentColor);
+        tableProps.setFooterRowBackColor(currentColor);
+    }                    
+}
+
+def void setTaxProps() {
+    float ust=19
+    if (radioUst16.isSelected()) {
+        ust=16;
+    }    
+    new TaxPropertiesUtils().setUstPercentage(ust);
 }
