@@ -75,16 +75,16 @@
         <property environment="env"/>
         <scp file="src/j-lawyer-calculations.xml" todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADMETAXML}" trust="true"/>
         
-        <!-- scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADPLUGINS}" trust="true">
-          <fileset dir="src/1.9.1"/>
-        </scp -->
-        
         <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@${env.UPLOADPLUGINS111}" trust="true">
           <fileset dir="src/1.11.0.0"/>
         </scp>
         
         <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@www.j-lawyer.org:/var/www/vhosts/j-lawyer.org/httpdocs/downloads/j-lawyer-plugins/calculations/2.2.0.0/" trust="true">
           <fileset dir="src/2.2.0.0"/>
+        </scp>
+        
+        <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@www.j-lawyer.org:/var/www/vhosts/j-lawyer.org/httpdocs/downloads/j-lawyer-plugins/calculations/2.3.0.0/" trust="true">
+          <fileset dir="src/2.3.0.0"/>
         </scp>
 
     </target>
