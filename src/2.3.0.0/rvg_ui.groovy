@@ -2319,6 +2319,7 @@ def float calculate() {
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
+    cmdInvoice.enabled=true
     return gebuehr
 }
 
