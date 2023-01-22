@@ -2269,7 +2269,7 @@ def ArrayList copyToInvoice() {
         positions.add(invoicePosition("Terminsgebühr Nr. 3106 VV RVG", taxRate, Float.parseFloat(txtVV3106.text)));
         rowcount=rowcount+1
     }
-    if(chkVV1006.selected) 
+    if(chkVV1006.selected) {
         positions.add(invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", taxRate, Float.parseFloat(txtVV1006.text)));
         rowcount=rowcount+1
     } 
