@@ -1415,6 +1415,11 @@ new SwingBuilder().edt {
                                 binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
                                         
                             })
+                        cmdInvoice = button(text: 'als Rechnung', enabled: false, toolTipText: 'Ergebnis in Rechnung uebernehmen', actionPerformed: {
+                                if(binding.callback != null)
+                                    binding.callback.processResultToInvoice(copyToInvoice())
+                                        
+                            })
                     }
                 }
             }
