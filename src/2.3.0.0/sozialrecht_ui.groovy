@@ -2198,6 +2198,7 @@ def InvoicePosition invoicePosition(String name, float taxRate, float total) {
     pos.setTotal(total);
     pos.setUnitPrice(total);
     pos.setUnits(1f);
+    return pos;
 }
 
 def InvoicePosition invoicePosition(String name, String, description, float taxRate, float total) {
@@ -2208,6 +2209,7 @@ def InvoicePosition invoicePosition(String name, String, description, float taxR
     pos.setTotal(total);
     pos.setUnitPrice(total);
     pos.setUnits(1f);
+    return pos;
 }
 
 def InvoicePosition invoicePosition(float units, String name, float taxRate, float total) {
@@ -2218,6 +2220,7 @@ def InvoicePosition invoicePosition(float units, String name, float taxRate, flo
     pos.setTotal(total);
     pos.setUnitPrice(total);
     pos.setUnits(units);
+    return pos;
 }
 
 def ArrayList copyToInvoice() {
