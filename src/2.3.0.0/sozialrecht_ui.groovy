@@ -2201,7 +2201,7 @@ def InvoicePosition invoicePosition(String name, float taxRate, float total) {
     return pos;
 }
 
-def InvoicePosition invoicePosition(String name, String, description, float taxRate, float total) {
+def InvoicePosition invoicePosition(String name, String description, float taxRate, float total) {
     InvoicePosition pos=new InvoicePosition();
     pos.setDescription(description);
     pos.setName(name);
