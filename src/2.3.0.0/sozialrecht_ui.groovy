@@ -1946,6 +1946,7 @@ switch (cmbCustomEntryName) {
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
+    cmdInvoice.enabled=true
     return gebuehr
 }
 
