@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner Sozialrecht"
 description = "j-lawyer.org Rechner Sozialrecht"
-version = "2.6.2";
+version = "3.0.0";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "14.02.2021"
+updated = "22.01.2023"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 

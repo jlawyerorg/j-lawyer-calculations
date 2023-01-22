@@ -2585,14 +2585,12 @@ def ArrayList copyToInvoice() {
     
     ArrayList positions=new ArrayList();
     InvoicePosition pos=new InvoicePosition();
-        pos.setDescription("Beschreibung RVG");
-        //pos.setInvoice(this.currentEntry);
-        pos.setName("Name RVG");
-        //pos.setPosition(this.pnlInvoicePositions.getComponentCount()+1);
-        pos.setTaxRate(19f);
-        pos.setTotal(0f);
-        pos.setUnitPrice(0f);
-        pos.setUnits(1f);
+    pos.setDescription("Beschreibung RVG");
+    pos.setName("Name RVG");
+    pos.setTaxRate(19f);
+    pos.setTotal(0f);
+    pos.setUnitPrice(0f);
+    pos.setUnits(1f);
     positions.add(pos);
     return positions;
     
