@@ -2191,23 +2191,35 @@ def StyledCalculationTable copyToDocument() {
 }
 
 def InvoicePosition invoicePosition(String name, float taxRate, float total) {
+    
+    float netTotal=total;
+    if(taxRate>0f) {
+        netTotal=total/((100+taxRate)*100);
+    }    
+
     InvoicePosition pos=new InvoicePosition();
     pos.setDescription("");
     pos.setName(name);
     pos.setTaxRate(taxRate);
-    pos.setTotal(total);
-    pos.setUnitPrice(total);
+    pos.setTotal(netTotal);
+    pos.setUnitPrice(netTotal);
     pos.setUnits(1f);
     return pos;
 }
 
 def InvoicePosition invoicePosition(String name, String description, float taxRate, float total) {
+    
+    float netTotal=total;
+    if(taxRate>0f) {
+        netTotal=total/((100+taxRate)*100);
+    }
+    
     InvoicePosition pos=new InvoicePosition();
     pos.setDescription(description);
     pos.setName(name);
     pos.setTaxRate(taxRate);
-    pos.setTotal(total);
-    pos.setUnitPrice(total);
+    pos.setTotal(netTotal);
+    pos.setUnitPrice(netTotal);
     pos.setUnits(1f);
     return pos;
 }
