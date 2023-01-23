@@ -2213,12 +2213,18 @@ def InvoicePosition invoicePosition(String name, String description, float taxRa
 }
 
 def InvoicePosition invoicePosition(float units, String name, float taxRate, float total) {
+    // total includes tax
+    float netTotal=total;
+    if(taxRate>0f) {
+        netTotal=total/((100+taxRate)*100);
+    }
+    
     InvoicePosition pos=new InvoicePosition();
     pos.setDescription("");
     pos.setName(name);
     pos.setTaxRate(taxRate);
-    pos.setTotal(total);
-    pos.setUnitPrice((float)(total / units));
+    pos.setTotal(netTotal);
+    pos.setUnitPrice((float)(netTotal / units));
     pos.setUnits(units);
     return pos;
 }
