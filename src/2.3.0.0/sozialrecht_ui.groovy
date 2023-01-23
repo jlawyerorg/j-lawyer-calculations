@@ -2218,7 +2218,7 @@ def InvoicePosition invoicePosition(float units, String name, float taxRate, flo
     pos.setName(name);
     pos.setTaxRate(taxRate);
     pos.setTotal(total);
-    pos.setUnitPrice(total);
+    pos.setUnitPrice(total / units);
     pos.setUnits(units);
     return pos;
 }
@@ -2327,6 +2327,7 @@ def ArrayList copyToInvoice() {
             rowCustomEntryName=customTable.getValueAt(i, 1);
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
+            
             if (rowCustomEntryUSt =='0') {
                 positions.add(invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
             }
@@ -2337,7 +2338,7 @@ def ArrayList copyToInvoice() {
     }
     
     if(chkquote.selected) {
-        positions.add(invoicePosition("Quote " + txtquote.text + "", taxRate, decF.parse(lblquote.text).floatValue()));
+        positions.add(invoicePosition("QUOTE " + txtquote.text + ": " + lblquote.text, taxRate, 0f));
     }
     if(chkZahlungenBrutto19.selected) {
         positions.add(invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
