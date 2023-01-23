@@ -2218,7 +2218,7 @@ def InvoicePosition invoicePosition(float units, String name, float taxRate, flo
     pos.setName(name);
     pos.setTaxRate(taxRate);
     pos.setTotal(total);
-    pos.setUnitPrice(total / units);
+    pos.setUnitPrice((float)(total / units));
     pos.setUnits(units);
     return pos;
 }
