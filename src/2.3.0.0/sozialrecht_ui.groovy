@@ -2232,12 +2232,15 @@ def ArrayList copyToInvoice() {
     float taxRate=0f;
     if(chkZahlungenBrutto19.selected) {
         taxRate=19f;
+        System.out.println("taxrate 19 " + taxRate);
     }
     if(chkZahlungenBrutto16.selected) {
         taxRate=16f;
+        System.out.println("taxrate 16 " + taxRate);
     }
     if(chkZahlungenNetto.selected) {
         taxRate=0f;
+        System.out.println("taxrate 0 " + taxRate);
     }
     
     
