@@ -2230,22 +2230,16 @@ def ArrayList copyToInvoice() {
     ArrayList positions=new ArrayList();
     
     float taxRate=0f;
-    if(chkZahlungenBrutto19.selected) {
+    if(radioUst19.selected) {
         taxRate=19f;
-        System.out.println("taxrate 19 " + taxRate);
     }
-    if(chkZahlungenBrutto16.selected) {
+    if(radioUst16.selected) {
         taxRate=16f;
-        System.out.println("taxrate 16 " + taxRate);
     }
-    if(chkZahlungenNetto.selected) {
-        taxRate=0f;
-        System.out.println("taxrate 0 " + taxRate);
-    }
-    
     
     float rowcount=0f
-    String text1008 = '' //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+    String text1008 = ''
+    // fuegt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
     if (spnMandanten.value.toFloat()!=1f) {
         text1008 = ', 1008'
     } else {
