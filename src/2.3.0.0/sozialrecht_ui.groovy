@@ -2194,7 +2194,7 @@ def InvoicePosition invoicePosition(String name, float taxRate, float total) {
     
     float netTotal=total;
     if(taxRate>0f) {
-        netTotal=total/((100+taxRate)*100);
+        netTotal=(float)(total/(100f+taxRate)*100f);
     }    
 
     InvoicePosition pos=new InvoicePosition();
@@ -2211,7 +2211,7 @@ def InvoicePosition invoicePosition(String name, String description, float taxRa
     
     float netTotal=total;
     if(taxRate>0f) {
-        netTotal=total/((100+taxRate)*100);
+        netTotal=(float)(total/(100f+taxRate)*100f);
     }
     
     InvoicePosition pos=new InvoicePosition();
@@ -2228,7 +2228,7 @@ def InvoicePosition invoicePosition(float units, String name, float taxRate, flo
     // total includes tax
     float netTotal=total;
     if(taxRate>0f) {
-        netTotal=total/((100+taxRate)*100);
+        netTotal=(float)(total/(100f+taxRate)*100f);
     }
     
     InvoicePosition pos=new InvoicePosition();
