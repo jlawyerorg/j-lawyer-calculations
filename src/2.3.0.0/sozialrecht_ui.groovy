@@ -2190,57 +2190,6 @@ def StyledCalculationTable copyToDocument() {
     return ct;
 }
 
-def InvoicePosition invoicePosition(String name, float taxRate, float total) {
-    
-    float netTotal=total;
-    if(taxRate>0f) {
-        netTotal=(float)(total/(100f+taxRate)*100f);
-    }    
-
-    InvoicePosition pos=new InvoicePosition();
-    pos.setDescription("");
-    pos.setName(name);
-    pos.setTaxRate(taxRate);
-    pos.setTotal(netTotal);
-    pos.setUnitPrice(netTotal);
-    pos.setUnits(1f);
-    return pos;
-}
-
-def InvoicePosition invoicePosition(String name, String description, float taxRate, float total) {
-    
-    float netTotal=total;
-    if(taxRate>0f) {
-        netTotal=(float)(total/(100f+taxRate)*100f);
-    }
-    
-    InvoicePosition pos=new InvoicePosition();
-    pos.setDescription(description);
-    pos.setName(name);
-    pos.setTaxRate(taxRate);
-    pos.setTotal(netTotal);
-    pos.setUnitPrice(netTotal);
-    pos.setUnits(1f);
-    return pos;
-}
-
-def InvoicePosition invoicePosition(float units, String name, float taxRate, float total) {
-    // total includes tax
-    float netTotal=total;
-    if(taxRate>0f) {
-        netTotal=(float)(total/(100f+taxRate)*100f);
-    }
-    
-    InvoicePosition pos=new InvoicePosition();
-    pos.setDescription("");
-    pos.setName(name);
-    pos.setTaxRate(taxRate);
-    pos.setTotal(netTotal);
-    pos.setUnitPrice((float)(netTotal / units));
-    pos.setUnits(units);
-    return pos;
-}
-
 def ArrayList copyToInvoice() {
     
     DecimalFormat decF=new DecimalFormat("0.00");
@@ -2267,51 +2216,51 @@ def ArrayList copyToInvoice() {
     ct.addHeaders("", "Position", "Betrag");
     
     if(chkVV2302.selected) {
-        positions.add(invoicePosition("Geschäftsgebühr Nr. 2302" + text1008 + " VV RVG", taxRate, decF.parse(txtVV2302.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2302" + text1008 + " VV RVG", taxRate, decF.parse(txtVV2302.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV1005.selected) {
-        positions.add(invoicePosition("Einigungsgebühr Nr.1005 VV RVG", taxRate, decF.parse(txtVV1005.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1005 VV RVG", taxRate, decF.parse(txtVV1005.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
-        positions.add(invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", taxRate, decF.parse(lblvorVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", taxRate, decF.parse(lblvorVV7002.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV3102.selected) {
-        positions.add(invoicePosition("Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", taxRate, decF.parse(txtVV3102.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", taxRate, decF.parse(txtVV3102.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
-        positions.add(invoicePosition("abzüglich anrechenbarer Teil", taxRate, decF.parse(lblAnrechenbarerAnteil.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", taxRate, decF.parse(lblAnrechenbarerAnteil.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV3106.selected) {
-        positions.add(invoicePosition("Terminsgebühr Nr. 3106 VV RVG", taxRate, decF.parse(txtVV3106.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3106 VV RVG", taxRate, decF.parse(txtVV3106.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV1006.selected) {
-        positions.add(invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", taxRate, decF.parse(txtVV1006.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", taxRate, decF.parse(txtVV1006.text).floatValue()));
         rowcount=rowcount+1
     } 
     if(chkVV7002.selected) {
-        positions.add(invoicePosition("Auslagen Nr. 7002 VV RVG", taxRate, decF.parse(lblVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", taxRate, decF.parse(lblVV7002.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV3204.selected) {
-        positions.add(invoicePosition("Verfahrensgebühr Nr. 3204" + text1008 + " VV RVG", taxRate, decF.parse(txtVV3204.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3204" + text1008 + " VV RVG", taxRate, decF.parse(txtVV3204.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV3205.selected) {
-        positions.add(invoicePosition("Terminsgebühr Nr. 3205 VV RVG", taxRate, decF.parse(txtVV3205.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3205 VV RVG", taxRate, decF.parse(txtVV3205.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV1006Berufung.selected) {
-        positions.add(invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", taxRate, decF.parse(txtVV1006Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", taxRate, decF.parse(txtVV1006Berufung.text).floatValue()));
         rowcount=rowcount+1
     }
     if(chkVV7002Berufung.selected) {
-        positions.add(invoicePosition("Auslagen Nr. 7002 VV RVG", taxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", taxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
         rowcount=rowcount+1
     }
     customRows=customTable.getRowCount()
@@ -2323,16 +2272,16 @@ def ArrayList copyToInvoice() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
-                positions.add(invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
             	rowcount=rowcount+1
             }
         }
     }
-    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
-        positions.add(invoicePosition("ZWISCHENSUMME: " + lblzwsum.text, taxRate, 0f));
-    }
+//    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
+//        positions.add(InvoiceUtils.invoicePosition("ZWISCHENSUMME: " + lblzwsum.text, taxRate, 0f));
+//    }
     if(chkmwst.selected) {
-        positions.add(invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, decF.parse(lblmwst.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, decF.parse(lblmwst.text).floatValue()));
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2344,25 +2293,25 @@ def ArrayList copyToInvoice() {
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             
             if (rowCustomEntryUSt =='0') {
-                positions.add(invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
             }
         }
     }
-    if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
-        positions.add(invoicePosition("ZWISCHENSUMME: " + lblsum1.text, taxRate, 0f));
-    }
+//    if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
+//        positions.add(InvoiceUtils.invoicePosition("ZWISCHENSUMME: " + lblsum1.text, taxRate, 0f));
+//    }
     
     if(chkquote.selected) {
-        positions.add(invoicePosition("QUOTE " + txtquote.text + ": " + lblquote.text, taxRate, 0f));
+        positions.add(InvoiceUtils.invoicePosition("Information: Quote " + txtquote.text + ": " + lblquote.text, taxRate, 0f));
     }
     if(chkZahlungenBrutto19.selected) {
-        positions.add(invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
     }
     if(chkZahlungenBrutto16.selected) {
-        positions.add(invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
     }
     if(chkZahlungenNetto.selected) {
-        positions.add(invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
     }
     
     return positions;
