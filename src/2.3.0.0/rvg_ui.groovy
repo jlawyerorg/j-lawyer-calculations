@@ -2583,264 +2583,141 @@ def StyledCalculationTable copyToDocument() {
 
 def ArrayList copyToInvoice() {
     
-    ArrayList positions=new ArrayList();
-    InvoicePosition pos=new InvoicePosition();
-    pos.setDescription("Beschreibung RVG");
-    pos.setName("Name RVG");
-    pos.setTaxRate(19f);
-    pos.setTotal(0f);
-    pos.setUnitPrice(0f);
-    pos.setUnits(1f);
-    positions.add(pos);
-    return positions;
+    DecimalFormat decF=new DecimalFormat("0.00");
     
-//    float rowcount=0f
-//
-//    //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
-//    String text1008 = ''
-//    if (spnMandanten.value.toFloat()!=1f) {
-//        text1008 = ', 1008'
-//    } else {
-//        text1008 = ''
-//    }
-//    StyledCalculationTable ct=new StyledCalculationTable();
-//    ct.addHeaders("", "Position", "Betrag");
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//        ct.addRow("", "", "");
-//    }
-//    
-//    if(chkVV2300.selected) {
-//        ct.addRow(faktorVV2300.text, "Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG - " + swVV2300.text + " €", lblVV2300.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV1000.selected) {
-//        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkvorVV7002.selected) {
-//        ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV3100.selected) {
-//        ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkAnrechenbarerAnteil.selected) {
-//        ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV3104.selected) {
-//        ct.addRow(faktorFormat.format(spnVV3104.value.toFloat()).toString(), "Terminsgebühr Nr. 3104 VV RVG - " + swVV3104.text + " €", lblVV3104.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV1003.selected) {
-//        ct.addRow(faktorFormat.format(spnVV1003.value.toFloat()).toString(), "Einigungsgebühr Nr. 1003 VV RVG - " + swVV1003.text + " €", lblVV1003.text + " €");
-//        rowcount=rowcount+1
-//    } 
-//    if(chkVV7002.selected) {
-//        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV3200.selected) {
-//        ct.addRow(faktorVV3200.text, "Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG - " + swVV3200.text + " €", lblVV3200.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV3202.selected) {
-//        ct.addRow(faktorFormat.format(spnVV3202.value.toFloat()).toString(), "Terminsgebühr Nr. 3202 VV RVG - " + swVV3202.text + " €", lblVV3202.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    if(chkVV1003Berufung.selected) {
-//        ct.addRow(faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), "Einigungsgebühr Nr. 1004 VV RVG - " + swVV1003Berufung.text + " €", lblVV1003Berufung.text + " €");
-//        rowcount=rowcount+1
-//    } 
-//    if(chkVV7002Berufung.selected) {
-//        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Berufung.text + " €");
-//        rowcount=rowcount+1
-//    }
-//    customRows=customTable.getRowCount()
-//    //System.out.println(customRows + " custom entries")
-//    if(customRows>0) {
-//        for(int i=0;i<customRows;i++) {
-//            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
-//            rowCustomEntryName=customTable.getValueAt(i, 1);
-//            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
-//            rowCustomEntryUSt=customTable.getValueAt(i, 3);
-//            rowCustomEntryValue=customTable.getValueAt(i, 4);
-//            if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
-//                if (rowCustomEntryStreitwert == '') {//Unterschiedliche Ausgabe für Wertgebühren oder sonstige Auslagen (für die keine Streitwert angegeben ist)
-//                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-//                	rowcount=rowcount+1
-//                } else {
-//                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-//                	rowcount=rowcount+1
-//                } 
-//            }
-//        }
-//    }
-//    if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
-//        ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
-//    }
-//    if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
-//        ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
-//    }
-//    if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
-//        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//            ct.addRow("", "", "");
-//        }
-//        ct.addRow("", "Zwischensumme", lblzwsum.text + " €");
-//    }
-//    if(chkmwst.selected) {
-//        ct.addRow(taxModel.ustPercentageString + " %", "Umsatzsteuer Nr. 7008 VV RVG", lblmwst.text + " €");
-//    }
-//    customRows=customTable.getRowCount()
-//    System.out.println(customRows + " custom entries")
-//    if(customRows>0) {
-//        for(int i=0;i<customRows;i++) {
-//            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
-//            rowCustomEntryName=customTable.getValueAt(i, 1);
-//            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
-//            rowCustomEntryUSt=customTable.getValueAt(i, 3);
-//            rowCustomEntryValue=customTable.getValueAt(i, 4);
-//            if (rowCustomEntryUSt =='0') {
-//                if (rowCustomEntryStreitwert == '') {
-//                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-//                } else {
-//                    ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-//                }            }
-//        }
-//    }
-//    if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
-//        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//            ct.addRow("", "", "");
-//        }
-//        ct.addRow("", "Zwischensumme", lblsum1.text + " €");
-//    }
-//    
-//    if(chkquote.selected) {
-//        ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
-//    }
-//    if(chkZahlungenBrutto19.selected) {
-//        ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
-//        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text + " €", "");
-//    }
-//    if(chkZahlungenBrutto16.selected) {
-//        ct.addRow("", "bisherige Zahlungen inkl. 16% Umsatzsteuer ", "-" + lblZahlungenBrutto16.text + " €");
-//        ct.addRow("", "darin enthaltene USt. (16 %): " + lblmwstZahlung16.text + " €", "");
-//    }
-//    if(chkZahlungenNetto.selected) {
-//        ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
-//    }
-//    
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//        ct.addRow("", "", "");
-//    }
-//    int footerRow=ct.addRow("", "Gesamt", lblsum2.text + " €");
-//    
-//    //HeaderRow
-//    ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
-//    ct.setRowBackGround(0, new TablePropertiesUtils().getHeaderBackColor());
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true)) {
-//        ct.setRowBold(0, true);
-//    } else {
-//        ct.setRowBold(0, false);
-//    }
-//  
-//    //Zwischensumme
-//    ctRows=ct.getRowCount()
-//    if(ctRows>0) {
-//        for(int i=0;i<ctRows;i++) {
-//            if (ct.getValueAt(i, 1) == 'Zwischensumme') {
-//                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true)) {
-//                    ct.setRowBold(i, true);
-//                } else {
-//                    ct.setRowBold(i, false);
-//                }
-//                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true)) {
-//                    //ct.getCellAt(i, 1).setUnderline(true);
-//                    ct.getCellAt(i, 2).setUnderline(true);
-//                } else {
-//                    //ct.getCellAt(i, 1).setUnderline(false);
-//                    ct.getCellAt(i, 2).setUnderline(false);
-//                }
-//                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
-//                    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//                        ct.getCellAt(i-2, 2).setUnderline(true);
-//                    } else {
-//                        ct.getCellAt(i-1, 2).setUnderline(true);
-//                    }
-//                } else {
-//                    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//                        ct.getCellAt(i-2, 2).setUnderline(false);
-//                    } else {
-//                        ct.getCellAt(i-1, 2).setUnderline(false);
-//                    }
-//                }
-//                if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", true)) {
-//                    ct.getCellAt(i, 1).setItalic(true);
-//                    ct.getCellAt(i, 2).setItalic(true);
-//                } else {
-//                    ct.getCellAt(i, 1).setItalic(false);
-//                    ct.getCellAt(i, 2).setItalic(false);
-//                }
-//                ct.setRowForeGround(i, new TablePropertiesUtils().getZwischensummeForeColor());
-//                ct.setRowBackGround(i, new TablePropertiesUtils().getZwischensummeBackColor());
-//            }
-//        }
-//    }
-//
-//    //FooterRow
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true)) {
-//        ct.setRowBold(footerRow, true);
-//    } else {
-//        ct.setRowBold(footerRow, false);
-//    }
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true)) {
-//        //ct.getCellAt(footerRow, 1).setUnderline(true);
-//        ct.getCellAt(footerRow, 2).setUnderline(true);
-//    } else {
-//        //ct.getCellAt(footerRow, 1).setUnderline(false);
-//        ct.getCellAt(footerRow, 2).setUnderline(false);
-//    }
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
-//        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
-//        } else {
-//            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(true);
-//        }
-//    } else {
-//        if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
-//            ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(false);
-//        } else {
-//            ct.getCellAt(ct.getRowCount()-2, 2).setUnderline(false);
-//        }
-//    }
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true)) {
-//        ct.getCellAt(footerRow, 1).setItalic(true);
-//        ct.getCellAt(footerRow, 2).setItalic(true);
-//    } else {
-//        ct.getCellAt(footerRow, 1).setItalic(false);
-//        ct.getCellAt(footerRow, 2).setItalic(false);
-//    }
-//    ct.setRowForeGround(footerRow, new TablePropertiesUtils().getFooterRowForeColor());
-//    ct.setRowBackGround(footerRow, new TablePropertiesUtils().getFooterRowBackColor());
-//    
-//    //TableLayout
-//    ct.setColumnAlignment(2, Cell.ALIGNMENT_RIGHT);
-//    ct.getCellAt(0,1).setAlignment(Cell.ALIGNMENT_LEFT);
-//    ct.setRowFontSize(0, 12);
-//    ct.setColumnWidth(0, 25);
-//    ct.setColumnWidth(1, 120);
-//    ct.setColumnWidth(2, 35);
-//    ct.setFontFamily(ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontfamily", "Arial"));
-//    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true)) {
-//        ct.setLineBorder(true);
-//    } else {
-//        ct.setLineBorder(false);
-//    }
-//    ct.setBorderColor(new TablePropertiesUtils().getTableLineColor());
-//    ct.setFontSize(ServerSettings.getInstance().getSettingAsInt("plugins.global.tableproperties.table.fontsize", 12));
-//    
-//    return ct;
+    float taxRate=0f;
+    if(radioUst19.selected) {
+        taxRate=19f;
+    }
+    if(radioUst16.selected) {
+        taxRate=16f;
+    }
+    
+    float effectiveTaxRate=taxRate;
+    if(!chkmwst.selected) {
+        effectiveTaxRate=0f;
+    }
+    
+    ArrayList positions=new ArrayList();
+    
+    
+    //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
+    String text1008 = ''
+    if (spnMandanten.value.toFloat()!=1f) {
+        text1008 = ', 1008'
+    } else {
+        text1008 = ''
+    }
+        
+    if(chkVV2300.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Streitwert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, decF.parse(lblVV2300.text).floatValue()));
+    }
+    if(chkVV1000.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1000.text).floatValue()));
+    }
+    if(chkvorVV7002.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblvorVV7002.text).floatValue()));
+    }
+    if(chkVV3100.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Streitwert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, decF.parse(lblVV3100.text).floatValue()));
+    }
+    if(chkAnrechenbarerAnteil.selected) {
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, decF.parse(lblAnrechenbarerAnteil.text).floatValue()));
+    }
+    if(chkVV3104.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €" + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV3104.text).floatValue()));
+    }
+    if(chkVV1003.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Streitwert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1003.text).floatValue()));
+    } 
+    if(chkVV7002.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002.text).floatValue()));
+    }
+    if(chkVV3200.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG", "Streitwert " + swVV3200.text + " €, " + "Faktor " + faktorVV3200.text, effectiveTaxRate, decF.parse(lblVV3200.text).floatValue()));
+    }
+    if(chkVV3202.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3202 VV RVG", "Streitwert " + swVV3202.text + " €, " + "Faktor " + faktorFormat.format(spnVV3202.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV3202.text).floatValue()));
+    }
+    if(chkVV1003Berufung.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1004 VV RVG", "Streitwert " + swVV1003Berufung.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1003Berufung.text).floatValue()));
+    } 
+    if(chkVV7002Berufung.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
+    }
+    customRows=customTable.getRowCount()
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 3);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
+            if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
+                if (rowCustomEntryStreitwert == '') {//Unterschiedliche Ausgabe für Wertgebühren oder sonstige Auslagen (für die keine Streitwert angegeben ist)
+                    //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
+                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } 
+            }
+        }
+    }
+    if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
+        //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", effectiveTaxRate, ((float)(-1f * decF.parse(lbl15Abs3Verfahren.text).floatValue()))));
+    }
+    if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
+        //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", effectiveTaxRate, ((float)(-1f * decF.parse(lbl15Abs3Einigung.text).floatValue()))));
+    }
+    
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryUSt=customTable.getValueAt(i, 3);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
+            if (rowCustomEntryUSt =='0') {
+                if (rowCustomEntryStreitwert == '') {
+                    //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
+                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }            
+            }
+        }
+    }
+    
+    if(chkquote.selected) {
+        float q=decF.parse(txtquote.text)
+        if(q>=1) {
+            float fGebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)-df.parse(lblsum1.text)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        } else {
+            float fGebuehr=(float)((df.parse(lblsum1.text)-df.parse(txtquote.text)*df.parse(lblsum1.text))*-1f)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        }
+    }
+    
+    if(chkZahlungenBrutto19.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+    }
+    if(chkZahlungenBrutto16.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+    }
+    if(chkZahlungenNetto.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+    }
+    
+    
+    
+    return positions;
 }
 
 def void updateTax() {

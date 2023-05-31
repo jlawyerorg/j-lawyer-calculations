@@ -677,6 +677,7 @@ import org.jlawyer.plugins.calculation.Cell
 import rvgtables_ui
 import pkhtables_ui
 import com.jdimension.jlawyer.client.settings.ServerSettings
+import com.jdimension.jlawyer.persistence.InvoicePosition
 
 
 @Bindable
@@ -1571,6 +1572,11 @@ new SwingBuilder().edt {
                         cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
                                 if(binding.callback != null)
                                 binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
+                                        
+                            })
+                        cmdInvoice = button(text: 'als Rechnung', enabled: false, toolTipText: 'Ergebnis in Rechnung uebernehmen', actionPerformed: {
+                                if(binding.callback != null)
+                                    binding.callback.processResultToInvoice(copyToInvoice())
                                         
                             })
                     }
@@ -3265,6 +3271,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
+    cmdInvoice.enabled=true
     return gebuehr
 }
 
@@ -3543,6 +3550,164 @@ def StyledCalculationTable copyToDocument() {
     ct.setFontSize(ServerSettings.getInstance().getSettingAsInt("plugins.global.tableproperties.table.fontsize", 12));
 
     return ct;
+}
+
+def ArrayList copyToInvoice() {
+    
+    DecimalFormat decF=new DecimalFormat("0.00");
+    
+    float taxRate=0f;
+    if(radioUst19.selected) {
+        taxRate=19f;
+    }
+    if(radioUst16.selected) {
+        taxRate=16f;
+    }
+    
+    float effectiveTaxRate=taxRate;
+    if(!chkmwst.selected) {
+        effectiveTaxRate=0f;
+    }
+    
+    ArrayList positions=new ArrayList();
+    
+    
+    if(chkVV4100.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4100.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4100.text).floatValue()));
+    }
+    if(chkVV4102.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4102.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4102.text).floatValue()));
+    }
+    if(chkVV4104.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4104.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4104.text).floatValue()));
+    }
+    if(chkVV4141.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4141.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4141.text).floatValue()));
+    }
+    if(chkvorVV7002.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblvorVV7002.text).floatValue()));
+    }
+    if(chkVV4106.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4106.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4106.text).floatValue()));
+    }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='1') {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+    if(chkVV7002.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002.text).floatValue()));
+    }
+    if(chkVV4124.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4124.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4124.text).floatValue()));
+    }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='2') {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+    if(chkVV7002Berufung.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
+    }
+    if(chkVV4130.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4130.text + " VV RVG", effectiveTaxRate, decF.parse(txtVV4130.text).floatValue()));
+    }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='3') {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+    if(chkVV7002Rev.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002Rev.text).floatValue()));
+    }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if ((rowCustomEntryUSt ==(taxModel.ustPercentageString))&&(rowCustomEntryInstanz =='S')) {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+//    if(chkmwst.selected) {
+//        positions.add(InvoiceUtils.invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, decF.parse(lblmwst.text).floatValue()));
+//    }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if ((rowCustomEntryUSt =='0')&&(rowCustomEntryInstanz =='S')) {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+    
+    if(chkquote.selected) {
+        //ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
+        float q=decF.parse(txtquote.text)
+        if(q>=1) {
+            float fGebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)-df.parse(lblsum1.text)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        } else {
+            float fGebuehr=(float)((df.parse(lblsum1.text)-df.parse(txtquote.text)*df.parse(lblsum1.text))*-1f)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        }
+    }
+    if(chkZahlungenBrutto19.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+    }
+    if(chkZahlungenBrutto16.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+    }
+    if(chkZahlungenNetto.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+    }
+    
+    
+    return positions;
+    
 }
 
 def void updateTax() {

@@ -680,51 +680,53 @@ class InvoiceUtils {
         
     public static InvoicePosition invoicePosition(String name, float taxRate, float total) {
     
-        float netTotal=total;
-        if(taxRate>0f) {
-            netTotal=(float)(total/(100f+taxRate)*100f);
-        }    
+//        float netTotal=total;
+//        if(taxRate>0f) {
+//            netTotal=(float)(total/(100f+taxRate)*100f);
+//        }    
 
         InvoicePosition pos=new InvoicePosition();
         pos.setDescription("");
         pos.setName(name);
         pos.setTaxRate(taxRate);
-        pos.setTotal(netTotal);
-        pos.setUnitPrice(netTotal);
+//        pos.setTotal(netTotal);
+        pos.setTotal(total);
+        pos.setUnitPrice(total);
         pos.setUnits(1f);
         return pos;
     }
 
     public static InvoicePosition invoicePosition(String name, String description, float taxRate, float total) {
     
-        float netTotal=total;
-        if(taxRate>0f) {
-            netTotal=(float)(total/(100f+taxRate)*100f);
-        }
+//        float netTotal=total;
+//        if(taxRate>0f) {
+//            netTotal=(float)(total/(100f+taxRate)*100f);
+//        }
     
         InvoicePosition pos=new InvoicePosition();
         pos.setDescription(description);
         pos.setName(name);
         pos.setTaxRate(taxRate);
-        pos.setTotal(netTotal);
-        pos.setUnitPrice(netTotal);
+        //pos.setTotal(netTotal);
+        pos.setTotal(total);
+        pos.setUnitPrice(total);
         pos.setUnits(1f);
         return pos;
     }
 
     public static InvoicePosition invoicePosition(float units, String name, float taxRate, float total) {
         // total includes tax
-        float netTotal=total;
-        if(taxRate>0f) {
-            netTotal=(float)(total/(100f+taxRate)*100f);
-        }
+//        float netTotal=total;
+//        if(taxRate>0f) {
+//            netTotal=(float)(total/(100f+taxRate)*100f);
+//        }
     
         InvoicePosition pos=new InvoicePosition();
         pos.setDescription("");
         pos.setName(name);
         pos.setTaxRate(taxRate);
-        pos.setTotal(netTotal);
-        pos.setUnitPrice((float)(netTotal / units));
+        pos.setTotal(total);
+        pos.setUnitPrice((float)(total / units));
         pos.setUnits(units);
         return pos;
     }

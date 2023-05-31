@@ -678,6 +678,7 @@ import rvgtables_ui
 import pkhtables_ui
 import gkgtables_ui
 import com.jdimension.jlawyer.client.settings.ServerSettings
+import com.jdimension.jlawyer.persistence.InvoicePosition
 
 
 @Bindable
@@ -1182,6 +1183,11 @@ new SwingBuilder().edt {
                                 binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
                                         
                             })
+                        cmdInvoice = button(text: 'als Rechnung', enabled: false, toolTipText: 'Ergebnis in Rechnung uebernehmen', actionPerformed: {
+                                if(binding.callback != null)
+                                    binding.callback.processResultToInvoice(copyToInvoice())
+                                        
+                            })
                     }
                 }
             }   
@@ -1431,6 +1437,7 @@ def float calculate() {
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
+    cmdInvoice.enabled=true
     return gebuehr
 }
 
@@ -1633,6 +1640,105 @@ def StyledCalculationTable copyToDocument() {
     ct.setFontSize(ServerSettings.getInstance().getSettingAsInt("plugins.global.tableproperties.table.fontsize", 12));
 
     return ct;
+}
+
+def ArrayList copyToInvoice() {
+    
+    DecimalFormat decF=new DecimalFormat("0.00");
+    
+    float taxRate=0f;
+    if(radioUst19.selected) {
+        taxRate=19f;
+    }
+    if(radioUst16.selected) {
+        taxRate=16f;
+    }
+    
+    float effectiveTaxRate=taxRate;
+    if(!chkmwst.selected) {
+        effectiveTaxRate=0f;
+    }
+    
+    ArrayList positions=new ArrayList();
+    
+    if(chkhonbr.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, decF.parse(lblhonbr.text).floatValue()));
+    }
+    if(chkhonne.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, decF.parse(lblhonne.text).floatValue()));
+    }    
+    if(chkhonst.selected) {
+        positions.add(InvoiceUtils.invoicePosition("" + spnstunden.value.toInteger().toString() + " h " + spnmin.value.toInteger().toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", effectiveTaxRate, decF.parse(lblhonst.text).floatValue()));
+    }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
+                //positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+    
+//    if(chkmwst.selected) {
+//        positions.add(InvoiceUtils.invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, decF.parse(lblmwst.text).floatValue()));
+//    }
+    customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            if (rowCustomEntryUSt =='0') {
+                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
+    }
+//    if((chkquote.selected)||(chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)||(chkZahlungenNetto.selected)){
+//        ct.addRow("", "Zwischensumme", lblsum1.text + " €");
+//    }
+    
+    if(chkquote.selected) {
+        float q=decF.parse(txtquote.text)
+        if(q>=1) {
+            float fGebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)-df.parse(lblsum1.text)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        } else {
+            float fGebuehr=(float)((df.parse(lblsum1.text)-df.parse(txtquote.text)*df.parse(lblsum1.text))*-1f)
+            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
+        }
+    }
+//    if(chkZahlungenBrutto19.selected) {
+//        ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
+//        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text + " €", "");
+//    }
+//    if(chkZahlungenBrutto16.selected) {
+//        ct.addRow("", "bisherige Zahlungen inkl. 16% Umsatzsteuer ", "-" + lblZahlungenBrutto16.text + " €");
+//        ct.addRow("", "darin enthaltene USt. (16 %): " + lblmwstZahlung16.text + " €", "");
+//    }
+//    if(chkZahlungenNetto.selected) {
+//        ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
+//    }
+    
+    if(chkZahlungenBrutto19.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+    }
+    if(chkZahlungenBrutto16.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+    }
+    if(chkZahlungenNetto.selected) {
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+    }
+      
+    return positions;
+    
 }
 
 def void updateTax() {
