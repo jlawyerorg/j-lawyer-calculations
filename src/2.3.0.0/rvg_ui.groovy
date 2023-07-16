@@ -2583,8 +2583,6 @@ def StyledCalculationTable copyToDocument() {
 
 def ArrayList copyToInvoice() {
     
-    DecimalFormat decF=new DecimalFormat("0.00");
-    
     float taxRate=0f;
     if(radioUst19.selected) {
         taxRate=19f;
@@ -2610,40 +2608,40 @@ def ArrayList copyToInvoice() {
     }
         
     if(chkVV2300.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Streitwert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, decF.parse(lblVV2300.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Streitwert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, df.parse(lblVV2300.text).floatValue()));
     }
     if(chkVV1000.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1000.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
     }
     if(chkvorVV7002.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblvorVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));
     }
     if(chkVV3100.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Streitwert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, decF.parse(lblVV3100.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Streitwert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, df.parse(lblVV3100.text).floatValue()));
     }
     if(chkAnrechenbarerAnteil.selected) {
-        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, decF.parse(lblAnrechenbarerAnteil.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechenbarerAnteil.text).floatValue()));
     }
     if(chkVV3104.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €" + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV3104.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €" + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3104.text).floatValue()));
     }
     if(chkVV1003.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Streitwert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1003.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Streitwert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003.text).floatValue()));
     } 
     if(chkVV7002.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002.text).floatValue()));
     }
     if(chkVV3200.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG", "Streitwert " + swVV3200.text + " €, " + "Faktor " + faktorVV3200.text, effectiveTaxRate, decF.parse(lblVV3200.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG", "Streitwert " + swVV3200.text + " €, " + "Faktor " + faktorVV3200.text, effectiveTaxRate, df.parse(lblVV3200.text).floatValue()));
     }
     if(chkVV3202.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3202 VV RVG", "Streitwert " + swVV3202.text + " €, " + "Faktor " + faktorFormat.format(spnVV3202.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV3202.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3202 VV RVG", "Streitwert " + swVV3202.text + " €, " + "Faktor " + faktorFormat.format(spnVV3202.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3202.text).floatValue()));
     }
     if(chkVV1003Berufung.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1004 VV RVG", "Streitwert " + swVV1003Berufung.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), effectiveTaxRate, decF.parse(lblVV1003Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1004 VV RVG", "Streitwert " + swVV1003Berufung.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003Berufung.text).floatValue()));
     } 
     if(chkVV7002Berufung.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Berufung.text).floatValue()));
     }
     customRows=customTable.getRowCount()
     if(customRows>0) {
@@ -2656,21 +2654,21 @@ def ArrayList copyToInvoice() {
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
                 if (rowCustomEntryStreitwert == '') {//Unterschiedliche Ausgabe für Wertgebühren oder sonstige Auslagen (für die keine Streitwert angegeben ist)
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
                 } else {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
                 } 
             }
         }
     }
     if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
         //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
-        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", effectiveTaxRate, ((float)(-1f * decF.parse(lbl15Abs3Verfahren.text).floatValue()))));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", effectiveTaxRate, ((float)(-1f * df.parse(lbl15Abs3Verfahren.text).floatValue()))));
     }
     if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
         //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
-        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", effectiveTaxRate, ((float)(-1f * decF.parse(lbl15Abs3Einigung.text).floatValue()))));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", effectiveTaxRate, ((float)(-1f * df.parse(lbl15Abs3Einigung.text).floatValue()))));
     }
     
     customRows=customTable.getRowCount()
@@ -2685,17 +2683,17 @@ def ArrayList copyToInvoice() {
             if (rowCustomEntryUSt =='0') {
                 if (rowCustomEntryStreitwert == '') {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
                 } else {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", decF.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
                 }            
             }
         }
     }
     
     if(chkquote.selected) {
-        float q=decF.parse(txtquote.text)
+        float q=df.parse(txtquote.text)
         if(q>=1) {
             float fGebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)-df.parse(lblsum1.text)
             positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
@@ -2706,13 +2704,13 @@ def ArrayList copyToInvoice() {
     }
     
     if(chkZahlungenBrutto19.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*df.parse(lblZahlungenBrutto19.text).floatValue())));
     }
     if(chkZahlungenBrutto16.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*df.parse(lblZahlungenBrutto16.text).floatValue())));
     }
     if(chkZahlungenNetto.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*df.parse(lblZahlungenNetto.text).floatValue())));
     }
     
     
