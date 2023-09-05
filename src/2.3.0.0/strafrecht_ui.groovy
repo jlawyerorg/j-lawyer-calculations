@@ -809,7 +809,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr. 4102:')
                                 }
                                 td {
                                     haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
