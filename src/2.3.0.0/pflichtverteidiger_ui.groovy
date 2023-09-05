@@ -792,7 +792,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr. 4102:')
                                 }
                                 td {
                                     haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
@@ -822,7 +822,7 @@ new SwingBuilder().edt {
                                             })
                                 }
                                 td {
-                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr 4104:')
+                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr. 4104:')
                                 }
                                 td {
                                     haftVV4104 = checkBox(id: 'haftVV4104', text: 'Haft', selected: false, stateChanged: {

@@ -751,7 +751,7 @@ new SwingBuilder().edt {
                                     label(text: 'pauschale Erhöhung/Reduzierung: ')
                                 }
                                 td {
-                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Veringerung um 10%', 'Veringerung um 20%', 'eigene'], selectedItem:'Mittelgebühr', itemStateChanged: {
+                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Verringerung um 10%', 'Verringerung um 20%', 'eigene'], selectedItem:'Mittelgebühr', itemStateChanged: {
                                                 calculate()
                                             })
                                     }
@@ -1427,9 +1427,9 @@ def float calculate() {
         break
         case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 10%'}:change = 1.1f
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 10%'}:change = 0.9f
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 10%'}:change = 0.9f
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 20%'}:change = 0.8f
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 20%'}:change = 0.8f
         break
         default: change = 1.0f
     }

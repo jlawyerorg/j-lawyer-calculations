@@ -756,7 +756,7 @@ new SwingBuilder().edt {
                                     label(text: 'pauschale Erhöhung/Reduzierung: ')
                                 }
                                 td {
-                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Veringerung um 10%', 'Veringerung um 20%'], selectedItem:'Mittelgebühr', itemStateChanged: {
+                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Verringerung um 10%', 'Verringerung um 20%'], selectedItem:'Mittelgebühr', itemStateChanged: {
                                                 calculate()
                                                 setchange()
                                             })
@@ -1634,7 +1634,7 @@ def void setchange(){
         cbchVV4130.setSelectedItem('+10%')
         cbchTerminRev.setSelectedItem('+10%')
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 10%'}:
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 10%'}:
         cbchVV4100.setSelectedItem('-10%')
         cbchVV4104.setSelectedItem('-10%')
         cbchVV4102.setSelectedItem('-10%')
@@ -1645,7 +1645,7 @@ def void setchange(){
         cbchVV4130.setSelectedItem('-10%')
         cbchTerminRev.setSelectedItem('-10%')
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 20%'}:
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 20%'}:
         cbchVV4100.setSelectedItem('-20%')
         cbchVV4104.setSelectedItem('-20%')
         cbchVV4102.setSelectedItem('-20%')
