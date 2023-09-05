@@ -94,7 +94,7 @@
     <calculation name="honorar" version="3.0.0" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="honorar_meta.groovy,honorar_ui.groovy,InvoiceUtils.groovy"/>
     <calculation name="rechnungsnr" version="2.1.0" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rechnungsnr_meta.groovy,rechnungsnr_ui.groovy"/>
     <calculation name="archivnr" version="1.2.0" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="archivnr_meta.groovy,archivnr_ui.groovy"/>
-    <calculation name="strafrecht_owig" version="2.0.0" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy,InvoiceUtils.groovy"/>
+    <calculation name="strafrecht_owig" version="2.0.1" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="strafrecht_owig_meta.groovy,strafrecht_owig_ui.groovy,InvoiceUtils.groovy"/>
     <calculation name="tableproperties" version="1.2.0" for="2.4.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>    
     
     
