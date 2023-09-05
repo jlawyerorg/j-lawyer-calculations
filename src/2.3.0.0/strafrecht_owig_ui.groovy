@@ -894,7 +894,7 @@ new SwingBuilder().edt {
                                             })
                                 }
                                 td {
-                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr 4104:')
+                                    lblVV4104 = label(id: 'nVV4104', text: 'Verfahrensgebühr Nr. 4104:')
                                 }
                                 td {
                                     haftVV4104 = checkBox(id: 'haftVV4104', text: 'Haft', selected: false, stateChanged: {
@@ -923,7 +923,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr. 4102:')
                                 }
                                 td {
                                     haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
@@ -952,7 +952,7 @@ new SwingBuilder().edt {
                                    })
                                 }
                                 td {
-                                    lblVV4141 = label(id:'nVV4141', text: 'Erledigungsgebühr Nr 4141')
+                                    lblVV4141 = label(id:'nVV4141', text: 'Erledigungsgebühr Nr. 4141')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1253,7 +1253,7 @@ new SwingBuilder().edt {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
-                                            'Kopien schwarz/weiß Nr.7000 VV RVG',
+                                            'Kopien schwarz/weiß Nr. 7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
@@ -2122,7 +2122,7 @@ def float calculate() {
 
     if (chkVV4141.isSelected()) {//Erledigungsgebühr = Verfahrensgebühr jeweils Festgebühr oder Mittelgebühr
         if (chkowig.isSelected()) {
-            lblVV4141.text = 'Erledigungsgebühr Nr 5115'
+            lblVV4141.text = 'Erledigungsgebühr Nr. 5115'
             if (chkVV4124.isSelected()) {
                 if (chkPflichtV.isSelected()) {
                     if (radioRVG2013.isSelected()){
@@ -2189,7 +2189,7 @@ def float calculate() {
                 txtVV4141.text = df.format(0f)
             }
         } else {
-            lblVV4141.text = 'Erledigungsgebühr Nr 4141'
+            lblVV4141.text = 'Erledigungsgebühr Nr. 4141'
             if (chkVV4130.isSelected()) {
                 if (chkPflichtV.isSelected()) {
                     if (radioRVG2013.isSelected()){

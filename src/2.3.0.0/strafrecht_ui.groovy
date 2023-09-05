@@ -866,7 +866,7 @@ new SwingBuilder().edt {
                                    })
                                 }
                                 td {
-                                    label(text: 'Erledigungsgebühr Nr 4141:')
+                                    label(text: 'Erledigungsgebühr Nr. 4141:')
                                 }
                                 td {
                                     label(text: ' ')
@@ -1704,7 +1704,7 @@ def float calculate() {
     }
     
     switch (cmbCustomEntryName) {
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()*0.5f
