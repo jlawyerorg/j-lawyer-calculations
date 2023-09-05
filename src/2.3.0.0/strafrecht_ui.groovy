@@ -809,7 +809,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr 4102:')
+                                    lblVV4102 = label(id: 'nVV4102', text: 'Terminsgebühr Nr. 4102:')
                                 }
                                 td {
                                     haftVV4102 = checkBox(id: 'haftVV4102', text: 'Haft', selected: false, stateChanged: {
@@ -1128,7 +1128,7 @@ new SwingBuilder().edt {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
-                                            'Kopien schwarz/weiß Nr.7000 VV RVG',
+                                            'Kopien schwarz/weiß Nr. 7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
@@ -1704,7 +1704,7 @@ def float calculate() {
     }
     
     switch (cmbCustomEntryName) {
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()*0.5f
