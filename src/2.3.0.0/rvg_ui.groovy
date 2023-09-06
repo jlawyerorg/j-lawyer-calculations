@@ -1281,7 +1281,7 @@ new SwingBuilder().edt {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
-                                            'Kopien schwarz/weiß Nr.7000 VV RVG',
+                                            'Kopien schwarz/weiß Nr. 7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
@@ -2022,7 +2022,7 @@ def float calculate() {
     }
     
     switch (cmbCustomEntryName) {
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()*0.5f
@@ -2351,7 +2351,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV1000.selected) {
-        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr.1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr. 1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
@@ -2611,7 +2611,7 @@ def ArrayList copyToInvoice() {
         positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Streitwert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, df.parse(lblVV2300.text).floatValue()));
     }
     if(chkVV1000.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
     }
     if(chkvorVV7002.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));

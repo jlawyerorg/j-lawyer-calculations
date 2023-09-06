@@ -755,7 +755,7 @@ new SwingBuilder().edt {
                                     label(text: 'pauschale Erhöhung/Reduzierung: ')
                                 }
                                 td {
-                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Veringerung um 10%', 'Veringerung um 20%'], selectedItem:'Mittelgebühr', itemStateChanged: {
+                                        cbchange=comboBox(id:'cb', items:['Erhöhung um 20%', 'Erhöhung um 10%', 'Mittelgebühr', 'Verringerung um 10%', 'Verringerung um 20%'], selectedItem:'Mittelgebühr', itemStateChanged: {
                                                 setchange()
                                             })
                                     }
@@ -1140,7 +1140,7 @@ new SwingBuilder().edt {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
-                                            'Kopien schwarz/weiß Nr.7000 VV RVG',
+                                            'Kopien schwarz/weiß Nr. 7000 VV RVG',
                                             'Kopien farbe Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
@@ -1465,7 +1465,7 @@ def void setchange(){
         cbchVV3205.setSelectedItem('+10%')
         cbchVV1006Berufung.setSelectedItem('+10%')
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 10%'}:
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 10%'}:
         cbchVV3102.setSelectedItem('-10%')
         cbchVV3106.setSelectedItem('-10%')
         cbchVV1006.setSelectedItem('-10%')
@@ -1473,7 +1473,7 @@ def void setchange(){
         cbchVV3205.setSelectedItem('-10%')
         cbchVV1006Berufung.setSelectedItem('-10%')
         break
-        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Veringerung um 20%'}:
+        case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 20%'}:
         cbchVV3102.setSelectedItem('-20%')
         cbchVV3106.setSelectedItem('-20%')
         cbchVV1006.setSelectedItem('-20%')
@@ -1765,7 +1765,7 @@ def float calculate() {
     }
 
 switch (cmbCustomEntryName) {
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr.7000 VV RVG'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toFloat()<= 50f) {
             gebuehr = spnCustomEntry1.value.toFloat()*0.5f
@@ -1976,7 +1976,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV1005.selected) {
-        ct.addRow("", "Einigungsgebühr Nr.1005 VV RVG", txtVV1005.text + " €");
+        ct.addRow("", "Einigungsgebühr Nr. 1005 VV RVG", txtVV1005.text + " €");
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
