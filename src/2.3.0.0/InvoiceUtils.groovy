@@ -730,5 +730,22 @@ class InvoiceUtils {
         pos.setUnits(units);
         return pos;
     }
+    
+    public static InvoicePosition invoicePosition(float units, String name, String description, float taxRate, float total) {
+        // total includes tax
+//        float netTotal=total;
+//        if(taxRate>0f) {
+//            netTotal=(float)(total/(100f+taxRate)*100f);
+//        }
+    
+        InvoicePosition pos=new InvoicePosition();
+        pos.setDescription(description);
+        pos.setName(name);
+        pos.setTaxRate(taxRate);
+        pos.setTotal(total);
+        pos.setUnitPrice((float)(total / units));
+        pos.setUnits(units);
+        return pos;
+    }
 
 }

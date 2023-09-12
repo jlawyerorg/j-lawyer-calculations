@@ -3696,13 +3696,13 @@ def ArrayList copyToInvoice() {
         }
     }
     if(chkZahlungenBrutto19.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto19.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto19.text, 19f, (float)(-1f*betragFormat.parse(lblZahlungenBrutto19.text).floatValue()/1.19f)));
     }
     if(chkZahlungenBrutto16.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "darin enthaltene USt. (16%): " + lblmwstZahlung16.text, 0f, (float)(-1f*decF.parse(lblZahlungenBrutto16.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto16.text, 16f, (float)(-1f*betragFormat.parse(lblZahlungenBrutto16.text).floatValue()/1.16f)));
     }
     if(chkZahlungenNetto.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*decF.parse(lblZahlungenNetto.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*betragFormat.parse(lblZahlungenNetto.text).floatValue())));
     }
     
     
