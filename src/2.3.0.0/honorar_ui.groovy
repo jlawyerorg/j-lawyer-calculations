@@ -1662,13 +1662,13 @@ def ArrayList copyToInvoice() {
     ArrayList positions=new ArrayList();
     
     if(chkhonbr.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, decF.parse(lblhonbr.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, df.parse(lblhonbr.text).floatValue()));
     }
     if(chkhonne.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, decF.parse(lblhonne.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Pauschalhonorar", effectiveTaxRate, df.parse(lblhonne.text).floatValue()));
     }    
     if(chkhonst.selected) {
-        positions.add(InvoiceUtils.invoicePosition("" + spnstunden.value.toInteger().toString() + " h " + spnmin.value.toInteger().toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", effectiveTaxRate, decF.parse(lblhonst.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("" + spnstunden.value.toInteger().toString() + " h " + spnmin.value.toInteger().toString() + " min", "Zeithonorar - " + txthonst.text + " € pro Stunde", effectiveTaxRate, df.parse(lblhonst.text).floatValue()));
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
