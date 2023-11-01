@@ -713,7 +713,7 @@ new SwingBuilder().edt {
                                             '22',
                                             '24',
                                             '36'
-                                                        ], editable: true, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontsize", "12"), itemStateChanged: {
+                                                        ], editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontsize", "12"), itemStateChanged: {
                                                             setProps()
                                                         }
                                                     )
