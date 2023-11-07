@@ -2663,12 +2663,12 @@ def ArrayList copyToInvoice() {
         }
     }
     if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
-        //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
-        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", effectiveTaxRate, ((float)(-1f * df.parse(lbl15Abs3Verfahren.text).floatValue()))));
+        // not multiplied with -1 because the label already contains a negative value
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", effectiveTaxRate, ((float)(df.parse(lbl15Abs3Verfahren.text).floatValue()))));
     }
     if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
-        //ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
-        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", effectiveTaxRate, ((float)(-1f * df.parse(lbl15Abs3Einigung.text).floatValue()))));
+        // not multiplied with -1 because the label already contains a negative value
+        positions.add(InvoiceUtils.invoicePosition("abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", effectiveTaxRate, ((float)(df.parse(lbl15Abs3Einigung.text).floatValue()))));
     }
     
     customRows=customTable.getRowCount()
