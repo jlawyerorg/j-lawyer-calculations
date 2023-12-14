@@ -1280,7 +1280,7 @@ def float calculate() {
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(0.3f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(0.42f*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
         chkUStCustomEntry1.setSelected(true)
