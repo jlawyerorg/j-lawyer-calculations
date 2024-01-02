@@ -2623,7 +2623,7 @@ def ArrayList copyToInvoice() {
         positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechenbarerAnteil.text).floatValue()));
     }
     if(chkVV3104.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €" + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3104.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €, " + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3104.text).floatValue()));
     }
     if(chkVV1003.selected) {
         positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Streitwert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003.text).floatValue()));

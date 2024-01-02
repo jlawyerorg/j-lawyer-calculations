@@ -662,49 +662,11 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-import java.util.ArrayList
-import PkhTablesRange
+name = "Tabelleneinstellungen"
+description = "j-lawyer.org Tabelleneinstellungen"
+version = "1.3.0";
+author = "Anatol Anuschewski, Jens Kutschke"
+updated = "03.01.2024"
+supportedPlaceHolders = ""
 
-class PkhTablesRangeList2021 { 
-    ArrayList<PkhTablesRange> ranges
-    
-    PkhTablesRangeList2021() {
-        ranges=new ArrayList<PkhTablesRange>()
-        ranges.add(new PkhTablesRange(0,500,49))
-        ranges.add(new PkhTablesRange(500,1000,88))
-        ranges.add(new PkhTablesRange(1000,1500,127))
-        ranges.add(new PkhTablesRange(1500,2000,166))
-        ranges.add(new PkhTablesRange(2000,3000,222))
-        ranges.add(new PkhTablesRange(3000,4000,278))
-        ranges.add(new PkhTablesRange(4000,5000,284))
-        ranges.add(new PkhTablesRange(5000,6000,295))
-        ranges.add(new PkhTablesRange(6000,7000,306))
-        ranges.add(new PkhTablesRange(7000,8000,317))
-        ranges.add(new PkhTablesRange(8000,9000,328))
-        ranges.add(new PkhTablesRange(9000,10000,339))
-        ranges.add(new PkhTablesRange(10000,13000,354))
-        ranges.add(new PkhTablesRange(13000,16000,369))
-        ranges.add(new PkhTablesRange(16000,19000,384))
-        ranges.add(new PkhTablesRange(19000,22000,399))
-        ranges.add(new PkhTablesRange(22000,25000,414))
-        ranges.add(new PkhTablesRange(25000,30000,453))
-        ranges.add(new PkhTablesRange(30000,35000,492))
-        ranges.add(new PkhTablesRange(35000,40000,531))
-        ranges.add(new PkhTablesRange(40000,45000,570))
-        ranges.add(new PkhTablesRange(45000,50000,609))
-        ranges.add(new PkhTablesRange(50000,5000000,659))
-    }
-    
-    ArrayList<PkhTablesRange> getRanges() {
-        return ranges
-    }
-    
-    float getMappedValue(float streitWert) {
-           for(PkhTablesRange r: ranges) {
-       if(r.contains(streitWert))
-            return r.mappedValue
-   }
-   return -1f
-    }
-    
-}
+

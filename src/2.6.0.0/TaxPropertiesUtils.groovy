@@ -662,11 +662,101 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Strafrecht/OWiG"
-description = "j-lawyer.org Rechner Strafrecht/OWiG"
-version = "1.6.0";
-author = "Anatol Anuschewski"
-updated = "14.02.2021"
-supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
+import groovy.swing.SwingBuilder
+import java.awt.BorderLayout as BL
+import groovy.beans.Bindable
+import java.text.DecimalFormat
+import java.util.List
+import java.awt.Color
+import com.jdimension.jlawyer.client.settings.ServerSettings
 
- 
+
+class TaxPropertiesUtils { 
+
+public static final String KEY_TAX_UST="plugins.global.taxproperties.ust.default";
+public static final String DEFAULT_TAX_UST="19.0";
+
+public static final String KEY_TAX_UST_REDUCED="plugins.global.taxproperties.ust.reduced";
+public static final String DEFAULT_TAX_UST_REDUCED="7.0";
+
+
+    TaxPropertiesUtils() {
+        
+    }
+    
+    public static float getUstPercentage() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
+        return Float.parseFloat(ust);
+    
+    }
+    
+    public static String getUstPercentageString() { 
+
+        java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+        df.setGroupingUsed(false);
+        df.setMaximumFractionDigits(0);
+        
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
+        float f= Float.parseFloat(ust);
+        return df.format(f);
+    }
+    
+    public static float getUstFactor() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
+        float percentage = Float.parseFloat(ust);
+        return (float) (percentage / 100f);
+    }
+
+    public void setUstPercentage(float f) {
+        if(f>=0 && f<=100) {
+            ServerSettings.getInstance().setSetting(KEY_TAX_UST,""+f);
+        }
+        
+    }
+    
+    public static float getUstReducedPercentage() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        return Float.parseFloat(ust);
+    
+    }
+    
+    public static String getUstReducedPercentageString() { 
+
+        java.text.DecimalFormat df=new java.text.DecimalFormat("0");
+        df.setGroupingUsed(false);
+        df.setMaximumFractionDigits(0);
+        
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        float f= Float.parseFloat(ust);
+        return df.format(f);
+    }
+    
+    public static float getUstReducedFactor() { 
+
+        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
+        float percentage = Float.parseFloat(ust);
+        return (float) (percentage / 100f);
+    }
+
+    public void setUstReducedPercentage(float f) {
+        if(f>=0 && f<=100) {
+            ServerSettings.getInstance().setSetting(KEY_TAX_UST_REDUCED,""+f);
+        }
+        
+    }
+    
+   /**
+   * Rundet (kaufmaennisch!) den übergebenen Wert auf die Anzahl der übergebenen Nachkommastellen
+   *
+   * @param value ist der zu rundende Wert.
+   * @param decimalPoints ist die Anzahl der Nachkommastellen, auf die gerundet werden soll.
+   */
+    public static double runden(double value, int decimalPoints) {
+        double d = Math.pow(10, decimalPoints);
+        return Math.round(value * d) / d;
+    }
+
+}

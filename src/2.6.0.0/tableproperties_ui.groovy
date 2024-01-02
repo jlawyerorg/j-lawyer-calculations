@@ -676,12 +676,50 @@ new SwingBuilder().edt {
         tableLayout {
             tr {
                 td (colfill:true) {
-                    panel(border: titledBorder(title: 'Einstellungen Rechnungslayout')) {
+                    panel(border: titledBorder(title: 'Tabelleneinstellungen')) {
                         tableLayout (cellpadding: 5) {
                             tr {
                                 td (colfill:true) {
                                     panel(border: titledBorder(title: 'Tabellenlayout')) {
                                         tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Schriftart')
+                                                }
+                                                td {
+                                                    fontfamily = comboBox(items: com.jdimension.jlawyer.client.utils.FontUtils.getFontFamilies(), editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontfamily", "Arial"), itemStateChanged: {
+                                                            setProps()
+                                                        }
+                                                    )
+                                                    
+                                                }           
+                                            }
+                                            tr {
+                                                td (align: 'left'){
+                                                    label(text: 'Schriftgröße')
+                                                }
+                                                td {
+                                                    fontsize = comboBox(items: [
+                                            '6',
+                                            '7',
+                                            '8',
+                                            '9',
+                                            '10',
+                                            '12',
+                                            '14',
+                                            '16',
+                                            '18',
+                                            '20',
+                                            '22',
+                                            '24',
+                                            '36'
+                                                        ], editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontsize", "12"), itemStateChanged: {
+                                                            setProps()
+                                                        }
+                                                    )
+                                                    
+                                                }           
+                                            }
                                             tr {
                                                 td {
                                                     tablelines = checkBox(id: 'tablelines', text: 'Tabellenlinien einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true), stateChanged: {
@@ -693,7 +731,7 @@ new SwingBuilder().edt {
                                                 td (align: 'left'){
                                                     label(text: 'Tabellenlinien Farbe (zZ. fehlerhaft)')
                                                 }
-                                                td (align: 'right'){
+                                                td (align: 'left'){
                                                     lineColorButton = button(text: ' ', toolTipText: 'Farbe fuer Tabellenlinien auswaehlen', background: new TablePropertiesUtils().getTableLineColor(), actionPerformed: {
                                                             lineColorSelection();
                                                         })
@@ -852,18 +890,39 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td (colfill:true) {
+                                    panel(border: titledBorder(title: 'Zahlenformate')) {
+                                        tableLayout (cellpadding: 5) {
+                                            tr {
+                                                td {
+                                                    txtNumberFormat = textField(text: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.numberFormat", "#,##0.00"), columns:15, keyReleased: {
+                                                                setProps();
+                                                            })
+                                                }        
+                                            }
+                                            tr {
+                                                td {
+                                                    lblNumberFormatSample = label(text: '')
+                                                }        
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                            tr {
+                                td (colfill:true) {
                                     panel(border: titledBorder(title: 'Umsatzsteuersatz')) {
                                         tableLayout (cellpadding: 5) {
                                             tr {
                                                 td {
                                                     panel {
-                                                            btnGrpUst = buttonGroup(id:'GrpUst')
-                                                            radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==16, stateChanged: {
-                                                            setTaxProps()
-                                                        })
-                                                            radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==19, stateChanged: {
-                                                            setTaxProps()
-                                                        })
+                                                        btnGrpUst = buttonGroup(id:'GrpUst')
+                                                        radioUst16 = radioButton(text: '16 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==16, stateChanged: {
+                                                                setTaxProps()
+                                                            })
+                                                        radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: TaxPropertiesUtils.getUstPercentage()==19, stateChanged: {
+                                                                setTaxProps()
+                                                            })
                                                     }
                                                 }
                                             }
@@ -880,6 +939,8 @@ new SwingBuilder().edt {
 }
 
 def void setProps() {
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontsize", ""+fontsize.getSelectedItem());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontfamily", ""+fontfamily.getSelectedItem());
     if (tablelines.isSelected()) {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+true);
     } else {
@@ -930,7 +991,17 @@ def void setProps() {
     } else {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+false);
     }
-   }
+    
+    String numberFormatPattern=txtNumberFormat.getText();
+    java.text.DecimalFormat df=new java.text.DecimalFormat(numberFormatPattern);
+    try {
+        lblNumberFormatSample.setText(df.format(12345.67f));
+    } catch (Exception ex) {
+        numberFormatPattern="#,##0.00";
+    }
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.numberFormat", numberFormatPattern);
+    
+}
 
 def void lineColorSelection() {
     JColorChooser lineColorChooser2=new JColorChooser();
