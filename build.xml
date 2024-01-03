@@ -86,6 +86,10 @@
         <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@www.j-lawyer.org:/var/www/vhosts/j-lawyer.org/httpdocs/downloads/j-lawyer-plugins/calculations/2.3.0.0/" trust="true">
           <fileset dir="src/2.3.0.0"/>
         </scp>
+        
+        <scp todir="${env.UPLOADUSER}:${env.UPLOADPWD}@www.j-lawyer.org:/var/www/vhosts/j-lawyer.org/httpdocs/downloads/j-lawyer-plugins/calculations/2.6.0.0/" trust="true">
+          <fileset dir="src/2.6.0.0"/>
+        </scp>
 
     </target>
 </project>
