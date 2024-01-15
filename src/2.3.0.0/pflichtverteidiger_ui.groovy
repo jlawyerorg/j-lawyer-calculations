@@ -700,7 +700,6 @@ new SwingBuilder().edt {
                 td (align: 'right') {
                     panel {
                         button(text: 'Berechnen', actionPerformed: {
-                                //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
                                 calculate()
                             })
                                 
@@ -1391,7 +1390,6 @@ new SwingBuilder().edt {
                 td (align: 'right') {
                     panel {
                         button(text: 'Berechnen', actionPerformed: {
-                                //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
                                 calculate()
                             })
                                 

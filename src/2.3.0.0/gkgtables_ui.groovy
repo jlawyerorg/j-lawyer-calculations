@@ -704,7 +704,7 @@ def String getGkgTableAsHtml() {
     df = new DecimalFormat("0.00")
     sb.append('<html><body>')
     sb.append('<table border=1>')
-    sb.append('<tr><td><b>Streitwert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
+    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
     for(GkgTablesRange r: new GkgTablesRangeList2021().getRanges()) {
         
         sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')

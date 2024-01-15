@@ -725,7 +725,6 @@ new SwingBuilder().edt {
                             tr {
                                 td {
                                     button(text: 'Berechnen', actionPerformed: {
-                                            //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
                                             calculate()
                                         })
                                 }
@@ -924,7 +923,7 @@ new SwingBuilder().edt {
                                             ], editable: true, selectedItem:'', itemStateChanged: {
                                                 setfaktor()
                                             })
-                                        label (text: 'Streitwert')
+                                        label (text: 'Gegenstandswert')
                                         swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
                                         spnCustomEntry2 = spinner(
                                             model:spinnerNumberModel(minimum:0.0f, 
@@ -1164,7 +1163,6 @@ new SwingBuilder().edt {
                 td (align: 'right') {
                     panel {
                         button(text: 'Berechnen', actionPerformed: {
-                                //nGeschaeftsGebuehr.text = df.format(calculate(nStreitwert.text))
                                 calculate()
                             })
                                 

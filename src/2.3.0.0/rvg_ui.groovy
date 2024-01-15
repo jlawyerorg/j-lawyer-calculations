@@ -747,7 +747,7 @@ new SwingBuilder().edt {
                         tableLayout {
                             tr {
                                 td (colfill:true) {
-                                    label(text: 'Streitwert:')
+                                    label(text: 'Gegenstandswert:')
                                 }
                                 td {
                                     txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: quoteFormat.format(binding.claimvalue), columns: 10, actionPerformed: {
@@ -758,7 +758,7 @@ new SwingBuilder().edt {
                                     label(text: 'EUR')
                                 }
                                 td (align: 'right') {
-                                    chkstreitwert = checkBox(id: 'bstreitwert', text: 'einheitlicher Streitwert', selected: true, stateChanged: {
+                                    chkstreitwert = checkBox(id: 'bstreitwert', text: 'einheitlicher Gegenstandswert', selected: true, stateChanged: {
                                             calculate()
                                         })
                                 }
@@ -859,7 +859,7 @@ new SwingBuilder().edt {
                                     faktorVV2300 = label(id: 'nfaktor2300', text: '1,3')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV2300 = formattedTextField(id: 'nswVV2300', format: betragFormat, columns:5, text: '0.0')
@@ -896,7 +896,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV1000 = formattedTextField(id: 'nswVV1000', format: betragFormat, columns:5, text: '0.0')
@@ -968,7 +968,7 @@ new SwingBuilder().edt {
                                     faktorVV3100 = label(id: 'nfaktor3100', text: '1,3')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV3100 = formattedTextField(id: 'nswVV3100', format: betragFormat, columns:5, text: '0.0')
@@ -1003,7 +1003,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label(text: 'Streitwert')
+                                    label(text: 'Gegenstandswert')
                                 }
                                 td {
                                     swAnrechenbarerAnteil = formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, columns:5, text: '0.0')
@@ -1043,7 +1043,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV3104 = formattedTextField(id: 'nswVV3104', format: betragFormat, columns:5, text: '0.0')
@@ -1078,7 +1078,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV1003 = formattedTextField(id: 'nswVV1003', format: betragFormat, columns:5, text: '0.0')
@@ -1150,7 +1150,7 @@ new SwingBuilder().edt {
                                     faktorVV3200 = label(id: 'nfaktor3200', text: '1,6')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV3200 = formattedTextField(id: 'nswVV3200', format: betragFormat, columns:5, text: '0.0')
@@ -1185,7 +1185,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV3202 = formattedTextField(id: 'nswVV3202', format: betragFormat, columns:5, text: '0.0')
@@ -1220,7 +1220,7 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td {
-                                    label (text: 'Streitwert')
+                                    label (text: 'Gegenstandswert')
                                 }
                                 td {
                                     swVV1003Berufung = formattedTextField(id: 'nswVV1003Berufung', format: betragFormat, columns:5, text: '0.0')
@@ -1340,7 +1340,7 @@ new SwingBuilder().edt {
                                                 setfaktor()
                                                 calculate()
                                             })
-                                        label (text: 'Streitwert')
+                                        label (text: 'Gegenstandswert')
                                         swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
                                         spnCustomEntry2 = spinner(
                                             model:spinnerNumberModel(minimum:0.0f, 
@@ -1374,7 +1374,7 @@ new SwingBuilder().edt {
                                                 tableModel(){
                                                     closureColumn(header:'Anzahl', read:{it.anzahl}, maxWidth:60)
                                                     closureColumn(header:'Position', read:{it.name})
-                                                    closureColumn(header:'Streitwert', read:{it.streitwert}, maxWidth:80)
+                                                    closureColumn(header:'Gegenstandswert', read:{it.streitwert}, maxWidth:80)
                                                     closureColumn(header:'USt', read:{it.ust}, maxWidth:60)
                                                     closureColumn(header:'Betrag', read:{it.number}, maxWidth:80)
                                                 }
@@ -2175,12 +2175,12 @@ def float calculate() {
                 //addiert die Verfahrensgebühren
                 anrechnungsgebuehr1 = df.parse(rowCustomEntryValue) + df.parse(lblVV3100.text) + df.parse(lblVV3200.text)
 
-                //addiert die Streitwerte der ausgewählten Verfahrensgebühren
+                //addiert die Gegenstandswerte der ausgewählten Verfahrensgebühren
                 float addierteStreitwerte = betragFormat.parse(rowCustomEntryStreitwert).floatValue()
                 if (chkVV3100.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV3100.text).floatValue()}
                 if (chkVV3200.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV3200.text).floatValue()}
                 
-                //Berechnet die Verfahrensgebühr für die addierten Streitwerte
+                //Berechnet die Verfahrensgebühr für die addierten Gegenstandswerte
                 faktor = 1.3
                 if (chkVV3200.isSelected()) {faktor = spnVV3200.value.toFloat()} //setzt den Faktor auf 1,6 wenn die Einigung ind er Berufungsinstanz erfolgt
                 if (radioRVG2013.isSelected()){
@@ -2608,37 +2608,37 @@ def ArrayList copyToInvoice() {
     }
         
     if(chkVV2300.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Streitwert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, df.parse(lblVV2300.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Gegenstandswert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, df.parse(lblVV2300.text).floatValue()));
     }
     if(chkVV1000.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1000ff VV RVG", "Streitwert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1000ff VV RVG", "Gegenstandswert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
     }
     if(chkvorVV7002.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));
     }
     if(chkVV3100.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Streitwert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, df.parse(lblVV3100.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Gegenstandswert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, df.parse(lblVV3100.text).floatValue()));
     }
     if(chkAnrechenbarerAnteil.selected) {
         positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechenbarerAnteil.text).floatValue()));
     }
     if(chkVV3104.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Streitwert " + swVV3104.text + " €, " + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3104.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3104 VV RVG", "Gegenstandswert " + swVV3104.text + " €, " + "Faktor " + faktorFormat.format(spnVV3104.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3104.text).floatValue()));
     }
     if(chkVV1003.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Streitwert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1003 VV RVG", "Gegenstandswert " + swVV1003.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003.text).floatValue()));
     } 
     if(chkVV7002.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002.text).floatValue()));
     }
     if(chkVV3200.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG", "Streitwert " + swVV3200.text + " €, " + "Faktor " + faktorVV3200.text, effectiveTaxRate, df.parse(lblVV3200.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3200" + text1008 + " VV RVG", "Gegenstandswert " + swVV3200.text + " €, " + "Faktor " + faktorVV3200.text, effectiveTaxRate, df.parse(lblVV3200.text).floatValue()));
     }
     if(chkVV3202.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3202 VV RVG", "Streitwert " + swVV3202.text + " €, " + "Faktor " + faktorFormat.format(spnVV3202.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3202.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3202 VV RVG", "Gegenstandswert " + swVV3202.text + " €, " + "Faktor " + faktorFormat.format(spnVV3202.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV3202.text).floatValue()));
     }
     if(chkVV1003Berufung.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1004 VV RVG", "Streitwert " + swVV1003Berufung.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1004 VV RVG", "Gegenstandswert " + swVV1003Berufung.text + " €, " + "Faktor " + faktorFormat.format(spnVV1003Berufung.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1003Berufung.text).floatValue()));
     } 
     if(chkVV7002Berufung.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Berufung.text).floatValue()));
