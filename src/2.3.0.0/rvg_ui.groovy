@@ -1624,20 +1624,23 @@ new SwingBuilder().edt {
                             })
                                 
                         cmdCopy = button(text: 'Kopieren', enabled: false, toolTipText: 'In Zwischenablage kopieren', actionPerformed: {
+                                calculate();
                                 if(binding.callback != null)
-                                binding.callback.processResultToClipboard(copyToClipboard())
+                                    binding.callback.processResultToClipboard(copyToClipboard());
                                         
                             })
                         
                         cmdDocument = button(text: 'Dokument erstellen', enabled: false, toolTipText: 'Ergebnis in Dokument uebernehmen', actionPerformed: {
+                                calculate();
                                 if(binding.callback != null)
-                                binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
+                                    binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL);
                                         
                             })
                         
                         cmdInvoice = button(text: 'als Rechnung', enabled: false, toolTipText: 'Ergebnis in Rechnung uebernehmen', actionPerformed: {
+                                calculate();
                                 if(binding.callback != null)
-                                    binding.callback.processResultToInvoice(copyToInvoice())
+                                    binding.callback.processResultToInvoice(copyToInvoice());
                                         
                             })
                     }

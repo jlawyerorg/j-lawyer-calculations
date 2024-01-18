@@ -86,7 +86,7 @@
     <calculation name="tableproperties" version="1.2.0" for="2.4.0.2" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>    
     
     <!-- j-lawyer.org version 2.5.0.0 -->
-    <calculation name="rvg" version="3.1.0" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvg_meta.groovy,rvg_ui.groovy,InvoiceUtils.groovy"/>
+    <calculation name="rvg" version="3.2.0" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvg_meta.groovy,rvg_ui.groovy,InvoiceUtils.groovy"/>
     <calculation name="rvgtables" version="1.5.0" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.4.0" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="3.0.16" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy,InvoiceUtils.groovy"/>
@@ -98,7 +98,7 @@
     <calculation name="tableproperties" version="1.2.1" for="2.5.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="TaxPropertiesUtils.groovy,TablePropertiesUtils.groovy,tableproperties_meta.groovy,tableproperties_ui.groovy"/>    
     
     <!-- j-lawyer.org version 2.6.0.0 -->
-    <calculation name="rvg" version="3.1.0" for="2.6.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvg_meta.groovy,rvg_ui.groovy,InvoiceUtils.groovy"/>
+    <calculation name="rvg" version="3.2.0" for="2.6.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvg_meta.groovy,rvg_ui.groovy,InvoiceUtils.groovy"/>
     <calculation name="rvgtables" version="1.5.0" for="2.6.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="rvgtables_meta.groovy,rvgtables_ui.groovy,RvgTablesRange.groovy,RvgTablesRangeList.groovy,RvgTablesRangeList2021.groovy"/>
     <calculation name="pkhtables" version="1.4.0" for="2.6.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="pkhtables_meta.groovy,pkhtables_ui.groovy,PkhTablesRange.groovy,PkhTablesRangeList.groovy,PkhTablesRangeList2021.groovy"/>
     <calculation name="sozialrecht" version="3.0.16" for="2.6.0.0" url="https://www.j-lawyer.org/downloads/j-lawyer-plugins/calculations/2.3.0.0" files="sozialrecht_meta.groovy,sozialrecht_ui.groovy,InvoiceUtils.groovy"/>
