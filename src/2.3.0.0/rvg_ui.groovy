@@ -750,7 +750,7 @@ new SwingBuilder().edt {
                                     label(text: 'Gegenstandswert:')
                                 }
                                 td {
-                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: quoteFormat.format(binding.claimvalue), columns: 10, actionPerformed: {
+                                    txtStreitWert=formattedTextField(id: 'nStreitwert', format: betragFormat, text: quoteFormat.format(binding.claimvalue), columns: 8, actionPerformed: {
                                             calculate()
                                         })
                                 }
@@ -862,7 +862,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV2300 = formattedTextField(id: 'nswVV2300', format: betragFormat, columns:5, text: '0.0')
+                                    swVV2300 = formattedTextField(id: 'nswVV2300', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -899,7 +899,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV1000 = formattedTextField(id: 'nswVV1000', format: betragFormat, columns:5, text: '0.0')
+                                    swVV1000 = formattedTextField(id: 'nswVV1000', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -971,7 +971,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV3100 = formattedTextField(id: 'nswVV3100', format: betragFormat, columns:5, text: '0.0')
+                                    swVV3100 = formattedTextField(id: 'nswVV3100', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1006,7 +1006,7 @@ new SwingBuilder().edt {
                                     label(text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swAnrechenbarerAnteil = formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, columns:5, text: '0.0')
+                                    swAnrechenbarerAnteil = formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1046,7 +1046,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV3104 = formattedTextField(id: 'nswVV3104', format: betragFormat, columns:5, text: '0.0')
+                                    swVV3104 = formattedTextField(id: 'nswVV3104', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1081,7 +1081,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV1003 = formattedTextField(id: 'nswVV1003', format: betragFormat, columns:5, text: '0.0')
+                                    swVV1003 = formattedTextField(id: 'nswVV1003', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1153,7 +1153,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV3200 = formattedTextField(id: 'nswVV3200', format: betragFormat, columns:5, text: '0.0')
+                                    swVV3200 = formattedTextField(id: 'nswVV3200', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1188,7 +1188,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV3202 = formattedTextField(id: 'nswVV3202', format: betragFormat, columns:5, text: '0.0')
+                                    swVV3202 = formattedTextField(id: 'nswVV3202', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1223,7 +1223,7 @@ new SwingBuilder().edt {
                                     label (text: 'Gegenstandswert')
                                 }
                                 td {
-                                    swVV1003Berufung = formattedTextField(id: 'nswVV1003Berufung', format: betragFormat, columns:5, text: '0.0')
+                                    swVV1003Berufung = formattedTextField(id: 'nswVV1003Berufung', format: betragFormat, columns:8, text: '0.0')
                                 }
                                 td {
                                     label(text: 'EUR')
@@ -1341,7 +1341,7 @@ new SwingBuilder().edt {
                                                 calculate()
                                             })
                                         label (text: 'Gegenstandswert')
-                                        swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:5, text: '0,00')
+                                        swCustomEntry2 = formattedTextField(id: 'nswCustomEntry2', format: betragFormat, columns:8, text: '0,00')
                                         spnCustomEntry2 = spinner(
                                             model:spinnerNumberModel(minimum:0.0f, 
                                                 maximum: 10.0f, 
