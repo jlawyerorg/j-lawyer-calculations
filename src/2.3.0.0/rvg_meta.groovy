@@ -664,7 +664,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Rechner RVG Wertgebühren"
 description = "j-lawyer.org Rechner RVG Wertgebühren"
-version = "3.2.1";
+version = "3.2.2";
 author = "Anatol Anuschewski, Jens Kutschke, Maximilian Steinert"
 updated = "01.02.2024"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"

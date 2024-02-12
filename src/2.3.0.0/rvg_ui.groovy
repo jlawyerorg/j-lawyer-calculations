@@ -878,7 +878,7 @@ new SwingBuilder().edt {
                 
                             tr {
                                 td {
-                                    chkVV1000 = checkBox(id: 'bVV1000',text: 'Einigungsgebühr VV1000ff.:', selected: false, stateChanged: {
+                                    chkVV1000 = checkBox(id: 'bVV1000',text: 'Einigungsgebühr VV1000.:', selected: false, stateChanged: {
                                             calculate()
                                             cal15Abs3()
                                         })
@@ -1060,7 +1060,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                    chkVV1003 = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003f.:', selected: false, stateChanged: {
+                                    chkVV1003 = checkBox(id: 'bVV1003',text: 'Einigungsgebühr VV1003.:', selected: false, stateChanged: {
                                             calculate()
                                             cal15Abs3()
                                         })
@@ -1330,7 +1330,7 @@ new SwingBuilder().edt {
                                             '',
                                             'eigene',
                                             'Verfahrensgebühr Nr. 3101 VV RVG',
-                                            'Einigungsgebühr Nr. 1003f VV RVG',
+                                            'Einigungsgebühr Nr. 1000 VV RVG',
                                             'Verfahrensgebühr Nr. 3309 VV RVG',
                                             'Terminsgebühr Nr. 3310 VV RVG',
                                             'Verfahrensgebühr Nr. 3311 VV RVG',
@@ -1689,9 +1689,9 @@ def void setfaktor( ) {
         chkUStCustomEntry2.setSelected(true)
         spnCustomEntry2.setValue(0.8)    
         break
-    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1003f VV RVG'}: 
+    case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1000 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
-        spnCustomEntry2.setValue(1)    
+        spnCustomEntry2.setValue(1.5)    
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3309 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -1714,11 +1714,18 @@ def void setfaktor( ) {
 
 //Methode prüft, ob ein fall der Anrechnung nach § 15 Abs 3 RVG vorliegt
 def void cal15Abs3() {
-    //Einigungsgebühr
-    if (chkVV1000.isSelected() && (chkVV1003.isSelected() || chkVV1003Berufung.isSelected())) {
-    chk15Abs3Einigung.setSelected(true)
-    }
     customRows=customTable.getRowCount()
+
+    //Einigungsgebühr
+    for(int i=0;i<customRows;i++) {
+        rowCustomEntryName=customTable.getValueAt(i, 1);
+        if (rowCustomEntryName =='Einigungsgebühr Nr. 1000 VV RVG' && (chkVV1003.isSelected() || chkVV1003Berufung.isSelected())) {
+        chk15Abs3Einigung.setSelected(true)
+        }
+    }
+    if ((chkVV1000.isSelected() && (chkVV1003.isSelected() || chkVV1003Berufung.isSelected()))) {
+        chk15Abs3Einigung.setSelected(true)
+    }
 
     //Verfahrensgebühr
     for(int i=0;i<customRows;i++) {
@@ -2214,15 +2221,28 @@ def float calculate() {
 
 
     if (chk15Abs3Einigung.isSelected()) {
-        gebuehr = 0 
+        gebuehr = 0
+        customStreitwert = 0
+        customWert = 0
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryStreitwert=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 4);
+            if (rowCustomEntryName =='Einigungsgebühr Nr. 1000 VV RVG') {
+                customStreitwert = betragFormat.parse(rowCustomEntryStreitwert).floatValue()
+                customWert = df.parse(rowCustomEntryValue)
+
+            }       
+        }         
         //addiert alle Einigungsgebühren
-        anrechnungsgebuehr1 = df.parse(lblVV1000.text) + df.parse(lblVV1003.text) + df.parse(lblVV1003Berufung.text)
-        
+        anrechnungsgebuehr1 = df.parse(lblVV1000.text) + df.parse(lblVV1003.text) + df.parse(lblVV1003Berufung.text) + customWert
+                
         //addiert die Streitwerte der ausgewählten Einigungsgebühren
-        float addierteStreitwerte = betragFormat.parse(swVV1000.text).floatValue()
+        float addierteStreitwerte = customStreitwert
+        if (chkVV1000.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV1000.text).floatValue()}
         if (chkVV1003.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV1003.text).floatValue()}
         if (chkVV1003Berufung.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV1003Berufung.text).floatValue()} 
-        
+                
         //Berechnet die Einigungsgebühr für die addierten Streitwerte
         if (radioRVG2013.isSelected()){
             if(chkPKH.isSelected()) {
@@ -2237,14 +2257,14 @@ def float calculate() {
                 anrechnungsgebuehr2=rvgtab.berechneWertGebuehr2021(addierteStreitwerte, 1.5);
             }
         }
-        
+                
         //überprüft nach § 15 Abs.3 RVG, ob die addierten Einigungsgebühren größer sind, als die Einigungsgebühr der addierten Streitwerte
         if (anrechnungsgebuehr1>anrechnungsgebuehr2) {
             gebuehr = anrechnungsgebuehr1 - anrechnungsgebuehr2
             lbl15Abs3Einigung.text=df.format(gebuehr * -1f)
             lbl15Abs3Einigung.foreground=java.awt.Color.RED
         }
-
+        
     } else {
         lbl15Abs3Einigung.text=df.format(0)
         lbl15Abs3Einigung.foreground=java.awt.Color.BLACK
@@ -2354,7 +2374,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkVV1000.selected) {
-        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr. 1000ff VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
+        ct.addRow(faktorFormat.format(spnVV1000.value.toFloat()).toString(), "Einigungsgebühr Nr. 1000 VV RVG - " + swVV1000.text + " €", lblVV1000.text + " €");
         rowcount=rowcount+1
     }
     if(chkvorVV7002.selected) {
@@ -2614,7 +2634,7 @@ def ArrayList copyToInvoice() {
         positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2300" + text1008 + " VV RVG", "Gegenstandswert " + swVV2300.text + " €, " + "Faktor " + faktorVV2300.text, effectiveTaxRate, df.parse(lblVV2300.text).floatValue()));
     }
     if(chkVV1000.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1000ff VV RVG", "Gegenstandswert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1000 VV RVG", "Gegenstandswert " + swVV1000.text + " €, " + "Faktor " + faktorFormat.format(spnVV1000.value.toFloat()).toString(), effectiveTaxRate, df.parse(lblVV1000.text).floatValue()));
     }
     if(chkvorVV7002.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));
