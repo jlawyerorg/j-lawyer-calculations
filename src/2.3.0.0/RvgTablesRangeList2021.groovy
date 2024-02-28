@@ -771,17 +771,33 @@ class RvgTablesRangeList2021 {
     }
     
     float getMappedValue(float streitWert) {
-        for(RvgTablesRange r: ranges) {
-            if(r.contains(streitWert))
-            return r.mappedValue
+        if (streitWert <= 500000) { 
+            for(RvgTablesRange r: ranges) {
+                if(r.contains(streitWert))
+                return r.mappedValue
+            }
+        } else {
+            float mappedValue = 3539
+            for (float i=500000; i < streitWert; i+=50000) {
+            mappedValue = mappedValue + 165
+            }
+            return mappedValue
         }
         return -1f
     }
     
-    double getMappedValue(double streitWert) {
-        for(RvgTablesRange r: ranges) {
-            if(r.contains(streitWert))
-            return r.mappedValue
+   double getMappedValue(double streitWert) {
+        if (streitWert <= 500000) {
+            for(RvgTablesRange r: ranges) {
+                if(r.contains(streitWert))
+                return r.mappedValue
+            }
+        } else {
+            double mappedValue = 3539
+            for (double i=500000; i < streitWert; i+=50000) {
+            mappedValue = mappedValue + 165
+            }
+            return mappedValue
         }
         return -1d
     }

@@ -750,11 +750,21 @@ class RvgTablesRangeList {
     }
     
     float getMappedValue(float streitWert) {
-           for(RvgTablesRange r: ranges) {
-       if(r.contains(streitWert))
-            return r.mappedValue
-   }
-   return -1f
+        if (streitWert <= 500000) { 
+            for(RvgTablesRange r: ranges) {
+                if(r.contains(streitWert))
+                return r.mappedValue
+            }
+        } else {
+            float mappedValue = 3213
+            for (float i=500000; i < streitWert; i+=50000) {
+            mappedValue = mappedValue + 150
+            }
+            return mappedValue
+        }
+        return -1f
     }
-    
+
+
+
 }

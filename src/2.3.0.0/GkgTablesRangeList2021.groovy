@@ -718,13 +718,21 @@ class GkgTablesRangeList2021 {
     ArrayList<GkgTablesRange> getRanges() {
         return ranges
     }
-    
+
     float getMappedValue(float streitWert) {
-           for(GkgTablesRange r: ranges) {
-       if(r.contains(streitWert))
+    if (streitWert <= 500000) { 
+        for(GkgTablesRange r: ranges) {
+            if(r.contains(streitWert))
             return r.mappedValue
-   }
-   return -1f
+        }
+    } else {
+        float mappedValue = 3901
+        for (float i=500000; i < streitWert; i+=50000) {
+        mappedValue = mappedValue + 198
+        }
+        return mappedValue
+    }
+    return -1f
     }
     
 }
