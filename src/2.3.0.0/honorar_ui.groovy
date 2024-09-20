@@ -688,8 +688,8 @@ class Address {
 }
 
 class TaxModel {
-    @Bindable float ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
-    @Bindable float ustPercentage=TaxPropertiesUtils.getUstPercentage(); // 19
+    @Bindable BigDecimal ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
+    @Bindable BigDecimal ustPercentage=TaxPropertiesUtils.getUstPercentage(); // 19
     @Bindable String ustPercentageString=TaxPropertiesUtils.getUstPercentageString(); // 19
 }
 
@@ -1383,7 +1383,7 @@ def float calculate() {
     lblzwsum.text=df.format(gebuehr)
         
     if(chkmwst.isSelected()) {
-        gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
+        gebuehr=((df.parse(lblhonne.text)+df.parse(lblhonst.text)+ customSum)*taxModel.ustFactor) + (df.parse(txthonbr.text)/(1+taxModel.ustFactor)*taxModel.ustFactor)
         lblmwst.text = df.format(gebuehr)
     } else {
         lblmwst.text = df.format(0f)
@@ -1741,11 +1741,11 @@ def ArrayList copyToInvoice() {
 
 def void updateTax() {
     if (radioUst16.isSelected()) {
-        taxModel.ustPercentage=16;
+        taxModel.ustPercentage=16.00;
     } else if (radioUst19.isSelected()) {
-        taxModel.ustPercentage=19;
+        taxModel.ustPercentage=19.00;
     }
-        taxModel.ustFactor=(float) (taxModel.ustPercentage / 100f);
+        taxModel.ustFactor=(BigDecimal) (taxModel.ustPercentage / 100.00);
     
     java.text.DecimalFormat df=new java.text.DecimalFormat("0");
     df.setGroupingUsed(false);

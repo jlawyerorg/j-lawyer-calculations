@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "Tabelleneinstellungen"
 description = "j-lawyer.org Tabelleneinstellungen"
-version = "1.2.1";
+version = "1.2.2";
 author = "Anatol Anuschewski, Jens Kutschke"
-updated = "01.11.2023"
+updated = "20.09.2024"
 supportedPlaceHolders = ""
 
 

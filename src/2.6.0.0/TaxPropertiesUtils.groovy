@@ -684,10 +684,10 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
         
     }
     
-    public static float getUstPercentage() { 
+    public static BigDecimal getUstPercentage() { 
 
         String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
-        return Float.parseFloat(ust);
+        return new BigDecimal(ust);
     
     }
     
@@ -702,11 +702,11 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
         return df.format(f);
     }
     
-    public static float getUstFactor() { 
+    public static BigDecimal getUstFactor() { 
 
-        String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
-        float percentage = Float.parseFloat(ust);
-        return (float) (percentage / 100f);
+        String ust= ServerSettings.getInstance().getSetting(KEY_TAX_UST, DEFAULT_TAX_UST);
+        BigDecimal percentage = new BigDecimal(ust);
+        return (BigDecimal) (percentage / 100.00);
     }
 
     public void setUstPercentage(float f) {
@@ -716,10 +716,10 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
         
     }
     
-    public static float getUstReducedPercentage() { 
+    public static BigDecimal getUstReducedPercentage() { 
 
         String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
-        return Float.parseFloat(ust);
+        return new BigDecimal(ust);
     
     }
     
@@ -734,11 +734,11 @@ public static final String DEFAULT_TAX_UST_REDUCED="7.0";
         return df.format(f);
     }
     
-    public static float getUstReducedFactor() { 
+    public static BigDecimal getUstReducedFactor() { 
 
         String ust=ServerSettings.getInstance().getSetting(KEY_TAX_UST_REDUCED, DEFAULT_TAX_UST_REDUCED);
-        float percentage = Float.parseFloat(ust);
-        return (float) (percentage / 100f);
+        BigDecimal percentage = new BigDecimal(ust);
+        return (BigDecimal) (percentage / 100.00);
     }
 
     public void setUstReducedPercentage(float f) {
