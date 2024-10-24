@@ -1051,12 +1051,25 @@ new SwingBuilder().edt {
 
                             tr {
                                 td {
-                                    chkquote = checkBox(text: 'Quote (Bsp: 0,5):', selected: false, stateChanged: {
+                                    panel {
+                                    
+                                    chkquote = checkBox(text: 'Quote:', selected: false, stateChanged: {
                                             calculate()
                                         })
+                                    label(text: 'Bsp: 1/2')
+                                    spnCounter = spinner(
+                                            model:spinnerNumberModel(minimum:1, maximum: 100, value:1, stepSize:1), stateChanged: {
+                                                calculate()
+                                            })
+                                    label(text: '/')
+                                    spnDivisor = spinner(
+                                            model:spinnerNumberModel(minimum:1, maximum: 100, value:1, stepSize:1), stateChanged: {
+                                                calculate()
+                                            })
+                                    }
                                 }
                                 td {
-                                    txtquote=formattedTextField(id: 'nquote', format: quoteFormat, text: 1, columns: 4)
+                                    label(text: '')
                                 }
                                 td (align: 'right') {
                                     lblquote = label(text: '0,00')
@@ -1399,7 +1412,7 @@ def float calculate() {
     lblsum1.text=df.format(gebuehr)
     
     if(chkquote.isSelected()){
-        gebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)
+        gebuehr = spnCounter.value.toBigDecimal() / spnDivisor.value.toBigDecimal() * df.parse(lblsum1.text)
         lblquote.text=df.format(gebuehr)
     } else {
         lblquote.text=lblsum1.text
@@ -1509,7 +1522,7 @@ def StyledCalculationTable copyToDocument() {
     }
     
     if(chkquote.selected) {
-        ct.addRow("", "Quote " + txtquote.text + "", lblquote.text + " €");
+        ct.addRow("", "Quote " + spnCounter.value.toInteger().toString() + "/" + spnDivisor.value.toInteger().toString() + "", lblquote.text + " €");
     }
     if(chkZahlungenBrutto19.selected) {
         ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
@@ -1704,14 +1717,8 @@ def ArrayList copyToInvoice() {
 //    }
     
     if(chkquote.selected) {
-        float q=decF.parse(txtquote.text)
-        if(q>=1) {
-            float fGebuehr=df.parse(txtquote.text)*df.parse(lblsum1.text)-df.parse(lblsum1.text)
-            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
-        } else {
-            float fGebuehr=(float)((df.parse(lblsum1.text)-df.parse(txtquote.text)*df.parse(lblsum1.text))*-1f)
-            positions.add(InvoiceUtils.invoicePosition("Quote " + txtquote.text, 0f, fGebuehr));
-        }
+        float fGebuehr=((df.parse(lblsum1.text)-(spnCounter.value.toBigDecimal() / spnDivisor.value.toBigDecimal()*df.parse(lblsum1.text)))*-1f)
+        positions.add(InvoiceUtils.invoicePosition("Quote " + spnCounter.value.toInteger().toString() + "/" + spnDivisor.value.toInteger().toString(), 0f, fGebuehr));
     }
 //    if(chkZahlungenBrutto19.selected) {
 //        ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
