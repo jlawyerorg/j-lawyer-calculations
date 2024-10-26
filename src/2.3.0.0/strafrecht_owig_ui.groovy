@@ -2300,7 +2300,12 @@ def float calculate() {
     }
 
     if(chkvorVV7002.isSelected()) {
-        gebuehr=(df.parse(txtVV4104.text)) * 0.2g;
+        gebuehr=(
+            df.parse(txtVV4100.text)
+            +df.parse(txtVV4104.text)
+            +df.parse(txtVV4102.text)
+            +df.parse(txtVV4141.text)
+            ) * 0.2g;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -2501,7 +2506,8 @@ def float calculate() {
     
     if(chkVV7002.isSelected()) {
         gebuehr=(
-        df.parse(txtVV4106.text)
+            df.parse(txtVV4100.text)
+            +df.parse(txtVV4106.text)
         ) * 0.2g;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
@@ -2837,7 +2843,10 @@ def float calculate() {
     }
 
     if(chkVV7002Berufung.isSelected()) {
-        gebuehr=df.parse(txtVV4124.text) * 0.2g;
+        gebuehr=(
+            df.parse(txtVV4100.text)
+            +df.parse(txtVV4124.text) * 0.2g
+        );
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -3007,7 +3016,11 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
     }
 
     if(chkVV7002Rev.isSelected() && !chkowig.isSelected()) { 
-        gebuehr=df.parse(txtVV4130.text) * 0.2f;
+        gebuehr=(
+            df.parse(txtVV4100.text)
+            +df.parse(txtVV4130.text)
+             * 0.2f
+        );
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
