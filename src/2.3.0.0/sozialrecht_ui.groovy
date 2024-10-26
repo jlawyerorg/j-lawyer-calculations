@@ -1153,6 +1153,7 @@ new SwingBuilder().edt {
                                             'Gebühr Akteneinsicht',
                                             'steuerpflichtige Auslagen (netto)',
                                             'umsatzsteuerfreie Auslagen',
+                                            'Auslagen Nr. 7002',
                                             'Hebegebühr Nr. 1009 VV RVG'
                                             ], editable: true, itemStateChanged: {
                                             calculate()
@@ -1850,6 +1851,10 @@ switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'umsatzsteuerfreie Auslagen'}:
         chkUStCustomEntry1.setSelected(false)
         txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Auslagen Nr. 7002'}:
+         chkUStCustomEntry1.setSelected(true)
+         txtCustomEntryValue.text = '20'
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Hebegebühr Nr. 1009 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
