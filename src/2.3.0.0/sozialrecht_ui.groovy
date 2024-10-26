@@ -694,11 +694,13 @@ count = 0
 df = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 df.setMaximumFractionDigits(2);
 df.setMinimumFractionDigits(2);
+df.setParseBigDecimal(true);
 
 // betragFormat = NumberFormat.getInstance(Locale.GERMANY).getCurrency();
 betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
+faktorFormat = new DecimalFormat("0.0");
 quoteFormat = new DecimalFormat("0.00")
 
 taxModel=new TaxModel();
@@ -1504,24 +1506,24 @@ def void setchange(){
         cbchVV1006Berufung.setSelectedItem('Mittelg.')
         }
 }
-def float calchange(String changeItem){
+def BigDecimal calchange(String changeItem){
 //    float test
     switch (changeItem){
-        case {changeItem =='+20%'}:return 1.2f;
+        case {changeItem =='+20%'}:return 1.2g;
         break
-        case {changeItem =='+10%'}:return 1.1f;
+        case {changeItem =='+10%'}:return 1.1g;
         break
-        case {changeItem =='-10%'}:return 0.9f;
+        case {changeItem =='-10%'}:return 0.9g;
         break
-        case {changeItem =='-20%'}:return 0.8f;
+        case {changeItem =='-20%'}:return 0.8g;
         break
-        default: return 1.0f
+        default: return 1.0g
     }
 }
 
 def float calculate() {
 
-    float gebuehr=0f
+    BigDecimal gebuehr=0G
     float factor=0.0f
     float change=1.0f
     float urahmen=0.0f
@@ -1589,7 +1591,7 @@ def float calculate() {
     }
 
     if(chkvorVV7002.isSelected()) {
-        gebuehr=(df.parse(txtVV2302.text)+df.parse(txtVV1005.text)) * 0.2f;
+        gebuehr=(df.parse(txtVV2302.text)+df.parse(txtVV1005.text)) * 0.2g;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -1686,7 +1688,7 @@ def float calculate() {
         +df.parse(lblAnrechenbarerAnteil.text)
         +df.parse(txtVV3106.text)
         +df.parse(txtVV1006.text)
-        ) * 0.2f;
+        ) * 0.2g;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -1766,7 +1768,7 @@ def float calculate() {
         df.parse(txtVV3204.text)
         +df.parse(txtVV3205.text)
         +df.parse(txtVV1006Berufung.text)
-        ) * 0.2f;
+        ) * 0.2g;
         switch(gebuehr) {
             case {it < 20f}: gebuehr = gebuehr
             break
@@ -1781,89 +1783,89 @@ def float calculate() {
 switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
-        if (spnCustomEntry1.value.toFloat()<= 50f) {
-            gebuehr = spnCustomEntry1.value.toFloat()*0.5f
+        if (spnCustomEntry1.value.toBigDecimal()<= 50g) {
+            gebuehr = spnCustomEntry1.value.toBigDecimal()*0.5g
         } else {
-            gebuehr = 25f + (spnCustomEntry1.value.toFloat()-50f)*0.15f
+            gebuehr = 25 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.15g
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbe Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
-        if (spnCustomEntry1.value.toFloat()<= 50f) {
-            gebuehr = spnCustomEntry1.value.toFloat()
+        if (spnCustomEntry1.value.toBigDecimal()<= 50g) {
+            gebuehr = spnCustomEntry1.value.toBigDecimal()
         } else {
-            gebuehr = 50f + (spnCustomEntry1.value.toFloat()-50f)*0.30f
+            gebuehr = 50 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.30g
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten Nr. 7004 VV RVG (netto)'}:
-    chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = txtCustomEntryValue.text
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
-    if (radioRVG2013.isSelected()){
-            betrag = 0.3
+        if (radioRVG2013.isSelected()){
+            betrag = 0.3g
         } else {
-            betrag = 0.42
+            betrag = 0.42g
         }
-    chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
-    break
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toBigDecimal())
+        break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG bis 4h'}:
         if (radioRVG2013.isSelected()){
             betrag = 25
         } else {
             betrag = 30
         }
-    chkUStCustomEntry1.setSelected(true)
+        chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG 4 bis 8h'}:
-    if (radioRVG2013.isSelected()){
+        if (radioRVG2013.isSelected()){
             betrag = 40
         } else {
             betrag = 50
         }
-    chkUStCustomEntry1.setSelected(true)
+        chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld Nr. 7005 VV RVG ab 8h'}:
-    if (radioRVG2013.isSelected()){
+        if (radioRVG2013.isSelected()){
             betrag = 70
         } else {
             betrag = 80
         }
-    chkUStCustomEntry1.setSelected(true)
+        chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
-    chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = txtCustomEntryValue.text
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'steuerpflichtige Auslagen (netto)'}:
-    chkUStCustomEntry1.setSelected(true)
-    txtCustomEntryValue.text = txtCustomEntryValue.text
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'umsatzsteuerfreie Auslagen'}:
-    chkUStCustomEntry1.setSelected(false)
-    txtCustomEntryValue.text = txtCustomEntryValue.text
+        chkUStCustomEntry1.setSelected(false)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Hebegebühr Nr. 1009 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
-        if (spnCustomEntry1.value.toFloat()<= 2500f) {
-            gebuehr = (spnCustomEntry1.value.toFloat()*0.01f)
-        } else if (spnCustomEntry1.value.toFloat()<= 10000f) {
-            gebuehr = (25f+((spnCustomEntry1.value.toFloat()-2500f)*0.005f))
-        } else if (spnCustomEntry1.value.toFloat() > 10000f) {
-            gebuehr = (62.5f+((spnCustomEntry1.value.toFloat()-10000)*0.0025f))
+        if (spnCustomEntry1.value.toBigDecimal()<= 2500g) {
+            gebuehr = (spnCustomEntry1.value.toBigDecimal()*0.01g)
+        } else if (spnCustomEntry1.value.toBigDecimal()<= 10000g) {
+            gebuehr = (25g+((spnCustomEntry1.value.toBigDecimal()-2500g)*0.005g))
+        } else if (spnCustomEntry1.value.toBigDecimal() > 10000g) {
+            gebuehr = (62.5g+((spnCustomEntry1.value.toBigDecimal()-10000g)*0.0025g))
         }
         if (gebuehr < 1f) {gebuehr = 1f}
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     default:
-    txtCustomEntryValue.text = df.format(0f)
-}
+        txtCustomEntryValue.text = df.format(0f)
+    }
     if (chkUStCustomEntry1.isSelected()) {
             ustCustomEntry1.text = taxModel.ustPercentageString
         } else {
@@ -1874,8 +1876,8 @@ switch (cmbCustomEntryName) {
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
     // there is actually no calculation for custom entries, they will just be added to the output in copyToClipboard or copyToDocument
-    float customSum=0f;
-    float customSum2=0f;
+    BigDecimal customSum=0;
+    BigDecimal customSum2=0;
     for(int i=0;i<customRows;i++) {
         rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
         rowCustomEntryName=customTable.getValueAt(i, 1);
@@ -1924,15 +1926,15 @@ switch (cmbCustomEntryName) {
     lblsum1.text=df.format(gebuehr)
     
     if(chkquote.isSelected()){
-    gebuehr = spnCounter.value.toBigDecimal() / spnDivisor.value.toBigDecimal() * df.parse(lblsum1.text)
-    lblquote.text=df.format(gebuehr)
+        gebuehr = spnCounter.value.toBigDecimal() / spnDivisor.value.toBigDecimal() * df.parse(lblsum1.text)
+        lblquote.text=df.format(gebuehr)
     } else {
         lblquote.text=lblsum1.text
     }
 
     if(chkZahlungenBrutto19.isSelected()) {
         lblZahlungenBrutto19.text = txtZahlungenBrutto19.text
-        gebuehr=(df.parse(lblZahlungenBrutto19.text)/1.19f*0.19f)
+        gebuehr=(df.parse(lblZahlungenBrutto19.text)/1.19g*0.19g)
         lblmwstZahlung19.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto19.text = df.format(0f)
@@ -1941,7 +1943,7 @@ switch (cmbCustomEntryName) {
     
     if(chkZahlungenBrutto16.isSelected()) {
         lblZahlungenBrutto16.text = txtZahlungenBrutto16.text
-        gebuehr=(df.parse(lblZahlungenBrutto16.text)/1.16f*0.16f)
+        gebuehr=(df.parse(lblZahlungenBrutto16.text)/1.16g*0.16g)
         lblmwstZahlung16.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto16.text = df.format(0f)
@@ -2160,7 +2162,7 @@ def StyledCalculationTable copyToDocument() {
     } else {
         //ct.getCellAt(footerRow, 1).setUnderline(false);
         ct.getCellAt(footerRow, 2).setUnderline(false);
-    }    
+    }
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", true)) {
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
             ct.getCellAt(ct.getRowCount()-3, 2).setUnderline(true);
@@ -2205,22 +2207,20 @@ def StyledCalculationTable copyToDocument() {
 }
 
 def ArrayList copyToInvoice() {
-    
-    DecimalFormat decF=new DecimalFormat("0.00");
-    
+        
     ArrayList positions=new ArrayList();
     
-    float taxRate=0f;
+    BigDecimal taxRate=0g;
     if(radioUst19.selected) {
-        taxRate=19f;
+        taxRate=19g;
     }
     if(radioUst16.selected) {
-        taxRate=16f;
+        taxRate=16g;
     }
     
-    float effectiveTaxRate=taxRate;
+    BigDecimal effectiveTaxRate=taxRate;
     if(!chkmwst.selected) {
-        effectiveTaxRate=0f;
+        effectiveTaxRate=0g;
     }
     
     String text1008 = ''
@@ -2234,40 +2234,40 @@ def ArrayList copyToInvoice() {
     ct.addHeaders("", "Position", "Betrag");
     
     if(chkVV2302.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2302" + text1008 + " VV RVG", effectiveTaxRate, decF.parse(txtVV2302.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Geschäftsgebühr Nr. 2302" + text1008 + " VV RVG", effectiveTaxRate, df.parse(txtVV2302.text).floatValue()));
     }
     if(chkVV1005.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1005 VV RVG", effectiveTaxRate, decF.parse(txtVV1005.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr.1005 VV RVG", effectiveTaxRate, df.parse(txtVV1005.text).floatValue()));
     }
     if(chkvorVV7002.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblvorVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));
     }
     if(chkVV3102.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", effectiveTaxRate, decF.parse(txtVV3102.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", effectiveTaxRate, df.parse(txtVV3102.text).floatValue()));
     }
     if(chkAnrechenbarerAnteil.selected) {
-        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, decF.parse(lblAnrechenbarerAnteil.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechenbarerAnteil.text).floatValue()));
     }
     if(chkVV3106.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3106 VV RVG", effectiveTaxRate, decF.parse(txtVV3106.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3106 VV RVG", effectiveTaxRate, df.parse(txtVV3106.text).floatValue()));
     }
     if(chkVV1006.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", effectiveTaxRate, decF.parse(txtVV1006.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", effectiveTaxRate, df.parse(txtVV1006.text).floatValue()));
     } 
     if(chkVV7002.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002.text).floatValue()));
     }
     if(chkVV3204.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3204" + text1008 + " VV RVG", effectiveTaxRate, decF.parse(txtVV3204.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3204" + text1008 + " VV RVG", effectiveTaxRate, df.parse(txtVV3204.text).floatValue()));
     }
     if(chkVV3205.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3205 VV RVG", effectiveTaxRate, decF.parse(txtVV3205.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3205 VV RVG", effectiveTaxRate, df.parse(txtVV3205.text).floatValue()));
     }
     if(chkVV1006Berufung.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", effectiveTaxRate, decF.parse(txtVV1006Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Einigungsgebühr Nr. 1006 VV RVG", effectiveTaxRate, df.parse(txtVV1006Berufung.text).floatValue()));
     }
     if(chkVV7002Berufung.selected) {
-        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, decF.parse(lblVV7002Berufung.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Berufung.text).floatValue()));
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2278,7 +2278,7 @@ def ArrayList copyToInvoice() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
-                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
             }
         }
     }
@@ -2287,7 +2287,7 @@ def ArrayList copyToInvoice() {
 //    }
 
 //    if(chkmwst.selected) {
-//        positions.add(InvoiceUtils.invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, decF.parse(lblmwst.text).floatValue()));
+//        positions.add(InvoiceUtils.invoicePosition(taxModel.ustPercentageString + " % Umsatzsteuer Nr. 7008 VV RVG", taxRate, df.parse(lblmwst.text).floatValue()));
 //    }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -2299,7 +2299,7 @@ def ArrayList copyToInvoice() {
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             
             if (rowCustomEntryUSt =='0') {
-                positions.add(InvoiceUtils.invoicePosition(decF.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, decF.parse(rowCustomEntryUSt).floatValue(), decF.parse(rowCustomEntryValue).floatValue()));
+                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
             }
         }
     }
@@ -2312,13 +2312,13 @@ def ArrayList copyToInvoice() {
         positions.add(InvoiceUtils.invoicePosition("Quote " + spnCounter.value.toInteger().toString() + "/" + spnDivisor.value.toInteger().toString(), 0f, fGebuehr));
     }
     if(chkZahlungenBrutto19.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto19.text, 19f, (float)(-1f*betragFormat.parse(lblZahlungenBrutto19.text).floatValue()/1.19f)));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 19% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto19.text, 19f, (BigDecimal)(-1f*betragFormat.parse(lblZahlungenBrutto19.text)/1.19g)));
     }
     if(chkZahlungenBrutto16.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto16.text, 16f, (float)(-1f*betragFormat.parse(lblZahlungenBrutto16.text).floatValue()/1.16f)));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen inkl. 16% Umsatzsteuer", "gezahlter Bruttobetrag: " + lblZahlungenBrutto16.text, 16f, (BigDecimal)(-1f*betragFormat.parse(lblZahlungenBrutto16.text)/1.16g)));
     }
     if(chkZahlungenNetto.selected) {
-        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (float)(-1f*betragFormat.parse(lblZahlungenNetto.text).floatValue())));
+        positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (BigDecimal)(-1f*betragFormat.parse(lblZahlungenNetto.text))));
     }
     
     return positions;
