@@ -1941,7 +1941,6 @@ def float calculate() {
     if(chkVV7002.isSelected()) {
         gebuehr=(
             df.parse(lblVV3100.text)
-            +df.parse(lblAnrechenbarerAnteil.text)
             +df.parse(lblVV3104.text)
             +df.parse(lblVV1003.text)
         ) * 0.2g;
