@@ -662,7 +662,7 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-name = "Rechner Honorarvereinbarung"
+name = "Rechner Honorarvereinbarung/Vorschuss"
 description = "j-lawyer.org Rechner Honorarvereinbarungen"
 version = "3.0.6";
 author = "Anatol Anuschewski, Jens Kutschke, Maximilian Steinert"
