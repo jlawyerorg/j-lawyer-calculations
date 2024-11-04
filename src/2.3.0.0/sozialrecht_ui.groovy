@@ -862,7 +862,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                   chkvorVV7002 =  checkBox(text: 'Vorverfahren Auslagen VV7002:', selected: false,stateChanged: {
                                                 calculate()
                                    })
                                 }
@@ -996,7 +996,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkVV7002 =  checkBox(text: 'Auslagen VV7002ff.:', selected: false,stateChanged: {
+                                   chkVV7002 =  checkBox(text: 'Auslagen VV7002:', selected: false,stateChanged: {
                                                 calculate()
                                             })
                                 }
@@ -1109,7 +1109,7 @@ new SwingBuilder().edt {
                             }
                             tr {
                                 td {
-                                   chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002ff.:', selected: false, stateChanged: {
+                                   chkVV7002Berufung =  checkBox(text: 'Auslagen VV7002:', selected: false, stateChanged: {
                                                 calculate()
                                             })
                                 }
