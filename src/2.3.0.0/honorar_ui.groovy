@@ -878,7 +878,7 @@ new SwingBuilder().edt {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
                                             'Kopien schwarz/weiß Nr. 7000 VV RVG',
-                                            'Kopien farbe Nr. 7000 VV RVG',
+                                            'Kopien farbig Nr. 7000 VV RVG',
                                             'Fahrtkosten PKW Nr. 7003 VV RVG',
                                             'Fahrtkosten Nr. 7004 VV RVG (netto)',
                                             'Tagegeld Nr. 7005 VV RVG bis 4h',
@@ -1277,7 +1277,7 @@ def float calculate() {
         }
         txtCustomEntryValue.text = df.format(gebuehr)
         break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbe Nr. 7000 VV RVG'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbig Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toBigDecimal()<= 50g) {
             gebuehr = spnCustomEntry1.value.toBigDecimal()
