@@ -666,7 +666,7 @@ name = "Rechner Honorarvereinbarung/Vorschuss"
 description = "j-lawyer.org Rechner Honorarvereinbarungen"
 version = "3.0.7";
 author = "Anatol Anuschewski, Jens Kutschke, Maximilian Steinert"
-updated = "26.10.2024"
+updated = "05.11.2024"
 supportedPlaceHolders = "{{RVG_TABELLE}}, {{RVG}}"
 
 
