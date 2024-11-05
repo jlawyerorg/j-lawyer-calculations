@@ -1146,12 +1146,15 @@ new SwingBuilder().edt {
                                             '1009 VV RVG Hebegebühr',
                                             '7000 VV RVG Kopien schwarz/weiß',
                                             '7000 VV RVG Kopien farbig',
+                                            '7000 VV RVG elektronische Datei',
                                             '7002 VV RVG Auslagen',
                                             '7003 VV RVG Fahrtkosten PKW',
                                             '7004 VV RVG Fahrtkosten (netto)',
                                             '7005 VV RVG Tagegeld bis 4h',
                                             '7005 VV RVG Tagegeld 4 bis 8h',
                                             '7005 VV RVG Tagegeld ab 8h',
+                                            '7006 VV RVG Sonstige Auslagen bei Geschäftsreisen',
+                                            '7007 VV RVG Prämie für eine Haftpflicht im Einzelfall',
                                             'Gebühr Akteneinsicht',
                                             'steuerpflichtige Auslagen (netto)',
                                             'umsatzsteuerfreie Auslagen'
@@ -1800,6 +1803,16 @@ def float calculate() {
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == '7000 VV RVG elektronische Datei'}:
+        chkUStCustomEntry1.setSelected(true)
+        gebuehr = spnCustomEntry1.value.toBigDecimal()*1.5g
+        if (gebuehr <= 5) {
+            gebuehr = gebuehr
+        } else {
+            gebuehr = 5
+        }
+        txtCustomEntryValue.text = df.format(gebuehr)
+    break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7004 VV RVG Fahrtkosten (netto)'}:
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = txtCustomEntryValue.text
@@ -1839,6 +1852,14 @@ def float calculate() {
         }
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7006 VV RVG Sonstige Auslagen bei Geschäftsreisen'}:
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
+    break
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7007 VV RVG Prämie für eine Haftpflicht im Einzelfall'}:
+        chkUStCustomEntry1.setSelected(true)
+        txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Gebühr Akteneinsicht'}:
         chkUStCustomEntry1.setSelected(true)
