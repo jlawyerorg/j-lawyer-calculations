@@ -1137,7 +1137,7 @@ new SwingBuilder().edt {
                 }
             }
 
-              tr {
+            tr {
                 td (colfill:true) {
                     panel(border: titledBorder(title: 'Revision')) {
                         tableLayout (cellpadding: 5) {                           
@@ -1208,7 +1208,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel{
-                                        button(text:'Hinzufügen', actionPerformed: { addRevision() })
+                                        button(text:'Hinzufügen', actionPerformed: { addVol() })
                                     }
                                 }
                             }
@@ -1216,6 +1216,90 @@ new SwingBuilder().edt {
                     }
                 }
             }
+
+tr {
+                td (colfill:true) {
+                    panel(border: titledBorder(title: 'Strafvollstreckung')) {
+                        tableLayout (cellpadding: 5) {                           
+                            tr {
+                                td {
+                                    panel {
+                                            chkVV4200 = checkBox(id: 'nVV4200', text: '', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                            lblVV4200 = label(id: 'nVV4200', text: 'Verfahrensgebühr Nr. 4200:')
+                                            haftVV4200 = checkBox(id: 'haftVV4200', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                            rhVV4200 = label(id: 'nVV4200', text: '')
+                                            cbchVV4200=comboBox(id:'cbchVV4200', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                                calculate()
+                                            })
+                                    }
+                                }
+                                td (align: 'right') {
+                                    panel {
+                                            txtVV4200=formattedTextField(id: 'nVV4200', format: betragFormat, text: '0,00', columns: 4)
+                                            label(text: 'EUR')
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel {
+                                        chkVV7002Vol =  checkBox(text: '', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                        label(text: 'Auslagen Nr. 7002')
+                                    }
+                                }
+                                td (align: 'right'){
+                                    panel {
+                                        lblVV7002Vol = label(text: '0,00')
+                                        label(text: 'EUR')
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    panel {
+                                        cmbTerminVolName = comboBox(items: [
+                                            '',
+                                            'Terminsgebühr',
+                                            'sonstige Verfahrensgebühr',
+                                            'sonstige Terminsgebühr',
+                                            'Auslagen Nr. 7002',
+                                            ], editable: true, itemStateChanged: {
+                                            calculate()
+                                            }
+                                        )
+                                        rvgVVTerminVol = label(id: 'nrvgVVTerminVol', text: 'Nr. RVG VV')
+                                        haftTerminVol = checkBox(id: 'haftTerminVol', text: 'Haft', selected: false, stateChanged: {
+                                                calculate()
+                                            })
+                                        rhTerminVol = label(id: 'nTerminVol', text: '')
+                                        cbchTerminVol=comboBox(id:'cbchTerminVol', items:['+20%', '+10%', 'Mittelg.', '-10%', '-20%', 'eigene'], selectedItem:'Mittelg.', itemStateChanged: {
+                                            calculate()
+                                        })
+                                    }
+                                }
+                                td {
+                                    panel {
+                                        txtTerminVolValue = formattedTextField(id: 'nTerminVolValue', format: betragFormat, columns:4, text: '0,00')
+                                        label (text: 'EUR')
+                                    }
+                                }
+                                td {
+                                    panel{
+                                        button(text:'Hinzufügen', actionPerformed: { addVol() })
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             tr {
                 td (colfill:true) {
                     panel(border: titledBorder(title: 'Sonstiges')) {
@@ -1591,6 +1675,8 @@ def haft() {
         haftTermin2I.setSelected(true)
         haftVV4130.setSelected(true)
         haftTerminRev.setSelected(true)
+        haftVV4200.setSelected(true)
+        haftTerminVol.setSelected(true)
     } else {
         haftVV4100.setSelected(false)
         haftTerminVor.setSelected(false)
@@ -1601,6 +1687,8 @@ def haft() {
         haftTermin2I.setSelected(false)
         haftVV4130.setSelected(false)
         haftTerminRev.setSelected(false)
+        haftVV4200.setSelected(false)
+        haftTerminVol.setSelected(false)
     }
 }
 
@@ -1616,6 +1704,8 @@ def void setchange(){
         cbchTermin2I.setSelectedItem('+20%')
         cbchVV4130.setSelectedItem('+20%')
         cbchTerminRev.setSelectedItem('+20%')
+        cbchVV4200.setSelectedItem('+20%')
+        cbchTerminVol.setSelectedItem('+20%')
         break
         case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Erhöhung um 10%'}:
         cbchVV4100.setSelectedItem('+10%')
@@ -1627,6 +1717,8 @@ def void setchange(){
         cbchTermin2I.setSelectedItem('+10%')
         cbchVV4130.setSelectedItem('+10%')
         cbchTerminRev.setSelectedItem('+10%')
+        cbchVV4200.setSelectedItem('+10%')
+        cbchTerminVol.setSelectedItem('+10%')
         break
         case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 10%'}:
         cbchVV4100.setSelectedItem('-10%')
@@ -1638,6 +1730,8 @@ def void setchange(){
         cbchTermin2I.setSelectedItem('-10%')
         cbchVV4130.setSelectedItem('-10%')
         cbchTerminRev.setSelectedItem('-10%')
+        cbchVV4200.setSelectedItem('-10%')
+        cbchTerminVol.setSelectedItem('-10%')
         break
         case {cbchange.getItemAt(cbchange.getSelectedIndex())=='Verringerung um 20%'}:
         cbchVV4100.setSelectedItem('-20%')
@@ -1649,6 +1743,8 @@ def void setchange(){
         cbchTermin2I.setSelectedItem('-20%')
         cbchVV4130.setSelectedItem('-20%')
         cbchTerminRev.setSelectedItem('-20%')
+        cbchVV4200.setSelectedItem('-20%')
+        cbchTerminVol.setSelectedItem('-20%')
         break
         default:
         cbchVV4100.setSelectedItem('Mittelg.')
@@ -1660,6 +1756,8 @@ def void setchange(){
         cbchTermin2I.setSelectedItem('Mittelg.')
         cbchVV4130.setSelectedItem('Mittelg.')
         cbchTerminRev.setSelectedItem('Mittelg.')
+        cbchVV4200.setSelectedItem('Mittelg.')
+        cbchTerminVol.setSelectedItem('Mittelg.')
     }
 }
 
@@ -1674,6 +1772,8 @@ def void defErhoehungen() {
         cbchTermin2I.removeAllItems()
         cbchVV4130.removeAllItems()
         cbchTerminRev.removeAllItems()
+        cbchVV4200.removeAllItems()
+        cbchTerminVol.removeAllItems()
     } else {
         def list = ['+20%', '+10%', 'Mittelg.', '-10%', '-20%']
         for (item in list) {
@@ -1686,6 +1786,8 @@ def void defErhoehungen() {
             cbchTermin2I.addItem(item)
             cbchVV4130.addItem(item)
             cbchTerminRev.addItem(item)
+            cbchVV4200.addItem(item)
+            cbchTerminVol.addItem(item)
         }
     }
 }
@@ -1765,6 +1867,12 @@ def void addBerufung() {
 
 def void addRevision() {
     def newEntry = ['anzahl': '1', 'name': cmbTerminRevName.selectedItem+' '+rvgVVTerminRev.text, 'ust': taxModel.ustPercentageString, 'number': txtTerminRevValue.text, 'instanz':'3']
+    customTable.model.rowsModel.value.add(newEntry)
+    customTable.model.fireTableDataChanged()
+    calculate()
+}
+def void addVol() {
+    def newEntry = ['anzahl': '1', 'name': cmbTerminVolName.selectedItem+' '+rvgVVTerminVol.text, 'ust': taxModel.ustPercentageString, 'number': txtTerminVolValue.text, 'instanz':'Vol']
     customTable.model.rowsModel.value.add(newEntry)
     customTable.model.fireTableDataChanged()
     calculate()
@@ -3115,6 +3223,254 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         txtTerminRevValue.text = df.format(0f)
     }
 
+
+if(chkVV4200.isSelected() && !chkowig.isSelected()) {
+        if (chkPflichtV.isSelected()) {
+            rhVV4200.text = '';
+            if(haftVV4200.isSelected()) {
+                lblVV4200.text = 'Verfahrensgebühr Nr. 4201'
+                if (radioRVG2013.isSelected()){
+                    txtVV4200.text = df.format(300)
+                } else {
+                    txtVV4200.text = df.format(395)
+                }
+            } else {
+                lblVV4200.text = 'Verfahrensgebühr Nr. 4200';
+                if (radioRVG2013.isSelected()){
+                    txtVV4200.text = df.format(244)
+                } else {
+                    txtVV4200.text = df.format(321)
+                }
+            }
+        } else {
+            if(haftVV4200.isSelected()) {
+                lblVV4200.text = 'Verfahrensgebühr Nr. 4201'
+                if (radioRVG2013.isSelected()){
+                    urahmen = 50
+                    orahmen = 700
+                } else {
+                    urahmen = 66
+                    orahmen = 921
+                } 
+            } else {
+                lblVV4200.text = 'Verfahrensgebühr Nr. 4200';
+                if (radioRVG2013.isSelected()){
+                    urahmen = 50
+                    orahmen = 560
+                } else {
+                    urahmen = 66
+                    orahmen = 737
+                } 
+            }        
+            rhVV4200.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
+            if (cbchVV4200.getItemAt(cbchVV4200.getSelectedIndex())=='eigene') {
+                if (df.parse(txtVV4200.text) == 0f) {
+                    txtVV4200.text = df.format((urahmen+orahmen)/2*calchange(cbchVV4200.getItemAt(cbchVV4200.getSelectedIndex())))
+                } else {
+                    txtVV4200.text = txtVV4200.text
+                }
+            } else {
+                txtVV4200.text = df.format((urahmen+orahmen)/2*calchange(cbchVV4200.getItemAt(cbchVV4200.getSelectedIndex())))
+            }
+        }
+    } else {
+        rhVV4200.text = '';
+        txtVV4200.text = df.format(0f)
+    }
+
+    if(chkVV7002Vol.isSelected() && !chkowig.isSelected()) { 
+        gebuehr=(
+            df.parse(txtVV4100.text)
+            +df.parse(txtVV4200.text)
+             * 0.2f
+        );
+        switch(gebuehr) {
+            case {it < 20f}: gebuehr = gebuehr
+            break
+            case {it >= 20f}: gebuehr = 20f  
+            break
+        }
+        lblVV7002Vol.text = df.format(gebuehr)
+    } else {
+        lblVV7002Vol.text = df.format(0f)
+    }
+    
+    switch (cmbTerminVolName) {
+        case {cmbTerminVolName.selectedItem.contains('Terminsgebühr')}:
+            if (chkPflichtV.isSelected() && !chkowig.isSelected()) {
+                rhTerminVol.text = ''
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4203 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(145)
+                    } else {
+                        txtTerminVolValue.text = df.format(192)
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4202 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(120)
+                    } else {
+                        txtTerminVolValue.text = df.format(158)
+                    }
+                }
+            } else if (!chkowig.isSelected()) { 
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4203 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 50
+                        orahmen = 312.5
+                    } else {
+                        urahmen = 66
+                        orahmen = 413
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4202 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 50
+                        orahmen = 250
+                    } else {
+                        urahmen = 66
+                        orahmen = 330
+                    }
+                }
+                rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+                if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {
+                    if (df.parse(txtTerminVolValue.text) == 0f) {
+                        txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                    } else {
+                        txtTerminVolValue.text = txtTerminVolValue.text
+                    }
+                } else {
+                    txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                }
+            } else {
+                rvgVVTerminVol.text='Nr. VV RVG'
+                rhTerminVol.text = ''
+                txtTerminVolValue.text = df.format(0f)
+            }
+        break
+        case {cmbTerminVolName.selectedItem.contains('sonstige Verfahrensgebühr')}:
+            if (chkPflichtV.isSelected() && !chkowig.isSelected()) {
+                rhTerminVol.text = ''
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4205 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(133)
+                    } else {
+                        txtTerminVolValue.text = df.format(178)
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4204 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(108)
+                    } else {
+                        txtTerminVolValue.text = df.format(145)
+                    }
+                }
+            } else if (!chkowig.isSelected()) { 
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4205 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 20
+                        orahmen = 312.5
+                    } else {
+                        urahmen = 33
+                        orahmen = 413
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4204 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 20
+                        orahmen = 250
+                    } else {
+                        urahmen = 33
+                        orahmen = 330
+                    }
+                }
+                rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+                if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {
+                    if (df.parse(txtTerminVolValue.text) == 0f) {
+                        txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                    } else {
+                        txtTerminVolValue.text = txtTerminVolValue.text
+                    }
+                } else {
+                    txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                }
+            } else {
+                rvgVVTerminVol.text='Nr. VV RVG'
+                rhTerminVol.text = ''
+                txtTerminVolValue.text = df.format(0f)
+            }
+        break
+        case {cmbTerminVolName.selectedItem.contains('sonstige Terminsgebühr')}:
+            if (chkPflichtV.isSelected() && !chkowig.isSelected()) {
+                rhTerminVol.text = ''
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4207 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(133)
+                    } else {
+                        txtTerminVolValue.text = df.format(178)
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4206 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        txtTerminVolValue.text = df.format(108)
+                    } else {
+                        txtTerminVolValue.text = df.format(145)
+                    }
+                }
+            } else if (!chkowig.isSelected()) { 
+                if(haftTerminVol.isSelected()) {
+                    rvgVVTerminVol.text='Nr. 4207 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 20
+                        orahmen = 312.5
+                    } else {
+                        urahmen = 33
+                        orahmen = 413
+                    }
+                } else {
+                    rvgVVTerminVol.text='Nr. 4206 VV RVG';
+                    if (radioRVG2013.isSelected()){
+                        urahmen = 20
+                        orahmen = 250
+                    } else {
+                        urahmen = 33
+                        orahmen = 330
+                    }
+                }
+                rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
+                if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {
+                    if (df.parse(txtTerminVolValue.text) == 0f) {
+                        txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                    } else {
+                        txtTerminVolValue.text = txtTerminVolValue.text
+                    }
+                } else {
+                    txtTerminVolValue.text = df.format((urahmen+orahmen)/2*calchange(cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())))
+                }
+            } else {
+                rvgVVTerminVol.text='Nr. VV RVG'
+                rhTerminVol.text = ''
+                txtTerminVolValue.text = df.format(0f)
+            }
+        break
+        case {cmbTerminVolName.selectedItem.contains('Auslagen Nr. 7002')}:
+            rvgVVTerminVol.text = 'Auslagen Nr. 7002'
+            rhTerminVol.text = ''
+            txtTerminVolValue.text = df.format(20)
+        break
+    default:
+        rvgVVTerminVol.text='Nr. VV RVG'
+        rhTerminVol.text = ''
+        txtTerminVolValue.text = df.format(0f)
+    }
+
+
+
     switch (cmbCustomEntryName) {
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == '7000 VV RVG Kopien schwarz/weiß'}:
         chkUStCustomEntry1.setSelected(true)
@@ -3259,6 +3615,8 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         +df.parse(lblVV7002Berufung.text)
         +df.parse(txtVV4130.text)
         +df.parse(lblVV7002Rev.text)
+        +df.parse(txtVV4200.text)
+        +df.parse(lblVV7002Vol.text)
         + customSum
         )
     lblzwsum.text=df.format(gebuehr)
@@ -3435,6 +3793,29 @@ def StyledCalculationTable copyToDocument() {
     if(chkVV7002Rev.selected) {
         ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Rev.text + " €");
         rowcount=rowcount+1
+    }
+    if(chkVV4200.selected) {
+        ct.addRow("", lblVV4200.text + " VV RVG", txtVV4200.text + " €");
+        rowcount=rowcount+1
+    }
+    if(chkVV7002Vol.selected) {
+        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Vol.text + " €");
+        rowcount=rowcount+1
+    }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='Vol') {
+                ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                rowcount=rowcount+1
+            }
+        }
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
@@ -3716,6 +4097,27 @@ def ArrayList copyToInvoice() {
     }
     if(chkVV7002Rev.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Rev.text).floatValue()));
+    }
+    if(chkVV4200.selected) {
+        positions.add(InvoiceUtils.invoicePosition(lblVV4200.text + " VV RVG", effectiveTaxRate, df.parse(txtVV4200.text).floatValue()));
+    }
+    if(chkVV7002Vol.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Vol.text).floatValue()));
+    }
+        customRows=customTable.getRowCount()
+    System.out.println(customRows + " custom entries")
+    if(customRows>0) {
+        for(int i=0;i<customRows;i++) {
+            rowCustomEntryAnzahl=customTable.getValueAt(i, 0);
+            rowCustomEntryName=customTable.getValueAt(i, 1);
+            rowCustomEntryUSt=customTable.getValueAt(i, 2);
+            rowCustomEntryValue=customTable.getValueAt(i, 3);
+            rowCustomEntryInstanz=customTable.getValueAt(i, 4);
+            if (rowCustomEntryInstanz =='Vol') {
+                //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
+                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+            }
+        }
     }
     customRows=customTable.getRowCount()
     System.out.println(customRows + " custom entries")
