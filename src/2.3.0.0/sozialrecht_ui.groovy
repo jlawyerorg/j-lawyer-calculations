@@ -2110,12 +2110,10 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Quote " + spnCounter.value.toInteger().toString() + "/" + spnDivisor.value.toInteger().toString() + "", lblquote.text + " €");
     }
     if(chkZahlungenBrutto19.selected) {
-        ct.addRow("", "bisherige Zahlungen inkl. 19% Umsatzsteuer ", "-" + lblZahlungenBrutto19.text + " €");
-        ct.addRow("", "darin enthaltene USt. (19%): " + lblmwstZahlung19.text + " €", "");
+        ct.addRow("", "bisherige Zahlungen (inkl. 19% Umsatzsteuer: " + lblmwstZahlung19.text + " €)", "-" + lblZahlungenBrutto19.text + " €");
     }
     if(chkZahlungenBrutto16.selected) {
-        ct.addRow("", "bisherige Zahlungen inkl. 16% Umsatzsteuer ", "-" + lblZahlungenBrutto16.text + " €");
-        ct.addRow("", "darin enthaltene USt. (16 %): " + lblmwstZahlung16.text + " €", "");
+        ct.addRow("", "bisherige Zahlungen (inkl. 16% Umsatzsteuer: " + lblmwstZahlung16.text + " €)", "-" + lblZahlungenBrutto16.text + " €");
     }
     if(chkZahlungenNetto.selected) {
         ct.addRow("", "bisherige Zahlungen ohne Umsatzsteuer", "-" + lblZahlungenNetto.text + " €");
@@ -2124,7 +2122,11 @@ def StyledCalculationTable copyToDocument() {
     if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
         ct.addRow("", "", "");
     }
-    int footerRow=ct.addRow("", "Zahlbetrag", lblsum2.text + " €");
+    ustString=''
+    if ((chkZahlungenBrutto19.selected)||(chkZahlungenBrutto16.selected)) {
+        ustString = " (inkl. " + taxModel.ustPercentageString + "% Umsatzsteuer: " + df.format(df.parse(lblsum2.text)/(1+taxModel.ustFactor)*taxModel.ustFactor) + " €)"
+    }
+    int footerRow=ct.addRow("", "Zahlbetrag" + ustString, lblsum2.text + " €");
     
     //HeaderRow
     ct.setRowForeGround(0, new TablePropertiesUtils().getHeaderForeColor());
