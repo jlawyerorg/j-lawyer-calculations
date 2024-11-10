@@ -739,6 +739,13 @@ new SwingBuilder().edt {
                                             }
                                             tr {
                                                 td {
+                                                    colorAbzuege = checkBox(id: 'colorAbzuege', text: 'Abzüge in Rot darstellen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.color.Abzuege", false), stateChanged: {
+                                                            setProps()
+                                                        })
+                                                }          
+                                            }
+                                            tr {
+                                                td {
                                                     tableemptyRows = checkBox(id: 'tableemptyRows', text: 'leere Zeilen einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true), stateChanged: {
                                                             setProps()
                                                         })
@@ -965,6 +972,11 @@ def void setProps() {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+true);
     } else {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+false);
+    }
+    if (colorAbzuege.isSelected()) {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.color.Abzuege", ""+true);
+    } else {
+        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.color.Abzuege", ""+false);
     }
     if (vorSummeUnderline.isSelected()) {
         ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+true);

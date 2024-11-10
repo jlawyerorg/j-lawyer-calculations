@@ -678,10 +678,10 @@ import com.jdimension.jlawyer.client.settings.ServerSettings
 import com.jdimension.jlawyer.persistence.InvoicePosition
 
 @Bindable
-class Address { 
+/*class Address { 
     String street, number, city
     String toString() { "address[street=$street,number=$number,city=$city]" }
-}
+}*/
 
 class TaxModel {
     @Bindable BigDecimal ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
@@ -2001,6 +2001,7 @@ def String copyToClipboard() {
 
 def StyledCalculationTable copyToDocument() {
     float rowcount=0f
+    int abzug=0
     String text1008 = '' //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
     if (spnMandanten.value.toFloat()!=1f) {
         text1008 = ', 1008'
@@ -2031,6 +2032,7 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chkAnrechenbarerAnteil.selected) {
         ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
+        abzug=ct.getRowCount()-1;
         rowcount=rowcount+1
     }
     if(chkVV3106.selected) {
@@ -2133,6 +2135,12 @@ def StyledCalculationTable copyToDocument() {
         ct.setRowBold(0, false);
     }
   
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.color.Abzuege", true)) {
+        if (abzug!=0) {
+            ct.setRowForeGround(abzug, java.awt.Color.RED)
+        }
+    }
+    
     //Zwischensumme
     ctRows=ct.getRowCount()
     if(ctRows>0) {

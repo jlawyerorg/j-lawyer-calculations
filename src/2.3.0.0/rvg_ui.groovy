@@ -685,10 +685,10 @@ import com.jdimension.jlawyer.persistence.InvoicePosition
 
 
 @Bindable
-class Address { 
+/*class Address { 
     String street, number, city
     String toString() { "address[street=$street,number=$number,city=$city]" }
-}
+}*/
 
 class TaxModel {
     @Bindable BigDecimal ustFactor=TaxPropertiesUtils.getUstFactor(); // 0,19
@@ -2393,7 +2393,11 @@ def String copyToClipboard() {
 }
 
 def StyledCalculationTable copyToDocument() {
-    float rowcount=0f
+    int rowcount=0
+    int abzug1=0
+    int abzug2=0
+    int abzug3=0
+
 
     //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
     String text1008 = ''
@@ -2426,6 +2430,7 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chkAnrechenbarerAnteil.selected) {
         ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
+        abzug1=ct.getRowCount()-1;
         rowcount=rowcount+1
     }
     if(chkVV3104.selected) {
@@ -2478,9 +2483,11 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
         ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
+        abzug2=ct.getRowCount()-1;
     }
     if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
         ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
+        abzug3=ct.getRowCount()-1;
     }
     if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -2544,6 +2551,19 @@ def StyledCalculationTable copyToDocument() {
         ct.setRowBold(0, false);
     }
   
+
+    if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.color.Abzuege", true)) {
+        if (abzug1!=0) {
+            ct.setRowForeGround(abzug1, java.awt.Color.RED)
+        }
+        if (abzug2!=0) {
+            ct.setRowForeGround(abzug2, java.awt.Color.RED)
+        }
+        if (abzug3!=0) {
+            ct.setRowForeGround(abzug3, java.awt.Color.RED)
+        }
+    }
+
     //Zwischensumme
     ctRows=ct.getRowCount()
     if(ctRows>0) {
