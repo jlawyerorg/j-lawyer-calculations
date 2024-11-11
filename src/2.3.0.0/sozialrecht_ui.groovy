@@ -934,10 +934,18 @@ new SwingBuilder().edt {
                                     label(text: ' ')
                                 }
                                 td (align: 'right') {
-                                    lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
+                                    //lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
+                                    txtAnrechenbarerAnteil=formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, text: '0,00', columns: 4, foreground: java.awt.Color.RED, actionPerformed: {
+                                        calculate()
+                                })
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
+                                }
+                                td {
+                                    chkeditAnrechenbarerAnteil = checkBox(text: 'edit', selected: false, stateChanged: {
+                                            calculate()
+                                        })
                                 }
                             }
                             tr {
@@ -1629,19 +1637,25 @@ def float calculate() {
         }
     
     if(chkAnrechenbarerAnteil.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            maxAnrechnung = -175
+        if (chkeditAnrechenbarerAnteil.isSelected()) {
+            if(df.parse(txtAnrechenbarerAnteil.text)>0) {
+                txtAnrechenbarerAnteil.text = df.format(df.parse(txtAnrechenbarerAnteil.text) * -1f)
+            }
         } else {
-            maxAnrechnung = -207
-        }
-        gebuehr = df.parse(txtVV2302.text) / 2f * -1f
-        if (gebuehr > maxAnrechnung) {
-            lblAnrechenbarerAnteil.text = df.format(gebuehr)
-        } else {
-         lblAnrechenbarerAnteil.text = df.format(maxAnrechnung)   
+            if (radioRVG2013.isSelected()){
+                maxAnrechnung = -175
+            } else {
+                maxAnrechnung = -207
+            }
+            gebuehr = df.parse(txtVV2302.text) / 2f * -1f
+            if (gebuehr > maxAnrechnung) {
+                txtAnrechenbarerAnteil.text = df.format(gebuehr)
+            } else {
+            txtAnrechenbarerAnteil.text = df.format(maxAnrechnung)   
+            }
         }
     } else {
-        lblAnrechenbarerAnteil.text = df.format(0f)
+        txtAnrechenbarerAnteil.text = df.format(0f)
     }
 
     if(chkVV3106.isSelected()) {
@@ -1689,7 +1703,7 @@ def float calculate() {
     if(chkVV7002.isSelected()) {
         gebuehr=(
         df.parse(txtVV3102.text)
-        +df.parse(lblAnrechenbarerAnteil.text)
+        +df.parse(txtAnrechenbarerAnteil.text)
         +df.parse(txtVV3106.text)
         +df.parse(txtVV1006.text)
         ) * 0.2g;
@@ -1923,7 +1937,7 @@ def float calculate() {
         +df.parse(lblvorVV7002.text)
         +df.parse(txtVV1005.text)
         +df.parse(txtVV3102.text)
-        +df.parse(lblAnrechenbarerAnteil.text)
+        +df.parse(txtAnrechenbarerAnteil.text)
         +df.parse(txtVV3106.text)
         +df.parse(txtVV1006.text)
         +df.parse(lblVV7002.text)
@@ -2031,7 +2045,7 @@ def StyledCalculationTable copyToDocument() {
         rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
-        ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
+        ct.addRow("", "abzüglich anrechenbarer Teil", txtAnrechenbarerAnteil.text + " €");
         abzug=ct.getRowCount()-1;
         rowcount=rowcount+1
     }
@@ -2282,7 +2296,7 @@ def ArrayList copyToInvoice() {
         positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3102" + text1008 + " VV RVG", effectiveTaxRate, df.parse(txtVV3102.text).floatValue()));
     }
     if(chkAnrechenbarerAnteil.selected) {
-        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechenbarerAnteil.text).floatValue()));
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(txtAnrechenbarerAnteil.text).floatValue()));
     }
     if(chkVV3106.selected) {
         positions.add(InvoiceUtils.invoicePosition("Terminsgebühr Nr. 3106 VV RVG", effectiveTaxRate, df.parse(txtVV3106.text).floatValue()));
