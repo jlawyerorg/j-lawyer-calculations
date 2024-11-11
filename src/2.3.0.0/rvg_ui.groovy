@@ -945,6 +945,124 @@ new SwingBuilder().edt {
                 }
             }
             
+tr {
+                td (colfill:true) {
+                    panel(border: titledBorder(title: 'Mahnverfahren')) {
+                        tableLayout (cellpadding: 5) {                           
+                            tr {
+                                td {
+                                    chkVV3305 = checkBox(id: 'nGeschaeftsGebuehr', text: 'Verfahrensgebühr VV3305:', selected: false, stateChanged: {
+                                            calculate()
+                                            //cal15Abs3()
+                                        })
+                                }
+                                td {
+                                    spnVV3305 = spinner(
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:1.0f,
+                                            stepSize:0.1f), stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    faktorVV3305 = label(id: 'nfaktor3100', text: '1,0')
+                                }
+                                td {
+                                    label (text: 'Gegenstandswert')
+                                }
+                                td {
+                                    swVV3305 = formattedTextField(id: 'nswVV3305', format: betragFormat, columns:8, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
+                                td (align: 'right') {
+                                    lblVV3305 = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                                td {
+                                    chkvdAG = checkBox(text: 'V.d. AG', selected: false, stateChanged: {
+                                            calculate()
+                                            vdAG()
+                                        })
+                                }
+                            }
+                
+                            tr {
+                                td {
+                                    chkAnrechnungMahn = checkBox(text: 'abzüglich anrechenbarer Teil:', selected: false, stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    spnAnrechnungMahn = spinner(
+                                        model:spinnerNumberModel(minimum:0.0f, 
+                                            maximum: 10.0f, 
+                                            value:0.65f,
+                                            stepSize:0.1), stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: 'Gegenstandswert')
+                                }
+                                td {
+                                    swAnrechnungMahn = formattedTextField(id: 'nAnrechnungMahn', format: betragFormat, columns:8, text: '0.0')
+                                }
+                                td {
+                                    label(text: 'EUR')
+                                }
+                                td (align: 'right') {
+                                    lblAnrechnungMahn = formattedTextField(id: 'lblAnrechnungMahn', format: betragFormat, columns:4, text: '0,00', foreground: java.awt.Color.RED)
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                                td {
+                                    chkeditAnrechnungMahn = checkBox(text: 'edit', selected: false, stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                            }
+                            tr {
+                                td {
+                                    chkVV7002Mahn =  checkBox(text: 'Auslagen VV7002:', selected: false,stateChanged: {
+                                            calculate()
+                                        })
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td {
+                                    label(text: ' ')
+                                }
+                                td (align: 'right') {
+                                    lblVV7002Mahn = label(text: '0,00')
+                                }
+                                td (align: 'right') {
+                                    label(text: 'EUR')
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             tr {
                 td (colfill:true) {
                     panel(border: titledBorder(title: '1. Instanz')) {
@@ -1754,6 +1872,18 @@ def void cal15Abs3() {
     }
 }
 
+def void vdAG() { //Vertreter des Antragstellers im Mahnverfahren
+    if (chkvdAG.isSelected()) {
+        spnVV3305.setValue(0.5)
+        chkVV3305.setText('Verfahrensgebühr VV3307')
+        spnAnrechnungMahn.setValue(0.5)//Deckelt die Anrechnung auf 0,5.
+    } else {
+        spnVV3305.setValue(1)
+        chkVV3305.setText('Verfahrensgebühr VV3305')
+        spnAnrechnungMahn.setValue(0.65)
+    } 
+}
+
 def float calculate() {
     streitWert=txtStreitWert.text
     if(streitWert.trim().length()==0) {
@@ -1776,6 +1906,8 @@ def float calculate() {
     if (chkstreitwert.isSelected()) {
         swVV2300.text = df.format(betragFormat.parse(streitWert))
         swVV1000.text = df.format(betragFormat.parse(streitWert))
+        swVV3305.text = df.format(betragFormat.parse(streitWert))
+        swAnrechnungMahn.text = df.format(betragFormat.parse(streitWert))
         swVV3100.text = df.format(betragFormat.parse(streitWert))
         swAnrechenbarerAnteil.text = df.format(betragFormat.parse(streitWert))
         swVV3104.text = df.format(betragFormat.parse(streitWert))
@@ -1846,6 +1978,76 @@ def float calculate() {
         lblvorVV7002.text = df.format(0f)
     }
 
+        if(chkVV3305.isSelected()) {
+        switch (spnMandanten){
+        case {spnMandanten.value.toFloat()==1}: faktor = spnVV3305.value.toFloat()
+            break
+        case {spnMandanten.value.toFloat()==8}: faktor = 2 + spnVV3305.value.toFloat()
+            break
+        default: faktor = (spnMandanten.value.toFloat()-1f)*0.3g + spnVV3305.value.toFloat()
+            break
+        }
+        faktorVV3305.text = faktorFormat.format(faktor)
+        if (radioRVG2013.isSelected()){
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swVV3305.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swVV3305.text).floatValue(), faktor);  
+            } 
+        } else {
+            if(chkPKH.isSelected()) {
+                gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swVV3305.text).floatValue(), faktor);
+            } else {
+                gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swVV3305.text).floatValue(), faktor);  
+            } 
+        }
+        if (gebuehr<15) {gebuehr = 15f}
+        lblVV3305.text = df.format(gebuehr)
+    } else {
+        lblVV3305.text = df.format(0f)
+    }
+
+    if(chkVV7002Mahn.isSelected()) {
+        gebuehr=(
+            df.parse(lblVV3305.text)
+            +df.parse(lblVV3104.text)
+        ) * 0.2g;
+        switch(gebuehr) {
+        case {it < 20f}: gebuehr = gebuehr
+            break
+        case {it >= 20f}: gebuehr = 20f  
+            break
+        }
+        lblVV7002Mahn.text = df.format(gebuehr)
+    } else {
+        lblVV7002Mahn.text = df.format(0f)
+    }
+
+    if((chkAnrechnungMahn.isSelected())) {
+        if (chkeditAnrechnungMahn.isSelected()) {
+            if(df.parse(lblAnrechnungMahn.text)>0) {
+                lblAnrechnungMahn.text = df.format(df.parse(lblAnrechnungMahn.text) * -1f)
+            } 
+        } else {
+            if (radioRVG2013.isSelected()){
+                if(chkPKH.isSelected()) {
+                    gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swAnrechnungMahn.text).floatValue(), spnAnrechnungMahn.value.toFloat());
+                } else {
+                    gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swAnrechnungMahn.text).floatValue(), spnAnrechnungMahn.value.toFloat());
+                }
+            } else {
+                if(chkPKH.isSelected()) {
+                    gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechnungMahn.text).floatValue(), spnAnrechnungMahn.value.toFloat());
+                } else {
+                    gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechnungMahn.text).floatValue(), spnAnrechnungMahn.value.toFloat());
+                }
+            } 
+            lblAnrechnungMahn.text = df.format((gebuehr) * -1f)
+        }
+    } else {
+        lblAnrechnungMahn.text = df.format(0f)
+    }
+
     if(chkVV3100.isSelected()) {
         switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1}: faktor = spnVV3100.value.toFloat()
@@ -1875,14 +2077,19 @@ def float calculate() {
         lblVV3100.text = df.format(0f)
     }
     
-    if((chkAnrechenbarerAnteil.isSelected()) /*&& (chkVV3100.isSelected()) && (chkVV2300.isSelected())*/) {
+    if((chkAnrechenbarerAnteil.isSelected())) {
         if (chkeditAnrechenbarerAnteil.isSelected()) {
             if(df.parse(lblAnrechenbarerAnteil.text)>0) {
                 lblAnrechenbarerAnteil.text = df.format(df.parse(lblAnrechenbarerAnteil.text) * -1f)
-            } /*else {
-                lblAnrechenbarerAnteil.text = lblAnrechenbarerAnteil.text
-            }*/
+            }
         } else {
+            if (chkVV3305.isSelected() && chkAnrechnungMahn.isSelected() && chkvdAG.isSelected()){ // OLG Köln Beschluss vom 27.04.2009 - 17 W 249/08
+                spnAnrechenbarerAnteil.setValue(1.15)
+            } else if (chkVV3305.isSelected()){
+                spnAnrechenbarerAnteil.setValue(1)
+            } else {
+                spnAnrechenbarerAnteil.setValue(0.65)
+            }
             if (radioRVG2013.isSelected()){
                 if(chkPKH.isSelected()) {
                     gebuehr=pkhtab.berechneWertGebuehr2013(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
@@ -2313,6 +2520,9 @@ def float calculate() {
         df.parse(lblVV2300.text)
         +df.parse(lblvorVV7002.text)
         +df.parse(lblVV1000.text)
+        +df.parse(lblVV3305.text)
+        +df.parse(lblAnrechnungMahn.text)
+        +df.parse(lblVV7002Mahn.text)
         +df.parse(lblVV3100.text)
         +df.parse(lblAnrechenbarerAnteil.text)
         +df.parse(lblVV3104.text)
@@ -2397,6 +2607,7 @@ def StyledCalculationTable copyToDocument() {
     int abzug1=0
     int abzug2=0
     int abzug3=0
+    int abzug4=0
 
 
     //fügt den Text 1008 RVG ein, wenn mehr als ein Mandant ausgewählt werden.
@@ -2424,13 +2635,30 @@ def StyledCalculationTable copyToDocument() {
         ct.addRow("", "Auslagen im Vorverfahren Nr. 7002 VV RVG", lblvorVV7002.text + " €");
         rowcount=rowcount+1
     }
+    if(chkVV3305.selected) {
+        if (chkvdAG.isSelected()) {
+            ct.addRow(faktorVV3305.text, "Verfahrensgebühr Nr. 3307" + text1008 + " VV RVG - " + swVV3305.text + " €", lblVV3305.text + " €");
+        } else {
+            ct.addRow(faktorVV3305.text, "Verfahrensgebühr Nr. 3305" + text1008 + " VV RVG - " + swVV3305.text + " €", lblVV3305.text + " €");
+        } 
+        rowcount=rowcount+1
+    }
+    if(chkAnrechnungMahn.selected) {
+        ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechnungMahn.text + " €");
+        abzug1=ct.getRowCount()-1;
+        rowcount=rowcount+1
+    }
+    if(chkVV7002Mahn.selected) {
+        ct.addRow("", "Auslagen Nr. 7002 VV RVG", lblVV7002Mahn.text + " €");
+        rowcount=rowcount+1
+    }
     if(chkVV3100.selected) {
         ct.addRow(faktorVV3100.text, "Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG - " + swVV3100.text + " €", lblVV3100.text + " €");
         rowcount=rowcount+1
     }
     if(chkAnrechenbarerAnteil.selected) {
         ct.addRow("", "abzüglich anrechenbarer Teil", lblAnrechenbarerAnteil.text + " €");
-        abzug1=ct.getRowCount()-1;
+        abzug2=ct.getRowCount()-1;
         rowcount=rowcount+1
     }
     if(chkVV3104.selected) {
@@ -2483,11 +2711,11 @@ def StyledCalculationTable copyToDocument() {
     }
     if(chk15Abs3Verfahren.selected && lbl15Abs3Verfahren.text != '0,00') {
         ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Verfahrensgebühr", lbl15Abs3Verfahren.text + " €");
-        abzug2=ct.getRowCount()-1;
+        abzug3=ct.getRowCount()-1;
     }
     if(chk15Abs3Einigung.selected && lbl15Abs3Einigung.text != '0,00' ) {
         ct.addRow("", "abzüglich Deckelung nach §15 Abs. 3 RVG - Einigungsgebühr", lbl15Abs3Einigung.text + " €");
-        abzug3=ct.getRowCount()-1;
+        abzug4=ct.getRowCount()-1;
     }
     if((rowcount>1) && (chkmwst.selected)) { //hier soll die Variable "rowcount" abgefragt werden. Dannach entscheidet sich, ob eine Zwichensumme eingefügt wird. Wenn es nur einen Rechnungsposten gibt, kommt hier keine Zwischensumme.
         if (ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true)) {
@@ -2562,6 +2790,9 @@ def StyledCalculationTable copyToDocument() {
             ct.setRowForeGround(abzug2, java.awt.Color.RED)
         }
         if (abzug3!=0) {
+            ct.setRowForeGround(abzug3, java.awt.Color.RED)
+        }
+        if (abzug4!=0) {
             ct.setRowForeGround(abzug3, java.awt.Color.RED)
         }
     }
@@ -2699,6 +2930,19 @@ def ArrayList copyToInvoice() {
     }
     if(chkvorVV7002.selected) {
         positions.add(InvoiceUtils.invoicePosition("Auslagen im Vorverfahren Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblvorVV7002.text).floatValue()));
+    }
+    if(chkVV3305.selected) {
+        if (chkvdAG.isSelected()) {
+            positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3307" + text1008 + " VV RVG", "Gegenstandswert " + swVV3305.text + " €, " + "Faktor " + faktorVV3305.text, effectiveTaxRate, df.parse(lblVV3305.text).floatValue()));
+        } else {
+            positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3305" + text1008 + " VV RVG", "Gegenstandswert " + swVV3305.text + " €, " + "Faktor " + faktorVV3305.text, effectiveTaxRate, df.parse(lblVV3305.text).floatValue()));
+        } 
+    }
+    if(chkAnrechnungMahn.selected) {
+        positions.add(InvoiceUtils.invoicePosition("abzüglich anrechenbarer Teil", effectiveTaxRate, df.parse(lblAnrechnungMahn.text).floatValue()));
+    }
+    if(chkVV7002Mahn.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auslagen Nr. 7002 VV RVG", effectiveTaxRate, df.parse(lblVV7002Mahn.text).floatValue()));
     }
     if(chkVV3100.selected) {
         positions.add(InvoiceUtils.invoicePosition("Verfahrensgebühr Nr. 3100" + text1008 + " VV RVG", "Gegenstandswert " + swVV3100.text + " €, " + "Faktor " + faktorVV3100.text, effectiveTaxRate, df.parse(lblVV3100.text).floatValue()));
