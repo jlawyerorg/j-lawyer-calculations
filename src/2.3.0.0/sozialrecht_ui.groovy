@@ -1151,18 +1151,18 @@ new SwingBuilder().edt {
                                     panel {
                                         cmbCustomEntryName = comboBox(items: [
                                             '',
-                                            '1009 VV RVG Hebegebühr',
-                                            '7000 VV RVG Kopien schwarz/weiß',
-                                            '7000 VV RVG Kopien farbig',
-                                            '7000 VV RVG elektronische Datei',
-                                            '7002 VV RVG Auslagen',
-                                            '7003 VV RVG Fahrtkosten PKW',
-                                            '7004 VV RVG Fahrtkosten (netto)',
-                                            '7005 VV RVG Tagegeld bis 4h',
-                                            '7005 VV RVG Tagegeld 4 bis 8h',
-                                            '7005 VV RVG Tagegeld ab 8h',
-                                            '7006 VV RVG Sonstige Auslagen bei Geschäftsreisen',
-                                            '7007 VV RVG Prämie für eine Haftpflicht im Einzelfall',
+                                            'Hebegebühr Nr. 1009 VV RVG',
+                                            'Kopien schwarz/weiß. Nr. 7000 VV RVG',
+                                            'Kopien farbig Nr. 7000 VV RVG',
+                                            'elektronische Datei Nr. 7000 VV RVG',
+                                            'Auslagen Nr. 7002 VV RVG',
+                                            'Fahrtkosten PKW Nr. 7003 VV RVG',
+                                            'Fahrtkosten (netto) Nr. 7004 VV RVG',
+                                            'Tagegeld bis 4h Nr. 7005 VV RVG',
+                                            'Tagegeld 4 bis 8h Nr. 7005 VV RVG',
+                                            'Tagegeld ab 8h Nr. 7005 VV RVG',
+                                            'Sonstige Auslagen bei Geschäftsreisen Nr. 7006 VV RVG',
+                                            'Prämie für eine Haftpflicht im Einzelfall Nr. 7007 VV RVG',
                                             'Gebühr Akteneinsicht',
                                             'steuerpflichtige Auslagen (netto)',
                                             'umsatzsteuerfreie Auslagen'
@@ -1799,7 +1799,7 @@ def float calculate() {
     }
     
     switch (cmbCustomEntryName) {
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == '7000 VV RVG Kopien schwarz/weiß'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'Kopien schwarz/weiß. Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toBigDecimal()<= 50g) {
             gebuehr = spnCustomEntry1.value.toBigDecimal()*0.5g
@@ -1808,7 +1808,7 @@ def float calculate() {
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7000 VV RVG Kopien farbig'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbig Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toBigDecimal()<= 50g) {
             gebuehr = spnCustomEntry1.value.toBigDecimal()
@@ -1817,7 +1817,7 @@ def float calculate() {
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == '7000 VV RVG elektronische Datei'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'elektronische Datei Nr. 7000 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         gebuehr = spnCustomEntry1.value.toBigDecimal()*1.5g
         if (gebuehr <= 5) {
@@ -1827,11 +1827,11 @@ def float calculate() {
         }
         txtCustomEntryValue.text = df.format(gebuehr)
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7004 VV RVG Fahrtkosten (netto)'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten (netto) Nr. 7004 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = txtCustomEntryValue.text
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7003 VV RVG Fahrtkosten PKW'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
         if (radioRVG2013.isSelected()){
             betrag = 0.3g
         } else {
@@ -1840,7 +1840,7 @@ def float calculate() {
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toBigDecimal())
         break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7005 VV RVG Tagegeld bis 4h'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld bis 4h Nr. 7005 VV RVG'}:
         if (radioRVG2013.isSelected()){
             betrag = 25
         } else {
@@ -1849,7 +1849,7 @@ def float calculate() {
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7005 VV RVG Tagegeld 4 bis 8h'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld 4 bis 8h Nr. 7005 VV RVG'}:
         if (radioRVG2013.isSelected()){
             betrag = 40
         } else {
@@ -1858,7 +1858,7 @@ def float calculate() {
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7005 VV RVG Tagegeld ab 8h'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld ab 8h Nr. 7005 VV RVG'}:
         if (radioRVG2013.isSelected()){
             betrag = 70
         } else {
@@ -1867,11 +1867,11 @@ def float calculate() {
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7006 VV RVG Sonstige Auslagen bei Geschäftsreisen'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Sonstige Auslagen bei Geschäftsreisen Nr. 7006 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = txtCustomEntryValue.text
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7007 VV RVG Prämie für eine Haftpflicht im Einzelfall'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Prämie für eine Haftpflicht im Einzelfall Nr. 7007 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         txtCustomEntryValue.text = txtCustomEntryValue.text
     break
@@ -1887,11 +1887,11 @@ def float calculate() {
         chkUStCustomEntry1.setSelected(false)
         txtCustomEntryValue.text = txtCustomEntryValue.text
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '7002 VV RVG Auslagen'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Auslagen Nr. 7002 VV RVG'}:
          chkUStCustomEntry1.setSelected(true)
          txtCustomEntryValue.text = '20'
     break
-    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  '1009 VV RVG Hebegebühr'}:
+    case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Hebegebühr Nr. 1009 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
         if (spnCustomEntry1.value.toBigDecimal()<= 2500g) {
             gebuehr = (spnCustomEntry1.value.toBigDecimal()*0.01g)
