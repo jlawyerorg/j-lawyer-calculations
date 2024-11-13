@@ -824,7 +824,7 @@ new SwingBuilder().edt {
                                     })
                                 }
                                 td {
-                                    txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV2302=formattedTextField(id: 'nVV2302', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV2302.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -851,7 +851,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV1005=formattedTextField(id: 'nVV1005', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV1005.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -909,7 +909,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV3102=formattedTextField(id: 'nVV3102', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV3102.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -935,7 +935,7 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     //lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
-                                    txtAnrechenbarerAnteil=formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, text: '0,00', columns: 4, foreground: java.awt.Color.RED, actionPerformed: {
+                                    txtAnrechenbarerAnteil=formattedTextField(id: 'nAnrechenbarerAnteil', format: betragFormat, text: '0,00', columns: 6, foreground: java.awt.Color.RED, actionPerformed: {
                                         calculate()
                                 })
                                 }
@@ -966,7 +966,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV3106=formattedTextField(id: 'nVV3106', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV3106.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -993,7 +993,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV1006=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV1006.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -1051,7 +1051,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV3204=formattedTextField(id: 'nVV3204', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV3204.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -1079,7 +1079,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV3205=formattedTextField(id: 'nVV3205', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV3205.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -1106,7 +1106,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td (align: 'right') {
-                                    txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 4, actionPerformed: {
+                                    txtVV1006Berufung=formattedTextField(id: 'nVV1006', format: betragFormat, text: '0,00', columns: 6, actionPerformed: {
                                         cbchVV1006Berufung.setSelectedItem('eigene')
                                         calculate()
                                     })
@@ -1333,7 +1333,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtZahlungenBrutto19=formattedTextField(id: 'nZahlungenBrutto19', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto19=formattedTextField(id: 'nZahlungenBrutto19', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenBrutto19 = label(text: '0,00')
@@ -1363,7 +1363,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtZahlungenBrutto16=formattedTextField(id: 'nZahlungenBrutto16', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto16=formattedTextField(id: 'nZahlungenBrutto16', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenBrutto16 = label(text: '0,00')
@@ -1393,7 +1393,7 @@ new SwingBuilder().edt {
                                         })
                                 }
                                 td {
-                                    txtZahlungenNetto=formattedTextField(id: 'nZahlungenNetto', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenNetto=formattedTextField(id: 'nZahlungenNetto', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenNetto = label(text: '0,00')

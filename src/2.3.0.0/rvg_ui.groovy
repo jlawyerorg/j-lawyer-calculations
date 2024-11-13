@@ -1019,7 +1019,7 @@ tr {
                                     label(text: 'EUR')
                                 }
                                 td (align: 'right') {
-                                    lblAnrechnungMahn = formattedTextField(id: 'lblAnrechnungMahn', format: betragFormat, columns:4, text: '0,00', foreground: java.awt.Color.RED)
+                                    lblAnrechnungMahn = formattedTextField(id: 'lblAnrechnungMahn', format: betragFormat, columns:6, text: '0,00', foreground: java.awt.Color.RED)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -1132,7 +1132,7 @@ tr {
                                 }
                                 td (align: 'right') {
                                     //lblAnrechenbarerAnteil = label(text: '0,00', foreground: java.awt.Color.RED)
-                                    lblAnrechenbarerAnteil = formattedTextField(id: 'lblAnrechenbarerAnteil', format: betragFormat, columns:4, text: '0,00', foreground: java.awt.Color.RED)
+                                    lblAnrechenbarerAnteil = formattedTextField(id: 'lblAnrechenbarerAnteil', format: betragFormat, columns:6, text: '0,00', foreground: java.awt.Color.RED)
                                 }
                                 td (align: 'right') {
                                     label(text: 'EUR')
@@ -1435,7 +1435,7 @@ tr {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                        txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtCustomEntryValue = formattedTextField(id: 'nCustomEntryValue', format: betragFormat, columns:6, text: '0,00')
                                         label (text: 'EUR')
                                         button(text:'Hinzufügen', actionPerformed: { add() })
                                     }
@@ -1483,7 +1483,7 @@ tr {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                        txtCustomEntryValue2 = formattedTextField(id: 'nCustomEntryValue2', format: betragFormat, columns:4, text: '0,00')
+                                        txtCustomEntryValue2 = formattedTextField(id: 'nCustomEntryValue2', format: betragFormat, columns:6, text: '0,00')
                                         label (text: 'EUR')
                                         button(text:'Hinzufügen', actionPerformed: { add2() })
                                     }

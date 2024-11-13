@@ -877,7 +877,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtVV4100=formattedTextField(id: 'nVV4100', format: betragFormat, text: '0,00', columns: 4)
+                                        txtVV4100=formattedTextField(id: 'nVV4100', format: betragFormat, text: '0,00', columns: 6)
                                         label(text: 'EUR')
                                     }
                                 }
@@ -900,7 +900,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtVV4104=formattedTextField(id: 'nVV4104', format: betragFormat, text: '0,00', columns: 4)
+                                        txtVV4104=formattedTextField(id: 'nVV4104', format: betragFormat, text: '0,00', columns: 6)
                                         label(text: 'EUR')
                                     }
                                 }
@@ -948,7 +948,7 @@ new SwingBuilder().edt {
                                             }
                                         )
                                         rvgVVTerminVor = label(id: 'nrvgVVTerminVor', text: 'Nr. RVG VV')
-                                        haftTerminVor = checkBox(id: 'haftTerminVor', text: 'Haft', selected: false, stateChanged: {
+                                        haftTerminVor = checkBox(id: 'haftTerminVor', text: 'Haft', selected: false,stateChanged: {
                                                 calculate()
                                             })
                                         rhTerminVor = label(id: 'nTerminVor', text: '')
@@ -959,7 +959,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtTerminVorValue = formattedTextField(id: 'nTerminVorValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtTerminVorValue = formattedTextField(id: 'nTerminVorValue', format: betragFormat, columns: 6, text: '0,00')
                                         label (text: 'EUR')
                                     }
                                 }
@@ -999,7 +999,7 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                            txtVV4106=formattedTextField(id: 'nVV4106', format: betragFormat, text: '0,00', columns: 4)
+                                            txtVV4106=formattedTextField(id: 'nVV4106', format: betragFormat, text: '0,00', columns: 6)
                                             label(text: 'EUR')
                                     }
                                 }
@@ -1042,7 +1042,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtTermin1IValue = formattedTextField(id: 'nTermin1IValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtTermin1IValue = formattedTextField(id: 'nTermin1IValue', format: betragFormat, columns: 6, text: '0,00')
                                         label (text: 'EUR')
                                     }
                                 }
@@ -1079,7 +1079,7 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                            txtVV4124=formattedTextField(id: 'nVV4124', format: betragFormat, text: '0,00', columns: 4)
+                                            txtVV4124=formattedTextField(id: 'nVV4124', format: betragFormat, text: '0,00', columns: 6)
                                             label(text: 'EUR')
                                     }
                                 }
@@ -1122,7 +1122,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtTermin2IValue = formattedTextField(id: 'nTermin2IValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtTermin2IValue = formattedTextField(id: 'nTermin2IValue', format: betragFormat, columns: 6, text: '0,00')
                                         label (text: 'EUR')
                                     }
                                 }
@@ -1159,7 +1159,7 @@ new SwingBuilder().edt {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                            txtVV4130=formattedTextField(id: 'nVV4130', format: betragFormat, text: '0,00', columns: 4)
+                                            txtVV4130=formattedTextField(id: 'nVV4130', format: betragFormat, text: '0,00', columns: 6)
                                             label(text: 'EUR')
                                     }
                                 }
@@ -1202,7 +1202,7 @@ new SwingBuilder().edt {
                                 }
                                 td {
                                     panel {
-                                        txtTerminRevValue = formattedTextField(id: 'nTerminRevValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtTerminRevValue = formattedTextField(id: 'nTerminRevValue', format: betragFormat, columns: 6, text: '0,00')
                                         label (text: 'EUR')
                                     }
                                 }
@@ -1239,7 +1239,7 @@ tr {
                                 }
                                 td (align: 'right') {
                                     panel {
-                                            txtVV4200=formattedTextField(id: 'nVV4200', format: betragFormat, text: '0,00', columns: 4)
+                                            txtVV4200=formattedTextField(id: 'nVV4200', format: betragFormat, text: '0,00', columns: 6)
                                             label(text: 'EUR')
                                     }
                                 }
@@ -1285,7 +1285,7 @@ tr {
                                 }
                                 td {
                                     panel {
-                                        txtTerminVolValue = formattedTextField(id: 'nTerminVolValue', format: betragFormat, columns:4, text: '0,00')
+                                        txtTerminVolValue = formattedTextField(id: 'nTerminVolValue', format: betragFormat, columns: 6, text: '0,00')
                                         label (text: 'EUR')
                                     }
                                 }
@@ -1543,7 +1543,7 @@ tr {
                                         })
                                 }
                                 td {
-                                    txtZahlungenBrutto19=formattedTextField(id: 'nZahlungenBrutto19', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto19=formattedTextField(id: 'nZahlungenBrutto19', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenBrutto19 = label(text: '0,00')
@@ -1573,7 +1573,7 @@ tr {
                                         })
                                 }
                                 td {
-                                    txtZahlungenBrutto16=formattedTextField(id: 'nZahlungenBrutto16', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenBrutto16=formattedTextField(id: 'nZahlungenBrutto16', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenBrutto16 = label(text: '0,00')
@@ -1603,7 +1603,7 @@ tr {
                                         })
                                 }
                                 td {
-                                    txtZahlungenNetto=formattedTextField(id: 'nZahlungenNetto', format: betragFormat, text: '0,00', columns: 4)
+                                    txtZahlungenNetto=formattedTextField(id: 'nZahlungenNetto', format: betragFormat, text: '0,00', columns: 6)
                                 }
                                 td (align: 'right') {
                                     lblZahlungenNetto = label(text: '0,00')
