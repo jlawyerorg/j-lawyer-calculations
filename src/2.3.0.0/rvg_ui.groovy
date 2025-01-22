@@ -667,6 +667,7 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.math.RoundingMode
 import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
@@ -1898,7 +1899,8 @@ def float calculate() {
     rvgtab= new rvgtables_ui()
     pkhtab= new pkhtables_ui()
     gkgtab= new gkgtables_ui()
-    BigDecimal gebuehr=0G
+    BigDecimal gebuehr=new BigDecimal("0.00")
+    gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
     float faktor=0.0f
 
     customRows=customTable.getRowCount() //Variable: zählt die Tabellenzeilen für die Schleife
@@ -2002,6 +2004,7 @@ def float calculate() {
             } 
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV3305.text = df.format(gebuehr)
     } else {
         lblVV3305.text = df.format(0f)
@@ -2012,6 +2015,7 @@ def float calculate() {
             df.parse(lblVV3305.text)
             +df.parse(lblVV3104.text)
         ) * 0.2g;
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         switch(gebuehr) {
         case {it < 20f}: gebuehr = gebuehr
             break
@@ -2041,7 +2045,8 @@ def float calculate() {
                 } else {
                     gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechnungMahn.text).floatValue(), spnAnrechnungMahn.value.toFloat());
                 }
-            } 
+            }
+            gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
             lblAnrechnungMahn.text = df.format((gebuehr) * -1f)
         }
     } else {
@@ -2072,6 +2077,7 @@ def float calculate() {
             } 
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV3100.text = df.format(gebuehr)
     } else {
         lblVV3100.text = df.format(0f)
@@ -2102,7 +2108,8 @@ def float calculate() {
                 } else {
                     gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swAnrechenbarerAnteil.text).floatValue(), spnAnrechenbarerAnteil.value.toFloat());
                 }
-            } 
+            }
+            gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
             lblAnrechenbarerAnteil.text = df.format((gebuehr) * -1f)
         }
     } else {
@@ -2124,6 +2131,7 @@ def float calculate() {
             }
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV3104.text = df.format(gebuehr)
     } else {
         lblVV3104.text = df.format(0f)
@@ -2144,6 +2152,7 @@ def float calculate() {
             }
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV1003.text = df.format(gebuehr)
     } else {
         lblVV1003.text = df.format(0f)
@@ -2161,6 +2170,7 @@ def float calculate() {
         case {it >= 20f}: gebuehr = 20f  
             break
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV7002.text = df.format(gebuehr)
     } else {
         lblVV7002.text = df.format(0f)
@@ -2191,6 +2201,7 @@ def float calculate() {
 
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV3200.text = df.format(gebuehr)
     } else {
         lblVV3200.text = df.format(0f)
@@ -2212,6 +2223,7 @@ def float calculate() {
 
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV3202.text = df.format(gebuehr)
     } else {
         lblVV3202.text = df.format(0f)
@@ -2233,6 +2245,7 @@ def float calculate() {
 
         }
         if (gebuehr<15) {gebuehr = 15f}
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV1003Berufung.text = df.format(gebuehr)
     } else {
         lblVV1003Berufung.text = df.format(0f)
@@ -2250,6 +2263,7 @@ def float calculate() {
         case {it >= 20f}: gebuehr = 20f  
             break
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblVV7002Berufung.text = df.format(gebuehr)
     } else {
         lblVV7002Berufung.text = df.format(0f)
@@ -2263,6 +2277,7 @@ def float calculate() {
         } else {
             gebuehr = 25 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.15g
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbig Nr. 7000 VV RVG'}:
@@ -2272,6 +2287,7 @@ def float calculate() {
         } else {
             gebuehr = 50 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.30g
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'elektronische Datei Nr. 7000 VV RVG'}:
@@ -2282,6 +2298,7 @@ def float calculate() {
         } else {
             gebuehr = 5
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten (netto) Nr. 7004 VV RVG'}:
@@ -2376,6 +2393,7 @@ def float calculate() {
         } else {
             gebuehr=gkgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue2.text = df.format(gebuehr)
     } else {
         if (radioRVG2013.isSelected()){
@@ -2393,6 +2411,7 @@ def float calculate() {
         }
         if (gebuehr!=0) {
             if (gebuehr<15) {gebuehr = 15f}
+            gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
             txtCustomEntryValue2.text = df.format(gebuehr)
         } else {
             txtCustomEntryValue2.text = txtCustomEntryValue2.text
@@ -2536,10 +2555,17 @@ def float calculate() {
         +df.parse(lbl15Abs3Einigung.text)
         +df.parse(lbl15Abs3Verfahren.text)
     )
+    gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
     lblzwsum.text=df.format(gebuehr)
         
     if(chkmwst.isSelected()) {
-        gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
+        
+        //gebuehr=df.parse(lblzwsum.text)*taxModel.ustFactor
+        
+        BigDecimal parsedValue = new BigDecimal(df.parse(lblzwsum.text).toString());
+        gebuehr = parsedValue.multiply(taxModel.ustFactor);
+        gebuehr = gebuehr.setScale(2, RoundingMode.HALF_UP);
+        
         lblmwst.text = df.format(gebuehr)
     } else {
         lblmwst.text = df.format(0f)
@@ -2552,10 +2578,12 @@ def float calculate() {
         +df.parse(lblmwst.text)
         +df.parse(lblAuslagenoM.text)
     )
+    gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
     lblsum1.text=df.format(gebuehr)
     
     if(chkquote.isSelected()){
         gebuehr = spnCounter.value.toBigDecimal() / spnDivisor.value.toBigDecimal() * df.parse(lblsum1.text)
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblquote.text=df.format(gebuehr)
     } else {
         lblquote.text=lblsum1.text
@@ -2564,6 +2592,7 @@ def float calculate() {
     if(chkZahlungenBrutto19.isSelected()) {
         lblZahlungenBrutto19.text = txtZahlungenBrutto19.text
         gebuehr=(df.parse(lblZahlungenBrutto19.text)/1.19g*0.19g)
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblmwstZahlung19.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto19.text = df.format(0f)
@@ -2573,6 +2602,7 @@ def float calculate() {
     if(chkZahlungenBrutto16.isSelected()) {
         lblZahlungenBrutto16.text = txtZahlungenBrutto16.text
         gebuehr=(df.parse(lblZahlungenBrutto16.text)/1.16g*0.16g)
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         lblmwstZahlung16.text = df.format(gebuehr)
     } else {
         lblZahlungenBrutto16.text = df.format(0f)
@@ -2586,6 +2616,7 @@ def float calculate() {
     }
     
     gebuehr=df.parse(lblquote.text) - df.parse(lblZahlungenBrutto19.text) - df.parse(lblZahlungenBrutto16.text) - df.parse(lblZahlungenNetto.text)
+    gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
     lblsum2.text=df.format(gebuehr)
         
 
