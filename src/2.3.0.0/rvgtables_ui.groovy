@@ -689,6 +689,13 @@ def float berechneWertGebuehr2021(double streitWert, double factor) {
     
 }
 
+def float berechneWertGebuehr2025(float streitWert, float factor) { 
+
+    RvgTablesRangeList2025 rl = new RvgTablesRangeList2025()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    
+}
+
 new SwingBuilder().edt {
     SCRIPTPANEL=panel(size: [300, 300]) {
         

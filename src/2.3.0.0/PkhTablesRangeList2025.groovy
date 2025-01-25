@@ -662,98 +662,51 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-import groovy.swing.SwingBuilder
-import java.awt.BorderLayout as BL
-import groovy.beans.Bindable
-import java.text.DecimalFormat
-import java.util.List
+import java.util.ArrayList
+import PkhTablesRange
 
-
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
-
-    PkhTablesRangeList rl = new PkhTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+class PkhTablesRangeList2025 { 
+    ArrayList<PkhTablesRange> ranges
     
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    PkhTablesRangeList2021 rl = new PkhTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    PkhTablesRangeList2025() {
+        ranges=new ArrayList<PkhTablesRange>()
+        ranges.add(new PkhTablesRange(0,500,51.5))
+        ranges.add(new PkhTablesRange(500,1000,93))
+        ranges.add(new PkhTablesRange(1000,1500,134.5))
+        ranges.add(new PkhTablesRange(1500,2000,176))
+        ranges.add(new PkhTablesRange(2000,3000,235.5))
+        ranges.add(new PkhTablesRange(3000,4000,295))
+        ranges.add(new PkhTablesRange(4000,5000,319))
+        ranges.add(new PkhTablesRange(5000,6000,330))
+        ranges.add(new PkhTablesRange(6000,7000,341))
+        ranges.add(new PkhTablesRange(7000,8000,352))
+        ranges.add(new PkhTablesRange(8000,9000,363))
+        ranges.add(new PkhTablesRange(9000,10000,374))
+        ranges.add(new PkhTablesRange(10000,13000,389))
+        ranges.add(new PkhTablesRange(13000,16000,404))
+        ranges.add(new PkhTablesRange(16000,19000,419))
+        ranges.add(new PkhTablesRange(19000,22000,434))
+        ranges.add(new PkhTablesRange(22000,25000,449))
+        ranges.add(new PkhTablesRange(25000,30000,488))
+        ranges.add(new PkhTablesRange(30000,35000,527))
+        ranges.add(new PkhTablesRange(35000,40000,566))
+        ranges.add(new PkhTablesRange(40000,45000,605))
+        ranges.add(new PkhTablesRange(45000,50000,644))
+        ranges.add(new PkhTablesRange(50000,65000,692))
+        ranges.add(new PkhTablesRange(65000,80000,739))
+        ranges.add(new PkhTablesRange(80000,5000000,786))
+    }
     
-}
-
-def float berechneWertGebuehr2025(float streitWert, float factor) { 
-
-    PkhTablesRangeList2025 rl = new PkhTablesRangeList2025()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+    ArrayList<PkhTablesRange> getRanges() {
+        return ranges
+    }
     
-}
-
-new SwingBuilder().edt {
-    SCRIPTPANEL=panel(size: [300, 300]) {
-        
-        tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
-            }
-            tr  {
-                td (align:'center') {
-                    label (text: getPkhTableAsHtml())
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: getPkhTableAsHtml2021())
-                }
-            }
-            
-        
-        }
-        
+    float getMappedValue(float streitWert) {
+           for(PkhTablesRange r: ranges) {
+       if(r.contains(streitWert))
+            return r.mappedValue
+   }
+   return -1f
     }
-
-}
-
-def String getPkhTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(PkhTablesRange r: new PkhTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
-
-def String getPkhTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(PkhTablesRange r: new PkhTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
+    
 }

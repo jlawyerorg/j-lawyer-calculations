@@ -662,98 +662,80 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 <https://www.gnu.org/licenses/>.
 */
 
-import groovy.swing.SwingBuilder
-import java.awt.BorderLayout as BL
-import groovy.beans.Bindable
-import java.text.DecimalFormat
-import java.util.List
+import java.util.ArrayList
+import GkgTablesRange
 
-
-def float berechneWertGebuehr2013(float streitWert, float factor) { 
-
-    PkhTablesRangeList rl = new PkhTablesRangeList()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+class GkgTablesRangeList2025 { 
+    ArrayList<GkgTablesRange> ranges
     
-}
-
-def float berechneWertGebuehr2021(float streitWert, float factor) { 
-
-    PkhTablesRangeList2021 rl = new PkhTablesRangeList2021()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-def float berechneWertGebuehr2025(float streitWert, float factor) { 
-
-    PkhTablesRangeList2025 rl = new PkhTablesRangeList2025()
-    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
-    
-}
-
-new SwingBuilder().edt {
-    SCRIPTPANEL=panel(size: [300, 300]) {
+    GkgTablesRangeList2025() {
+        ranges=new ArrayList<GkgTablesRange>()
+        ranges.add(new GkgTablesRange(0,500,40))
+        ranges.add(new GkgTablesRange(500,1000,61))
+        ranges.add(new GkgTablesRange(1000,1500,82))
+        ranges.add(new GkgTablesRange(1500,2000,103))
+        ranges.add(new GkgTablesRange(2000,3000,125.5))
+        ranges.add(new GkgTablesRange(3000,4000,148))
+        ranges.add(new GkgTablesRange(4000,5000,170.5))
+        ranges.add(new GkgTablesRange(5000,6000,193))
+        ranges.add(new GkgTablesRange(6000,7000,215.5))
+        ranges.add(new GkgTablesRange(7000,8000,238))
+        ranges.add(new GkgTablesRange(8000,9000,260.5))
+        ranges.add(new GkgTablesRange(9000,10000,283))
+        ranges.add(new GkgTablesRange(10000,13000,313.5))
+        ranges.add(new GkgTablesRange(13000,16000,344))
+        ranges.add(new GkgTablesRange(16000,19000,374.5))
+        ranges.add(new GkgTablesRange(19000,22000,405))
+        ranges.add(new GkgTablesRange(22000,25000,435.5))
+        ranges.add(new GkgTablesRange(25000,30000,476))
+        ranges.add(new GkgTablesRange(30000,35000,516.5))
+        ranges.add(new GkgTablesRange(35000,40000,557))
+        ranges.add(new GkgTablesRange(40000,45000,597.5))
+        ranges.add(new GkgTablesRange(45000,50000,638))
+        ranges.add(new GkgTablesRange(50000,65000,778))
+        ranges.add(new GkgTablesRange(65000,80000,918))
+        ranges.add(new GkgTablesRange(80000,95000,1058))
+        ranges.add(new GkgTablesRange(95000,110000,1198))
+        ranges.add(new GkgTablesRange(110000,125000,1338))
+        ranges.add(new GkgTablesRange(125000,140000,1478))
+        ranges.add(new GkgTablesRange(140000,155000,1618))
+        ranges.add(new GkgTablesRange(155000,170000,1758))
+        ranges.add(new GkgTablesRange(170000,185000,1898))
+        ranges.add(new GkgTablesRange(185000,200000,2038))
+        ranges.add(new GkgTablesRange(200000,230000,2248))
+        ranges.add(new GkgTablesRange(230000,260000,2458))
+        ranges.add(new GkgTablesRange(260000,290000,2668))
+        ranges.add(new GkgTablesRange(290000,320000,2878))
+        ranges.add(new GkgTablesRange(320000,350000,3088))
+        ranges.add(new GkgTablesRange(350000,380000,3298))
+        ranges.add(new GkgTablesRange(380000,410000,3508))
+        ranges.add(new GkgTablesRange(410000,440000,3718))
+        ranges.add(new GkgTablesRange(440000,470000,3928))
+        ranges.add(new GkgTablesRange(470000,500000,4138))
         
-        tableLayout {
-            tr {
-                td (align:'center') {
-                    label (text: 'RVG 2013:')
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: 'RVG 2021:')
-                }
-            }
-            tr  {
-                td (align:'center') {
-                    label (text: getPkhTableAsHtml())
-                }
-                td (align:'center') {
-                    label (text: '       ')
-                }
-                td (align:'center') {
-                    label (text: getPkhTableAsHtml2021())
-                }
-            }
-            
-        
+    }
+    
+    ArrayList<GkgTablesRange> getRanges() {
+        return ranges
+    }
+
+    float getMappedValue(float streitWert) {
+    if (streitWert <= 500000) { 
+        for(GkgTablesRange r: ranges) {
+            if(r.contains(streitWert))
+            return r.mappedValue
         }
-        
+    } else {
+        float mappedValue = 4138
+        for (float i=500000; i < streitWert; i+=50000) {
+        mappedValue = mappedValue + 210
+        }
+        return mappedValue
     }
-
+    return -1f
+    }
+    
 }
 
-def String getPkhTableAsHtml() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(PkhTablesRange r: new PkhTablesRangeList().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
 
-def String getPkhTableAsHtml2021() {
-    StringBuffer sb=new StringBuffer()
-    df = new DecimalFormat("0.00")
-    sb.append('<html><body>')
-    sb.append('<table border=1>')
-    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
-    for(PkhTablesRange r: new PkhTablesRangeList2021().getRanges()) {
-        
-        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
-    }
-    sb.append('</table>')
-    sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
-    return sb.toString();    
-}
+
