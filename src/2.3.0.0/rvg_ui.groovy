@@ -1810,6 +1810,7 @@ def void add2() {
 }
 
 def void setfaktor( ) {
+    float faktor=0.0f
     switch (cmbCustomEntryName2) {
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -1817,7 +1818,16 @@ def void setfaktor( ) {
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3101 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
-        spnCustomEntry2.setValue(0.8)    
+        faktor = 0.8
+        switch (spnMandanten){
+            case {spnMandanten.value.toFloat()==1f}: faktor = faktor
+                break
+            case {spnMandanten.value.toFloat()==8f}: faktor = 2f + faktor
+                break
+            default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + faktor
+                break
+            }
+        spnCustomEntry2.setValue(faktor)    
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Einigungsgebühr Nr. 1000 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -1825,7 +1835,16 @@ def void setfaktor( ) {
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3309 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
-        spnCustomEntry2.setValue(0.3)    
+        faktor = 0.3
+        switch (spnMandanten){
+            case {spnMandanten.value.toFloat()==1f}: faktor = faktor
+                break
+            case {spnMandanten.value.toFloat()==8f}: faktor = 2f + faktor
+                break
+            default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + faktor
+                break
+            }
+        spnCustomEntry2.setValue(faktor)    
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Terminsgebühr Nr. 3310 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -1833,7 +1852,16 @@ def void setfaktor( ) {
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Verfahrensgebühr Nr. 3311 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
-        spnCustomEntry2.setValue(0.4)    
+        faktor = 0.4
+        switch (spnMandanten){
+            case {spnMandanten.value.toFloat()==1f}: faktor = faktor
+                break
+            case {spnMandanten.value.toFloat()==8f}: faktor = 2f + faktor
+                break
+            default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + faktor
+                break
+            }
+        spnCustomEntry2.setValue(faktor)    
         break
     case {cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Terminsgebühr Nr. 3312 VV RVG'}: 
         chkUStCustomEntry2.setSelected(true)
@@ -2413,8 +2441,19 @@ def float calculate() {
                 if (chkVV3200.isSelected()) {addierteStreitwerte = addierteStreitwerte + betragFormat.parse(swVV3200.text).floatValue()}
                 
                 //Berechnet die Verfahrensgebühr für die addierten Gegenstandswerte
-                faktor = 1.3
-                if (chkVV3200.isSelected()) {faktor = spnVV3200.value.toFloat()} //setzt den Faktor auf 1,6 wenn die Einigung in der Berufungsinstanz erfolgt
+                if (chkVV3200.isSelected()) {//setzt den Faktor auf 1,6 wenn die Einigung in der Berufungsinstanz erfolgt
+                        faktor = 1.6
+                    } else {
+                        faktor = 1.3
+                    }
+                switch (spnMandanten){
+                case {spnMandanten.value.toFloat()==1f}: faktor = faktor
+                    break
+                case {spnMandanten.value.toFloat()==8f}: faktor = 2f + faktor
+                    break
+                default: faktor = (spnMandanten.value.toFloat()-1f)*0.3f + faktor
+                    break
+                }
                 if(chkPKH.isSelected()) {
                     anrechnungsgebuehr2=berechnePkhWertGebuehr(addierteStreitwerte, faktor, rvgYear);
                 } else {
