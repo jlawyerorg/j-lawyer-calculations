@@ -794,6 +794,9 @@ new SwingBuilder().edt {
                                             radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
                                                 calculate()
                                             })
+                                            radioRVG2025 = radioButton(text: 'RVG 2025', buttonGroup: btnGrpRVG, stateChanged: {
+                                                calculate()
+                                            })
                                     }
                                 }
                             }
@@ -1533,6 +1536,46 @@ def BigDecimal calchange(String changeItem){
     }
 }
 
+def float rvgGebuehr(int nr, int pos, int rvgYear) { 
+  if (rvgYear == 2013) {
+
+    def rvg2013 = [
+        2302:[50,640,300],
+        3102:[50,550],
+        34:[175],
+        3106:[50,510],
+        3204:[60,680],
+        3205:[50,510],
+    ]
+    return rvg2013[nr][pos];
+
+  } else if (rvgYear == 2021) {
+
+    def rvg2021 = [
+        2302:[60,768,359],
+        3102:[60,660],
+        34:[207],
+        3106:[60,610],
+        3204:[72,816],
+        3205:[60,610],
+    ]
+    return rvg2021[nr][pos];
+
+  } else if (rvgYear == 2025) {
+
+    def rvg2025 = [
+        2302:[65,837,391],
+        3102:[65,719],
+        34:[225],
+        3106:[65,665],
+        3204:[78,889],
+        3205:[65,665],
+    ]
+    return rvg2025[nr][pos];
+
+  } 
+}
+
 def float calculate() {
 
     BigDecimal gebuehr=0G
@@ -1541,6 +1584,15 @@ def float calculate() {
     float urahmen=0.0f
     float orahmen=0.0f
     float schwellenG=0.0f
+    int rvgYear = 0
+
+    if (radioRVG2013.isSelected()){
+        rvgYear = 2013
+    } else if (radioRVG2021.isSelected()) {
+        rvgYear = 2021
+    } else {
+        rvgYear = 2025
+    }
     
     switch (spnMandanten){
         case {spnMandanten.value.toFloat()==1f}: factor = 0f
@@ -1553,15 +1605,9 @@ def float calculate() {
   
   
     if(chkVV2302.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f + (50f * factor);
-            orahmen = 640f +(640f * factor);
-            schwellenG = 300
-        } else {
-            urahmen = 60f + (60f * factor);
-            orahmen = 768f +(768f * factor);
-            schwellenG = 359
-        }
+        urahmen = rvgGebuehr(2302, 0, rvgYear) + ((rvgGebuehr(2302, 0, rvgYear)) * factor);
+        orahmen = rvgGebuehr(2302, 1, rvgYear) + ((rvgGebuehr(2302, 1, rvgYear)) * factor);
+        schwellenG = rvgGebuehr(2302, 2, rvgYear)
         lblVV2302uR.text = df.format(urahmen);
         lblVV2302oR.text = df.format(orahmen);
         if (cbchVV2302.getItemAt(cbchVV2302.getSelectedIndex())=='Schwelleng.') {
@@ -1578,15 +1624,9 @@ def float calculate() {
     }
 
     if(chkVV1005.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f;
-            orahmen = 640f;
-            schwellenG = 300
-        } else  {
-            urahmen = 60f;
-            orahmen = 768f;
-            schwellenG = 359
-        }
+        urahmen = rvgGebuehr(2302, 0, rvgYear);
+        orahmen = rvgGebuehr(2302, 1, rvgYear);
+        schwellenG = rvgGebuehr(2302, 2, rvgYear)
         lblVV1005uR.text = df.format(urahmen);
         lblVV1005oR.text = df.format(orahmen);
         if (cbchVV1005.getItemAt(cbchVV1005.getSelectedIndex())=='Schwelleng.') {
@@ -1616,13 +1656,8 @@ def float calculate() {
     }
 
     if(chkVV3102.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f + (50f * factor);
-            orahmen = 550f +(550f * factor);
-        } else {
-            urahmen = 60f + (60f * factor);
-            orahmen = 660f +(660f * factor);
-        }
+        urahmen = rvgGebuehr(3102, 0, rvgYear) + ((rvgGebuehr(3102, 0, rvgYear)) * factor);
+        orahmen = rvgGebuehr(3102, 1, rvgYear) + ((rvgGebuehr(3102, 1, rvgYear)) * factor);
         lblVV3102uR.text = df.format(urahmen);
         lblVV3102oR.text = df.format(orahmen);
         if (cbchVV3102.getItemAt(cbchVV3102.getSelectedIndex())!='eigene') {
@@ -1642,11 +1677,7 @@ def float calculate() {
                 txtAnrechenbarerAnteil.text = df.format(df.parse(txtAnrechenbarerAnteil.text) * -1f)
             }
         } else {
-            if (radioRVG2013.isSelected()){
-                maxAnrechnung = -175
-            } else {
-                maxAnrechnung = -207
-            }
+            maxAnrechnung = -(rvgGebuehr(34, 0, rvgYear))
             gebuehr = df.parse(txtVV2302.text) / 2f * -1f
             if (gebuehr > maxAnrechnung) {
                 txtAnrechenbarerAnteil.text = df.format(gebuehr)
@@ -1659,13 +1690,8 @@ def float calculate() {
     }
 
     if(chkVV3106.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f;
-            orahmen = 510f;
-        } else {
-            urahmen = 60f;
-            orahmen = 610f;
-        }
+        urahmen = rvgGebuehr(3106, 0, rvgYear) + ((rvgGebuehr(3106, 0, rvgYear)) * factor);
+        orahmen = rvgGebuehr(3106, 1, rvgYear) + ((rvgGebuehr(3106, 1, rvgYear)) * factor);
         lblVV3106uR.text = df.format(urahmen);
         lblVV3106oR.text = df.format(orahmen);
         if (cbchVV3106.getItemAt(cbchVV3106.getSelectedIndex())!='eigene') {
@@ -1680,13 +1706,8 @@ def float calculate() {
         }
 
     if(chkVV1006.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f;
-            orahmen = 550f;
-        } else {
-            urahmen = 60f;
-            orahmen = 660f;
-        }
+        urahmen = rvgGebuehr(3102, 0, rvgYear);
+        orahmen = rvgGebuehr(3102, 1, rvgYear);
         lblVV1006uR.text = df.format(urahmen);
         lblVV1006oR.text = df.format(orahmen);
         if (cbchVV1006.getItemAt(cbchVV1006.getSelectedIndex())!='eigene') {
@@ -1719,13 +1740,8 @@ def float calculate() {
     }
     
     if(chkVV3204.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 60f + (60f * factor);
-            orahmen = 680f +(680f * factor);
-        } else {
-            urahmen = 72f + (72f * factor);
-            orahmen = 816f +(816f * factor);
-        }
+        urahmen = rvgGebuehr(3204, 0, rvgYear) + ((rvgGebuehr(3204, 0, rvgYear)) * factor);
+        orahmen = rvgGebuehr(3204, 1, rvgYear) + ((rvgGebuehr(3204, 1, rvgYear)) * factor);
         lblVV3204uR.text = df.format(urahmen);
         lblVV3204oR.text = df.format(orahmen);
         if (cbchVV3204.getItemAt(cbchVV3204.getSelectedIndex())!='eigene') {
@@ -1740,13 +1756,8 @@ def float calculate() {
     }
     
     if(chkVV3205.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 50f;
-            orahmen = 510f;
-        } else {
-            urahmen = 60f;
-            orahmen = 610f;
-        }
+        urahmen = rvgGebuehr(3205, 0, rvgYear) + ((rvgGebuehr(3205, 0, rvgYear)) * factor);
+        orahmen = rvgGebuehr(3205, 1, rvgYear) + ((rvgGebuehr(3205, 1, rvgYear)) * factor);
         lblVV3205uR.text = df.format(urahmen);
         lblVV3205oR.text = df.format(orahmen);
         if (cbchVV3205.getItemAt(cbchVV3205.getSelectedIndex())!='eigene') {
@@ -1761,13 +1772,8 @@ def float calculate() {
     }
 
     if(chkVV1006Berufung.isSelected()) {
-        if (radioRVG2013.isSelected()){
-            urahmen = 60f;
-            orahmen = 680f;
-        } else {
-            urahmen = 72f;
-            orahmen = 816f;
-        }
+        urahmen = rvgGebuehr(3204, 0, rvgYear);
+        orahmen = rvgGebuehr(3204, 1, rvgYear);
         lblVV1006BerufunguR.text = df.format(urahmen);
         lblVV1006BerufungoR.text = df.format(orahmen);
         if (cbchVV1006Berufung.getItemAt(cbchVV1006Berufung.getSelectedIndex())!='eigene') {

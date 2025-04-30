@@ -684,7 +684,7 @@ def float berechneWertGebuehr2021(float streitWert, float factor) {
 
 def float berechneWertGebuehr2025(float streitWert, float factor) { 
 
-    GkgTablesRangeList2021 rl = new GkgTablesRangeList2025()
+    GkgTablesRangeList2025 rl = new GkgTablesRangeList2025()
     return Math.max(rl.getMappedValue(streitWert) * factor, 0);
     
 }

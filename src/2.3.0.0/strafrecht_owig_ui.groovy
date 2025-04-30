@@ -807,12 +807,14 @@ new SwingBuilder().edt {
                                 td {
                                     panel{
                                         label(text: 'Geldbuße mehr als:')
-                                        chkowig60 = checkBox(id: 'bowig60', text: '60€', selected: false, actionPerformed: {
+                                        chkowig60 = checkBox(id: 'bowig60', text: '', selected: false, actionPerformed: {
                                             calculate()
                                         })
-                                        chkowig5000 = checkBox(id: 'bowig5000', text: '5000€', selected: false, actionPerformed: {
+                                        lblBussgeldhoehe = label(id: 'nlblBussgeldhoehe', text: '60€')
+                                        chkowig5000 = checkBox(id: 'bowig5000', text: '', selected: false, actionPerformed: {
                                             calculate()
                                         })
+                                        label(text: '5000€')
                                     }
                                 }
                             }
@@ -845,6 +847,9 @@ new SwingBuilder().edt {
                                                 calculate()
                                             })
                                             radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
+                                                calculate()
+                                            })
+                                            radioRVG2025 = radioButton(text: 'RVG 2025', buttonGroup: btnGrpRVG, stateChanged: {
                                                 calculate()
                                             })
                                     }
@@ -1931,68 +1936,257 @@ def void setWertgebuehr( ) {
     }
 }
 
+def float rvgGebuehr(int nr, int pos, int rvgYear) { 
+  if (rvgYear == 2013) {
+
+    def rvg2013 = [
+    4100:[40,360,160],
+    4101:[40,450,192],
+    4102:[40,300,136],
+    4103:[40,375,166],
+    4104:[40,290,132],
+    4105:[40,362.5,161],
+    4106:[40,290,132],
+    4107:[40,362.5,161],
+    4108:[70,480,220],
+    4109:[70,600,268],
+    4110:[110],
+    4111:[220],
+    4112:[50,320,148],
+    4113:[50,400,180],
+    4114:[80,560,256],
+    4115:[80,700,312],
+    4116:[128],
+    4117:[256],
+    4118:[100,690,316],
+    4119:[100,862.50,385],
+    4120:[130,930,424],
+    4121:[130,1162.5,517],
+    4122:[212],
+    4123:[424],
+    4124:[80,560,256],
+    4125:[80,700,312],
+    4126:[80,560,256],
+    4127:[80,700,312],
+    4128:[128],
+    4129:[256],
+    4130:[120,1110,492],
+    4131:[120,1387.5,603],
+    4132:[120,560,272],
+    4133:[120,700,328],
+    4134:[136],
+    4135:[272],
+
+    4200:[60,670,292],
+    4201:[60,837.5,359],
+    4202:[60,300,144],
+    4203:[60,375,174],
+    4204:[30,300,132],
+    4205:[30,375,162],
+    4206:[30,300,132],
+    4207:[30,375,162],
+
+    5100:[30,170,80],
+    5101:[20,110,52],
+    5102:[20,110,52],
+    5103:[30,290,128],
+    5104:[30,290,128],
+    5105:[40,300,136],
+    5106:[40,300,136],
+    5107:[20,110,52],
+    5108:[20,240,104],
+    5109:[30,290,128],
+    5110:[40,470,204],
+    5111:[50,350,160],
+    5112:[80,560,256],
+    5113:[80,560,256],
+    5114:[80,560,256],
+    ]
+    return rvg2013[nr][pos];
+
+  } else if (rvgYear == 2021) {
+
+    def rvg2021 = [
+    4100:[44,396,176],
+    4101:[44,495,216],
+    4102:[44,330,150],
+    4103:[44,413,183],
+    4104:[44,319,145],
+    4105:[44,399,177],
+    4106:[44,319,145],
+    4107:[44,399,177],
+    4108:[77,528,242],
+    4109:[77,660,295],
+    4110:[121],
+    4111:[242],
+    4112:[55,352,163],
+    4113:[55,440,198],
+    4114:[88,616,282],
+    4115:[88,770,343],
+    4116:[141],
+    4117:[282],
+    4118:[110,759,348],
+    4119:[110,949,424],
+    4120:[143,1023,466],
+    4121:[143,1279,569],
+    4122:[233],
+    4123:[466],
+    4124:[88,616,282],
+    4125:[88,770,343],
+    4126:[88,616,282],
+    4127:[88,770,343],
+    4128:[141],
+    4129:[282],
+    4130:[132,1221,541],
+    4131:[132,1526,663],
+    4132:[132,616,300],
+    4133:[132,770,361],
+    4134:[150],
+    4135:[300],
+
+    4200:[66,737,321],
+    4201:[66,921,395],
+    4202:[66,330,158],
+    4203:[66,413,192],
+    4204:[33,330,145],
+    4205:[33,413,178],
+    4206:[33,330,145],
+    4207:[33,413,178],
+
+    5100:[33,187,88],
+    5101:[22,121,57],
+    5102:[22,121,57],
+    5103:[33,319,141],
+    5104:[33,319,141],
+    5105:[44,330,150],
+    5106:[44,330,150],
+    5107:[22,121,57],
+    5108:[22,264,114],
+    5109:[33,319,141],
+    5110:[44,517,224],
+    5111:[55,385,176],
+    5112:[88,616,282],
+    5113:[88,616,282],
+    5114:[88,616,282],
+    ]
+    return rvg2021[nr][pos];
+
+  } else if (rvgYear == 2025) {
+
+    def rvg2025 = [
+    4100:[48,432,192],
+    4101:[48,540,235],
+    4102:[48,360,163],
+    4103:[48,450,199],
+    4104:[48,348,158],
+    4105:[48,435,193],
+    4106:[48,348,158],
+    4107:[48,435,193],
+    4108:[84,576,264],
+    4109:[84,719,321],
+    4110:[132],
+    4111:[2264],
+    4112:[60,384,178],
+    4113:[60,480,216],
+    4114:[96,671,307],
+    4115:[96,839,374],
+    4116:[154],
+    4117:[307],
+    4118:[120,827,379],
+    4119:[120,1034,462],
+    4120:[156,1115,508],
+    4121:[156,1394,620],
+    4122:[254],
+    4123:[508],
+    4124:[96,671,307],
+    4125:[96,839,374],
+    4126:[96,671,307],
+    4127:[96,839,374],
+    4128:[154],
+    4129:[307],
+    4130:[144,1331,590],
+    4131:[144,1664,723],
+    4132:[144,671,326],
+    4133:[144,839,393],
+    4134:[163],
+    4135:[326],
+
+    4200:[72,803,350],
+    4201:[72,1004,430],
+    4202:[72,360,173],
+    4203:[72,450,209],
+    4204:[36,360,158],
+    4205:[36,450,194],
+    4206:[36,360,158],
+    4207:[36,450,194],
+
+    5100:[36,204,96],
+    5101:[24,132,62],
+    5102:[24,132,62],
+    5103:[36,348,154],
+    5104:[36,348,154],
+    5105:[48,360,163],
+    5106:[48,360,163],
+    5107:[24,132,62],
+    5108:[24,288,125],
+    5109:[36,348,156],
+    5110:[48,564,245],
+    5111:[60,420,192],
+    5112:[96,671,307],
+    5113:[96,671,307],
+    5114:[96,671,307],
+    ]
+    return rvg2025[nr][pos];
+
+  } 
+}
+
 def float calculate() {
 
     BigDecimal gebuehr=0G
 //    float change=1.0f
     float urahmen=0.0f
     float orahmen=0.0f
+    int rvgYear = 0
 
+    if (radioRVG2013.isSelected()){
+        rvgYear = 2013
+        lblBussgeldhoehe.text = '60€'
+    } else if (radioRVG2021.isSelected()) {
+        rvgYear = 2021
+        lblBussgeldhoehe.text = '60€'
+    } else {
+        rvgYear = 2025
+        lblBussgeldhoehe.text = '80€'
+    }
   
     if(chkVV4100.isSelected()) {//das allegemeine Berechnungsschema ist bei allen Gebühren ähnlich und ist nur hier kommentiert
-        if (chkPflichtV.isSelected()) {//für die Beiordnung (Pflichtverteidigung) wird die Gebührennummer "lblVV*" und die Festgebühr "txtVVV*" gesetzt
+        if (chkPflichtV.isSelected()) {//für die Beiordnung (Pflichtverteidigung) wird die Gebührennummer "lblVV*" und die Festgebühr "txtVV*" gesetzt
             rhVV4100.text = '';
             if (chkowig.isSelected()) {
                 lblVV4100.text = 'Grundgebühr Nr. 5100'
-                if (radioRVG2013.isSelected()){
-                    txtVV4100.text = df.format(80f)
-                } else {
-                    txtVV4100.text = df.format(88f)
-                }
+                txtVV4100.text = df.format(rvgGebuehr(5100, 2, rvgYear))
             } else if (haftVV4100.isSelected()) {
                 lblVV4100.text = 'Grundgebühr Nr. 4101'
-                if (radioRVG2013.isSelected()){
-                    txtVV4100.text = df.format(192f)
-                } else {
-                    txtVV4100.text = df.format(216f)
-                }
+                txtVV4100.text = df.format(rvgGebuehr(4101, 2, rvgYear))
             } else {
                 lblVV4100.text = 'Grundgebühr Nr. 4100'
-                if (radioRVG2013.isSelected()){
-                    txtVV4100.text = df.format(160f)
-                } else {
-                    txtVV4100.text = df.format(176f)
-                }
+                txtVV4100.text = df.format(rvgGebuehr(4100, 2, rvgYear))
             }
         } else {//für die Wahlanwaltsgebühr werden die beiden Werte der Rahmengebühr ("urahmen", "orahmen") und Gebührennummer "lblVV*" definiert.
             if (chkowig.isSelected()) {
-                if (radioRVG2013.isSelected()){
-                    urahmen = 30f
-                    orahmen = 170f
-                } else {
-                    urahmen = 33f
-                    orahmen = 187f
-                }
+                urahmen = rvgGebuehr(5100, 0, rvgYear)
+                orahmen = rvgGebuehr(5100, 1, rvgYear)
                 lblVV4100.text = 'Grundgebühr Nr. 5100'
             } else {    
                 if(haftVV4100.isSelected()) {//bei Gebühren im Strafrecht wird der obere Rahmen erhöht, wenn sich der Mandant in Haft befindet
                     lblVV4100.text = 'Grundgebühr Nr. 4101'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 40f
-                        orahmen = 450f
-                    } else {
-                        urahmen = 44f
-                        orahmen = 495f
-                    }
+                    urahmen = rvgGebuehr(4101, 0, rvgYear)
+                    orahmen = rvgGebuehr(4101, 1, rvgYear)
                 } else {
                     lblVV4100.text = 'Grundgebühr Nr. 4100'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 40f
-                        orahmen = 360f
-                    } else {
-                        urahmen = 44f
-                        orahmen = 396f
-                    }
+                    urahmen = rvgGebuehr(4100, 0, rvgYear)
+                    orahmen = rvgGebuehr(4100, 1, rvgYear)
                 }
             }
             rhVV4100.text = "${df.format(urahmen)} - ${df.format(orahmen)}";//rhVV* gibt die beiden Werte der Rahmengebühr aus. 
@@ -2015,93 +2209,48 @@ def float calculate() {
         if (chkPflichtV.isSelected()) {
             rhVV4104.text = ''
             if (chkowig.isSelected()) {
-                if (chkowig5000.isSelected()) {//bei den folgenden Gebühren wird unterschieden, ob das Bußgeld über 5000€ ("chkowig5000") oder über 60€ ("chkowig60") oder darunter liegt.
+                if (chkowig5000.isSelected()) {//bei den folgenden Gebühren wird unterschieden, ob das Bußgeld über 5000€ ("chkowig5000") oder über 60€ bzw. 80€ ("chkowig60") oder darunter liegt.
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5105'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4104.text = df.format(136)
-                    } else {
-                        txtVV4104.text = df.format(150)
-                    }
+                    txtVV4104.text = df.format(rvgGebuehr(5105, 2, rvgYear))
                 } else if (chkowig60.isSelected()) {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5103'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4104.text = df.format(128)
-                    } else {
-                        txtVV4104.text = df.format(141)
-                    }
+                    txtVV4104.text = df.format(rvgGebuehr(5103, 2, rvgYear))
                 } else {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5101'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4104.text = df.format(52)
-                    } else {
-                        txtVV4104.text = df.format(57)
-                    }
+                    txtVV4104.text = df.format(rvgGebuehr(5101, 2, rvgYear))
                 }
             }
             else if(haftVV4104.isSelected()) {
                 lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
-                if (radioRVG2013.isSelected()){
-                    txtVV4104.text = df.format(161)
-                } else {
-                    txtVV4104.text = df.format(177)
-                }
+                txtVV4104.text = df.format(rvgGebuehr(4105, 2, rvgYear))
             } else {
                 lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
-                if (radioRVG2013.isSelected()){
-                    txtVV4104.text = df.format(132)
-                } else {
-                    txtVV4104.text = df.format(145)
-                }
+                txtVV4104.text = df.format(rvgGebuehr(4104, 2, rvgYear))
             }
         } else {
             if (chkowig.isSelected()) {
                 if (chkowig5000.isSelected()) {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5105'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 40f
-                        orahmen = 300f
-                    } else {
-                        urahmen = 44f
-                        orahmen = 330f
-                    }
+                    urahmen = rvgGebuehr(5105, 0, rvgYear)
+                    orahmen = rvgGebuehr(5105, 1, rvgYear)
                 } else if (chkowig60.isSelected()) {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5103'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 30f
-                        orahmen = 290f
-                    } else {
-                        urahmen = 33f
-                        orahmen = 319f
-                    }
+                    urahmen = rvgGebuehr(5103, 0, rvgYear)
+                    orahmen = rvgGebuehr(5103, 1, rvgYear)
                 } else {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 5101'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20f
-                        orahmen = 110f
-                    } else {
-                        urahmen = 22f
-                        orahmen = 121f
-                    }
+                    urahmen = rvgGebuehr(5101, 0, rvgYear)
+                    orahmen = rvgGebuehr(5101, 1, rvgYear)
                 }
             } else {
                 if(haftVV4104.isSelected()) {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 4105'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 40f
-                        orahmen = 362.5f
-                    } else {
-                        urahmen = 44f
-                        orahmen = 399f
-                    }
+                    urahmen = rvgGebuehr(4105, 0, rvgYear)
+                    orahmen = rvgGebuehr(4105, 1, rvgYear)
                 } else {
                     lblVV4104.text = 'Verfahrensgebühr Nr. 4104'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 40f
-                        orahmen = 290f
-                    } else {
-                        urahmen = 44f
-                        orahmen = 319f
-                    }
+                    urahmen = rvgGebuehr(4104, 0, rvgYear)
+                    orahmen = rvgGebuehr(4104, 1, rvgYear)
                 }
             }
             rhVV4104.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -2125,40 +2274,20 @@ def float calculate() {
             lblVV4141.text = 'Erledigungsgebühr Nr. 5115'
             if (chkVV4124.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format(256)
-                    } else {
-                        txtVV4141.text  = df.format(282)
-                    }
+                    txtVV4141.text  = txtVV4124.text
                 } else {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format((80+560)/2)
-                    } else {
-                        txtVV4141.text  = df.format((88+616)/2)
-                    } 
+                    txtVV4141.text  = df.format(((rvgGebuehr(5113, 0, rvgYear))+(rvgGebuehr(5113, 1, rvgYear)))/2)
                 }
             } else if (chkVV4106.isSelected()) {
                 if (chkPflichtV.isSelected()) {
                     txtVV4141.text = txtVV4106.text
                 } else {
                     if (chkowig5000.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((50+350)/2)
-                        } else {
-                            txtVV4141.text  = df.format((55+385)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5111, 0, rvgYear))+(rvgGebuehr(5111, 1, rvgYear)))/2)
                     } else if (chkowig60.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((30+290)/2)
-                        } else {
-                            txtVV4141.text  = df.format((33+319)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5109, 0, rvgYear))+(rvgGebuehr(5109, 1, rvgYear)))/2)
                     } else {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((20+110)/2)
-                        } else {
-                            txtVV4141.text  = df.format((22+121)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5107, 0, rvgYear))+(rvgGebuehr(5107, 1, rvgYear)))/2)
                     }
                 }
             } else if (chkVV4104.isSelected()) {
@@ -2166,23 +2295,11 @@ def float calculate() {
                     txtVV4141.text = txtVV4104.text
                 } else {
                     if (chkowig5000.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((40+300)/2)
-                        } else {
-                            txtVV4141.text  = df.format((44+330)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5105, 0, rvgYear))+(rvgGebuehr(5105, 1, rvgYear)))/2)
                     } else if (chkowig60.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((30+290)/2)
-                        } else {
-                            txtVV4141.text  = df.format((33+319)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5103, 0, rvgYear))+(rvgGebuehr(5103, 1, rvgYear)))/2)
                     } else {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((20+110)/2)
-                        } else {
-                            txtVV4141.text  = df.format((22+121)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(5101, 0, rvgYear))+(rvgGebuehr(5101, 1, rvgYear)))/2)
                     }
                 }
             } else {
@@ -2192,89 +2309,41 @@ def float calculate() {
             lblVV4141.text = 'Erledigungsgebühr Nr. 4141'
             if (chkVV4130.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format(492)
-                    } else {
-                        txtVV4141.text  = df.format(541)
-                    }
+                    txtVV4141.text = df.format(rvgGebuehr(4130, 2, rvgYear))
                 } else {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format((120+1110)/2)
-                    } else {
-                        txtVV4141.text  = df.format((132+1221)/2)
-                    }
+                    txtVV4141.text  = df.format(((rvgGebuehr(4130, 0, rvgYear))+(rvgGebuehr(4130, 1, rvgYear)))/2)
                 }
             } else if (chkVV4124.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format(256)
-                    } else {
-                        txtVV4141.text  = df.format(282)
-                    }
+                    txtVV4141.text  = df.format(rvgGebuehr(4124, 2, rvgYear))
                 } else {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format((80+560)/2)
-                    } else {
-                        txtVV4141.text  = df.format((88+616)/2)
-                    }
+                    txtVV4141.text  = df.format(((rvgGebuehr(4124, 0, rvgYear))+(rvgGebuehr(4124, 1, rvgYear)))/2)
                 }
             } else if (chkVV4106.isSelected()) {
                 if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                     if (chkPflichtV.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format(148)
-                        } else {
-                            txtVV4141.text  = df.format(163)
-                        }
+                        txtVV4141.text  = df.format(rvgGebuehr(4112, 2, rvgYear))
                     } else {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((50+320)/2)
-                        } else {
-                            txtVV4141.text  = df.format((55+352)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(4112, 0, rvgYear))+(rvgGebuehr(4112, 1, rvgYear)))/2)
                     }
                 } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                     if (chkPflichtV.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format(316)
-                        } else {
-                            txtVV4141.text  = df.format(348)
-                        }
+                        txtVV4141.text  = df.format(rvgGebuehr(4118, 2, rvgYear))
                     } else {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((100+690)/2)
-                        } else {
-                            txtVV4141.text  = df.format((110+759)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(4118, 0, rvgYear))+(rvgGebuehr(4118, 1, rvgYear)))/2)
                     }
                 } else {
                     if (chkPflichtV.isSelected()) {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format(132)
-                        } else {
-                            txtVV4141.text  = df.format(145)
-                        }
+                        txtVV4141.text  = df.format(rvgGebuehr(4106, 2, rvgYear))
                     } else {
-                        if (radioRVG2013.isSelected()){
-                            txtVV4141.text  = df.format((40+290)/2)
-                        } else {
-                            txtVV4141.text  = df.format((44+319)/2)
-                        }
+                        txtVV4141.text  = df.format(((rvgGebuehr(4106, 0, rvgYear))+(rvgGebuehr(4106, 1, rvgYear)))/2)
                     }
                 }
             } else  if (chkVV4104.isSelected()) {
                 if (chkPflichtV.isSelected()) {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format(132)
-                    } else {
-                        txtVV4141.text  = df.format(145)
-                    }
+                    txtVV4141.text  = df.format(rvgGebuehr(4104, 2, rvgYear))
                 } else {
-                    if (radioRVG2013.isSelected()){
-                        txtVV4141.text  = df.format((40+290)/2)
-                    } else {
-                        txtVV4141.text  = df.format((44+319)/2)
-                    }
+                    txtVV4141.text  = df.format(((rvgGebuehr(4104, 0, rvgYear))+(rvgGebuehr(4104, 1, rvgYear)))/2)
                 }
             } else {
                 txtVV4141.text = df.format(0f)
@@ -2308,92 +2377,47 @@ def float calculate() {
                 if (chkowig.isSelected()) {
                     if (chkowig5000.isSelected()) {
                         rvgVVTerminVor.text = 'Nr. 5106 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTerminVorValue.text = df.format(112)
-                        } else {
-                            txtTerminVorValue.text = df.format(150)
-                        }
+                        txtTerminVorValue.text = df.format(rvgGebuehr(5106, 2, rvgYear))
                     } else if (chkowig60.isSelected()) {
                         rvgVVTerminVor.text = 'Nr. 5104 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTerminVorValue.text = df.format(108)
-                        } else {
-                            txtTerminVorValue.text = df.format(141)
-                        }
+                        txtTerminVorValue.text = df.format(rvgGebuehr(5104, 2, rvgYear))
                     } else {
                         rvgVVTerminVor.text = 'Nr. 5102 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTerminVorValue.text = df.format(44)
-                        } else {
-                            txtTerminVorValue.text = df.format(57)
-                        }
+                        txtTerminVorValue.text = df.format(rvgGebuehr(5102, 2, rvgYear))
                     }
                 } else {
                     if(haftTerminVor.isSelected()) {
                         rvgVVTerminVor.text='Nr. 4103 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            txtTerminVorValue.text = df.format(137)
-                        } else {
-                            txtTerminVorValue.text = df.format(183)
-                        }
+                        txtTerminVorValue.text = df.format(rvgGebuehr(4103, 2, rvgYear))
                     } else {
                         rvgVVTerminVor.text='Nr. 4102 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            txtTerminVorValue.text = df.format(112)
-                        } else {
-                            txtTerminVorValue.text = df.format(150)
-                        }        
+                        txtTerminVorValue.text = df.format(rvgGebuehr(4102, 2, rvgYear))       
                     }
                 }
         } else {
             if (chkowig.isSelected()) {
                 if (chkowig5000.isSelected()) {
                         rvgVVTerminVor.text = 'Nr. 5106 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 30
-                            orahmen = 250
-                        } else {
-                            urahmen = 44
-                            orahmen = 330
-                        }
+                        urahmen = rvgGebuehr(5106, 0, rvgYear)
+                        orahmen = rvgGebuehr(5106, 1, rvgYear)
                     } else if (chkowig60.isSelected()) {
                         rvgVVTerminVor.text = 'Nr. 5104 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 20
-                            orahmen = 250
-                        } else {
-                            urahmen = 33
-                            orahmen = 319
-                        }
+                        urahmen = rvgGebuehr(5104, 0, rvgYear)
+                        orahmen = rvgGebuehr(5104, 1, rvgYear)
                     } else {
                         rvgVVTerminVor.text = 'Nr. 5102 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 10
-                            orahmen = 100
-                        } else {
-                            urahmen = 22
-                            orahmen = 121
-                        }
+                        urahmen = rvgGebuehr(5102, 0, rvgYear)
+                        orahmen = rvgGebuehr(5102, 1, rvgYear)
                     }
             } else {
                 if(haftTerminVor.isSelected()) {
                     rvgVVTerminVor.text='Nr. 4103 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 30
-                        orahmen = 312.5
-                    } else {
-                        urahmen = 44
-                        orahmen = 413
-                    }
+                    urahmen = rvgGebuehr(4103, 0, rvgYear)
+                    orahmen = rvgGebuehr(4103, 1, rvgYear)
                 } else {
                     rvgVVTerminVor.text='Nr. 4102 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 30
-                        orahmen = 250
-                    } else {
-                        urahmen = 44
-                        orahmen = 330
-                    }
+                    urahmen = rvgGebuehr(4102, 0, rvgYear)
+                    orahmen = rvgGebuehr(4102, 1, rvgYear)
                 }
             }
             rhTerminVor.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -2427,74 +2451,38 @@ def float calculate() {
             if (chkowig.isSelected()) {
                 if (chkowig5000.isSelected()) {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5111'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4106.text = df.format(160)
-                    } else {
-                        txtVV4106.text = df.format(176)
-                    }
+                    txtVV4106.text = df.format(rvgGebuehr(5111, 2, rvgYear))
                 } else if (chkowig60.isSelected()) {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5109'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4106.text = df.format(128)
-                    } else {
-                        txtVV4106.text = df.format(141)
-                    }
+                    txtVV4106.text = df.format(rvgGebuehr(5109, 2, rvgYear))
                 } else {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5107'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4106.text = df.format(52)
-                    } else {
-                        txtVV4106.text = df.format(57)
-                    }
+                    txtVV4106.text = df.format(rvgGebuehr(5107, 2, rvgYear))
                 }
             } else {
                 if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4113';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(180)
-                        } else {
-                            txtVV4106.text = df.format(198)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4113, 2, rvgYear))
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4112';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(148)
-                        } else {
-                            txtVV4106.text = df.format(163)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4112, 2, rvgYear))
                     }
                 } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4119';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(385)
-                        } else {
-                            txtVV4106.text = df.format(424)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4119, 2, rvgYear))
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4118';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(316)
-                        } else {
-                            txtVV4106.text = df.format(348)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4118, 2, rvgYear))
                     }
                 } else {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4107';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(161)
-                        } else {
-                            txtVV4106.text = df.format(177)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4107, 2, rvgYear))
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4106';
-                        if (radioRVG2013.isSelected()){
-                            txtVV4106.text = df.format(132)
-                        } else {
-                            txtVV4106.text = df.format(145)
-                        }
+                        txtVV4106.text = df.format(rvgGebuehr(4106, 2, rvgYear))
                     }
                 }
             }
@@ -2502,92 +2490,47 @@ def float calculate() {
             if (chkowig.isSelected()) {
                 if (chkowig5000.isSelected()) {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5111'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 50f
-                        orahmen = 350f
-                    } else {
-                        urahmen = 55f
-                        orahmen = 385f
-                    }
+                    urahmen = rvgGebuehr(5111, 0, rvgYear)
+                    orahmen = rvgGebuehr(5111, 1, rvgYear)
                 } else if (chkowig60.isSelected()) {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5109'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 30f
-                        orahmen = 290f
-                    } else {
-                        urahmen = 33f
-                        orahmen = 319f
-                    }
+                    urahmen = rvgGebuehr(5109, 0, rvgYear)
+                    orahmen = rvgGebuehr(5109, 1, rvgYear)
                 } else {
                     lblVV4106.text = 'Verfahrensgebühr Nr. 5107'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20f
-                        orahmen = 110f
-                    } else {
-                        urahmen = 22f
-                        orahmen = 121f
-                    }
+                    urahmen = rvgGebuehr(5107, 0, rvgYear)
+                    orahmen = rvgGebuehr(5107, 1, rvgYear)
                 }
             } else {
                 if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4113';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 50f
-                            orahmen = 400f
-                        } else {
-                            urahmen = 55f
-                            orahmen = 440f
-                        }
+                        urahmen = rvgGebuehr(4113, 0, rvgYear)
+                        orahmen = rvgGebuehr(4113, 1, rvgYear)
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4112';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 50f
-                            orahmen = 320f
-                        } else {
-                            urahmen = 55f
-                            orahmen = 352f
-                        }
+                        urahmen = rvgGebuehr(4112, 0, rvgYear)
+                        orahmen = rvgGebuehr(4112, 1, rvgYear)
                     }
                 } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4119';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 100f
-                            orahmen = 862.50f
-                        } else {
-                            urahmen = 110f
-                            orahmen = 949f
-                        }
+                        urahmen = rvgGebuehr(4119, 0, rvgYear)
+                        orahmen = rvgGebuehr(4119, 1, rvgYear)
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4118';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 100f
-                            orahmen = 690f
-                        } else {
-                            urahmen = 110f
-                            orahmen = 759f
-                        }
+                        urahmen = rvgGebuehr(4118, 0, rvgYear)
+                        orahmen = rvgGebuehr(4118, 1, rvgYear)
                     }
                 } else {
                     if(haftVV4106.isSelected()) {
                         lblVV4106.text='Verfahrensgebühr Nr. 4107';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 40f
-                            orahmen = 362.50f
-                        } else {
-                            urahmen = 44f
-                            orahmen = 399f
-                        }
+                        urahmen = rvgGebuehr(4107, 0, rvgYear)
+                        orahmen = rvgGebuehr(4107, 1, rvgYear)
                     } else {
                         lblVV4106.text='Verfahrensgebühr Nr. 4106';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 40f
-                            orahmen = 290f
-                        } else {
-                            urahmen = 44f
-                            orahmen = 319f
-                        }
+                        urahmen = rvgGebuehr(4106, 0, rvgYear)
+                        orahmen = rvgGebuehr(4106, 1, rvgYear)
                     }
                 }
             }
@@ -2631,74 +2574,38 @@ def float calculate() {
                 if (chkowig.isSelected()) {
                     if (chkowig5000.isSelected()) {
                         rvgVVTermin1I.text = 'Nr. 5112 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTermin1IValue.text = df.format(256)
-                        } else {
-                            txtTermin1IValue.text = df.format(282)
-                        }
+                        txtTermin1IValue.text = df.format(rvgGebuehr(5112, 2, rvgYear))
                     } else if (chkowig60.isSelected()) {
                         rvgVVTermin1I.text = 'Nr. 5110 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTermin1IValue.text = df.format(204)
-                        } else {
-                            txtTermin1IValue.text = df.format(224)
-                        }
+                        txtTermin1IValue.text = df.format(rvgGebuehr(5110, 2, rvgYear))
                     } else {
                         rvgVVTermin1I.text = 'Nr. 5108 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            txtTermin1IValue.text = df.format(104)
-                        } else {
-                            txtTermin1IValue.text = df.format(114)
-                        }
+                        txtTermin1IValue.text = df.format(rvgGebuehr(5108, 2, rvgYear))
                     }
                 } else {
                     if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                         if(haftTermin1I.isSelected()) {
                             rvgVVTermin1I.text='Nr. 4115 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(312)
-                            } else {
-                                txtTermin1IValue.text = df.format(343)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4115, 2, rvgYear))
                         } else {
                             rvgVVTermin1I.text='Nr. 4114 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(256)
-                            } else {
-                                txtTermin1IValue.text = df.format(282)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4114, 2, rvgYear))
                         }
                     } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                         if(haftTermin1I.isSelected()) {
                             rvgVVTermin1I.text='Nr. 4121 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(517)
-                            } else {
-                                txtTermin1IValue.text = df.format(569)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4121, 2, rvgYear))
                         } else {
                             rvgVVTermin1I.text='Nr. 4120 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(424)
-                            } else {
-                                txtTermin1IValue.text = df.format(466)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4120, 2, rvgYear))
                         }
                     } else {
                         if(haftTermin1I.isSelected()) {
                             rvgVVTermin1I.text='Nr. 4109 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(268)
-                            } else {
-                                txtTermin1IValue.text = df.format(295)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4109, 2, rvgYear))
                         } else {
                             rvgVVTermin1I.text='Nr. 4108 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin1IValue.text = df.format(220)
-                            } else {
-                                txtTermin1IValue.text = df.format(242)
-                            }
+                            txtTermin1IValue.text = df.format(rvgGebuehr(4108, 2, rvgYear))
                         }
                     }
                 }
@@ -2706,92 +2613,47 @@ def float calculate() {
             if (chkowig.isSelected()) {
                 if (chkowig5000.isSelected()) {
                         rvgVVTermin1I.text = 'Nr. 5112 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 80f
-                            orahmen = 560f
-                        } else {
-                            urahmen = 88f
-                            orahmen = 616f
-                        }
+                        urahmen = rvgGebuehr(5112, 0, rvgYear)
+                        orahmen = rvgGebuehr(5112, 1, rvgYear)
                     } else if (chkowig60.isSelected()) {
                         rvgVVTermin1I.text = 'Nr. 5110 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 40f
-                            orahmen = 470f
-                        } else {
-                            urahmen = 44f
-                            orahmen = 517f
-                        }
+                        urahmen = rvgGebuehr(5110, 0, rvgYear)
+                        orahmen = rvgGebuehr(5110, 1, rvgYear)
                     } else {
                         rvgVVTermin1I.text = 'Nr. 5108 VV RVG'
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 20f
-                            orahmen = 240f
-                        } else {
-                            urahmen = 22f
-                            orahmen = 264f
-                        }
+                        urahmen = rvgGebuehr(5108, 0, rvgYear)
+                        orahmen = rvgGebuehr(5108, 1, rvgYear)
                     }
             } else {
                 if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                     if(haftTermin1I.isSelected()) {
                         rvgVVTermin1I.text='Nr. 4115 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 80f
-                            orahmen = 700f
-                        } else {
-                            urahmen = 88f
-                            orahmen = 770f
-                        }
+                        urahmen = rvgGebuehr(4115, 0, rvgYear)
+                        orahmen = rvgGebuehr(4115, 1, rvgYear)
                     } else {
                         rvgVVTermin1I.text='Nr. 4114 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 80f
-                            orahmen = 560f
-                        } else {
-                            urahmen = 88f
-                            orahmen =616f
-                        }
+                        urahmen = rvgGebuehr(4114, 0, rvgYear)
+                        orahmen = rvgGebuehr(4114, 1, rvgYear)
                     }
                 } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                     if(haftTermin1I.isSelected()) {
                         rvgVVTermin1I.text='Nr. 4121 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 130f
-                            orahmen = 1162.50f
-                        } else {
-                            urahmen = 143f
-                            orahmen = 1279f
-                        }
+                        urahmen = rvgGebuehr(4121, 0, rvgYear)
+                        orahmen = rvgGebuehr(4121, 1, rvgYear)
                     } else {
                         rvgVVTermin1I.text='Nr. 4120 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 130f
-                            orahmen = 930f
-                        } else {
-                            urahmen = 143f
-                            orahmen = 1023f
-                        }
+                        urahmen = rvgGebuehr(4120, 0, rvgYear)
+                        orahmen = rvgGebuehr(4120, 1, rvgYear)
                     }
                 } else {
                     if(haftTermin1I.isSelected()) {
                         rvgVVTermin1I.text='Nr. 4109 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 70f
-                            orahmen = 600f
-                        } else {
-                            urahmen = 77f
-                            orahmen = 660f
-                        }
+                        urahmen = rvgGebuehr(4109, 0, rvgYear)
+                        orahmen = rvgGebuehr(4109, 1, rvgYear)
                     } else {
                         rvgVVTermin1I.text='Nr. 4108 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 70f
-                            orahmen = 480f
-                        } else {
-                            urahmen = 77f
-                            orahmen = 528f
-                        }
+                        urahmen = rvgGebuehr(4108, 0, rvgYear)
+                        orahmen = rvgGebuehr(4108, 1, rvgYear)
                     }
                 }
             }
@@ -2812,25 +2674,13 @@ def float calculate() {
         if (chkPflichtV.isSelected()) {
             if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                 rvgVVTermin1I.text='Nr. 4116 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(128);
-                } else {
-                    txtTermin1IValue.text = df.format(141);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4116, 0, rvgYear))
             } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                 rvgVVTermin1I.text='Nr. 4122 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(212);
-                } else {
-                    txtTermin1IValue.text = df.format(233);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4122, 0, rvgYear))
             } else {
                 rvgVVTermin1I.text='Nr. 4110 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(110);
-                } else {
-                    txtTermin1IValue.text = df.format(121);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4110, 0, rvgYear))
             } 
         } else {
             txtTermin1IValue.text = df.format(0f)
@@ -2841,25 +2691,13 @@ def float calculate() {
         if (chkPflichtV.isSelected()) {
             if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Strafkammer') {
                 rvgVVTermin1I.text='Nr. 4117 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(256);
-                } else {
-                    txtTermin1IValue.text = df.format(282);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4117, 0, rvgYear))
             } else if (cbGericht.getItemAt(cbGericht.getSelectedIndex())=='Schwurgericht / OLG') {
                 rvgVVTermin1I.text='Nr. 4123 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(424);
-                } else {
-                    txtTermin1IValue.text = df.format(466);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4123, 0, rvgYear))
             } else {
                 rvgVVTermin1I.text='Nr. 4111 VV RVG';
-                if (radioRVG2013.isSelected()){
-                    txtTermin1IValue.text = df.format(220);
-                } else {
-                    txtTermin1IValue.text = df.format(242);
-                }
+                txtTermin1IValue.text = df.format(rvgGebuehr(4111, 0, rvgYear))
             }
         } else {
             txtTermin1IValue.text = df.format(0f)
@@ -2877,57 +2715,30 @@ def float calculate() {
             rhVV4124.text = '';
             if (chkowig.isSelected()) {
                 lblVV4124.text = 'Verfahrensgebühr Nr. 5113'
-                if (radioRVG2013.isSelected()){
-                    txtVV4124.text = df.format(256)
-                } else {
-                    txtVV4124.text = df.format(282)
-                }
+                txtVV4124.text = df.format(rvgGebuehr(5113, 2, rvgYear))
             } else {
                 if(haftVV4124.isSelected()) {
                     lblVV4124.text = 'Verfahrensgebühr Nr. 4125'
-                    if (radioRVG2013.isSelected()){
-                        txtVV4124.text = df.format(312)
-                    } else {
-                        txtVV4124.text = df.format(343)
-                    }
+                    txtVV4124.text = df.format(rvgGebuehr(4125, 2, rvgYear))
                 } else {
                     lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
-                    if (radioRVG2013.isSelected()){
-                        txtVV4124.text = df.format(256)
-                    } else {
-                        txtVV4124.text = df.format(282)
-                    }
+                    txtVV4124.text = df.format(rvgGebuehr(4124, 2, rvgYear))
                 }
             }
         } else {
             if (chkowig.isSelected()) {
                 lblVV4124.text = 'Verfahrensgebühr Nr. 5113'
-                if (radioRVG2013.isSelected()){
-                    urahmen = 80f
-                    orahmen = 560f
-                } else {
-                    urahmen = 88f
-                    orahmen = 616f
-                }
+                urahmen = rvgGebuehr(5113, 0, rvgYear)
+                orahmen = rvgGebuehr(5113, 1, rvgYear)
             } else {
                 if(haftVV4124.isSelected()) {
                     lblVV4124.text = 'Verfahrensgebühr Nr. 4125'
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 80f
-                        orahmen = 700f
-                    } else {
-                        urahmen = 88f
-                        orahmen = 770f
-                    }
+                    urahmen = rvgGebuehr(4125, 0, rvgYear)
+                    orahmen = rvgGebuehr(4125, 1, rvgYear)
                 } else {
                     lblVV4124.text = 'Verfahrensgebühr Nr. 4124';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 80f
-                        orahmen = 560f
-                    } else {
-                        urahmen = 88f
-                        orahmen = 616f
-                    }
+                    urahmen = rvgGebuehr(4124, 0, rvgYear)
+                    orahmen = rvgGebuehr(4124, 1, rvgYear)
                 }
             }        
             rhVV4124.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
@@ -2968,57 +2779,30 @@ def float calculate() {
                 rhTermin2I.text = ''
                 if (chkowig.isSelected()) {
                     rvgVVTermin2I.text='Nr. 5114 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTermin2IValue.text = df.format(256)
-                    } else {
-                        txtTermin2IValue.text = df.format(282)
-                    }
+                    txtTermin2IValue.text = df.format(rvgGebuehr(5114, 2, rvgYear))
                 } else { 
                     if(haftTermin2I.isSelected()) {
                             rvgVVTermin2I.text='Nr. 4127 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin2IValue.text = df.format(312)
-                            } else {
-                                txtTermin2IValue.text = df.format(343)
-                            }
+                            txtTermin2IValue.text = df.format(rvgGebuehr(4127, 2, rvgYear))
                         } else {
                             rvgVVTermin2I.text='Nr. 4126 VV RVG';
-                            if (radioRVG2013.isSelected()){
-                                txtTermin2IValue.text = df.format(256)
-                            } else {
-                                txtTermin2IValue.text = df.format(282)
-                            }
+                            txtTermin2IValue.text = df.format(rvgGebuehr(4126, 2, rvgYear))
                         }
                 }
             } else {
                 if (chkowig.isSelected()) {
                     rvgVVTermin2I.text='Nr. 5114 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 80f
-                        orahmen = 560f
-                    } else {
-                        urahmen = 88f
-                        orahmen = 616f
-                    }
+                    urahmen = rvgGebuehr(5114, 0, rvgYear)
+                    orahmen = rvgGebuehr(5114, 1, rvgYear)
                 } else {
                     if(haftTermin2I.isSelected()) {
                         rvgVVTermin2I.text='Nr. 4127 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 80f
-                            orahmen = 700f
-                        } else {
-                            urahmen = 88f
-                            orahmen = 770f
-                        }
+                        urahmen = rvgGebuehr(4127, 0, rvgYear)
+                        orahmen = rvgGebuehr(4127, 1, rvgYear)
                     } else {
                         rvgVVTermin2I.text='Nr. 4126 VV RVG';
-                        if (radioRVG2013.isSelected()){
-                            urahmen = 80f
-                            orahmen = 560f
-                        } else {
-                            urahmen = 88f
-                            orahmen = 616f
-                        }
+                        urahmen = rvgGebuehr(4126, 0, rvgYear)
+                        orahmen = rvgGebuehr(4126, 1, rvgYear)
                     }
                 }
                 rhTermin2I.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
@@ -3037,11 +2821,7 @@ def float calculate() {
         rhTermin2I.text = ''
         if (chkPflichtV.isSelected()){
             rvgVVTermin2I.text='Nr. 4128 VV RVG';
-            if (radioRVG2013.isSelected()){
-                txtTermin2IValue.text = df.format(128)
-            } else {
-                txtTermin2IValue.text = df.format(141)
-            }
+            txtTermin2IValue.text = df.format(rvgGebuehr(4128, 0, rvgYear))
         } else {
             txtTermin2IValue.text = df.format(0f)
         }
@@ -3050,11 +2830,7 @@ def float calculate() {
         rhTermin2I.text = ''
         if (chkPflichtV.isSelected()) { 
             rvgVVTermin2I.text='Nr. 4129 VV RVG';
-            if (radioRVG2013.isSelected()){
-                txtTermin2IValue.text = df.format(256)
-            } else {
-                txtTermin2IValue.text = df.format(282)
-            }
+            txtTermin2IValue.text = df.format(rvgGebuehr(4129, 0, rvgYear))
         } else {
             txtTermin2IValue.text = df.format(0f)
         }
@@ -3070,38 +2846,20 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
             rhVV4130.text = '';
             if(haftVV4130.isSelected()) {
                 lblVV4130.text = 'Verfahrensgebühr Nr. 4131'
-                if (radioRVG2013.isSelected()){
-                    txtVV4130.text = df.format(603)
-                } else {
-                    txtVV4130.text = df.format(663)
-                }
+                txtVV4130.text = df.format(rvgGebuehr(4131, 2, rvgYear))
             } else {
                 lblVV4130.text = 'Verfahrensgebühr Nr. 4130';
-                if (radioRVG2013.isSelected()){
-                    txtVV4130.text = df.format(492)
-                } else {
-                    txtVV4130.text = df.format(541)
-                }
+                txtVV4130.text = df.format(rvgGebuehr(4130, 2, rvgYear))
             }
         } else {
             if(haftVV4130.isSelected()) {
                 lblVV4130.text = 'Verfahrensgebühr Nr. 4131'
-                if (radioRVG2013.isSelected()){
-                    urahmen = 120f
-                    orahmen = 1387.5f
-                } else {
-                    urahmen = 132f
-                    orahmen = 1526f
-                } 
+                urahmen = rvgGebuehr(4131, 0, rvgYear)
+                orahmen = rvgGebuehr(4131, 1, rvgYear)
             } else {
                 lblVV4130.text = 'Verfahrensgebühr Nr. 4130';
-                if (radioRVG2013.isSelected()){
-                    urahmen = 120f
-                    orahmen = 1110f
-                } else {
-                    urahmen = 132f
-                    orahmen = 1221f
-                } 
+                urahmen = rvgGebuehr(4130, 0, rvgYear)
+                orahmen = rvgGebuehr(4130, 1, rvgYear)
             }        
             rhVV4130.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
             if (cbchVV4130.getItemAt(cbchVV4130.getSelectedIndex())=='eigene') {
@@ -3142,38 +2900,20 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
                 rhTerminRev.text = ''
                 if(haftTerminRev.isSelected()) {
                     rvgVVTerminRev.text='Nr. 4133 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminRevValue.text = df.format(328)
-                    } else {
-                        txtTerminRevValue.text = df.format(361)
-                    }
+                    txtTerminRevValue.text = df.format(rvgGebuehr(4133, 2, rvgYear))
                 } else {
                     rvgVVTerminRev.text='Nr. 4132 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminRevValue.text = df.format(272)
-                    } else {
-                        txtTerminRevValue.text = df.format(300)
-                    }
+                    txtTerminRevValue.text = df.format(rvgGebuehr(4132, 2, rvgYear))
                 }
             } else if (!chkowig.isSelected()) { 
                 if(haftTerminRev.isSelected()) {
                     rvgVVTerminRev.text='Nr. 4133 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 120f
-                        orahmen = 700f
-                    } else {
-                        urahmen = 132f
-                        orahmen = 770f
-                    }
+                    urahmen = rvgGebuehr(4133, 0, rvgYear)
+                    orahmen = rvgGebuehr(4133, 1, rvgYear)
                 } else {
                     rvgVVTerminRev.text='Nr. 4132 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 120f
-                        orahmen = 560f
-                    } else {
-                        urahmen = 132f
-                        orahmen = 616f
-                    }
+                    urahmen = rvgGebuehr(4132, 0, rvgYear)
+                    orahmen = rvgGebuehr(4132, 1, rvgYear)
                 }
                 rhTerminRev.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
                 if (cbchTerminRev.getItemAt(cbchTerminRev.getSelectedIndex())=='eigene') {
@@ -3195,11 +2935,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         rhTerminRev.text = ''
         if (chkPflichtV.isSelected()){
             rvgVVTerminRev.text='Nr. 4134 VV RVG';
-            if (radioRVG2013.isSelected()){
-                txtTerminRevValue.text = df.format(136)
-            } else {
-                txtTerminRevValue.text = df.format(150)
-            }
+            txtTerminRevValue.text = df.format(rvgGebuehr(4134, 0, rvgYear))
         } else {
             txtTerminRevValue.text = df.format(0f)
         }
@@ -3208,11 +2944,7 @@ if(chkVV4130.isSelected() && !chkowig.isSelected()) {
         rhTerminRev.text = ''
         if (chkPflichtV.isSelected()) { 
             rvgVVTerminRev.text='Nr. 4135 VV RVG';
-            if (radioRVG2013.isSelected()){
-                txtTerminRevValue.text = df.format(272)
-            } else {
-                txtTerminRevValue.text = df.format(300)
-            }
+            txtTerminRevValue.text = df.format(rvgGebuehr(4135, 0, rvgYear))
         } else {
             txtTerminRevValue.text = df.format(0f)
         }
@@ -3229,38 +2961,20 @@ if(chkVV4200.isSelected() && !chkowig.isSelected()) {
             rhVV4200.text = '';
             if(haftVV4200.isSelected()) {
                 lblVV4200.text = 'Verfahrensgebühr Nr. 4201'
-                if (radioRVG2013.isSelected()){
-                    txtVV4200.text = df.format(300)
-                } else {
-                    txtVV4200.text = df.format(395)
-                }
+                txtVV4200.text = df.format(rvgGebuehr(4201, 2, rvgYear))
             } else {
                 lblVV4200.text = 'Verfahrensgebühr Nr. 4200';
-                if (radioRVG2013.isSelected()){
-                    txtVV4200.text = df.format(244)
-                } else {
-                    txtVV4200.text = df.format(321)
-                }
+                txtVV4200.text = df.format(rvgGebuehr(4200, 2, rvgYear))
             }
         } else {
             if(haftVV4200.isSelected()) {
                 lblVV4200.text = 'Verfahrensgebühr Nr. 4201'
-                if (radioRVG2013.isSelected()){
-                    urahmen = 50
-                    orahmen = 700
-                } else {
-                    urahmen = 66
-                    orahmen = 921
-                } 
+                urahmen = rvgGebuehr(4201, 0, rvgYear)
+                orahmen = rvgGebuehr(4201, 1, rvgYear)
             } else {
                 lblVV4200.text = 'Verfahrensgebühr Nr. 4200';
-                if (radioRVG2013.isSelected()){
-                    urahmen = 50
-                    orahmen = 560
-                } else {
-                    urahmen = 66
-                    orahmen = 737
-                } 
+                urahmen = rvgGebuehr(4200, 0, rvgYear)
+                orahmen = rvgGebuehr(4200, 1, rvgYear)
             }        
             rhVV4200.text = "${df.format(urahmen)} - ${df.format(orahmen)}"
             if (cbchVV4200.getItemAt(cbchVV4200.getSelectedIndex())=='eigene') {
@@ -3301,38 +3015,20 @@ if(chkVV4200.isSelected() && !chkowig.isSelected()) {
                 rhTerminVol.text = ''
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4203 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(145)
-                    } else {
-                        txtTerminVolValue.text = df.format(192)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4203, 2, rvgYear))
                 } else {
                     rvgVVTerminVol.text='Nr. 4202 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(120)
-                    } else {
-                        txtTerminVolValue.text = df.format(158)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4202, 2, rvgYear))
                 }
             } else if (!chkowig.isSelected()) { 
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4203 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 50
-                        orahmen = 312.5
-                    } else {
-                        urahmen = 66
-                        orahmen = 413
-                    }
+                    urahmen = rvgGebuehr(4203, 0, rvgYear)
+                    orahmen = rvgGebuehr(4203, 1, rvgYear)
                 } else {
                     rvgVVTerminVol.text='Nr. 4202 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 50
-                        orahmen = 250
-                    } else {
-                        urahmen = 66
-                        orahmen = 330
-                    }
+                    urahmen = rvgGebuehr(4202, 0, rvgYear)
+                    orahmen = rvgGebuehr(4202, 1, rvgYear)
                 }
                 rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
                 if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {
@@ -3355,38 +3051,20 @@ if(chkVV4200.isSelected() && !chkowig.isSelected()) {
                 rhTerminVol.text = ''
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4205 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(133)
-                    } else {
-                        txtTerminVolValue.text = df.format(178)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4205, 2, rvgYear))
                 } else {
                     rvgVVTerminVol.text='Nr. 4204 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(108)
-                    } else {
-                        txtTerminVolValue.text = df.format(145)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4204, 2, rvgYear))
                 }
             } else if (!chkowig.isSelected()) { 
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4205 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20
-                        orahmen = 312.5
-                    } else {
-                        urahmen = 33
-                        orahmen = 413
-                    }
+                    urahmen = rvgGebuehr(4205, 0, rvgYear)
+                    orahmen = rvgGebuehr(4205, 1, rvgYear)
                 } else {
                     rvgVVTerminVol.text='Nr. 4204 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20
-                        orahmen = 250
-                    } else {
-                        urahmen = 33
-                        orahmen = 330
-                    }
+                    urahmen = rvgGebuehr(4204, 0, rvgYear)
+                    orahmen = rvgGebuehr(4204, 1, rvgYear)
                 }
                 rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
                 if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {
@@ -3409,38 +3087,20 @@ if(chkVV4200.isSelected() && !chkowig.isSelected()) {
                 rhTerminVol.text = ''
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4207 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(133)
-                    } else {
-                        txtTerminVolValue.text = df.format(178)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4207, 2, rvgYear))
                 } else {
                     rvgVVTerminVol.text='Nr. 4206 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        txtTerminVolValue.text = df.format(108)
-                    } else {
-                        txtTerminVolValue.text = df.format(145)
-                    }
+                    txtTerminVolValue.text = df.format(rvgGebuehr(4206, 2, rvgYear))
                 }
             } else if (!chkowig.isSelected()) { 
                 if(haftTerminVol.isSelected()) {
                     rvgVVTerminVol.text='Nr. 4207 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20
-                        orahmen = 312.5
-                    } else {
-                        urahmen = 33
-                        orahmen = 413
-                    }
+                    urahmen = rvgGebuehr(4207, 0, rvgYear)
+                    orahmen = rvgGebuehr(4207, 1, rvgYear)
                 } else {
                     rvgVVTerminVol.text='Nr. 4206 VV RVG';
-                    if (radioRVG2013.isSelected()){
-                        urahmen = 20
-                        orahmen = 250
-                    } else {
-                        urahmen = 33
-                        orahmen = 330
-                    }
+                    urahmen = rvgGebuehr(4206, 0, rvgYear)
+                    orahmen = rvgGebuehr(4206, 1, rvgYear)
                 }
                 rhTerminVol.text = "${df.format(urahmen)} - ${df.format(orahmen)}";
                 if (cbchTerminVol.getItemAt(cbchTerminVol.getSelectedIndex())=='eigene') {

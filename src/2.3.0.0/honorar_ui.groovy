@@ -667,6 +667,7 @@ import java.awt.BorderLayout as BL
 import groovy.beans.Bindable
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.math.RoundingMode
 import javax.swing.SwingConstants
 import java.util.ArrayList
 import java.util.Locale
@@ -752,6 +753,25 @@ new SwingBuilder().edt {
                                             })
                                             radioUst19 = radioButton(text: '19 %', buttonGroup: btnGrpUst, selected: taxModel.ustPercentage==19, stateChanged: {
                                                 updateTax()
+                                                calculate()
+                                            })
+                                    }
+                                }
+                            }
+                            tr {
+                                td {
+                                    label(text: '')
+                                }
+                                td {
+                                    panel {
+                                            btnGrpRVG = buttonGroup(id:'GrpRVG')
+                                            radioRVG2013 = radioButton(text: 'RVG 2013', buttonGroup: btnGrpRVG, stateChanged: {
+                                                calculate()
+                                            })
+                                            radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
+                                                calculate()
+                                            })
+                                            radioRVG2025 = radioButton(text: 'RVG 2025', buttonGroup: btnGrpRVG, stateChanged: {
                                                 calculate()
                                             })
                                     }
@@ -1240,13 +1260,59 @@ def float setfaktor( ) {
     }
 }
 
+def float berechneRvgWertGebuehr(float streitWert, float factor, int rvgYear) { 
+  if (rvgYear == 2013) {
+
+    RvgTablesRangeList rl = new RvgTablesRangeList()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  } else if (rvgYear == 2021) {
+
+    RvgTablesRangeList2021 rl = new RvgTablesRangeList2021()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  } else if (rvgYear == 2025) {
+
+    RvgTablesRangeList2025 rl = new RvgTablesRangeList2025()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  }
+    
+}
+
+def float berechneGkgWertGebuehr(float streitWert, float factor, int rvgYear) { 
+
+  if (rvgYear == 2013) {
+
+    GkgTablesRangeList rl = new GkgTablesRangeList()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  } else if (rvgYear == 2021) {
+
+    GkgTablesRangeList2021 rl = new GkgTablesRangeList2021()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  } else if (rvgYear == 2025) {
+
+    GkgTablesRangeList2025 rl = new GkgTablesRangeList2025()
+    return Math.max(rl.getMappedValue(streitWert) * factor, 0);
+
+  } 
+}
+
 def float calculate() {
    
-    rvgtab= new rvgtables_ui()
-    pkhtab= new pkhtables_ui()
-    gkgtab= new gkgtables_ui()
     BigDecimal gebuehr=0g
     float faktor=0.0f
+    int rvgYear = 0
+
+    if (radioRVG2013.isSelected()){
+        rvgYear = 2013
+    } else if (radioRVG2021.isSelected()) {
+        rvgYear = 2021
+    } else {
+        rvgYear = 2025
+    }
 
     if (chkhonbr.isSelected()) {
         // gebuehr = df.parse(txthonbr.text) - (df.parse(txthonbr.text)/1.19f*0.19f)
@@ -1278,6 +1344,7 @@ def float calculate() {
         } else {
             gebuehr = 25 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.15g
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Kopien farbig Nr. 7000 VV RVG'}:
@@ -1287,6 +1354,7 @@ def float calculate() {
         } else {
             gebuehr = 50 + (spnCustomEntry1.value.toBigDecimal()-50g)*0.30g
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) == 'elektronische Datei Nr. 7000 VV RVG'}:
@@ -1297,6 +1365,7 @@ def float calculate() {
         } else {
             gebuehr = 5
         }
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue.text = df.format(gebuehr)
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten (netto) Nr. 7004 VV RVG'}:
@@ -1304,20 +1373,40 @@ def float calculate() {
         txtCustomEntryValue.text = txtCustomEntryValue.text
     break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Fahrtkosten PKW Nr. 7003 VV RVG'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 0.3g
+        } else {
+            betrag = 0.42g
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(0.42g*spnCustomEntry1.value.toBigDecimal())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toBigDecimal())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld bis 4h Nr. 7005 VV RVG'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 25
+        } else {
+            betrag = 30
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(25f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld 4 bis 8h Nr. 7005 VV RVG'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 40
+        } else {
+            betrag = 50
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(40f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Tagegeld ab 8h Nr. 7005 VV RVG'}:
+        if (radioRVG2013.isSelected()){
+            betrag = 70
+        } else {
+            betrag = 80
+        }
         chkUStCustomEntry1.setSelected(true)
-        txtCustomEntryValue.text = df.format(70f*spnCustomEntry1.value.toFloat())
+        txtCustomEntryValue.text = df.format(betrag*spnCustomEntry1.value.toFloat())
         break
     case {cmbCustomEntryName.getItemAt(cmbCustomEntryName.getSelectedIndex()) ==  'Sonstige Auslagen bei Geschäftsreisen Nr. 7006 VV RVG'}:
         chkUStCustomEntry1.setSelected(true)
@@ -1376,12 +1465,20 @@ def float calculate() {
 
     if (cmbCustomEntryName2.getItemAt(cmbCustomEntryName2.getSelectedIndex()) == 'Gerichtskostenvorschuss'){
         chkUStCustomEntry2.setSelected(false)
-        gebuehr=gkgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        gebuehr=berechneGkgWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat(), rvgYear);
+        gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue2.text = df.format(gebuehr)
     } else {
-        gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        gebuehr=berechneRvgWertGebuehr(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat(), rvgYear);
+        }
+        if (gebuehr!=0) {
+            if (gebuehr<15) {gebuehr = 15f}
+            gebuehr=gebuehr.setScale(2, RoundingMode.HALF_UP)
         txtCustomEntryValue2.text = df.format(gebuehr)
-    }
+        } else {
+            txtCustomEntryValue2.text = txtCustomEntryValue2.text
+        }
+    
 
     if (chkUStCustomEntry2.isSelected()) {
         ustCustomEntry2.text = taxModel.ustPercentageString
