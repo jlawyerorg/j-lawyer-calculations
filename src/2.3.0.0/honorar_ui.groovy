@@ -768,10 +768,10 @@ new SwingBuilder().edt {
                                             radioRVG2013 = radioButton(text: 'RVG 2013', buttonGroup: btnGrpRVG, stateChanged: {
                                                 calculate()
                                             })
-                                            radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
+                                            radioRVG2021 = radioButton(text: 'RVG 2021', buttonGroup: btnGrpRVG, stateChanged: {
                                                 calculate()
                                             })
-                                            radioRVG2025 = radioButton(text: 'RVG 2025', buttonGroup: btnGrpRVG, stateChanged: {
+                                            radioRVG2025 = radioButton(text: 'RVG 2025', buttonGroup: btnGrpRVG, selected: true, stateChanged: {
                                                 calculate()
                                             })
                                     }
