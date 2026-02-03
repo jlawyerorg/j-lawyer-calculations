@@ -12,6 +12,7 @@ import org.jlawyer.plugins.calculation.StyledCalculationTable
 import org.jlawyer.plugins.calculation.CalculationTable
 import org.jlawyer.plugins.calculation.Cell
 import com.jdimension.jlawyer.client.settings.ServerSettings
+import com.jdimension.jlawyer.persistence.InvoicePosition
 
 @Bindable
 class GNotKgTaxModel {
@@ -68,6 +69,13 @@ new SwingBuilder().edt {
                                     cmdDocument=button(text: 'Dokument', enabled: false, toolTipText: 'In Dokument uebernehmen', actionPerformed: {
                                             if(binding.callback != null)
                                                 binding.callback.processResultToDocument(copyToDocument(), SCRIPTPANEL)
+                                        })
+                                }
+                                td {
+                                    cmdInvoice=button(text: 'als Rechnung', enabled: false, toolTipText: 'Ergebnis in Rechnung uebernehmen', actionPerformed: {
+                                            calculate();
+                                            if(binding.callback != null)
+                                                binding.callback.processResultToInvoice(copyToInvoice());
                                         })
                                 }
                             }
@@ -585,6 +593,7 @@ def BigDecimal calculate() {
 
     cmdCopy.enabled=true
     cmdDocument.enabled=true
+    cmdInvoice.enabled=true
     return gesamt
 }
 
@@ -749,4 +758,60 @@ def StyledCalculationTable copyToDocument() {
     ct.setFontSize(ServerSettings.getInstance().getSettingAsInt("plugins.global.tableproperties.table.fontsize", 12));
 
     return ct;
+}
+
+def ArrayList copyToInvoice() {
+
+    BigDecimal taxRate=0g;
+    if(radioUst19.selected) {
+        taxRate=19g;
+    }
+    if(radioUst16.selected) {
+        taxRate=16g;
+    }
+
+    ArrayList positions=new ArrayList();
+
+    // Notargebuehren Kaufvertrag
+    if(chkKV21100.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Beurkundung Kaufvertrag KV 21100 GNotKG", "Kaufpreis " + txtKaufpreis.text + " €, Faktor " + faktorFormat.format(spnKV21100.value.toFloat()), taxRate, df.parse(lblKV21100.text).floatValue()));
+    }
+    if(chkKV22110.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Vollzugsgebühr KV 22110 GNotKG", "Kaufpreis " + txtKaufpreis.text + " €, Faktor " + faktorFormat.format(spnKV22110.value.toFloat()), taxRate, df.parse(lblKV22110.text).floatValue()));
+    }
+    if(chkKV22200.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Betreuungsgebühr KV 22200 GNotKG", "Kaufpreis " + txtKaufpreis.text + " €, Faktor " + faktorFormat.format(spnKV22200.value.toFloat()), taxRate, df.parse(lblKV22200.text).floatValue()));
+    }
+
+    // Notargebuehren Grundschuld
+    if(chkKV21200.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Beurkundung Grundschuld KV 21200 GNotKG", "Grundschuld " + txtGrundschuld.text + " €, Faktor " + faktorFormat.format(spnKV21200.value.toFloat()), taxRate, df.parse(lblKV21200.text).floatValue()));
+    }
+    if(chkKV22111.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Vollzugsgebühr Grundschuld KV 22111 GNotKG", "Grundschuld " + txtGrundschuld.text + " €, Faktor " + faktorFormat.format(spnKV22111.value.toFloat()), taxRate, df.parse(lblKV22111.text).floatValue()));
+    }
+
+    // Auslagen
+    if(chkDokPauschale.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Dokumentenpauschale", taxRate, betragFormat.parse(txtDokPauschale.text).floatValue()));
+    }
+    if(chkPorto.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Porto/Telekommunikation", taxRate, betragFormat.parse(txtPorto.text).floatValue()));
+    }
+
+    // Grundbuchkosten (keine MwSt)
+    if(chkKV14110.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Eigentumsumschreibung KV 14110 GNotKG", "Kaufpreis " + txtKaufpreis.text + " €", 0f, df.parse(lblKV14110.text).floatValue()));
+    }
+    if(chkKV14150.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auflassungsvormerkung Eintragung KV 14150 GNotKG", "Kaufpreis " + txtKaufpreis.text + " €", 0f, df.parse(lblKV14150.text).floatValue()));
+    }
+    if(chkKV14152.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Auflassungsvormerkung Löschung KV 14152 GNotKG", 0f, df.parse(lblKV14152.text).floatValue()));
+    }
+    if(chkKV14121.selected) {
+        positions.add(InvoiceUtils.invoicePosition("Grundschuld Eintragung KV 14121 GNotKG", "Grundschuld " + txtGrundschuld.text + " €", 0f, df.parse(lblKV14121.text).floatValue()));
+    }
+
+    return positions;
 }
