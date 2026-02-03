@@ -1,6 +1,6 @@
 name = "Rechner Notarkosten Immobilienkauf (EXPERIMENTELL)"
 description = "j-lawyer.org Rechner Notarkosten Immobilienkaufvertrag mit Grundschuld (GNotKG)"
-version = "1.0.0"
+version = "1.0.1"
 author = "Jens Kutschke"
 updated = "03.02.2026"
 supportedPlaceHolders = "{{GNOTKG_TABELLE}}, {{GNOTKG}}"
