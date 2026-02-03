@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "WebSearch",
+      "WebFetch(domain:www.gesetze-im-internet.de)",
+      "WebFetch(domain:www.buzer.de)",
+      "WebFetch(domain:www.notar.de)",
+      "WebFetch(domain:www.haufe.de)",
+      "WebFetch(domain:www.notar-rennert.de)",
+      "WebFetch(domain:dejure.org)"
+    ]
+  }
+}
