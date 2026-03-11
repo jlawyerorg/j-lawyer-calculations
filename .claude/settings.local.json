@@ -8,7 +8,10 @@
       "WebFetch(domain:www.notar.de)",
       "WebFetch(domain:www.haufe.de)",
       "WebFetch(domain:www.notar-rennert.de)",
-      "WebFetch(domain:dejure.org)"
+      "WebFetch(domain:dejure.org)",
+      "Bash(grep -r \"updated\\\\|version\" /home/jens/dev/j-lawyer-calculations/src/*/gkgtables_meta.groovy 2>/dev/null)",
+      "WebFetch(domain:rvg-tabelle.de)",
+      "WebFetch(domain:www.rvg-rechner.de)"
     ]
   }
 }
