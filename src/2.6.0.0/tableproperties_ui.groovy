@@ -688,7 +688,7 @@ new SwingBuilder().edt {
                                                 }
                                                 td {
                                                     fontfamily = comboBox(items: com.jdimension.jlawyer.client.utils.FontUtils.getFontFamilies(), editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontfamily", "Arial"), itemStateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         }
                                                     )
                                                     
@@ -705,7 +705,9 @@ new SwingBuilder().edt {
                                             '8',
                                             '9',
                                             '10',
+                                            '11',
                                             '12',
+                                            '13',
                                             '14',
                                             '16',
                                             '18',
@@ -714,7 +716,7 @@ new SwingBuilder().edt {
                                             '24',
                                             '36'
                                                         ], editable: false, selectedItem: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.table.fontsize", "12"), itemStateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         }
                                                     )
                                                     
@@ -723,7 +725,7 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     tablelines = checkBox(id: 'tablelines', text: 'Tabellenlinien einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.lines", true), stateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         })
                                                 }           
                                             }
@@ -740,21 +742,21 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     colorAbzuege = checkBox(id: 'colorAbzuege', text: 'Abzüge in Rot darstellen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.color.Abzuege", false), stateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         })
                                                 }          
                                             }
                                             tr {
                                                 td {
                                                     tableemptyRows = checkBox(id: 'tableemptyRows', text: 'leere Zeilen einblenden', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.table.emptyRows", true), stateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         })
                                                 }          
                                             }
                                             tr {
                                                 td {
                                                     vorSummeUnderline = checkBox(id: 'vorSummeUnderline', text: 'Zahl vor der Summe unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.vorSumme.Underline", false), stateChanged: {
-                                                            setProps()
+                                                            setTableLayoutProps()
                                                         })
                                                 }          
                                             }
@@ -769,7 +771,7 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     headerBold = checkBox(id: 'headerBold', text: 'Überschrift Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.header.Bold", true), stateChanged: {
-                                                            setProps()
+                                                            setHeaderProps()
                                                         })
                                                 }         
                                             }
@@ -804,21 +806,21 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     zwischensummeBold = checkBox(id: 'zwischensummeBold', text: 'Zwischensumme Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Bold", true), stateChanged: {
-                                                            setProps()
+                                                            setZwischensummeProps()
                                                         })
                                                 }        
                                             }
                                             tr {
                                                 td {
                                                     zwischensummeUnderline = checkBox(id: 'zwischensummeUnderline', text: 'Zwischensumme unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Underline", true), stateChanged: {
-                                                            setProps()
+                                                            setZwischensummeProps()
                                                         })
                                                 }          
                                             }
                                             tr {
                                                 td {
                                                     zwischensummeItalic = checkBox(id: 'zwischensummeItalic', text: 'Zwischensumme kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.zwischensumme.Italic", false), stateChanged: {
-                                                            setProps()
+                                                            setZwischensummeProps()
                                                         })
                                                 }          
                                             }
@@ -853,21 +855,21 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     footerRowBold = checkBox(id: 'footerRowBold', text: 'Zahlbetrag Fett', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Bold", true), stateChanged: {
-                                                            setProps()
+                                                            setFooterRowProps()
                                                         })
                                                 }        
                                             }
                                             tr {
                                                 td {
                                                     footerRowUnderline = checkBox(id: 'footerRowUnderline', text: 'Zahlbetrag unterstrichen', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Underline", true), stateChanged: {
-                                                            setProps()
+                                                            setFooterRowProps()
                                                         })
                                                 }          
                                             }
                                             tr {
                                                 td {
                                                     footerRowItalic = checkBox(id: 'footerRowItalic', text: 'Zahlbetrag kursiv', selected: ServerSettings.getInstance().getSettingAsBoolean("plugins.global.tableproperties.footerRow.Italic", true), stateChanged: {
-                                                            setProps()
+                                                            setFooterRowProps()
                                                         })
                                                 }          
                                             }
@@ -902,7 +904,7 @@ new SwingBuilder().edt {
                                             tr {
                                                 td {
                                                     txtNumberFormat = textField(text: ServerSettings.getInstance().getSetting("plugins.global.tableproperties.numberFormat", "#,##0.00"), columns:15, keyReleased: {
-                                                                setProps();
+                                                                setNumberFormatProps();
                                                             })
                                                 }        
                                             }
@@ -945,65 +947,32 @@ new SwingBuilder().edt {
     }
 }
 
-def void setProps() {
+def void setTableLayoutProps() {
     ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontsize", ""+fontsize.getSelectedItem());
     ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.fontfamily", ""+fontfamily.getSelectedItem());
-    if (tablelines.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+false);
-    }
-    if (tableemptyRows.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+false);
-    }
-    if (headerBold.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+false);
-    }
-    if (zwischensummeBold.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+false);
-    }
-    if (zwischensummeUnderline.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+false);
-    }
-    if (colorAbzuege.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.color.Abzuege", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.color.Abzuege", ""+false);
-    }
-    if (vorSummeUnderline.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+false);
-    }
-    if (zwischensummeItalic.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+false);
-    }
-    if (footerRowBold.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+false);
-    }
-    if (footerRowUnderline.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Underline", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Underline", ""+false);
-    }
-    if (footerRowItalic.isSelected()) {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+true);
-    } else {
-        ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+false);
-    }
-    
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.lines", ""+tablelines.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.table.emptyRows", ""+tableemptyRows.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.color.Abzuege", ""+colorAbzuege.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.vorSumme.Underline", ""+vorSummeUnderline.isSelected());
+}
+
+def void setHeaderProps() {
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.header.Bold", ""+headerBold.isSelected());
+}
+
+def void setZwischensummeProps() {
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Bold", ""+zwischensummeBold.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Underline", ""+zwischensummeUnderline.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.zwischensumme.Italic", ""+zwischensummeItalic.isSelected());
+}
+
+def void setFooterRowProps() {
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Bold", ""+footerRowBold.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Underline", ""+footerRowUnderline.isSelected());
+    ServerSettings.getInstance().setSetting("plugins.global.tableproperties.footerRow.Italic", ""+footerRowItalic.isSelected());
+}
+
+def void setNumberFormatProps() {
     String numberFormatPattern=txtNumberFormat.getText();
     java.text.DecimalFormat df=new java.text.DecimalFormat(numberFormatPattern);
     try {
@@ -1012,7 +981,6 @@ def void setProps() {
         numberFormatPattern="#,##0.00";
     }
     ServerSettings.getInstance().setSetting("plugins.global.tableproperties.numberFormat", numberFormatPattern);
-    
 }
 
 def void lineColorSelection() {
