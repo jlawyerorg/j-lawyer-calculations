@@ -676,7 +676,7 @@ new SwingBuilder().edt {
             
             tr  {
                 td (colspan:3, align:'center') {
-                    label(text: '<html>Rechnungsnummern generieren: <ol><li>Schema für Rechnungsnummern vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Rechnungsnummer verwendet werden. Bsp: aus ##### wird für Rechnung 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Rechnungsnummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Rechnung werden gespeichert.</html>')
+                    label(text: '<html>Nummern generieren (bspw. Ablagenummern): <ol><li>Nummern vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Nummer verwendet werden. Bsp: aus ##### wird für die laufende Nummer 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Nummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Nummer werden gespeichert.</html>')
                 }
                 
             }
@@ -751,7 +751,7 @@ new SwingBuilder().edt {
             }
             tr  {
                 td (align: 'left') {
-                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                    label(text: '<html><b>neue Nummer:</b></html>')
                 }
                 td (align: 'left') {
                     txtNewInvoice=textField(id: 'invoicePoolNewValue', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
@@ -839,7 +839,7 @@ new SwingBuilder().edt {
             }
             tr  {
                 td (align: 'left') {
-                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                    label(text: '<html><b>neue Nummer:</b></html>')
                 }
                 td (align: 'left') {
                     txtNewInvoice2=textField(id: 'invoicePoolNewValue2', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
@@ -927,7 +927,7 @@ new SwingBuilder().edt {
             }
             tr  {
                 td (align: 'left') {
-                    label(text: '<html><b>neue Rechnungsnummer:</b></html>')
+                    label(text: '<html><b>neue Nummer:</b></html>')
                 }
                 td (align: 'left') {
                     txtNewInvoice3=textField(id: 'invoicePoolNewValue3', enabled: false, columns: 12, actionPerformed: { println("execute some action") })
