@@ -676,7 +676,7 @@ new SwingBuilder().edt {
             
             tr  {
                 td (colspan:3, align:'center') {
-                    label(text: '<html>Nummern generieren (bspw. Ablagenummern): <ol><li>Nummern vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Nummer verwendet werden. Bsp: aus ##### wird für die laufende Nummer 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Nummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Nummer werden gespeichert.</html>')
+                    label(text: '<html>Nummern generieren (bspw. Ablagenummern): <ol><li>Nummernschema vergeben. Dabei können 2 bis 10 # als Platzhalter für den fortlaufenden Teil der <br/>Nummer verwendet werden. Bsp: aus ##### wird für die laufende Nummer 15 eine 00015.<br/>Außerdem können beliebige weitere Zeichen davor oder danach hinzugefügt werden.</li><li>Beginn der fortlaufenden Nr. eingeben.</li><li>Nummer generieren und in die Zwischenablage kopieren. Von dort kann sie bspw. in ein Dokument eingefügt werden.</li></ol>Schema, Startwert für fortlaufende Nummer sowie aktueller Wert des fortlaufenden Teils der Nummer werden gespeichert.</html>')
                 }
                 
             }
