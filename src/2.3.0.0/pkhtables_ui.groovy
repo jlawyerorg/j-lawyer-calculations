@@ -704,6 +704,12 @@ new SwingBuilder().edt {
                 td (align:'center') {
                     label (text: 'RVG 2021:')
                 }
+                td (align:'center') {
+                    label (text: '       ')
+                }
+                td (align:'center') {
+                    label (text: 'RVG 2025:')
+                }
             }
             tr  {
                 td (align:'center') {
@@ -715,7 +721,14 @@ new SwingBuilder().edt {
                 td (align:'center') {
                     label (text: getPkhTableAsHtml2021())
                 }
+                td (align:'center') {
+                    label (text: '       ')
+                }
+                td (align:'center') {
+                    label (text: getPkhTableAsHtml2025())
+                }
             }
+            
             
         
         }
@@ -753,7 +766,20 @@ def String getPkhTableAsHtml2021() {
     }
     sb.append('</table>')
     sb.append('</body></html>')
-//    java.io.File f=new java.io.File('.')
-//    println(f.getAbsolutePath())
+    return sb.toString();    
+}
+
+def String getPkhTableAsHtml2025() {
+    StringBuffer sb=new StringBuffer()
+    df = new DecimalFormat("0.00")
+    sb.append('<html><body>')
+    sb.append('<table border=1>')
+    sb.append('<tr><td><b>Gegenstandswert bis... EUR</b></td><td><b>Geb&uuml;hr in EUR</b></td></tr>')
+    for(PkhTablesRange r: new PkhTablesRangeList2025().getRanges()) {
+        
+        sb.append('<tr><td align=right>' + df.format(r.high) + '</td><td align=right>' + df.format(r.mappedValue) + '</td></tr>')
+    }
+    sb.append('</table>')
+    sb.append('</body></html>')
     return sb.toString();    
 }

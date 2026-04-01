@@ -664,9 +664,9 @@ For more information on this, and how to apply and follow the GNU AGPL, see
 
 name = "PKH-Tabelle"
 description = "j-lawyer.org PKH-Tabelle"
-version = "1.4.1";
+version = "1.5.0";
 author = "Jens Kutschke, Anatol Anuschewski"
-updated = "26.01.2025"
+updated = "02.04.2026"
 supportedPlaceHolders = "{{PKH_TABELLE}}, {{PKH}}"
 
 
