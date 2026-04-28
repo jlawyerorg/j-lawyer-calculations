@@ -1921,11 +1921,17 @@ def void setWertgebuehr( ) {
         } else {
             gebuehr=rvgtab.berechneWertGebuehr2013(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         }
-    } else {
+    } else if (radioRVG2021.isSelected()) {
         if(chkPflichtV.isSelected()) {
             gebuehr=pkhtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         } else {
             gebuehr=rvgtab.berechneWertGebuehr2021(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        }
+    } else {
+        if(chkPflichtV.isSelected()) {
+            gebuehr=pkhtab.berechneWertGebuehr2025(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
+        } else {
+            gebuehr=rvgtab.berechneWertGebuehr2025(betragFormat.parse(swCustomEntry2.text).floatValue(), spnCustomEntry2.value.toFloat());
         }
      }
     if (gebuehr!=0) {
