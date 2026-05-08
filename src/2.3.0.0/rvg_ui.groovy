@@ -705,7 +705,7 @@ df.setParseBigDecimal(true);
 betragFormat = NumberFormat.getInstance(Locale.GERMANY).getNumberInstance();
 betragFormat.setMaximumFractionDigits(2);
 betragFormat.setMinimumFractionDigits(2);
-faktorFormat = new DecimalFormat("0.0");
+faktorFormat = new DecimalFormat("0.00");
 quoteFormat = new DecimalFormat("0.00")
 
 taxModel=new TaxModel();
