@@ -3048,9 +3048,13 @@ def ArrayList copyToInvoice() {
     if(chkZahlungenNetto.selected) {
         positions.add(InvoiceUtils.invoicePosition("bisherige Zahlungen ohne Umsatzsteuer", 0f, (BigDecimal)(-1f*betragFormat.parse(lblZahlungenNetto.text))));
     }
-    
-    
-    
+
+    // E-Rechnungen lassen keinen negativen Einzelpreis zu (EN 16931 / BR-27).
+    // Mindernde Positionen werden auf positiven Einzelpreis mit negativer Menge normalisiert.
+    for(int i=0;i<positions.size();i++) {
+        InvoiceUtils.normalizeForElectronicInvoice((InvoicePosition)positions.get(i));
+    }
+
     return positions;
 }
 

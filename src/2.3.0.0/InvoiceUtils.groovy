@@ -737,7 +737,7 @@ class InvoiceUtils {
 //        if(taxRate>0f) {
 //            netTotal=(float)(total/(100f+taxRate)*100f);
 //        }
-    
+
         InvoicePosition pos=new InvoicePosition();
         pos.setDescription(description);
         pos.setName(name);
@@ -745,6 +745,18 @@ class InvoiceUtils {
         pos.setTotal(total);
         pos.setUnitPrice((float)(total / units));
         pos.setUnits(units);
+        return pos;
+    }
+
+    // Macht eine Position E-Rechnungs-konform: ein negativer Einzelpreis ist unzulaessig
+    // (EN 16931 / BR-27). Bei negativem Betrag wird der Einzelpreis positiv und die Menge
+    // negativ gesetzt; der Zeilenbetrag (total) bleibt durch die doppelte Vorzeichenumkehr
+    // unveraendert.
+    public static InvoicePosition normalizeForElectronicInvoice(InvoicePosition pos) {
+        if (pos.getUnitPrice() < 0f) {
+            pos.setUnitPrice(-pos.getUnitPrice());
+            pos.setUnits(-pos.getUnits());
+        }
         return pos;
     }
 
