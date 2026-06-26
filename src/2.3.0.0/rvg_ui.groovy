@@ -2995,11 +2995,17 @@ def ArrayList copyToInvoice() {
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
                 if (rowCustomEntryStreitwert == '') {//Unterschiedliche Ausgabe für Wertgebühren oder sonstige Auslagen (für die keine Streitwert angegeben ist)
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    // Hebegebühr (VV 1009) ist betragsbasiert (anzahl = ausgekehrter Betrag, keine Stückzahl) -> Menge 1; echte Stückzahlen (Kopien etc.) unverändert
+                    if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                        positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    } else {
+                        positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    }
                 } else {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
-                } 
+                    // Wertgebühr (Slot 2): anzahl = Faktor, keine Stückzahl -> Menge 1, Einzelpreis = Gesamtbetrag
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }
@@ -3024,11 +3030,17 @@ def ArrayList copyToInvoice() {
             if (rowCustomEntryUSt =='0') {
                 if (rowCustomEntryStreitwert == '') {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    // Hebegebühr (VV 1009) ist betragsbasiert (anzahl = ausgekehrter Betrag, keine Stückzahl) -> Menge 1; echte Stückzahlen (Kopien etc.) unverändert
+                    if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                        positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "ausgekehrter Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    } else {
+                        positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                    }
                 } else {
                     //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", rowCustomEntryValue + " €");
-                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
-                }            
+                    // Wertgebühr (Slot 2): anzahl = Faktor, keine Stückzahl -> Menge 1, Einzelpreis = Gesamtbetrag
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName + " - "+ rowCustomEntryStreitwert + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }
