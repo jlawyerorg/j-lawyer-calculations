@@ -3798,7 +3798,17 @@ def ArrayList copyToInvoice() {
             rowCustomEntryInstanz=customTable.getValueAt(i, 4);
             if ((rowCustomEntryUSt ==(taxModel.ustPercentageString))&&(rowCustomEntryInstanz =='S')) {
                 //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Kopien schwarz/weiß. Nr. 7000 VV RVG' || rowCustomEntryName == 'Kopien farbig Nr. 7000 VV RVG' || rowCustomEntryName == 'elektronische Datei Nr. 7000 VV RVG') {
+                    // gestaffelte/gedeckelte Stückzahl-Gebühr -> Menge 1, Einzelpreis = Gesamtbetrag, Stückzahl im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Anzahl: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Verfahrensgebühr Nr. 4142 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4143 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4144 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4145 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4146 VV RVG' || rowCustomEntryName == 'eigene') {
+                    // Slot-2-Wertgebühr: anzahl = Faktor, keine Stückzahl -> Menge 1, Faktor im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Faktor: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }
@@ -3816,7 +3826,17 @@ def ArrayList copyToInvoice() {
             rowCustomEntryInstanz=customTable.getValueAt(i, 4);
             if ((rowCustomEntryUSt =='0')&&(rowCustomEntryInstanz =='S')) {
                 //ct.addRow(rowCustomEntryAnzahl, rowCustomEntryName, rowCustomEntryValue + " €");
-                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Kopien schwarz/weiß. Nr. 7000 VV RVG' || rowCustomEntryName == 'Kopien farbig Nr. 7000 VV RVG' || rowCustomEntryName == 'elektronische Datei Nr. 7000 VV RVG') {
+                    // gestaffelte/gedeckelte Stückzahl-Gebühr -> Menge 1, Einzelpreis = Gesamtbetrag, Stückzahl im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Anzahl: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Verfahrensgebühr Nr. 4142 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4143 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4144 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4145 VV RVG' || rowCustomEntryName == 'Verfahrensgebühr Nr. 4146 VV RVG' || rowCustomEntryName == 'eigene') {
+                    // Slot-2-Wertgebühr: anzahl = Faktor, keine Stückzahl -> Menge 1, Faktor im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Faktor: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }

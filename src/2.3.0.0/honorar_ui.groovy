@@ -1810,7 +1810,17 @@ def ArrayList copyToInvoice() {
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt ==(taxModel.ustPercentageString)) {
                 //positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
-                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Kopien schwarz/weiß. Nr. 7000 VV RVG' || rowCustomEntryName == 'Kopien farbig Nr. 7000 VV RVG' || rowCustomEntryName == 'elektronische Datei Nr. 7000 VV RVG') {
+                    // gestaffelte/gedeckelte Stückzahl-Gebühr -> Menge 1, Einzelpreis = Gesamtbetrag, Stückzahl im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Anzahl: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Gerichtskostenvorschuss' || rowCustomEntryName == 'eigene') {
+                    // Slot-2-Wertgebühr: anzahl = Gebührensatz/Faktor, keine Stückzahl -> Menge 1, Faktor im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Faktor: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }
@@ -1827,7 +1837,17 @@ def ArrayList copyToInvoice() {
             rowCustomEntryUSt=customTable.getValueAt(i, 2);
             rowCustomEntryValue=customTable.getValueAt(i, 3);
             if (rowCustomEntryUSt =='0') {
-                positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                if (rowCustomEntryName == 'Hebegebühr Nr. 1009 VV RVG') {
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Betrag: " + df.format(df.parse(rowCustomEntryAnzahl)) + " €", df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Kopien schwarz/weiß. Nr. 7000 VV RVG' || rowCustomEntryName == 'Kopien farbig Nr. 7000 VV RVG' || rowCustomEntryName == 'elektronische Datei Nr. 7000 VV RVG') {
+                    // gestaffelte/gedeckelte Stückzahl-Gebühr -> Menge 1, Einzelpreis = Gesamtbetrag, Stückzahl im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Anzahl: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else if (rowCustomEntryName == 'Gerichtskostenvorschuss' || rowCustomEntryName == 'eigene') {
+                    // Slot-2-Wertgebühr: anzahl = Gebührensatz/Faktor, keine Stückzahl -> Menge 1, Faktor im Text
+                    positions.add(InvoiceUtils.invoicePosition(rowCustomEntryName, "Faktor: " + rowCustomEntryAnzahl, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                } else {
+                    positions.add(InvoiceUtils.invoicePosition(df.parse(rowCustomEntryAnzahl).floatValue(), rowCustomEntryName, df.parse(rowCustomEntryUSt).floatValue(), df.parse(rowCustomEntryValue).floatValue()));
+                }
             }
         }
     }
