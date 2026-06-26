@@ -1,0 +1,6 @@
+name = "Rechner Notarkosten (GNotKG) (EXPERIMENTELL)"
+description = "j-lawyer.org Rechner Notarkosten mit Tatbeständen KV 21100-32016 (Kaufvertrag, Testament, Vollmacht)"
+version = "2.0.1"
+author = "Jens Kutschke"
+updated = "25.06.2026"
+supportedPlaceHolders = "{{GNOTKG_TABELLE}}, {{GNOTKG}}"
